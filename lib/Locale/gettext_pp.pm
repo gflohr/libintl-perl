@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.25 2003/10/09 11:34:48 guido Exp $
+# $Id: gettext_pp.pm,v 1.26 2003/11/24 13:57:31 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -343,7 +343,11 @@ sub dcngettext($$$$$)
 			$output_codeset = $1
 				if $lc_ctype =~ /^[a-z]{2}(?:_[A-Z]{2})?\.([^@]+)/;
 		}
-		
+
+		# No point. :-(
+		$output_codeset = $domain->{po_header}->{charset}
+			unless defined $output_codeset;
+	
 		if (exists $__gettext_pp_domain_cache->{$output_codeset}) {
 			$output_codeset = $__gettext_pp_domain_cache->{$output_codeset};
 		} else {
