@@ -11,7 +11,7 @@ use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 # Try to load the C version first.
 $package = 'gettext';
 # Locale::gettext 1.01 lacks ngettext and friends and bind_textdomain_codeset.
-eval "use Locale::gettext 99.99 ()";
+eval "use Locale::gettext 2.00 ()";
 if ($@) {
 	$package = 'gettext_pp';
 	require Locale::gettext_pp;
@@ -60,13 +60,14 @@ require Exporter;
 
 sub select_package
 {
-	my $pkg = shift;
-	if ('gettext_pp' eq $pkg) {
+	my ($class, $pkg) = @_;
+
+	if (defined $pkg && 'gettext_pp' eq $pkg) {
 		require Locale::gettext_pp;
 		$package = 'gettext_pp';
 	} else {
-		require Locale::gettext;
-		$package = 'gettext';
+		eval "use Locale::gettext 2.00 ()";
+		$package = 'gettext' unless $@;
 	}
 
 	return $package;
