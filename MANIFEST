@@ -5,7 +5,6 @@ Locale/Recode.pm
 Locale/Recode/_Aliases.pm
 Locale/Recode/_Conversions.pm
 Locale/RecodeData.pm
-Locale/RecodeData/#UTF_8.pm#
 Locale/RecodeData/ASCII.pm
 Locale/RecodeData/ASMO_449.pm
 Locale/RecodeData/ATARI_ST.pm
@@ -280,16 +279,16 @@ t/03dngettext.t
 t/03dngettext_pp.t
 t/03gettext.t
 t/03gettext_pp.t
-t/03gettext_pp.t.ptkdb
 t/03ngettext.t
 t/03ngettext_pp.t
-t/03ngettext_pp.t.ptkdb
 t/03textdomain.t
 t/03textdomain_pp.t
+t/locale
 t/locale/de/LC_MESSAGES/additional.mo
 t/locale/de/LC_MESSAGES/existing.mo
 t/locale/de_AT/LC_MESSAGES/additional.mo
 t/locale/de_AT/LC_MESSAGES/existing.mo
+t/po
 t/po/Makefile
 t/po/additional.de.po
 t/po/additional.de_AT.po
