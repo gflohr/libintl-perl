@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Recode.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+# $Id: Recode.pm,v 1.3 2003/06/04 12:16:44 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -32,10 +32,6 @@ use strict;
 
 require Locale::Recode::_Aliases;
 require Locale::Recode::_Conversions;
-
-use vars qw ($VERSION);
-
-$VERSION = '0.06';
 
 my $loaded = {};
 

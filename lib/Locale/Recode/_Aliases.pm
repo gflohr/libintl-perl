@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: _Aliases.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+# $Id: _Aliases.pm,v 1.3 2003/06/04 12:16:44 guido Exp $
 
 # Internally known aliases for charsets.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -206,6 +206,7 @@ use constant ALIASES => {
     'ISO_8859-1' => 'ISO-8859-1',
     'ISO_8859-10' => 'ISO-8859-10',
     'ISO_8859-10:1992' => 'ISO-8859-10',
+    'ISO_8859-11' => 'ISO-8859-11',
     'ISO_8859-13' => 'ISO-8859-13',
     'ISO_8859-14' => 'ISO-8859-14',
     'ISO_8859-14:1998' => 'ISO-8859-14',

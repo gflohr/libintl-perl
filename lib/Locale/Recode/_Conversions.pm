@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+# $Id: _Conversions.pm,v 1.3 2003/06/04 12:16:44 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -481,6 +481,7 @@ use constant CONVERSIONS => {
 	'INIS//' => 'INIS',
 	'ISO-8859-1//' => 'ISO_8859_1',
 	'ISO-8859-10//' => 'ISO_8859_10',
+	'ISO-8859-11//' => 'ISO_8859_11',
 	'ISO-8859-13//' => 'ISO_8859_13',
 	'ISO-8859-14//' => 'ISO_8859_14',
 	'ISO-8859-15//' => 'ISO_8859_15',
@@ -524,6 +525,10 @@ use constant CONVERSIONS => {
     'ISO-8859-10//' => {
 	'INTERNAL' => 'ISO_8859_10',
 	'UTF-8//' => 'ISO_8859_10',
+    },
+    'ISO-8859-11//' => {
+	'INTERNAL' => 'ISO_8859_11',
+	'UTF-8//' => 'ISO_8859_11',
     },
     'ISO-8859-13//' => {
 	'INTERNAL' => 'ISO_8859_13',

@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.3 2003/06/02 11:16:54 guido Exp $
+# $Id: gettext_pp.pm,v 1.4 2003/06/04 12:16:44 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -34,6 +34,10 @@ package Locale::gettext_pp;
 use strict;
 
 require 5.004;
+
+use vars qw ($VERSION);
+
+$VERSION = '0.07';
 
 use vars qw ($__gettext_pp_default_dir 
 			 $__gettext_pp_textdomain
@@ -110,7 +114,6 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 				 LC_MESSAGES
 				 LC_ALL);
 @ISA = qw (Exporter);
-$VERSION = '0.01';
 
 sub dcigettext__;
 sub __load_catalog;

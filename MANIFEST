@@ -101,6 +101,7 @@ lib/Locale/RecodeData/ISO_5427_EXT.pm
 lib/Locale/RecodeData/ISO_5428.pm
 lib/Locale/RecodeData/ISO_8859_1.pm
 lib/Locale/RecodeData/ISO_8859_10.pm
+lib/Locale/RecodeData/ISO_8859_11.pm
 lib/Locale/RecodeData/ISO_8859_13.pm
 lib/Locale/RecodeData/ISO_8859_14.pm
 lib/Locale/RecodeData/ISO_8859_15.pm
@@ -231,6 +232,7 @@ t/02inis-cyrillic.t
 t/02inis.t
 t/02iso-8859-1.t
 t/02iso-8859-10.t
+t/02iso-8859-11.t
 t/02iso-8859-13.t
 t/02iso-8859-14.t
 t/02iso-8859-15.t
