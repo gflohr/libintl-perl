@@ -1,2 +1,20 @@
-- Christian Lackas <lackas@delta.net> has given various hints on performance
-  optimizations
+$Id: THANKS,v 1.4 2003/06/02 11:16:54 guido Exp $
+
+These people have helped in the development of libintl-perl:
+
+- Imperia (http://www.imperia.net/) has contributed this part of the 
+  Enterprise Content Management System Imperia to the Perl community
+  as free software. 
+
+- Christian Lackas <lackas@delta.net> has given various hints on 
+  performance optimizations
+
+- Ingrid Graefen <ingrid.graefen@imperia.net> has fixed a major performance
+  penalty on systems without POSIX::LC_MESSAGES, and she has extensively
+  tested the Perl backend for GNU xgettext under cygwin 
+
+- Norma Karl <bcrazy@gmx.de> has thoroughly revised the documentation for
+  the Perl backend to GNU xgettext, and because she deserves a credit
+  anyway
+
+Guido Flohr

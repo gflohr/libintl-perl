@@ -1,11 +1,11 @@
 #! /bin/false
-# vim: syntax=perl
-#      tabstop=4
-# -*- perl -*-
-# $Id: UTF_8.pm,v 1.2 2002/10/22 11:20:46 ingrid Exp $
 
-# Conversion routines for VISCII.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+#      tabstop=4
+# $Id: UTF_8.pm,v 1.3 2003/06/02 11:16:56 guido Exp $
+
+# Conversion routines for UTF-8 (perl < 5.8.0).
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 # This file is generated, do not edit!
 
 # Distribution either under the terms of the Artistic license (see
@@ -51,29 +51,29 @@ sub _fromInternal
 	if ($_ <= 0x7f) {
 	    chr $_;
 	} elsif ($_ <= 0x7ff) {
-	    pack ("c2", 
+	    pack ("C2", 
 		  (0xc0 | (($_ >> 6) & 0x1f)),
 		  (0x80 | ($_ & 0x3f)));
 	} elsif ($_ <= 0xffff) {
-	    pack ("c3", 
+	    pack ("C3", 
 		  (0xe0 | (($_ >> 12) & 0xf)),
 		  (0x80 | (($_ >> 6) & 0x3f)),
 		  (0x80 | ($_ & 0x3f)));
 	} elsif ($_ <= 0x1fffff) {
-	    pack ("c4", 
+	    pack ("C4", 
 		  (0xf0 | (($_ >> 18) & 0x7)),
 		  (0x80 | (($_ >> 12) & 0x3f)),
 		  (0x80 | (($_ >> 6) & 0x3f)),
 		  (0x80 | ($_ & 0x3f)));
 	} elsif ($_ <= 0x3ffffff) {
-	    pack ("c5", 
+	    pack ("C5", 
 		  (0xf0 | (($_ >> 24) & 0x3)),
 		  (0x80 | (($_ >> 18) & 0x3f)),
 		  (0x80 | (($_ >> 12) & 0x3f)),
 		  (0x80 | (($_ >> 6) & 0x3f)),
 		  (0x80 | ($_ & 0x3f)));
 	} else {
-	    pack ("c6", 
+	    pack ("C6", 
 		  (0xf0 | (($_ >> 30) & 0x3)),
 		  (0x80 | (($_ >> 24) & 0x1)),
 		  (0x80 | (($_ >> 18) & 0x3f)),
@@ -151,6 +151,17 @@ sub _toInternal
 
 __END__
 
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+tab-width: 4
+End:
+
 =head1 NAME
 
 Locale::RecodeData::UTF_8
@@ -163,7 +174,10 @@ This module is internal to libintl.  Do not use directly!
 
 This modules contains the conversion tables for UTF-8.  It is capable of
 converting from UTF-8 to the internal format of libintl-perl and vice
-versa.
+versa.   It is only suitable for Perl versions E<lt>= 5.8.0.  However,
+you do not have to bother about version checking, Locale::Recode(3)
+will do that for you.
+
 
 =head1 CHARACTER TABLE
 
@@ -171,7 +185,7 @@ See http://www.unicode.org/.
 
 =head1 AUTHOR
 
-Copyright (C) 2002, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

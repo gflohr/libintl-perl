@@ -1,10 +1,10 @@
 #! /bin/false
-# vim: syntax=perl
+
 #      tabstop=4
-# -*- perl -*-
 
 # Conversion routines for ISO-8859-1.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 
 # Distribution either under the terms of the Artistic license (see
 # Artistic) or - at your choice - under the terms and conditions of
@@ -320,6 +320,17 @@ sub _toUTF8
 1;
 
 __END__
+
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+tab-width: 4
+End:
 
 Local Variables:
 mode: perl

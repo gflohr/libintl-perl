@@ -1,8 +1,11 @@
 #! /bin/false
-# -*- perl -*-
 
-# Iconv interface for Perl.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+# vim: tabstop=4
+# $Id: Recode.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+
+# Portable character conversion for Perl.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 
 # Distribution either under the terms of the Artistic license (see
 # Artistic) or - at your choice - under the terms and conditions of
@@ -32,7 +35,7 @@ require Locale::Recode::_Conversions;
 
 use vars qw ($VERSION);
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 my $loaded = {};
 
@@ -45,14 +48,14 @@ sub new
     my $self = bless {}, $class;
 
     my ($from_codeset, $to_codeset,
-	$unknown, $illegal) = @args{qw (from to unknown illegal)};
+		$unknown, $illegal) = @args{qw (from to unknown illegal)};
     
     unless ($from_codeset && $to_codeset) {
-	require Carp;
+		require Carp;
         Carp::croak (<<EOF);
-Usage: $class->new (from => FROM_CODESET, to => TO_CODESET);
+	Usage: $class->new (from => FROM_CODESET, to => TO_CODESET);
 EOF
-    }
+}
 
     $unknown = ord '?' unless exists $args{unknown};
     $illegal = $unknown unless exists $args{illegal};
@@ -62,78 +65,80 @@ EOF
     $to_codeset = uc $to_codeset;
     # Resolve aliases.
     $from_codeset = Locale::Recode::_Aliases::ALIASES()->{$from_codeset} if
-	exists Locale::Recode::_Aliases::ALIASES()->{$from_codeset};
+		exists Locale::Recode::_Aliases::ALIASES()->{$from_codeset};
     $to_codeset = Locale::Recode::_Aliases::ALIASES()->{$to_codeset} if
-	exists Locale::Recode::_Aliases::ALIASES()->{$to_codeset};
+		exists Locale::Recode::_Aliases::ALIASES()->{$to_codeset};
     $from_codeset .= '//' unless 'INTERNAL' eq $from_codeset;
     $to_codeset .= '//' unless 'INTERNAL' eq $to_codeset;
 
     # Find a conversion path.
     my @path = ();
     unless ($from_codeset eq $to_codeset) {
-	my $start = Locale::Recode::_Conversions::CONVERSIONS()->{$from_codeset};
+		my $start = Locale::Recode::_Conversions::CONVERSIONS()->{$from_codeset};
 
-	unless (defined $start) {
-	    $self->{__error} = 'EINVAL';
-	    return $self;
+		unless (defined $start) {
+			$self->{__error} = 'EINVAL';
+			return $self;
 	}
-
+		
 	my $intermediate = $start->{$to_codeset};
-	if (defined $intermediate) {
-	    # We have an immediate conversion.
-	    push @path, [ $intermediate, $from_codeset, $to_codeset ];
+		if (defined $intermediate) {
+			# We have an immediate conversion.
+			push @path, [ $intermediate, $from_codeset, $to_codeset ];
 	} else {
 	    $intermediate = $start->{INTERNAL};
 	    unless (defined $intermediate) {
-		# Oops, not even an entry for INTERNAL.
-		$self->{__error} = 'EINVAL';
+			# Oops, not even an entry for INTERNAL.
+			$self->{__error} = 'EINVAL';
 		return $self;
 	    }
 	    push @path, [ $intermediate, $from_codeset, 'INTERNAL' ];
 
 	    my $from_internal = 
-	      Locale::Recode::_Conversions::CONVERSIONS()->{INTERNAL};
+			Locale::Recode::_Conversions::CONVERSIONS()->{INTERNAL};
 
 	    unless (defined $from_internal) {
-		# Oops ...
-		$self->{__error} = 'EINVAL';
-		return $self;
+			# Oops ...
+			$self->{__error} = 'EINVAL';
+			return $self;
 	    }
-
+		
 	    my $end = $from_internal->{$to_codeset};
 	    unless (defined $end) {
-		$self->{__error} = 'EINVAL';
-		return $self;
+			$self->{__error} = 'EINVAL';
+			return $self;
 	    }
-
+		
 	    push @path, [ $end, INTERNAL => $to_codeset ];
 	}
     }
-
+	
     my @conversions = ();
     foreach (@path) {
-	my ($module, $from, $to) = @$_;
+		my ($module, $from, $to) = @$_;
 
-	unless ($loaded->{$module}) {
-	    eval "require Locale::RecodeData::$module";
-	    if ($@) {
-		$self->{__error} = $@;
-		return $self;
-	    }
+		$module = 'UTF_8_Encode' if $] >= 5.008 && 'UTF_8' eq $module;
+		
+		unless ($loaded->{$module}) {
+			eval "require Locale::RecodeData::$module";
+			if ($@) {
+				$self->{__error} = $@;
+				return $self;
+			}
+			
+			$loaded->{$module} = 1;
+		}
+		
+		my $module_name = "Locale::RecodeData::$module";
+		my $method = 'new';
+		my $object = $module_name->$method (from => $from,
+											to => $to,
+											illegal => $illegal,
+											unknown => $unknown);
 
-	    $loaded->{$module} = 1;
-	}
-	
-	my $module_name = "Locale::RecodeData::$module";
-	my $method = 'new';
-	my $object = $module_name->$method (from => $from,
-					    to => $to,
-					    illegal => $illegal,
-					    unknown => $unknown);
-
-	push @conversions, $object;
+		push @conversions, $object;
     }
-
+	
     $self->{__conversions} = \@conversions;
 
     return $self;
@@ -180,7 +185,7 @@ sub getCharsets
 		next unless $conversions->{"$official//"};
 		push @all, $charset;
 	}
-
+	
 	return \@all;
 }
 
@@ -212,9 +217,9 @@ sub getError
     my $error = $self->{__error} or return;
 
     if ('EINVAL' eq $error) {
-	return 'Invalid conversion';
+		return 'Invalid conversion';
     } else {
-	return $error;
+		return $error;
     }
 }
 
@@ -244,10 +249,7 @@ Locale::Recode
 use Locale::Recode qw (iconv_open iconv iconv_close recode);
 
 $cd = Locale::Recode->new (from => 'UTF-8',
-                          to   => 'ISO-8859-1',
-                          unknown => chr '?',
-                          illegal => chr '?',
-                         );
+                           to   => 'ISO-8859-1');
 
 die $cd->getError if $cd->getError;
 
@@ -278,7 +280,7 @@ codeset to another.
 
 =head1 AUTHOR
 
-Copyright (C) 2002, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

@@ -130,6 +130,7 @@ lib/Locale/RecodeData/NATS_SEFI.pm
 lib/Locale/RecodeData/SAMI_WS2.pm
 lib/Locale/RecodeData/TIS_620.pm
 lib/Locale/RecodeData/UTF_8.pm
+lib/Locale/RecodeData/UTF_8_Encode.pm
 lib/Locale/RecodeData/VISCII.pm
 lib/Locale/gettext_pp.pm
 MANIFEST
@@ -292,4 +293,3 @@ t/po/additional.de.po
 t/po/additional.de_AT.po
 t/po/existing.de.po
 t/po/existing.de_AT.po
-test-benchmark

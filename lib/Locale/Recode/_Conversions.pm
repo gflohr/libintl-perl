@@ -1,11 +1,10 @@
 #! /bin/false
-# vim: syntax=perl
 # vim: tabstop=4
-# -*- perl -*-
-# $Id: _Conversions.pm,v 1.1 2002/08/16 10:49:21 guido Exp $
+# $Id: _Conversions.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
 
 # List of internally known conversions.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 # This file is generated, do not edit!
 
 # Distribution either under the terms of the Artistic license (see
@@ -671,6 +670,17 @@ use constant CONVERSIONS => {
 
 __END__
 
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+tab-width: 4
+End:
+
 =head1 NAME
 
 Locale::Recode::_Conversions
@@ -689,7 +699,7 @@ of C<iconv_no_i18n -l> contained in libiconv version 1.8.
 
 =head1 CONSTANTS
 
-=over4
+=over 4
 
 =item CONVERSIONS
 
@@ -710,7 +720,7 @@ on the current format!
 
 =head1 AUTHOR
 
-Copyright (C) 2002, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

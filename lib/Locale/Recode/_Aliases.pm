@@ -1,9 +1,11 @@
 #! /bin/false
-# -*- perl -*-
-# $Id: _Aliases.pm,v 1.1 2002/08/16 10:49:21 guido Exp $
+
+# vim: tabstop=4
+# $Id: _Aliases.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
 
 # Internally known aliases for charsets.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 
 # Distribution either under the terms of the Artistic license (see
 # Artistic) or - at your choice - under the terms and conditions of
@@ -346,7 +348,7 @@ of C<iconv_no_i18n -l> contained in libiconv version 1.8.
 
 =head1 CONSTANTS
 
-=over4
+=over 4
 
 =item ALIASES
 
@@ -363,7 +365,7 @@ on the current format!
 
 =head1 AUTHOR
 
-Copyright (C) 2002, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

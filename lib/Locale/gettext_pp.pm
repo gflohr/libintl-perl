@@ -1,5 +1,32 @@
 #! /bin/false
-# Copyright (C) 2002, Guido Flohr <guido@imperia.net>
+
+# vim: tabstop=4
+# $Id: gettext_pp.pm,v 1.3 2003/06/02 11:16:54 guido Exp $
+
+# Pure Perl implementation of Uniforum message translation.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
+
+# Distribution either under the terms of the Artistic license (see
+# Artistic) or - at your choice - under the terms and conditions of
+# the GNU General Public License described below.
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+# Copyright (C) 2002-2003, Guido Flohr <guido@imperia.net>
 # All rights reserved.
 
 package Locale::gettext_pp;
@@ -44,27 +71,27 @@ require Locale::Recode;
 
 use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 
-%EXPORT_TAGS = ( locale_h => [ qw (
-								   gettext
-								   dgettext
-								   dcgettext
-								   ngettext
-								   dngettext
-								   dcngettext
-								   textdomain
-								   bindtextdomain
-								   bind_textdomain_codeset
-								   )
+%EXPORT_TAGS = (locale_h => [ qw (
+								  gettext
+								  dgettext
+								  dcgettext
+								  ngettext
+								  dngettext
+								  dcngettext
+								  textdomain
+								  bindtextdomain
+								  bind_textdomain_codeset
+								  )
 						  ],
-				 libintl_h => [ qw (LC_CTYPE
-									LC_NUMERIC
-									LC_TIME
-									LC_COLLATE
-									LC_MONETARY
-									LC_MESSAGES
-									LC_ALL)
+				libintl_h => [ qw (LC_CTYPE
+								   LC_NUMERIC
+								   LC_TIME
+								   LC_COLLATE
+								   LC_MONETARY
+								   LC_MESSAGES
+								   LC_ALL)
 								],
-				 );
+				);
 
 @EXPORT_OK = qw (gettext
 				 dgettext
@@ -445,7 +472,8 @@ sub __load_catalog
 
 		# The singular is the key, the plural plus all translations is the
 		# value.
-		my $msgid = $origs[0] || '';
+		my $msgid = $origs[0];
+		$msgid = '' unless defined $msgid && length $msgid;
 		my $msgstr = [ $origs[1], @trans ];
 		$messages->{$msgid} = $msgstr;
 	}

@@ -1,11 +1,11 @@
 #! /bin/false
-# vim: syntax=perl
+
 # vim: tabstop=4
-# -*- perl -*-
-# $Id: NATS_SEFI.pm,v 1.2 2002/10/22 11:20:46 ingrid Exp $
+# $Id: NATS_SEFI.pm,v 1.3 2003/06/02 11:16:56 guido Exp $
 
 # Conversion routines for NATS-SEFI.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 # This file is generated, do not edit!
 
 # Distribution either under the terms of the Artistic license (see
@@ -715,6 +715,17 @@ sub __toUTF8
 
 __END__
 
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+tab-width: 4
+End:
+
 =head1 NAME
 
 Locale::RecodeData::NATS_SEFI
@@ -878,7 +889,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

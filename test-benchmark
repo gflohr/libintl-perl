@@ -1,11 +1,9 @@
 #! /usr/local/bin/perl -w
-# -*- perl -*-
-# vim: syntax=perl
-#      tabstop=4
+# vim: tabstop=4
 
 # Benchmark conversion routines.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
-# $Id: test-benchmark,v 1.4 2002/08/16 10:49:20 guido Exp $
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all rights reserved.
+# $Id: test-benchmark,v 1.5 2003/06/02 11:16:54 guido Exp $
 
 # Distribution either under the terms of the Artistic license (see
 # Artistic) or - at your choice - under the terms and conditions of
@@ -212,7 +210,7 @@ codeset to another.
 
 =head1 AUTHOR
 
-Copyright (C) 2002, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

@@ -1,8 +1,11 @@
 #! /bin/false
-# -*- perl -*-
 
-# Virtual base class for Locale::iconv converters.
-# Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
+# vim: tabstop=4
+# $Id: RecodeData.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+
+# Virtual base class for Locale::Recode converters.
+# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
 
 # Distribution either under the terms of the Artistic license (see
 # Artistic) or - at your choice - under the terms and conditions of
@@ -32,10 +35,10 @@ sub new
     my ($class, %args) = @_;
 
     bless {
-	_from => $args{from},
-	_to => $args{to},
-	_unknown => $args{unknown},
-	_illegal => $args{illegal},
+		_from => $args{from},
+		_to => $args{to},
+		_unknown => $args{unknown},
+		_illegal => $args{illegal},
     }, $class;
 }
 

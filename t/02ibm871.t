@@ -94,29 +94,29 @@ sub int2utf8
     if ($ucs4 <= 0x7f) {
 		return chr $ucs4;
     } elsif ($ucs4 <= 0x7ff) {
-		return pack ("c2", 
+		return pack ("C2", 
 			(0xc0 | (($ucs4 >> 6) & 0x1f)),
 			(0x80 | ($ucs4 & 0x3f)));
     } elsif ($ucs4 <= 0xffff) {
-		return pack ("c3", 
+		return pack ("C3", 
 			(0xe0 | (($ucs4 >> 12) & 0xf)),
 			(0x80 | (($ucs4 >> 6) & 0x3f)),
 			(0x80 | ($ucs4 & 0x3f)));
     } elsif ($ucs4 <= 0x1fffff) {
-		return pack ("c4", 
+		return pack ("C4", 
 			(0xf0 | (($ucs4 >> 18) & 0x7)),
 			(0x80 | (($ucs4 >> 12) & 0x3f)),
 			(0x80 | (($ucs4 >> 6) & 0x3f)),
 			(0x80 | ($ucs4 & 0x3f)));
     } elsif ($ucs4 <= 0x3ffffff) {
-		return pack ("c5", 
+		return pack ("C5", 
 			(0xf0 | (($ucs4 >> 24) & 0x3)),
 			(0x80 | (($ucs4 >> 18) & 0x3f)),
 			(0x80 | (($ucs4 >> 12) & 0x3f)),
 			(0x80 | (($ucs4 >> 6) & 0x3f)),
 			(0x80 | ($ucs4 & 0x3f)));
     } else {
-		return pack ("c6", 
+		return pack ("C6", 
 			(0xf0 | (($ucs4 >> 30) & 0x3)),
 			(0x80 | (($ucs4 >> 24) & 0x1)),
 			(0x80 | (($ucs4 >> 18) & 0x3f)),
