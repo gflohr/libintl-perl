@@ -1,3 +1,32 @@
+2003-10-10 17:13  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.05 
+
+2003-10-10 17:12  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/Makefile.old: removed junk file 
+
+2003-10-10 17:12  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, NEWS: fixed compatibility problems with Solaris 8
+	and above 
+
+2003-10-10 15:03  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: removed Artistic 
+
+2003-10-10 12:11  Guido Flohr <guido@imperia.net>
+
+	* sample/README: fixed typo 
+
+2003-10-10 12:10  Guido Flohr <guido@imperia.net>
+
+	* Artistic: obsolete 
+
+2003-10-09 17:06  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # regenerated 
+
 2003-10-09 17:05  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 1.04 
