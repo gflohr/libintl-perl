@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.8 2003/06/15 14:35:35 guido Exp $
+# $Id: _Conversions.pm,v 1.9 2003/06/15 14:51:57 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -37,6 +37,8 @@ use vars qw ($conversions);
 $conversions = {
 	'ASCII' => 'ASCII',
 	'ASMO_449' => 'ASMO_449',
+	'ATARI-ST-EURO' => 'ATARI_ST_EURO',
+	'ATARI-ST' => 'ATARI_ST',
 	'CP10007' => 'CP10007',
 	'CP1250' => 'CP1250',
 	'CP1251' => 'CP1251',
@@ -170,8 +172,6 @@ $conversions = {
 	'UTF-8' => 'UTF_8',
 	'VISCII' => 'VISCII',
 	'WIN-SAMI-2' => 'SAMI_WS2',
-	'X-ATARI-ST-EURO' => 'X_ATARI_ST_EURO',
-	'X-ATARI-ST' => 'X_ATARI_ST',
 };
 
 # These encodings are maybe available via Encode(3pm).

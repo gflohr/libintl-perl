@@ -1,4 +1,4 @@
-$Id: THANKS,v 1.4 2003/06/02 11:16:54 guido Exp $
+$Id: THANKS,v 1.5 2003/06/15 14:50:34 guido Exp $
 
 These people have helped in the development of libintl-perl:
 
@@ -6,7 +6,7 @@ These people have helped in the development of libintl-perl:
   Enterprise Content Management System Imperia to the Perl community
   as free software. 
 
-- Christian Lackas <lackas@delta.net> has given various hints on 
+- Christian Lackas <delta@lackas.net> has given various hints on 
   performance optimizations
 
 - Ingrid Graefen <ingrid.graefen@imperia.net> has fixed a major performance
@@ -16,5 +16,8 @@ These people have helped in the development of libintl-perl:
 - Norma Karl <bcrazy@gmx.de> has thoroughly revised the documentation for
   the Perl backend to GNU xgettext, and because she deserves a credit
   anyway
+
+- Bruno Haible for libiconv which was the base for many conversions and
+  for integrating my Perl backend into GNU gettext
 
 Guido Flohr

@@ -24,16 +24,16 @@ while (<DATA>) {
 	$ucs2local->{$ucs} = $code unless $ucs == 0xfffd;
 }
 
-my $cd_int = Locale::Recode->new (from => 'X-ATARI-ST',
+my $cd_int = Locale::Recode->new (from => 'ATARI-ST',
 				  to => 'INTERNAL');
 ok !$cd_int->getError;
 
-my $cd_utf8 = Locale::Recode->new (from => 'X-ATARI-ST',
+my $cd_utf8 = Locale::Recode->new (from => 'ATARI-ST',
 				   to => 'UTF-8');
 ok !$cd_utf8->getError;
 
 my $cd_rev = Locale::Recode->new (from => 'INTERNAL',
-				  to => 'X-ATARI-ST');
+				  to => 'ATARI-ST');
 ok !$cd_rev->getError;
 
 # Convert into internal representation.
@@ -81,7 +81,7 @@ my $test_string2 = [ unpack 'c*', 'Supergirl' ];
 my $unknown = "\x3f"; # Unknown character!
 
 $cd_rev = Locale::Recode->new (from => 'INTERNAL',
-		               to => 'X-ATARI-ST',
+		               to => 'ATARI-ST',
 				)
 && $cd_rev->recode ($test_string1)
 && $cd_rev->recode ($test_string2)

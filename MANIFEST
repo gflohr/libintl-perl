@@ -8,6 +8,8 @@ lib/Locale/RecodeData.pm
 lib/Locale/RecodeData/_Encode.pm
 lib/Locale/RecodeData/ASCII.pm
 lib/Locale/RecodeData/ASMO_449.pm
+lib/Locale/RecodeData/X_ATARI_ST.pm
+lib/Locale/RecodeData/X_ATARI_ST_EURO.pm
 lib/Locale/RecodeData/CP10007.pm
 lib/Locale/RecodeData/CP1250.pm
 lib/Locale/RecodeData/CP1251.pm
@@ -141,8 +143,6 @@ lib/Locale/RecodeData/SAMI_WS2.pm
 lib/Locale/RecodeData/TIS_620.pm
 lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/VISCII.pm
-lib/Locale/RecodeData/X_ATARI_ST.pm
-lib/Locale/RecodeData/X_ATARI_ST_EURO.pm
 lib/Locale/TextDomain.pm
 lib/Locale/gettext_pp.pm
 BUGS
@@ -157,6 +157,8 @@ t/00recode.t
 t/01trivial.t
 t/02ascii.t
 t/02asmo_449.t
+t/02atari-st-euro.t
+t/02atari-st.t
 t/02cp10007.t
 t/02cp1250.t
 t/02cp1251.t
@@ -290,8 +292,6 @@ t/02sami-ws2.t
 t/02tis-620.t
 t/02utf-8.t
 t/02viscii.t
-t/02x-atari-st-euro.t
-t/02x-atari-st.t
 t/03bind_textdomain_codeset.t
 t/03bind_textdomain_codeset_pp.t
 t/03bindtextdomain.t

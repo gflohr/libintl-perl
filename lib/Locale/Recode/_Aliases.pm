@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: _Aliases.pm,v 1.4 2003/06/15 14:35:35 guido Exp $
+# $Id: _Aliases.pm,v 1.5 2003/06/15 14:51:57 guido Exp $
 
 # Internally known aliases for charsets.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -32,10 +32,6 @@ use constant ALIASES => {
 	'ANSI_X3.4-1986' => 'ANSI_X3.4-1968',
 	'ASCII' => 'ANSI_X3.4-1968',
 	'ASMO-708' => 'ARABIC',
-	'ATARI-ST' => 'X-ATARI-ST',
-	'ATARIST' => 'X-ATARI-ST',
-	'ATARI-ST-EURO' => 'X-ATARI-ST-EURO',
-	'ATARIST-EURO' => 'X-ATARI-ST-EURO',
 	'BIG-FIVE' => 'BIG-5',
 	'BIG-FIVE-ETEN' => 'BIG-5',
 	'BIG5' => 'BIG-5',
@@ -286,8 +282,10 @@ use constant ALIASES => {
 	'WINDOWS-SAMI2' => 'WIN-SAMI-2',
 	'WINSAMI2' => 'WIN-SAMI-2',
 	'WS2' => 'WIN-SAMI-2',
-	'X-ATARIST' => 'X-ATARI-ST',
-	'X-ATARIST-EURO' => 'X-ATARI-ST-EURO',
+	'X-ATARI-ST' => 'ATARI-ST',
+	'X-ATARIST' => 'ATARI-ST',
+	'X-ATARI-ST-EURO' => 'ATARI-ST-EURO',
+	'X-ATARIST-EURO' => 'ATARI-ST-EURO',
 	'X0201' => 'JISX0201-1976',
 	'X0208' => 'ISO-IR-87',
 	'X0212' => 'ISO-IR-159',
