@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.16 2003/11/28 16:05:56 guido Exp $
+# $Id: Messages.pm,v 1.17 2003/12/29 18:53:51 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -33,7 +33,7 @@ $package = 'gettext_xs';
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
-die "Version: $version not sufficient" unless $version eq '1.05';
+die "Version: $version not sufficient" unless $version >= '1.05';
 EOF
 if ($@) {
     $package = 'gettext_pp';
