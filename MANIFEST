@@ -1,6 +1,6 @@
 Artistic
 ChangeLog
-COPYING
+COPYING.LIB
 lib/Locale/Messages.pm
 lib/Locale/Recode.pm
 lib/Locale/Recode/_Aliases.pm
