@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.26 2003/11/24 13:57:31 guido Exp $
+# $Id: gettext_pp.pm,v 1.27 2003/11/28 16:09:35 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -333,7 +333,8 @@ sub dcngettext($$$$$)
 		my $output_codeset = $__gettext_pp_domain_codeset_bindings->{$domainname};
 
 		$output_codeset = $ENV{OUTPUT_CHARSET} unless defined $output_codeset;
-		$output_codeset = __get_codeset ($category, $category_name)
+		$output_codeset = __get_codeset ($category, $category_name,
+										 $domain->{locale_id})
 			unless defined $output_codeset;
 		
 		unless (defined $output_codeset) {
@@ -351,6 +352,7 @@ sub dcngettext($$$$$)
 		if (exists $__gettext_pp_domain_cache->{$output_codeset}) {
 			$output_codeset = $__gettext_pp_domain_cache->{$output_codeset};
 		} else {
+			$output_codeset = 'utf-8' if lc $output_codeset eq 'utf8';
 			$output_codeset = 
 				$__gettext_pp_domain_cache->{$output_codeset} =
 				Locale::Recode->resolveAlias ($output_codeset);
@@ -457,6 +459,7 @@ sub __load_domain
 					$domain->{po_header}->{charset} = 
 						Locale::Recode->resolveAlias ($domain->{po_header}->{charset});
 				}
+				$domain->{locale_id} = $try;
 				push @$domains, $domain;
 			}
 		}
@@ -644,7 +647,7 @@ sub __locale_category
 
 sub __get_codeset
 {
-	my ($category, $category_name) = @_;
+	my ($category, $category_name, $locale_id) = @_;
 
 	local $@;
 	unless (defined $has_nl_langinfo) {
@@ -654,8 +657,24 @@ sub __get_codeset
 		$has_nl_langinfo = !$@;
 	}
 
-	return I18N::Langinfo::langinfo (I18N::Langinfo::CODESET())
-		if $has_nl_langinfo;
+	if ($has_nl_langinfo) {
+		# Try to set the locale via the specified id.
+		my $saved_locale = eval { POSIX::setlocale (LC_ALL) };
+		my $saved_lc_all = $ENV{LC_ALL};
+
+		# Now try to set the locale via the environment.  There is no
+		# point in calling the langinfo routines if this fails.
+		$ENV{LC_ALL} = $locale_id;
+		my $codeset;
+		my $lc_all = eval { POSIX::setlocale (LC_ALL, $locale_id); };
+		$codeset = I18N::Langinfo::langinfo (I18N::Langinfo::CODESET())
+			if defined $lc_all;
+
+		if ($saved_locale) {
+			eval { POSIX::setlocale (LC_ALL, $saved_locale); }
+		}
+		return $codeset;
+	}
 
 	return;
 }
