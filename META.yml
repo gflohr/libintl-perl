@@ -7,7 +7,6 @@ installdirs:  site
 license:      lgpl
 dynamic_config: 1
 requires:
-recommends:
 	File::Spec: 0
 distribution_type: module
 generated_by: hand 4u 
