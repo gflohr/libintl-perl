@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.16 2003/11/24 13:31:35 guido Exp $
+# $Id: Makefile.PL,v 1.17 2003/11/28 16:06:23 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -88,23 +88,45 @@ push @cmd, "-o", "gettest.exe", "gettest.c";
 
 my $cmd = join ' ', @cmd;
 
+# Temporarily redirect stdout and stderr.
+open OLDOUT, ">&STDOUT" or die "cannot dup STDOUT: $!";
+open OLDERR, ">&STDERR" or die "cannot dup STDERR: $!";
+open STDOUT, ">config.log" or die "cannot redirect STDOUT: $!";
+open STDERR, ">&STDOUT" or die "cannot dup STDOUT: $!";
+select STDERR; $| = 1;
+select STDOUT; $| = 1;
+
+print "$cmd\n";
 my $result = system $cmd;
 unless ($result == 0) {
 	$cmd .= " -lintl";
+	print "$cmd\n";
 	$result = system $cmd;
 }
 unless ($result == 0) {
 	$cmd .= " -liconv";
+	print "$cmd\n";
 	$result = system $cmd;
 }
 
+# Restore standard file descriptors.
+close STDOUT; #or die "cannot close STDOUT: $!";
+close STDERR; #or die "cannot close STDERR: $!";
+open STDOUT, ">&OLDOUT" or die "cannot dup \$oldout: $!";
+open STDERR, ">&OLDERR" or die "cannot dup OLDERR: $!";
+close OLDOUT; close OLDERR; # Shut up warnings.
+
 unless ($result == 0) {
 	print STDERR <<EOF;
-Cannot build the XS version of libintl-perl.  This is harmless!
+no
+=> Cannot build the XS version of libintl-perl (see 'config.log' for
+=> details).  This is harmless!
 EOF
 } else {
-	print STDERR "ok\n";
-	print STDERR "Building the XS version of libintl-perl.\n";
+	print STDERR <<EOF;
+ok
+=> Building the XS version of libintl-perl.
+EOF
 }
 unlink "gettest.c", "gettest.exe";
 
