@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.13 2003/07/14 10:46:36 guido Exp $
+# $Id: gettext_pp.pm,v 1.14 2003/07/14 12:24:57 ingrid Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -41,6 +41,7 @@ use vars qw ($__gettext_pp_default_dir
 	     $__gettext_pp_domain_codeset_bindings
 	     $__gettext_pp_domains
 	     $__gettext_pp_recoders
+	     $__gettext_pp_unavailable_dirs
 	     $__gettext_pp_domain_cache);
 
 use locale;
@@ -51,9 +52,10 @@ BEGIN {
     $__gettext_pp_domain_codeset_bindings = {};
     $__gettext_pp_domains = {};
     $__gettext_pp_recoders = {};
+    $__gettext_pp_unavailable_dirs = {};
     $__gettext_pp_domain_cache = {};
     
-    $__gettext_pp_default_dir = '/usr/share/locale';
+    $__gettext_pp_default_dir = '';
     
     for my $dir (qw (/usr/share/locale /usr/local/share/locale)) {
 	if (-d $dir) {
@@ -67,6 +69,59 @@ require POSIX;
 require Exporter;
 use IO::Handle;
 require Locale::Recode;
+
+BEGIN {
+
+	my ($has_messages, $five_ok);
+	
+	my $has_messages = eval '&POSIX::LC_MESSAGES';
+
+	unless (defined $has_messages && length $has_messages) {
+		$five_ok = ! grep {my $x = eval "&POSIX::$_" || 0; $x eq '5';}
+				qw (LC_CTYPE
+				   LC_NUMERIC
+				   LC_TIME
+				   LC_COLLATE
+				   LC_MONETARY
+				   LC_ALL);
+	    if ($five_ok) {
+	    	$five_ok = POSIX::setlocale (5, '');
+	    }
+	}
+	
+	if (defined $has_messages && length $has_messages) {
+eval <<'EOF';
+sub LC_MESSAGES()
+{
+    local $!; # Do not clobber errno!
+    
+	return eval '&POSIX::LC_MESSAGES';
+}
+EOF
+	} elsif ($five_ok) {
+eval <<'EOF';
+sub LC_MESSAGES()
+{
+    local $!; # Do not clobber errno!
+
+	# Hack: POSIX.pm deems LC_MESSAGES an invalid macro until
+	# Perl 5.8.0.  However, on LC_MESSAGES should be 5 ...
+	return 5;
+}
+EOF
+	} else {
+eval <<'EOF';
+sub LC_MESSAGES()
+{
+    local $!; # Do not clobber errno!
+
+    # This fallback value is widely used,
+    # when LC_MESSAGES is not available.
+    return 1729;
+}
+EOF
+	}
+}
 
 use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 
@@ -141,24 +196,6 @@ sub LC_MONETARY()
     &POSIX::LC_MONETARY;
 }
 
-sub LC_MESSAGES()
-{
-    local $!; # Do not clobber errno!
-
-    my $retval = eval '&POSIX::LC_MESSAGES'
-	if $POSIX::{LC_MESSAGES};
-    return $retval if $retval;
-    
-    # Hack: POSIX.pm deems LC_MESSAGES an invalid macro until
-    # Perl 5.8.0.  However, on LC_MESSAGES should be 5 ...
-    my $success = POSIX::setlocale (5, '');
-    return 5 if $success;
-    
-    # This fallback value is widely used, when LC_MESSAGES is not
-    # available.
-    return 1729;
-}
-
 sub LC_ALL()
 {
     &POSIX::LC_ALL;
@@ -210,35 +247,35 @@ sub gettext($)
 {
     my ($msgid) = @_;
 
-    return dcngettext ('', $msgid, undef, undef, LC_MESSAGES);
+    return dcngettext ('', $msgid, undef, undef, undef);
 }
 
 sub dgettext($$)
 {
     my ($domainname, $msgid) = @_;
 
-    return dcngettext ($domainname, $msgid, undef, undef, LC_MESSAGES);
+    return dcngettext ($domainname, $msgid, undef, undef, undef);
 }
 
 sub dcgettext($$$)
 {
     my ($domainname, $msgid, $category) = @_;
 
-    return dcngettext ($domainname, $msgid, undef, undef, $category);
+    return dcngettext ($domainname, $msgid, undef, undef, undef);
 }
 
 sub ngettext($$$)
 {
     my ($msgid, $msgid_plural, $n) = @_;
 
-    return dcngettext ('', $msgid, $msgid_plural, $n, LC_MESSAGES);
+    return dcngettext ('', $msgid, $msgid_plural, $n, undef);
 }
 
 sub dngettext($$$$)
 {
     my ($domainname, $msgid, $msgid_plural, $n) = @_;
 
-    return dcngettext ($domainname, $msgid, $msgid_plural, $n, LC_MESSAGES);
+    return dcngettext ($domainname, $msgid, $msgid_plural, $n, undef);
 }
 
 sub dcngettext($$$$$)
@@ -340,7 +377,7 @@ sub __load_domain
     my $dir = bindtextdomain ($domainname, '');
     $dir = $__gettext_pp_default_dir unless defined $dir && length $dir;
     
-    my $locale = __locale_category ($category, $category_name);
+	my $locale = __locale_category ($category, $category_name);
     # Have we looked that one up already?
     my $domains = $__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$domainname};
     
@@ -348,19 +385,22 @@ sub __load_domain
 	my @dirs = ($dir);
 	my @tries = ($locale);
 	
-	if (defined $locale && length $locale &&
-	    $locale =~ /^([a-z][a-z])
+	if ($locale =~ /^([a-z][a-z])
 	    (?:(_[A-Z][A-Z])?
 	     (\.[-_A-Za-z0-9]+)?
 	     )?
 	    (\@[-_A-Za-z0-9]+)?$/x) {
-	    push @tries, $1 . $2 . $3 if defined $3;
+
+	    if (defined $3) {
+	    	defined $2 ?
+	    		push @tries, $1 . $2 . $3 : push @tries, $1 . $3;
+	    }
 	    push @tries, $1 . $2 if defined $2;
 	    push @tries, $1 if defined $1;
 	}
 	
 	push @dirs, $__gettext_pp_default_dir
-	    unless $dir eq $__gettext_pp_default_dir;
+	    if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
 	
 	my %seen = ();
 	foreach my $basedir (@dirs) {
@@ -368,7 +408,14 @@ sub __load_domain
 		my $fulldir = "$basedir/$try/$category_name";
 		
 		next if $seen{$fulldir}++;
-		
+
+		# If the cache for unavailable directories is removed,
+		# the three lines below should be replaced by:
+		# 'next unless -d $fulldir;'
+		next if $__gettext_pp_unavailable_dirs->{$fulldir};
+		++$__gettext_pp_unavailable_dirs->{$fulldir} and next
+			unless -d $fulldir;
+
 		my $domain = __load_catalog $fulldir, $domainname;
 		next unless $domain;
 		
@@ -417,7 +464,7 @@ sub __load_catalog
     close HANDLE;
     
     # Corrupted?
-    return unless defined $raw || length $raw < 28;
+    return if ! defined $raw || length $raw < 28;
     
     my $filesize = length $raw;
     
@@ -552,7 +599,7 @@ sub __locale_category
     
     my $language = $ENV{LANGUAGE};
     
-    my $value = eval "POSIX::setlocale ($category)";
+    my $value = eval {POSIX::setlocale ($category)};
     
     # We support only XPG syntax, i. e.
     # language[_territory[.codeset]][@modifier].

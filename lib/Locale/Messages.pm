@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.7 2003/06/27 10:25:03 ingrid Exp $
+# $Id: Messages.pm,v 1.8 2003/07/14 12:24:57 ingrid Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -85,6 +85,49 @@ require Exporter;
 		 LC_MESSAGES
 		 LC_ALL);
 
+BEGIN {
+	my ($has_encode, $has_bytes);
+	
+	if ($] >= 5.006) {
+		unless (defined $has_encode) {
+			eval "require Encode";
+			$has_encode = !$@;
+		}
+
+		unless ($has_encode || defined $has_bytes) {
+			eval "use bytes";
+			$has_bytes = !$@;
+		}
+	}
+
+	# Turn the UTF-8 flag off unconditionally.
+	if ($has_encode) {
+		eval <<'EOF';
+sub _turn_utf_8_off($)
+{
+	Encode::_utf8_off ($_[0]);
+}
+EOF
+	}
+	elsif ($has_bytes) {
+		eval <<'EOF';
+sub _turn_utf_8_off($)
+{
+	use bytes;
+	$_[0] = join "", split //, $_[0];
+}
+EOF
+	}
+	else {
+		eval <<'EOF';
+sub _turn_utf_8_off($)
+{
+	return $_[0];
+}
+EOF
+	}
+}
+
 sub select_package
 {
 #	my ($class, $pkg) = @_;
@@ -98,27 +141,6 @@ sub select_package
 #	}
 
     return $package;
-}
-
-# Turn the UTF-8 flag off unconditionally.
-my $has_encode;
-sub _turn_utf_8_off($)
-{
-    if ($] >= 5.006) {
-	unless (defined $has_encode) {
-	    eval "require Encode";
-	    $has_encode = !$@;
-	}
-
-	if ($has_encode) {
-	    Encode::_utf8_off ($_[0]);
-	} else {
-	    # Anything better?
-	    eval q{use bytes; $_[0] = join '', split //, $_[0]};
-	}
-    }
-
-    return $_[0];
 }
 
 sub textdomain(;$)
