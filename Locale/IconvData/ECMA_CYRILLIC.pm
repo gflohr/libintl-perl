@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: ECMA_CYRILLIC.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: ECMA_CYRILLIC.pm,v 1.1.1.1 2002/07/08 19:19:59 guido Exp $
 
 # Conversion routines for ECMA-CYRILLIC.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.

@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: ATARI_ST_EURO.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: ATARI_ST_EURO.pm,v 1.1.1.1 2002/07/08 19:19:59 guido Exp $
 
 # Conversion routines for ATARI-ST-EURO.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.

@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: IEC_P27_1.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: IEC_P27_1.pm,v 1.1.1.1 2002/07/08 19:19:59 guido Exp $
 
 # Conversion routines for IEC_P27-1.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.

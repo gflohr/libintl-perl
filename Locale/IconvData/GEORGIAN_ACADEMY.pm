@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: GEORGIAN_ACADEMY.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: GEORGIAN_ACADEMY.pm,v 1.1.1.1 2002/07/08 19:19:59 guido Exp $
 
 # Conversion routines for GEORGIAN-ACADEMY.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.

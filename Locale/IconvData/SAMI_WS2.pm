@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: SAMI_WS2.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: SAMI_WS2.pm,v 1.1.1.1 2002/07/08 19:19:59 guido Exp $
 
 # Conversion routines for WIN-SAMI-2.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.

@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: EBCDIC_AT_DE_A.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: EBCDIC_AT_DE_A.pm,v 1.1.1.1 2002/07/08 19:19:59 guido Exp $
 
 # Conversion routines for EBCDIC-AT-DE-A.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
