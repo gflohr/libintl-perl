@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MS_KANJI.pm,v 1.4 2003/06/05 18:02:32 guido Exp $
+# $Id: MS_KANJI.pm,v 1.5 2003/06/05 18:02:56 guido Exp $
 
 # Conversion routines for MS_KANJI.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -14182,27 +14182,6 @@ my %to_ucs = (
 	    "\xea\xa4" => 0x7199,
 
 );
-
-sub eight_bit_area {
-	foreach my $i (0 .. 255) {
-		my $chr = chr $i;
-		printf STDERR "Missing 0x%02x ($chr)\n", $i
-			unless exists $to_ucs{$chr};
-	}
-	print STDERR "Ready\n";
-}
-
-sub double_byte_areas {
-	my $result = {};
-	foreach my $jis (keys %to_ucs) {
-		next unless length $jis == 2;
-		my $start = ord substr $jis, 0, 1;
-		++$result->{$start};
-	}
-	foreach my $escape (sort keys %$result) {
-		printf STDERR "0x%02x: %d\n", $escape, $result->{$escape};
-	}
-}
 
 my $conv_re;
 sub _recode
