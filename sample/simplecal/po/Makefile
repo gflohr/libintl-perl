@@ -48,7 +48,7 @@ $(TEXTDOMAIN).pot: $(POTFILES)
 		--add-comments=TRANSLATORS: --files-from=$(srcdir)/POTFILES.in \
 		--copyright-holder="Imperia AG Huerth/Germany" \
 		--keyword --keyword='$$__' --keyword=__ --keyword=__x \
-		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn \
+		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn:1,2 \
 		--keyword=N__ --language=perl && \
 	rm -f $@ && mv $(TEXTDOMAIN).pox $@
 
