@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.6 2003/06/23 11:11:02 ingrid Exp $
+# $Id: TextDomain.pm,v 1.7 2003/07/14 11:02:04 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -213,9 +213,9 @@ sub import
 	@search_dirs = map $_ . '/LocaleData', @INC
 	    unless @search_dirs;
 	$bound_dirs{$textdomain} = \@search_dirs;
-	
-	Locale::TextDomain->export_to_level (1, $package, @EXPORT);
     }
+	
+    Locale::TextDomain->export_to_level (1, $package, @EXPORT);
     
     return;
 }
