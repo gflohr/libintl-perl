@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.17 2003/11/28 16:06:23 guido Exp $
+# $Id: Makefile.PL,v 1.18 2004/01/08 17:14:15 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -55,7 +55,11 @@ main (argc, argv)
            and use some undocumented features, to test for that.  Thanks
            to Bruno Haible for the hint.  */
 	extern int _nl_msg_cat_cntr;
+#if 0
+        /* This seems to be defined in the GNU libc only, not in standalone
+         * GNU gettext.  */
         extern int* _nl_domain_bindings;
+#endif
 
 	textdomain ("dummy");
 	bindtextdomain ("dummy", ".");
@@ -65,7 +69,11 @@ main (argc, argv)
     	dgettext ("dummy", "msgid");
     	dcgettext ("dummy", "msgid", LC_MESSAGES);
 	ngettext ("msgid", "msgid_plural", 
+#if 0
 		  _nl_msg_cat_cntr + *_nl_domain_bindings); 
+#else
+                  _nl_msg_cat_cntr);
+#endif
 	dngettext ("dummy", "msgid", "msgid_plural", 1);
 	dcngettext ("dummy", "msgid", "msgid_plural", 1, LC_MESSAGES);
 
