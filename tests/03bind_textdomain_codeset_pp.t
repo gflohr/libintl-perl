@@ -38,7 +38,7 @@ my $textdomain = 'existing';
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 delete $ENV{OUTPUT_CHARSET};
-POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 

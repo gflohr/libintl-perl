@@ -32,7 +32,7 @@ BEGIN {
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'C';
 delete $ENV{OUTPUT_CHARSET};
 
-POSIX::setlocale (POSIX::LC_ALL() => 'C');
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
@@ -48,7 +48,7 @@ for (0 .. 9) {
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'C';
 
-POSIX::setlocale (POSIX::LC_ALL() => 'C');
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
 
@@ -61,7 +61,7 @@ for (0 .. 9) {
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 
-POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 for (0 .. 9) {
 	my $translation = dcngettext (existing => $strings[0], $strings[1], $_, LC_MESSAGES);
@@ -70,7 +70,7 @@ for (0 .. 9) {
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'C';
 
-POSIX::setlocale (POSIX::LC_ALL() => 'C');
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 $bound_dir = bindtextdomain additional => $locale_dir;
 
@@ -83,7 +83,7 @@ for (0 .. 9) {
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 
-POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 for (0 .. 40) {
 	my $translation = dcngettext (additional => $strings[0], $strings[1], $_, LC_MESSAGES);
