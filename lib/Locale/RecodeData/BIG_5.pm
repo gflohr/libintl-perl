@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: BIG_5.pm,v 1.4 2003/06/05 18:14:18 guido Exp $
+# $Id: BIG_5.pm,v 1.5 2003/06/05 18:28:35 guido Exp $
 
 # Conversion routines for BIG_5.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -28119,7 +28119,7 @@ sub _recode
     } else {
 		# FIXME: This is awfully slow!
 		unless ($conv_re) {
-			$conv_re = qr /([\xa1-\xff]?.)/os;
+			$conv_re = qr /[\xa1-\xff]?./os;
 		}
 
 		my @outbuf;
