@@ -1,3 +1,11 @@
+2003-06-20 17:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 0.11 
+
+2003-06-20 17:04  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: new 
+
 2003-06-20 17:03  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST: 
