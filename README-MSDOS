@@ -1,0 +1,16 @@
+Installation
+============
+
+The package should build and run under MS-DOS (tested on version
+"Windows 2000") but you may experience trouble when running the
+test suite.  You will probably use a program called "nmake.exe"
+that offers a minimum subset of the "make" program available on
+regular systems.  That nmake program will not call a POSIX shell
+to execute a command, but some toy command line interpreter with
+numerous limitations, one of them being a ridiculously low limit
+on the size of a command line.  And, alas, the size of the command 
+line that will run the test suite will well go beyond this limit. :-(
+
+Workarounds: a) format you hard disk and ... b) do not run the test
+suite c) find a better make replacement for your system. 
+ 
