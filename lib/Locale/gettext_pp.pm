@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.7 2003/06/16 11:16:48 guido Exp $
+# $Id: gettext_pp.pm,v 1.8 2003/06/20 10:29:09 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -366,9 +366,12 @@ sub __find_domain
 		push @dirs, $__gettext_pp_default_dir
 			unless $dir eq $__gettext_pp_default_dir;
 
+		my %seen = ();
 		foreach my $basedir (@dirs) {
 			foreach my $try (@tries) {
 				my $fulldir = "$basedir/$try/$category_name";
+
+				next if $seen{$fulldir}++;
 
 				my $domain = __load_catalog $fulldir, $textdomain;
 				next unless $domain;
@@ -400,7 +403,7 @@ sub __find_domain
 
 sub __load_catalog
 {
-	my ($directory, $textdomain) = @_;
+    my ($directory, $textdomain) = @_;
 
 	my $filename = "$directory/$textdomain.mo";
 
