@@ -1,5 +1,9 @@
 Version 1.04 -
 
+* support for language chains in $LANGUAGE (e. g. "fr_BE:fr:de")
+
+* performance tweaks for Locale::gettext_pp
+
 * do not clobber $@ in Locale::gettext_pp
 
 Version 1.03 - 15 Sep 2003
