@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.27 2003/11/28 16:09:35 guido Exp $
+# $Id: gettext_pp.pm,v 1.28 2003/12/29 19:00:19 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -408,7 +408,8 @@ sub __load_domain
 	if (@locales && !defined $domains) {
 		my @dirs = ($dir);
 		my @tries = (@locales);
-		
+		my %locale_lookup = map { $_ => $_ } @tries;
+
 		foreach my $locale (@locales) {
 			if ($locale =~ /^([a-z][a-z])
 				(?:(_[A-Z][A-Z])?
@@ -420,8 +421,14 @@ sub __load_domain
 					defined $2 ?
 						push @tries, $1 . $2 . $3 : push @tries, $1 . $3;
 				}
-				push @tries, $1 . $2 if defined $2;
-				push @tries, $1 if defined $1;
+				if (defined $2) {
+					push @tries, $1 . $2;
+					$locale_lookup{$1 . $2} = $locale;
+				}
+				if (defined $1) {
+					push @tries, $1 if defined $1;
+					$locale_lookup{$1} = $locale;
+				}
 			}
 		}
 
@@ -459,7 +466,7 @@ sub __load_domain
 					$domain->{po_header}->{charset} = 
 						Locale::Recode->resolveAlias ($domain->{po_header}->{charset});
 				}
-				$domain->{locale_id} = $try;
+				$domain->{locale_id} = $locale_lookup{$try};
 				push @$domains, $domain;
 			}
 		}
