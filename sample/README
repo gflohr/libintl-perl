@@ -180,15 +180,27 @@ package to use it.
 The file POTFILES.in contains a list of source files to be scanned for
 translatable strings.  Have a look at it, and you will understand it.
 
-The Makefile also includes a file called "TEXTDOMAIN".  This file is
-included by the Makefile and should contain the text domain/identifier
+The Makefile also includes a file called "PACKAGE".  This file contains
+all package-dependent information in a couple of Makefile variables:
+
+- TEXTDOMAIN
+This Makefile variable should contain the text domain/identifier
 for your package.  Please see the POD of Locale::TextDomain for advice
 on a reasonable naming.
 
-The Makefile also includes a file called "LINGUAS".  Whenever you add
-a new supported language to your package, you should update that
-file.  Each entry in this file corresponds to a po file in the po
-subdirectory.
+- LINGUAS
+The language codes of all languages supported by your package.  Each 
+entry corresponds to a po file in the po subdirectory.
+
+- COPYRIGHT_HOLDER
+Usually your name.  Whatever you put here will be included as the
+copyright holder in the header of the po files.
+
+- MSGID_BUGS_ADDRESS
+Usually your name and e-mail address.  It will also be included in the
+po header and translators will check this entry when they come across
+a bug in a msgid, or when they have difficulties to translate a certain
+message because of awkward coding on your side.
 
 Okay, after "make pot" we have updated the master message catalog
 TEXTDOMAIN.pot, in our case "org.imperia.simplecal.pot".  Have a look
