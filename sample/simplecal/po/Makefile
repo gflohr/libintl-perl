@@ -3,8 +3,7 @@
 srcdir = .
 libdir = ../lib
 
-include TEXTDOMAIN
-include LINGUAS
+include PACKAGE
 
 #CATALOGS = $(addsuffix .po, LINGUAS)
 CATALOGS = $(LINGUAS)
@@ -46,7 +45,8 @@ clean:
 $(TEXTDOMAIN).pot: $(POTFILES)
 	$(XGETTEXT) --output=$(srcdir)/$(TEXTDOMAIN).pox --from-code=utf-8 \
 		--add-comments=TRANSLATORS: --files-from=$(srcdir)/POTFILES.in \
-		--copyright-holder="Imperia AG Huerth/Germany" \
+		--copyright-holder="$(COPYRIGHT_HOLDER)" \
+		--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 		--keyword --keyword='$$__' --keyword=__ --keyword=__x \
 		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn:1,2 \
 		--keyword=N__ --language=perl && \

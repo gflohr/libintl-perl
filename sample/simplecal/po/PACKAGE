@@ -1,0 +1,23 @@
+# Makefile snippet that holds all package-dependent information.
+
+# Add more languages here!  Beware that this is a makefile snippet and
+# you have to adhere to make syntax.
+LINGUAS = de \
+	  de_AT \
+	  it \
+	  ru \
+	  fr \
+	  ar \
+	  ar_SA \
+	  ga \
+	  pt \
+	  pt_BR \
+	  nl \
+
+# Textdomain for our package.
+
+TEXTDOMAIN = org.imperia.simplecal
+
+# Initial copyright holder added to pot and po files.
+#COPYRIGHT_HOLDER = Guido Flohr
+COPYRIGHT_HOLDER = Put your name here
