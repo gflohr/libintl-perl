@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.19 2003/09/04 10:48:25 guido Exp $
+# $Id: gettext_pp.pm,v 1.20 2003/09/04 15:58:26 ingrid Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -553,14 +553,14 @@ sub __load_catalog
 	my $code = $domain->{po_header}->{plural_forms} || '';
 	
 	# Whitespace, locale-independent.
-	my $s = qr/[ \t\r\n\013\014]*/o;
+	my $s = '[ \t\r\n\013\014]';
 	
 	# Untaint the plural header.
-	if ($code =~ m{^($s
-					 nplurals$s=$s[0-9]+
-					 $s;$s
-					 plural$s=$s
-					 (?:.|$s|[-n\?\|\&=!<>+*/\%:;0-9\(\)])+
+	# Keep line breaks as is (Perl 5_005 compatibility).
+	if ($code =~ m{^($s*
+					 nplurals$s*=$s*[0-9]+
+					 $s*;$s*
+					 plural$s*=$s*(?:$s|[-\?\|\&=!<>+*/\%:;a-zA-Z0-9_\(\)])+
 					 )}xms) {
 		$domain->{po_header}->{plural_forms} = $1;
 	} else {
