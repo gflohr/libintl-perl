@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.14 2003/09/15 08:21:45 guido Exp $
+# $Id: Makefile.PL,v 1.15 2003/10/10 15:12:14 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -49,18 +49,27 @@ main (argc, argv)
 	int argc;
     char* argv[];
 {
+	/* FIXME: The gettext runtime libraries provided by Solaris 8 and 9
+           are not sufficient.  Those of Solaris 10 *may* work.  To play
+           safe, we currently only compile the XS version for GNU gettext
+           and use some undocumented features, to test for that.  Thanks
+           to Bruno Haible for the hint.  */
+	extern int _nl_msg_cat_cntr;
+        extern int* _nl_domain_bindings;
+
 	textdomain ("dummy");
 	bindtextdomain ("dummy", ".");
 	bind_textdomain_codeset ("dummy", "us-ascii");
 
 	gettext ("msgid");
-    dgettext ("dummy", "msgid");
-    dcgettext ("dummy", "msgid", LC_MESSAGES);
-	ngettext ("msgid", "msgid_plural", 1);
+    	dgettext ("dummy", "msgid");
+    	dcgettext ("dummy", "msgid", LC_MESSAGES);
+	ngettext ("msgid", "msgid_plural", 
+		  _nl_msg_cat_cntr + *_nl_domain_bindings); 
 	dngettext ("dummy", "msgid", "msgid_plural", 1);
 	dcngettext ("dummy", "msgid", "msgid_plural", 1, LC_MESSAGES);
 
-    return 0;
+    	return 0;
 }
 EOF
 

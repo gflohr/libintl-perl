@@ -1,4 +1,9 @@
-Version 1.04 -
+Version 1.05 - 10 Oct 2003
+
+* fixed compatibility problems with gettext libraries under Solaris 8
+  and higher
+
+Version 1.04 - 09 Oct 2003
 
 * support for language chains in $LANGUAGE (e. g. "fr_BE:fr:de")
 
