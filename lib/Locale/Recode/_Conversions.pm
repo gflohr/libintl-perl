@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.13 2003/09/10 17:03:33 guido Exp $
+# $Id: _Conversions.pm,v 1.14 2003/10/08 11:12:52 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -219,7 +219,8 @@ $optional_conversions = {
 	'ISO-2022-KR' => undef,
 	'ISO-8859-1' => undef,
 	'ISO-8859-10' => undef,
-	'ISO-8859-11' => undef,
+	# This is broken in some versions of Encode.
+	# 'ISO-8859-11' => undef,
 	'ISO-8859-13' => undef,
 	'ISO-8859-14' => undef,
 	'ISO-8859-15' => undef,
