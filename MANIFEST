@@ -1,6 +1,7 @@
 COPYING.LIB
 ChangeLog
 MANIFEST			This list of files
+META.yml
 Makefile.PL
 MyInstall.pm
 NEWS
