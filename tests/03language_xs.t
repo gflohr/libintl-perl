@@ -35,6 +35,7 @@ $locale_dir = File::Spec->catdir ($locale_dir, "LocaleData");
 
 my $textdomain = 'existing';
 $ENV{LANGUAGE} = 'ab_CD:ef_GH:de_AT:de';
+$ENV{OUTPUT_CHARSET} = 'iso-8859-1';
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 

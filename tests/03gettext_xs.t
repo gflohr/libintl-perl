@@ -35,7 +35,7 @@ $locale_dir = File::Spec->catdir ($locale_dir, "LocaleData");
 
 my $textdomain = 'existing';
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
-delete $ENV{OUTPUT_CHARSET};
+$ENV{OUTPUT_CHARSET} = 'iso-8859-1';
 
 POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
 
