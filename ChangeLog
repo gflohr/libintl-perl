@@ -1,3 +1,42 @@
+2003-11-28 17:47  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.07 
+
+2003-11-28 17:47  Guido Flohr <guido@imperia.net>
+
+	* BUGS, MANIFEST: removed BUGS (only known bug should be fixed now) 
+
+2003-11-28 17:13  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated 
+
+2003-11-28 17:09  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: 
+	- only call I18N::Langinfo methods for validated locales 
+	- allow 'utf8' as an alias for charsets derived from locale ids 
+
+2003-11-28 17:06  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: redirect configure output to config.log 
+
+2003-11-28 17:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: export turn_utf_8_off() 
+
+2003-11-28 17:05  Guido Flohr <guido@imperia.net>
+
+	* MyInstall.pm: removed debugging noise 
+
+2003-11-24 19:14  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/: Crypt-Twofish_PP.pot, POTFILES.in, de.mo,
+	de.po: updated 
+
+2003-11-24 16:32  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-11-24 16:32  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 1.06 
