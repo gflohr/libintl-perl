@@ -1,3 +1,15 @@
+2003-07-28 14:54  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 0.14 
+
+2003-07-28 14:51  Guido Flohr <guido@imperia.net>
+
+	* README, sample/README: fixed web addresses 
+
+2003-07-28 14:21  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-07-28 14:20  Guido Flohr <guido@imperia.net>
 
 	* sample/: README, simplecal/MANIFEST, simplecal/Makefile.PL,
