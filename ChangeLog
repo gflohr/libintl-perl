@@ -1,3 +1,20 @@
+2003-08-07 12:56  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: renamed variables 
+
+2003-08-07 12:54  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.00 
+
+2003-08-07 12:38  Guido Flohr <guido@imperia.net>
+
+	* README, lib/Locale/Messages.pm, lib/Locale/RecodeData.pm,
+	lib/Locale/Recode/_Aliases.pm, sample/README: documentation tweaks 
+
+2003-07-28 14:57  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # regenerated 
+
 2003-07-28 14:54  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 0.14 
