@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.15 2003/10/10 15:12:14 guido Exp $
+# $Id: Makefile.PL,v 1.16 2003/11/24 13:31:35 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -94,7 +94,7 @@ unless ($result == 0) {
 	$result = system $cmd;
 }
 unless ($result == 0) {
-	$cmd .= "-lintl -liconv";
+	$cmd .= " -liconv";
 	$result = system $cmd;
 }
 
