@@ -29,8 +29,11 @@ BEGIN {
 	plan tests => NUM_TESTS;
 }
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'C';
-delete $ENV{OUTPUT_CHARSET};
+Locale::Messages::nl_putenv ("LANGUAGE=C");
+Locale::Messages::nl_putenv ("LC_ALL=C");
+Locale::Messages::nl_putenv ("LANG=C");
+Locale::Messages::nl_putenv ("LC_MESSAGES=C");
+Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
 POSIX::setlocale (POSIX::LC_ALL() => '');
 
@@ -46,7 +49,10 @@ for (0 .. 9) {
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'C';
+Locale::Messages::nl_putenv ("LANGUAGE=C");
+Locale::Messages::nl_putenv ("LC_ALL=C");
+Locale::Messages::nl_putenv ("LANG=C");
+Locale::Messages::nl_putenv ("LC_MESSAGES=C");
 
 POSIX::setlocale (POSIX::LC_ALL() => '');
 
@@ -60,7 +66,10 @@ for (0 .. 9) {
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
+Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
+Locale::Messages::nl_putenv ("LC_ALL=de_AT");
+Locale::Messages::nl_putenv ("LANG=de_AT");
+Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
 POSIX::setlocale (POSIX::LC_ALL() => '');
 
@@ -69,7 +78,10 @@ for (0 .. 9) {
 	ok $_ == 1 ? 'Einzahl' eq $translation : 'Mehrzahl' eq $translation;
 }
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'C';
+Locale::Messages::nl_putenv ("LANGUAGE=C");
+Locale::Messages::nl_putenv ("LC_ALL=C");
+Locale::Messages::nl_putenv ("LANG=C");
+Locale::Messages::nl_putenv ("LC_MESSAGES=C");
 
 POSIX::setlocale (POSIX::LC_ALL() => '');
 
@@ -83,7 +95,10 @@ for (0 .. 9) {
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
+Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
+Locale::Messages::nl_putenv ("LC_ALL=de_AT");
+Locale::Messages::nl_putenv ("LANG=de_AT");
+Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
 POSIX::setlocale (POSIX::LC_ALL() => '');
 

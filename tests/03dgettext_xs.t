@@ -33,8 +33,11 @@ my $locale_dir = $0;
 $locale_dir =~ s,[^/\\]+$,, or $locale_dir = '.';
 $locale_dir .= '/LocaleData';
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
-$ENV{OUTPUT_CHARSET} = 'iso-8859-1';
+Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
+Locale::Messages::nl_putenv ("LC_ALL=de_AT");
+Locale::Messages::nl_putenv ("LANG=de_AT");
+Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
+Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
 POSIX::setlocale (POSIX::LC_ALL() => '');
 
