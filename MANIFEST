@@ -16,7 +16,6 @@ Locale/IconvData/CP1254.pm
 Locale/IconvData/CP1256.pm
 Locale/IconvData/CP1257.pm
 Locale/IconvData/CSN_369103.pm
-Locale/IconvData/CVS
 Locale/IconvData/CWI.pm
 Locale/IconvData/DEC_MCS.pm
 Locale/IconvData/EBCDIC_AT_DE.pm
@@ -137,7 +136,6 @@ README
 THANKS
 t/00base.t
 t/01trivial.t
-t/CVS
 t/asmo_449.t
 t/atari-st-euro.t
 t/atari-st.t
