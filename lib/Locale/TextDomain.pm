@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.7 2003/07/14 11:02:04 guido Exp $
+# $Id: TextDomain.pm,v 1.8 2003/07/15 12:02:02 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -72,7 +72,7 @@ use Locale::Messages qw (bindtextdomain dgettext dngettext);
 
 use vars qw ($VERSION);
 
-$VERSION = '0.12';
+$VERSION = '0.13';
 
 require Exporter;
 
@@ -256,7 +256,7 @@ sub __expand ($%)
     my ($translation, %args) = @_;
     
     my $re = join '|', map { quotemeta $_ } keys %args;
-    $translation =~ s/\[($re)\]/defined $args{$1} ? $args{$1} : "[$1]"/ge;
+    $translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
     
     return $translation;
 }
@@ -296,10 +296,10 @@ Locale::TextDomain - High-level interface to Perl i18n
 
  my @list = (N__"Hello",	N__"World");
  
- my @plurals = (N__ ("One world", "[num] worlds"), 
+ my @plurals = (N__ ("One world", "{num} worlds"), 
                 N__ ("1 file", "%d files"));
 
- my $question = __x ("Error reading file '[file]': [err]", 
+ my $question = __x ("Error reading file '{file}': {err}", 
                      file => $file, err => $!);
     
  printf (__n ("one file read", 
@@ -307,19 +307,13 @@ Locale::TextDomain - High-level interface to Perl i18n
               $num_files),
          $num_files);
 
- print __nx ("one file read", "[num] files read", $num_files,
+ print __nx ("one file read", "{num} files read", $num_files,
              num => $num_files);
 
 =head1 DESCRIPTION
 
 The module Locale::TextDomain(3pm) provides a high-level interface
-to Perl message translation.  In-depth documentation, including
-code examples, can be found here:
-
-L<http://let.imperia.org/howto/en/perl-i18n/>.
-
-This manual page only describes the basics that you will need for
-internationalizing your Perl scripts or modules.
+to Perl message translation.
 
 =head2 Textdomains
 
@@ -591,12 +585,12 @@ other problems anyway).
 So what? The Perl backend to GNU gettext has defined an alternative
 format for interpolatable strings:
 
-    "This is the [color] [thing].\n";
+    "This is the {color} {thing}.\n";
 
 Instead of Perl variables you use place-holders (legal Perl variables
 are also legal place-holders) in angle brackets, and then you call
 
-    print __x ("This is the [color] [thing].\n", 
+    print __x ("This is the {color} {thing}.\n", 
                thing => $thang,
                color => $color);
 
@@ -651,7 +645,7 @@ will always look okay.
 Bringing it all together:
 
     print __nx ("One file has been deleted.\n",
-                "[count] files have been deleted.\n",
+                "{count} files have been deleted.\n",
                 $num_files,
                 count => $num_files);
 
