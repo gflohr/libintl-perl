@@ -309,7 +309,7 @@ __END__
 
 =head1 NAME
 
-Locale::RecodeData::ISO_8859_1
+Locale::RecodeData::ISO_8859_1 - Conversion routines for ISO-8859-1
 
 =head1 SYNOPSIS
 

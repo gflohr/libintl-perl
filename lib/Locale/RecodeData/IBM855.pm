@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: IBM855.pm,v 1.9 2004/04/20 16:38:32 guido Exp $
+# $Id: IBM855.pm,v 1.10 2004/06/11 11:06:10 guido Exp $
 
 # Conversion routines for IBM855.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, all
@@ -831,7 +831,7 @@ __END__
 
 =head1 NAME
 
-Locale::RecodeData::IBM855
+Locale::RecodeData::IBM855 - Conversion routines for IBM855
 
 =head1 SYNOPSIS
 

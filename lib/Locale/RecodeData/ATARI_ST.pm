@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: ATARI_ST.pm,v 1.11 2004/04/20 16:38:32 guido Exp $
+# $Id: ATARI_ST.pm,v 1.12 2004/06/11 11:06:09 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, all
@@ -831,7 +831,7 @@ __END__
 
 =head1 NAME
 
-Locale::RecodeData::ATARI_ST
+Locale::RecodeData::ATARI_ST - Conversion routines for ATARI-ST
 
 =head1 SYNOPSIS
 

@@ -52,7 +52,7 @@ __END__
 
 =head1 NAME
 
-Locale::RecodeData::US_ASCII
+Locale::RecodeData::US_ASCII - Conversion routines for US-ASCII
 
 =head1 SYNOPSIS
 
