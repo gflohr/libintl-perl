@@ -3,3 +3,5 @@
 
 - Better support for Windows, the locale detection stuff does not
   really work there.  Any help would be appreciated.
+
+- Check whether other locale categories than LC_MESSAGES work.
