@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.11 2003/08/07 10:38:59 guido Exp $
+# $Id: Messages.pm,v 1.12 2003/09/07 19:44:56 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -260,7 +260,7 @@ __END__
 
 =head1 NAME
 
-Locale::Message - gettext like message retrieval
+Locale::Messages - gettext like message retrieval
 
 =head1 SYNOPSIS
 
@@ -481,7 +481,7 @@ POSIX::setlocale(), I<all> locale categories will be affected at once.
 
 =back
 
-=head1 EXPORT_TAGS
+=head1 EXPORT TAGS
 
 The module does not export anything unless explicitely requested.
 You can import groups of functions via two tags:
@@ -606,6 +606,9 @@ Locale::TextDomain(3pm), Locale::gettext_pp(3pm), Encode(3pm),
 perllocale(3pm), POSIX(3pm), perl(1), gettext(1), gettext(3)
 
 =cut
+
+__END__
+
 Local Variables:
 mode: perl
 perl-indent-level: 4
@@ -618,4 +621,3 @@ cperl-indent-level: 4
 cperl-continued-statement-offset: 2
 tab-width: 4
 End:
-=cut
