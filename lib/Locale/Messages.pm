@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+# $Id: Messages.pm,v 1.3 2003/06/10 16:06:05 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -215,8 +215,6 @@ sub LC_ALL
 1;
 
 __END__
-
-1;
 
 Local Variables:
 mode: perl
