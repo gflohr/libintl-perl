@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Encode.pm,v 1.3 2003/08/07 15:53:33 ingrid Exp $
+# $Id: _Encode.pm,v 1.4 2003/08/11 09:52:55 guido Exp $
 
 # Interface to Encode.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -67,7 +67,7 @@ Locale::RecodeData::_Encode
 
 =head1 SYNOPSIS
 
-use Locale::Recode::_Encode;
+use Locale::RecodeData::_Encode;
 
 This module is internal to libintl.  Do not use directly!
 
