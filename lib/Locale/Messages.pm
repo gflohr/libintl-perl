@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.5 2003/06/16 11:16:48 guido Exp $
+# $Id: Messages.pm,v 1.6 2003/06/20 14:58:30 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -100,6 +100,27 @@ sub select_package
     return $package;
 }
 
+# Turn the UTF-8 flag off unconditionally.
+my $has_encode;
+sub _turn_utf_8_off($)
+{
+    if ($] >= 5.006) {
+	unless (defined $has_encode) {
+	    eval "require Encode";
+	    $has_encode = !$@;
+	}
+
+	if ($has_encode) {
+	    Encode::_utf8_off ($_[0]);
+	} else {
+	    # Anything better?
+	    eval q{use bytes; $_[0] = join '', split //, $_[0]};
+	}
+    }
+
+    return $_[0];
+}
+
 sub textdomain(;$)
 {
     'gettext' eq $package ?
@@ -123,44 +144,44 @@ sub bind_textdomain_codeset($;$)
 
 sub gettext($)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::gettext :
-	&Locale::gettext_pp::gettext;
+    _turn_utf_8_off ('gettext' eq $package ?
+		     &Locale::gettext::gettext :
+		     &Locale::gettext_pp::gettext);
 }
 
 sub dgettext($$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::dgettext :
-	&Locale::gettext_pp::dgettext;
+    _turn_utf_8_off ('gettext' eq $package ?
+		     &Locale::gettext::dgettext :
+		     &Locale::gettext_pp::dgettext);
 }
 
 sub dcgettext($$$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::dcgettext :
-	&Locale::gettext_pp::dcgettext;
+    _turn_utf_8_off ('gettext' eq $package ?
+		     &Locale::gettext::dcgettext :
+		     &Locale::gettext_pp::dcgettext);
 }
 
 sub ngettext($$$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::ngettext :
-	&Locale::gettext_pp::ngettext;
+    _turn_utf_8_off ('gettext' eq $package ?
+		     &Locale::gettext::ngettext :
+		     &Locale::gettext_pp::ngettext);
 }
 
 sub dngettext($$$$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::dngettext :
-	&Locale::gettext_pp::dngettext;
+    _turn_utf_8_off ('gettext' eq $package ?
+		     &Locale::gettext::dngettext :
+		     &Locale::gettext_pp::dngettext);
 }
 
 sub dcngettext($$$$$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::dcngettext :
-	&Locale::gettext_pp::dcngettext;
+    _turn_utf_8_off ('gettext' eq $package ?
+		     &Locale::gettext::dcngettext :
+		     &Locale::gettext_pp::dcngettext);
 }
 
 sub LC_NUMERIC
