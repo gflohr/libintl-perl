@@ -3,7 +3,7 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'		=> 'libintl-perl',
-    'VERSION_FROM'	=> 'Locale/Iconv.pm', # finds $VERSION
+    'VERSION_FROM'	=> 'Locale/Recode.pm', # finds $VERSION
     'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
 );
 
