@@ -1,10 +1,49 @@
+2003-11-24 16:32  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.06 
+
+2003-11-24 16:32  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/: ISO_8859_1.pm, US_ASCII.pm: added pod 
+
+2003-11-24 16:31  Guido Flohr <guido@imperia.net>
+
+	* BUGS, NEWS: updated 
+
+2003-11-24 14:57  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: avoid warning without I18N::Langinfo 
+
+2003-11-24 14:57  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: updated 
+
+2003-11-24 14:32  Guido Flohr <guido@imperia.net>
+
+	* sample/README: all package-dependent information now goes into
+	one single file PACKAGE 
+
+2003-11-24 14:31  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: do not include -liconv twice 
+
+2003-11-24 14:25  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/: LINGUAS, Makefile, PACKAGE, TEXTDOMAIN: put
+	all package-dependent information into single file PACKAGE 
+
+2003-10-10 17:38  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.xs, lib/Locale/Messages.pm: check for
+	version match (do not load stale XS versions at run-time) 
+
 2003-10-10 17:14  Guido Flohr <guido@imperia.net>
 
 	* tests/: 03language_pp.t, 03language_xs.t: added 
 
 2003-10-10 17:13  Guido Flohr <guido@imperia.net>
 
-	* ChangeLog: # re-generated 
+	* ChangeLog, ChangeLog: # re-generated 
 
 2003-10-10 17:13  Guido Flohr <guido@imperia.net>
 
