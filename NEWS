@@ -1,3 +1,9 @@
+Version 1.06 - 24 Nov 2003
+
+* fixed warning/error under Solaris 8 when I18N::Langinfo is not available
+
+* simplified sample packaging
+
 Version 1.05 - 10 Oct 2003
 
 * fixed compatibility problems with gettext libraries under Solaris 8

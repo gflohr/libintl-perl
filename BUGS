@@ -1,1 +1,8 @@
-This file intentionally left blank. ;-)
+The test tests/03language_pp.t currently (24 Nov 2003) fails with 
+on the ActiveState build server with ActiveState Perl 8xx:
+
+http://ppm.activestate.com/BuildStatus/5.8-linux/linux-5.8/libintl-perl-1.05.txt
+
+I cannot reproduce this failure here.  I have installed ActiveState Perl
+for Linux, I have even uninstalled my de and de_AT locale here, still no
+point.  Any help would be appreciated.
