@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: EUC_KR.pm,v 1.1 2003/06/05 17:32:15 guido Exp $
+# $Id: EUC_KR.pm,v 1.2 2003/06/05 18:30:44 guido Exp $
 
 # Conversion routines for EUC-KR.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -16829,10 +16829,8 @@ sub _recode
 							$unknown_chr),
 						   @{$_[1]}));
     } else {
-		# FIXME: This is awfully slow!
 		unless ($conv_re) {
-			my $all = join '|', map quotemeta $_, keys %to_ucs;
-			$conv_re = qr /$all/;
+			$conv_re = qr /[\xa1-\xfe]?./os;
 		}
 
 		my @outbuf;
