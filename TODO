@@ -1,11 +1,5 @@
 - add conversion modules for other Unicode encodings than UTF-8 
   (UTF-16, UCS-*)
 
-- update documentation:
-  o Perl printf() as of Perl 5.8 supports positional parameters
-  o remove references to unwritten Perl-I18N-HOWTO
-  o placeholder format changed from [brackets] to {braces}
-  o re-sync with GNU gettext
-
-- write self-containing example with Makefile that shows the entire
-  process of message extraction, translation, maintainance and installation
+- Better support for Windows, the locale detection stuff does not
+  really work there.  Any help would be appreciated.

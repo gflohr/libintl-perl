@@ -1,5 +1,12 @@
+Version 1.02 - 04 Sep 2003
+
+* bugfixes for systems that lack both /usr/share/locale and
+  /usr/local/share/locale
+
+* compatibility tweaks for Perl 5.005
+
 Version 1.01 - 19 Aug 2003
 
-* Bugfixes
+* bugfixes
 
-* Compatibility tweaks for MS-DOS
+* compatibility tweaks for MS-DOS

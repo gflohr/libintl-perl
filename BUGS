@@ -1,3 +1,1 @@
-- Tests 1 and 4 of bindtextdomain_pp.t have been reported to fail on sun4-solaris 
-  version 2.8 for unknown reasons.  I can currently only guess (locale de or DE_AT
-  not installed?).  Any help would be greatly appreciated.
+This file intentionally left blank. ;-)
