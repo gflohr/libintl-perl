@@ -175,10 +175,9 @@ sample/simplecal/lib/LocaleData/pt/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/LocaleData/pt_BR/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/LocaleData/ru/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/SimpleCal.pm
-sample/simplecal/po/LINGUAS
 sample/simplecal/po/Makefile
+sample/simplecal/po/PACKAGE
 sample/simplecal/po/POTFILES.in
-sample/simplecal/po/TEXTDOMAIN
 sample/simplecal/po/all.pot
 sample/simplecal/po/ar.po
 sample/simplecal/po/ar_SA.po
