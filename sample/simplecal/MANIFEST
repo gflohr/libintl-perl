@@ -2,10 +2,9 @@ MANIFEST
 Makefile.PL
 bin/simplecal.pl
 lib/SimpleCal.pm
-po/LINGUAS
 po/Makefile
+po/PACKAGE
 po/POTFILES.in
-po/TEXTDOMAIN
 po/ar.po
 po/ar_SA.po
 po/de.po
