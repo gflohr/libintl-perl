@@ -158,12 +158,12 @@ exactly one subscriber and zero postings.  But don't be shy, join
 it. ;-)
 
 In order to make use of the software, you will also need various tools
-from GNU gettext.  The documentation for GNU gettext is availabe on
-the web at http://www.gnu.org/software/gettext (FIXME: Check the
-address!).  You will find there a language-independent overview of
+from GNU gettext (http://savannah.gnu.org/projects/gettext/).  The
+documentation is located at http://www.gnu.org/manual/gettext/.
+You will find there a language-independent overview of 
 internationalization with GNU gettext, and in the Perl-specific
 sections you will find details about the parser that extracts
-translatable messages from your Perl sources.
+translatable messages from your Perl sources. 
 
 Quick-Start
 -----------

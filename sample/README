@@ -31,9 +31,9 @@ If, however, xgettext lies "language 'perl' unknown" then you have to
 update your installation.  The future version 0.12.2 of GNU gettext or newer
 are probably okay, if this is not yet available you will have to check
 out a CVS snapshot.  Instructions for all of that are available at
-http://savannah.gnu.org/gettext/.  If you are not able to get or build
-a sufficient version of GNU gettext, ask at the mailing list for
-libintl-perl (subscription at
+http://savannah.gnu.org/projects/gettext/.  If you are not able to get 
+or build a sufficient version of GNU gettext, ask at the mailing list for
+libintl-perl (subscription at 
 http://ml.imperia.org/mailman/listinfo/libintl-perl) for help.
 Somebody may have precompiled binaries for your system.
 
