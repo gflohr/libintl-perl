@@ -1,3 +1,17 @@
+2003-07-15 14:07  Guido Flohr <guido@imperia.net>
+
+	* BUGS, MANIFEST, README, TODO: updated 
+
+2003-07-15 14:02  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: 
+	- changed placeholder format to {curlies} 
+	- bumped version number to 0.13 
+
+2003-07-14 17:46  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # updated 
+
 2003-07-14 17:36  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/gettext_pp.pm: early exit if no directories for
