@@ -1,10 +1,10 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_xs.pm,v 1.3 2004/01/08 17:20:11 guido Exp $
+# $Id: gettext_xs.pm,v 1.4 2004/01/08 17:25:57 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it

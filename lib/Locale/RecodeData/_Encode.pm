@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Encode.pm,v 1.6 2003/09/10 17:03:35 guido Exp $
+# $Id: _Encode.pm,v 1.7 2004/01/08 17:26:00 guido Exp $
 
 # Interface to Encode.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -74,7 +74,7 @@ of Encode.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

@@ -1,10 +1,10 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: test.pl,v 1.3 2003/09/10 17:03:33 guido Exp $
+# $Id: test.pl,v 1.4 2004/01/08 17:25:57 guido Exp $
 
 # Portable character conversion for Perl.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it

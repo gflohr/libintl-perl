@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ISO_5427_EXT.pm,v 1.7 2003/09/10 17:03:34 guido Exp $
+# $Id: ISO_5427_EXT.pm,v 1.8 2004/01/08 17:25:59 guido Exp $
 
 # Conversion routines for ISO_5427-EXT.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
 
@@ -762,7 +762,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

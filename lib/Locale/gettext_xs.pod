@@ -1,10 +1,10 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_xs.pod,v 1.2 2004/01/08 17:20:11 guido Exp $
+# $Id: gettext_xs.pod,v 1.3 2004/01/08 17:25:58 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -73,7 +73,7 @@ separator) to local semantics (for example the backslash for MS-DOS).
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 The module is based on the work of Phillip Vandry <vandry@Mlink.NET>

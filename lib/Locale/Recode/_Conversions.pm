@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.14 2003/10/08 11:12:52 guido Exp $
+# $Id: _Conversions.pm,v 1.15 2004/01/08 17:25:58 guido Exp $
 
 # List of internally known conversions.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 # This file is generated, do not edit!
 
@@ -436,7 +436,7 @@ This module is internal to libintl.  Do not use it directly!
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

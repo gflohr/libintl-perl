@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ATARI_ST_EURO.pm,v 1.9 2003/12/23 15:22:58 guido Exp $
+# $Id: ATARI_ST_EURO.pm,v 1.10 2004/01/08 17:25:58 guido Exp $
 
 # Conversion routines for ATARI-ST-EURO.
-# Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
+# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
 
@@ -1121,7 +1121,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 
