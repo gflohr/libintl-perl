@@ -13,8 +13,6 @@ my $original_code = sub { &$ExtUtils::Install::directory_not_empty };
 sub ExtUtils::Install::directory_not_empty ($) {
 	my($dir) = @_;
 
-print STDERR "********* Checking $dir ***************\n";
-
 	return 0 if $dir eq 'blib/arch';
 
 	goto &$original_code;
