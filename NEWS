@@ -1,3 +1,9 @@
+Version 1.07 - 28 Nov 2003
+
+* bug with charset detection via I18N::Langinfo fixed
+
+* new function Locale::Messages::turn_utf_8_off()
+
 Version 1.06 - 24 Nov 2003
 
 * fixed warning/error under Solaris 8 when I18N::Langinfo is not available
