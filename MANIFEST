@@ -149,6 +149,7 @@ lib/Locale/RecodeData/TIS_620.pm
 lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/UTF_8_Encode.pm
 lib/Locale/RecodeData/VISCII.pm
+lib/Locale/TextDomain.pm
 lib/Locale/gettext_pp.pm
 BUGS
 MANIFEST
@@ -287,6 +288,7 @@ t/02mac-is.t
 t/02mac-sami.t
 t/02mac-uk.t
 t/02macintosh.t
+t/02ms_kanji.t
 t/02nats-dano.t
 t/02nats-sefi.t
 t/02sami-ws2.t
