@@ -1,4 +1,4 @@
-Version 1.03 - 14 Sep 2003
+Version 1.03 - 15 Sep 2003
 
 * alternative XS implemenation of gettext() and friends (outperforms
   pure Perl version by factor 10-15)
