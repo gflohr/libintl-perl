@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.5 2003/06/05 17:32:14 guido Exp $
+# $Id: _Conversions.pm,v 1.6 2003/06/05 20:08:39 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -176,9 +176,9 @@ use constant CONVERSIONS => {
     'EUC-KR//' => {
 		'INTERNAL' => 'EUC_KR',
     },
-    #'EUC-TW//' => {
-	#	'INTERNAL' => 'EUC_TW',
-    #},
+    'EUC-TW//' => {
+		'INTERNAL' => 'EUC_TW',
+    },
     'GEORGIAN-ACADEMY//' => {
 		'INTERNAL' => 'GEORGIAN_ACADEMY',
 		'UTF-8//' => 'GEORGIAN_ACADEMY',
@@ -444,7 +444,7 @@ use constant CONVERSIONS => {
 		'ECMA-CYRILLIC//' => 'ECMA_CYRILLIC',
 		'EUC-JP//' => 'EUC_JP',
 		'EUC-KR//' => 'EUC_KR',
-		#'EUC-TW//' => 'EUC_TW',
+		'EUC-TW//' => 'EUC_TW',
 		'GEORGIAN-ACADEMY//' => 'GEORGIAN_ACADEMY',
 		'GEORGIAN-PS//' => 'GEORGIAN_PS',
 		'GOST_19768-74//' => 'GOST_19768_74',

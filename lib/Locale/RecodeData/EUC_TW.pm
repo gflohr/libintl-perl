@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: EUC_TW.pm,v 1.1 2003/06/05 17:32:15 guido Exp $
+# $Id: EUC_TW.pm,v 1.2 2003/06/05 20:08:39 guido Exp $
 
 # Conversion routines for EUC-TW.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -28,6 +28,10 @@
 
 # See Locale::RecodeData::EUC_TW.pod for documentation!
 		
+# FIXME: CNS 11643-1992 Plane 1 is actually encoded redundandtly
+# in Code set 1 (two bytes) and Code set 2 (4 bytes).
+# The four byte codes are not recognized!
+
 package Locale::RecodeData::EUC_TW;
 	
 use strict;
@@ -13704,7 +13708,8 @@ my %from_ucs = (
 	    0x51e3 => "\x8e\xa3\xa1\xb5",
 	    0x5204 => "\x8e\xa3\xa1\xb6",
 	    0x529c => "\x8e\xa3\xa1\xb7",
-	    0x5344 => "\x8e\xa3\xa1\xb8",
+		# This code is redundant.
+	    # 0x5344 => "\x8e\xa3\xa1\xb8",
 	    0x5902 => "\x8e\xa3\xa1\xb9",
 	    0x590a => "\x8e\xa3\xa1\xba",
 	    0x5b80 => "\x8e\xa3\xa1\xbb",
@@ -110043,12 +110048,11 @@ sub _recode
     } else {
 		# FIXME: This is awfully slow!
 		unless ($conv_re) {
-			my $all = join '|', map quotemeta $_, keys %to_ucs;
-			$conv_re = qr /$all/;
+			$conv_re = qr /(?:(?:\x8e[\xa1-\xaf])?[\xa1-\xfe][\xa1-\xfe]|.)/so;
 		}
 
 		my @outbuf;
-		$_[1] =~ s/($conv_re|.)/
+		$_[1] =~ s/($conv_re)/
 			push @outbuf, ($to_ucs{$1} || 
 						   (exists $to_ucs{$1} ?
 							0 : $unknown));

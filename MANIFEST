@@ -192,6 +192,7 @@ t/02ebcdic-us.t
 t/02ecma-cyrillic.t
 t/02euc-jp.t
 t/02euc-kr.t
+t/02euc-tw.t
 t/02georgian-academy.t
 t/02georgian-ps.t
 t/02gost_19768-74.t

@@ -1,0 +1,2 @@
+- the multi-byte encodings are merely approximations :-(
+- special case: irreversible encodings are not properly handled
