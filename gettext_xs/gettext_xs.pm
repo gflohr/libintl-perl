@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_xs.pm,v 1.1 2003/09/15 08:21:46 guido Exp $
+# $Id: gettext_xs.pm,v 1.2 2004/01/08 13:32:48 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -73,6 +73,22 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA);
 @ISA = qw (Exporter DynaLoader);
 
 bootstrap Locale::gettext_xs;
+
+require File::Spec;
+
+# Wrapper function that converts Perl paths to 
+sub bindtextdomain ($;$)
+{
+	my ($domain, $directory) = @_;
+
+	if (defined $domain && length $domain && 
+		defined $directory && length $directory) {
+		return Locale::gettext_xs::_bindtextdomain 
+			($domain, File::Spec->catdir ($directory));
+	} else {
+		return &Locale::gettext_xs::_bindtextdomain;
+	}
+}
 
 1;
 

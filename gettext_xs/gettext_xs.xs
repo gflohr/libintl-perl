@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.3 2004/01/02 18:10:03 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.4 2004/01/08 13:32:48 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -169,7 +169,7 @@ textdomain (domain)
 	RETVAL
 
 char*
-bindtextdomain (domain = NULL, dirname = NULL)
+_bindtextdomain (domain = NULL, dirname = NULL)
 	char* domain
 	char* dirname
     PROTOTYPE: $;$
