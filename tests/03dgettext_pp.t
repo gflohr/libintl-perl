@@ -30,7 +30,7 @@ BEGIN {
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^/\\]+$,, or $locale_dir = '.';
-$locale_dir .= '/locale';
+$locale_dir .= '/LocaleData';
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 delete $ENV{OUTPUT_CHARSET};

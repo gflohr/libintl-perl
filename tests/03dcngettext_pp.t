@@ -35,7 +35,7 @@ POSIX::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
-$locale_dir .= '/locale';
+$locale_dir .= '/LocaleData';
 
 bindtextdomain not_here => $locale_dir;
 
