@@ -1,3 +1,19 @@
+2003-11-30 19:45  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.08 
+
+2003-11-30 19:44  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated 
+
+2003-11-30 19:35  Guido Flohr <guido@imperia.net>
+
+	* MyInstall.pm: fixed bug #4512 on https://rt.cpan.org/ 
+
+2003-11-28 17:47  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-11-28 17:47  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 1.07 
