@@ -1,3 +1,26 @@
+2003-09-04 17:23  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.02 
+
+2003-09-04 17:23  Guido Flohr <guido@imperia.net>
+
+	* BUGS, NEWS, TODO: updated 
+
+2003-09-04 15:31  Guido Flohr <guido@imperia.net>
+
+	* tests/: locale/de_AT/LC_MESSAGES/additional.mo,
+	po/additional.de_AT.po: added plural rules for de_AT to test
+	catalog 
+
+2003-09-04 12:48  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: compatibility with GNU gettext for
+	systems w/o /usr/share/locale 
+
+2003-08-19 20:49  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # updated 
+
 2003-08-19 20:49  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 1.01 
