@@ -46,9 +46,10 @@ ok $result_int;
 
 # Convert from internal representation.
 my $result_rev = 1;
-if (0) {
+if (1) {
 	# FIXME: This test only succeeds with use bytes in Perl >= 5.8.0.
 	# However, this will fail with Perl <= Perl 5.6.0. :-(
+	# FIXME: Is it really fixed now?
 while (my ($ucs4, $code) = each %$codes) {
     my $outbuf = [ $ucs4 ];
     my $result = $cd_rev->recode ($outbuf);
