@@ -9,13 +9,13 @@ use Test;
 
 BEGIN { plan tests => 4 }
 
-require Locale::Iconv;
+require Locale::Recode;
 
 sub compare_internal;
 
 my $text = 'Perl';
 my $expect = [ unpack 'C*', $text ];
-my $cd = Locale::Iconv->new (from => 'ISO-8859-1',
+my $cd = Locale::Recode->new (from => 'ISO-8859-1',
 							 to => 'INTERNAL');
 
 ok !$cd->getError;
@@ -24,7 +24,7 @@ my $result = $text;
 ok $cd->recode ($result) && compare_internal $expect => $result;
 
 # Aliases!
-$cd = Locale::Iconv->new (from => 'lAtIn2',
+$cd = Locale::Recode->new (from => 'lAtIn2',
 						  to => 'l3');
 
 ok !$cd->getError;
