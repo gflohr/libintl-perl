@@ -1,3 +1,127 @@
+2003-08-19 20:49  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.01 
+
+2003-08-19 20:48  Guido Flohr <guido@imperia.net>
+
+	* README: deleted reference to README-MSDOS 
+
+2003-08-19 20:44  Guido Flohr <guido@imperia.net>
+
+	* BUGS: bug report from cpan-testers 
+
+2003-08-19 20:38  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: requires ExtUtils::Command::MM for test wrapper 
+
+2003-08-19 20:37  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ISO_8859_11.pm, tests/02iso-8859-11.t,
+	tests/02tis-620.t: fixed ISO-8859-11 recoding 
+
+2003-08-19 19:25  Guido Flohr <guido@imperia.net>
+
+	* tests/: 02iso-8859-11.t, 02tis-620.t: fixed Thai character sets 
+
+2003-08-19 18:52  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, NEWS: updated/added 
+
+2003-08-19 18:49  Guido Flohr <guido@imperia.net>
+
+	* README-MSDOS: obsolete 
+
+2003-08-19 18:48  Guido Flohr <guido@imperia.net>
+
+	* test.pl: workaround for broken or limited shells to allow testing 
+	(thanks to DH <crazyinsomniac@yahoo.com> for the hint) 
+
+2003-08-19 18:47  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, tests/00gettext.t, tests/00recode.t, tests/01trivial.t,
+	tests/02asmo_449.t, tests/02atari-st-euro.t, tests/02atari-st.t,
+	tests/02cp10007.t, tests/02cp1250.t, tests/02cp1251.t,
+	tests/02cp1252.t, tests/02cp1253.t, tests/02cp1254.t,
+	tests/02cp1256.t, tests/02cp1257.t, tests/02csn_369103.t,
+	tests/02cwi.t, tests/02dec-mcs.t, tests/02ebcdic-at-de-a.t,
+	tests/02ebcdic-at-de.t, tests/02ebcdic-ca-fr.t,
+	tests/02ebcdic-dk-no-a.t, tests/02ebcdic-dk-no.t,
+	tests/02ebcdic-es-a.t, tests/02ebcdic-es-s.t, tests/02ebcdic-es.t,
+	tests/02ebcdic-fi-se-a.t, tests/02ebcdic-fi-se.t,
+	tests/02ebcdic-fr.t, tests/02ebcdic-is-friss.t,
+	tests/02ebcdic-it.t, tests/02ebcdic-pt.t, tests/02ebcdic-uk.t,
+	tests/02ebcdic-us.t, tests/02ecma-cyrillic.t,
+	tests/02georgian-academy.t, tests/02georgian-ps.t,
+	tests/02gost_19768-74.t, tests/02greek-ccitt.t,
+	tests/02greek7-old.t, tests/02greek7.t, tests/02hp-roman8.t,
+	tests/02ibm037.t, tests/02ibm038.t, tests/02ibm1004.t,
+	tests/02ibm1026.t, tests/02ibm1047.t, tests/02ibm256.t,
+	tests/02ibm273.t, tests/02ibm274.t, tests/02ibm275.t,
+	tests/02ibm277.t, tests/02ibm278.t, tests/02ibm280.t,
+	tests/02ibm281.t, tests/02ibm284.t, tests/02ibm285.t,
+	tests/02ibm290.t, tests/02ibm297.t, tests/02ibm420.t,
+	tests/02ibm423.t, tests/02ibm424.t, tests/02ibm437.t,
+	tests/02ibm500.t, tests/02ibm850.t, tests/02ibm851.t,
+	tests/02ibm852.t, tests/02ibm855.t, tests/02ibm857.t,
+	tests/02ibm860.t, tests/02ibm861.t, tests/02ibm862.t,
+	tests/02ibm863.t, tests/02ibm864.t, tests/02ibm865.t,
+	tests/02ibm866.t, tests/02ibm868.t, tests/02ibm869.t,
+	tests/02ibm870.t, tests/02ibm871.t, tests/02ibm874.t,
+	tests/02ibm875.t, tests/02ibm880.t, tests/02ibm891.t,
+	tests/02ibm903.t, tests/02ibm904.t, tests/02ibm905.t,
+	tests/02ibm918.t, tests/02iec_p27-1.t, tests/02inis-8.t,
+	tests/02inis-cyrillic.t, tests/02inis.t, tests/02iso-8859-1.t,
+	tests/02iso-8859-10.t, tests/02iso-8859-11.t,
+	tests/02iso-8859-13.t, tests/02iso-8859-14.t,
+	tests/02iso-8859-15.t, tests/02iso-8859-16.t, tests/02iso-8859-2.t,
+	tests/02iso-8859-3.t, tests/02iso-8859-4.t, tests/02iso-8859-5.t,
+	tests/02iso-8859-6.t, tests/02iso-8859-7.t, tests/02iso-8859-8.t,
+	tests/02iso-8859-9.t, tests/02iso_10367-box.t,
+	tests/02iso_2033-1983.t, tests/02iso_5427-ext.t,
+	tests/02iso_5427.t, tests/02iso_5428.t, tests/02koi-8.t,
+	tests/02koi8-r.t, tests/02koi8-ru.t, tests/02koi8-t.t,
+	tests/02koi8-u.t, tests/02latin-greek-1.t, tests/02latin-greek.t,
+	tests/02mac-is.t, tests/02mac-sami.t, tests/02mac-uk.t,
+	tests/02macarabic.t, tests/02maccroatian.t, tests/02maccyrillic.t,
+	tests/02macgreek.t, tests/02machebrew.t, tests/02maciceland.t,
+	tests/02macintosh.t, tests/02macromania.t, tests/02macthai.t,
+	tests/02macturkish.t, tests/02macukraine.t, tests/02nats-dano.t,
+	tests/02nats-sefi.t, tests/02nextstep.t, tests/02sami-ws2.t,
+	tests/02tis-620.t, tests/02us-ascii.t, tests/02utf-8.t,
+	tests/02viscii.t, tests/03bind_textdomain_codeset.t,
+	tests/03bind_textdomain_codeset_pp.t, tests/03bindtextdomain.t,
+	tests/03bindtextdomain_pp.t, tests/03dcgettext.t,
+	tests/03dcgettext_pp.t, tests/03dcngettext.t,
+	tests/03dcngettext_pp.t, tests/03dgettext.t, tests/03dgettext_pp.t,
+	tests/03dngettext.t, tests/03dngettext_pp.t, tests/03gettext.t,
+	tests/03gettext_pp.t, tests/03ngettext.t, tests/03ngettext_pp.t,
+	tests/03textdomain.t, tests/03textdomain_pp.t,
+	tests/locale/de/LC_MESSAGES/additional.mo,
+	tests/locale/de/LC_MESSAGES/existing.mo,
+	tests/locale/de_AT/LC_MESSAGES/additional.mo,
+	tests/locale/de_AT/LC_MESSAGES/existing.mo, tests/po/Makefile,
+	tests/po/additional.de.po, tests/po/additional.de_AT.po,
+	tests/po/existing.de.po, tests/po/existing.de_AT.po: 
+	- directory t/ moved to tests/ 
+
+2003-08-19 18:43  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/_Encode.pm: merged from norma branch 
+
+2003-08-11 11:52  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/_Encode.pm: fixed pod typo (reported by
+	Mike Castle <dalgoda@ix.netcom.com>) 
+
+2003-08-07 17:53  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/RecodeData/_Encode.pm: _recode must return a true
+	value if Encode::from_to returns 0 
+
+2003-08-07 12:57  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-08-07 12:56  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/gettext_pp.pm: renamed variables 
@@ -292,7 +416,7 @@
 
 2003-06-16 13:44  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/US_ASCII.pm, t/02us-ascii.t: 
+	* lib/Locale/RecodeData/US_ASCII.pm: 
 	- now replaces with Unicode replacement char 0xfffd 
 	- fixed test 
 
@@ -315,50 +439,28 @@
 
 2003-06-16 13:14  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/ISO_IR_197.pm,
-	lib/Locale/RecodeData/ISO_IR_209.pm, t/02iso-ir-197.t,
-	t/02iso-ir-209.t: removed iso-ir-{197,209} 
-
-2003-06-16 13:13  Guido Flohr <guido@imperia.net>
-
-	* t/02utf-8.t: utf-8 should now pass all tests, even with Perl 5.8 
-
-2003-06-16 13:11  Guido Flohr <guido@imperia.net>
-
-	* t/02mac.t: Mac is now Macintosh 
+	* lib/Locale/RecodeData/: ISO_IR_197.pm, ISO_IR_209.pm: removed
+	iso-ir-{197,209} 
 
 2003-06-16 13:10  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/KOI8_RU.pm, t/02koi8-ru.t: added KOI8-RU 
+	* lib/Locale/RecodeData/KOI8_RU.pm: added KOI8-RU 
 
 2003-06-16 13:10  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/NEXTSTEP.pm, t/02nextstep.t: NextStep
-	encoding added 
+	* lib/Locale/RecodeData/NEXTSTEP.pm: NextStep encoding added 
 
 2003-06-16 13:08  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/MACARABIC.pm,
-	lib/Locale/RecodeData/MACCROATIAN.pm,
-	lib/Locale/RecodeData/MACCYRILLIC.pm,
-	lib/Locale/RecodeData/MACGREEK.pm,
-	lib/Locale/RecodeData/MACHEBREW.pm,
-	lib/Locale/RecodeData/MACICELAND.pm,
-	lib/Locale/RecodeData/MACINTOSH.pm,
-	lib/Locale/RecodeData/MACROMANIA.pm,
-	lib/Locale/RecodeData/MACTHAI.pm,
-	lib/Locale/RecodeData/MACTURKISH.pm,
-	lib/Locale/RecodeData/MACUKRAINE.pm, t/02macarabic.t,
-	t/02maccroatian.t, t/02maccyrillic.t, t/02macgreek.t,
-	t/02machebrew.t, t/02maciceland.t, t/02macintosh.t,
-	t/02macromania.t, t/02macthai.t, t/02macturkish.t,
-	t/02macukraine.t: Macintosh encodings added 
+	* lib/Locale/RecodeData/: MACARABIC.pm, MACCROATIAN.pm,
+	MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
+	MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
+	MACUKRAINE.pm: Macintosh encodings added 
 
 2003-06-16 13:07  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/ASCII.pm,
-	lib/Locale/RecodeData/US_ASCII.pm, t/02ascii.t, t/02us-ascii.t: 
-	renamed ASCII to US-ASCII 
+	* lib/Locale/RecodeData/: ASCII.pm, US_ASCII.pm: renamed ASCII to
+	US-ASCII 
 
 2003-06-16 13:05  Guido Flohr <guido@imperia.net>
 
@@ -368,8 +470,7 @@
 2003-06-15 16:50  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, THANKS, lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm, t/02atari-st-euro.t,
-	t/02atari-st.t, t/02x-atari-st-euro.t, t/02x-atari-st.t,
+	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
 	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm: 
 	renamed X-ATARI-ST and X-ATARI-ST-EURO to ATARI-ST and ATARI-ST-EURO 
 
@@ -481,49 +582,7 @@
 	lib/Locale/RecodeData/SAMI_WS2.pm,
 	lib/Locale/RecodeData/TIS_620.pm,
 	lib/Locale/RecodeData/UTF_8_Encode.pm,
-	lib/Locale/RecodeData/VISCII.pm, t/02ascii.t, t/02asmo_449.t,
-	t/02atari-st-euro.t, t/02atari-st.t, t/02big-5.t, t/02big5-hkscs.t,
-	t/02cp10007.t, t/02cp1250.t, t/02cp1251.t, t/02cp1252.t,
-	t/02cp1253.t, t/02cp1254.t, t/02cp1256.t, t/02cp1257.t,
-	t/02cp1361.t, t/02cp949.t, t/02csn_369103.t, t/02cwi.t,
-	t/02dec-mcs.t, t/02ebcdic-at-de-a.t, t/02ebcdic-at-de.t,
-	t/02ebcdic-ca-fr.t, t/02ebcdic-dk-no-a.t, t/02ebcdic-dk-no.t,
-	t/02ebcdic-es-a.t, t/02ebcdic-es-s.t, t/02ebcdic-es.t,
-	t/02ebcdic-fi-se-a.t, t/02ebcdic-fi-se.t, t/02ebcdic-fr.t,
-	t/02ebcdic-is-friss.t, t/02ebcdic-it.t, t/02ebcdic-pt.t,
-	t/02ebcdic-uk.t, t/02ebcdic-us.t, t/02ecma-cyrillic.t,
-	t/02euc-jp.t, t/02euc-kr.t, t/02euc-tw.t, t/02georgian-academy.t,
-	t/02georgian-ps.t, t/02gost_19768-74.t, t/02greek-ccitt.t,
-	t/02greek7-old.t, t/02greek7.t, t/02hp-roman8.t, t/02ibm037.t,
-	t/02ibm038.t, t/02ibm1004.t, t/02ibm1026.t, t/02ibm1047.t,
-	t/02ibm256.t, t/02ibm273.t, t/02ibm274.t, t/02ibm275.t,
-	t/02ibm277.t, t/02ibm278.t, t/02ibm280.t, t/02ibm281.t,
-	t/02ibm284.t, t/02ibm285.t, t/02ibm290.t, t/02ibm297.t,
-	t/02ibm420.t, t/02ibm423.t, t/02ibm424.t, t/02ibm437.t,
-	t/02ibm500.t, t/02ibm850.t, t/02ibm851.t, t/02ibm852.t,
-	t/02ibm855.t, t/02ibm857.t, t/02ibm860.t, t/02ibm861.t,
-	t/02ibm862.t, t/02ibm863.t, t/02ibm864.t, t/02ibm865.t,
-	t/02ibm866.t, t/02ibm868.t, t/02ibm869.t, t/02ibm870.t,
-	t/02ibm871.t, t/02ibm874.t, t/02ibm875.t, t/02ibm880.t,
-	t/02ibm891.t, t/02ibm903.t, t/02ibm904.t, t/02ibm905.t,
-	t/02ibm918.t, t/02iec_p27-1.t, t/02inis-8.t, t/02inis-cyrillic.t,
-	t/02inis.t, t/02iso-8859-1.t, t/02iso-8859-10.t, t/02iso-8859-11.t,
-	t/02iso-8859-13.t, t/02iso-8859-14.t, t/02iso-8859-15.t,
-	t/02iso-8859-16.t, t/02iso-8859-2.t, t/02iso-8859-3.t,
-	t/02iso-8859-4.t, t/02iso-8859-5.t, t/02iso-8859-6.t,
-	t/02iso-8859-7.t, t/02iso-8859-8.t, t/02iso-8859-9.t,
-	t/02iso-ir-197.t, t/02iso-ir-209.t, t/02iso_10367-box.t,
-	t/02iso_2033-1983.t, t/02iso_5427-ext.t, t/02iso_5427.t,
-	t/02iso_5428.t, t/02koi-8.t, t/02koi8-r.t, t/02koi8-t.t,
-	t/02koi8-u.t, t/02latin-greek-1.t, t/02latin-greek.t, t/02mac-is.t,
-	t/02mac-sami.t, t/02mac-uk.t, t/02mac.t, t/02macintosh.t,
-	t/02ms_kanji.t, t/02nats-dano.t, t/02nats-sefi.t, t/02sami-ws2.t,
-	t/02tis-620.t, t/02utf-8.t, t/02viscii.t, t/02x-atari-st-euro.t,
-	t/02x-atari-st.t, t/03bind_textdomain_codeset.t,
-	t/03bindtextdomain.t, t/03bindtextdomain_pp.t, t/03dcgettext.t,
-	t/03dcngettext.t, t/03dcngettext_pp.t, t/03dgettext.t,
-	t/03dngettext.t, t/03dngettext_pp.t, t/03gettext.t, t/03ngettext.t,
-	t/03ngettext_pp.t: 
+	lib/Locale/RecodeData/VISCII.pm: 
 	- added and updated lots of documentation 
 	- use Encode if possible 
 	- added prototypes to procedural interfaces 
@@ -565,12 +624,6 @@
 
 	* README-MSDOS: special notes for MS-DOS 
 
-2003-06-06 15:02  Guido Flohr <guido@imperia.net>
-
-	* t/: 03bind_textdomain_codeset_pp.t, 03dcgettext_pp.t,
-	03dcngettext_pp.t, 03dgettext_pp.t, 03dngettext_pp.t,
-	03gettext_pp.t, 03ngettext_pp.t: compatibility tweaks for MS-DOS 
-
 2003-06-06 13:38  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, lib/Locale/Recode/_Conversions.pm,
@@ -582,16 +635,14 @@
 	lib/Locale/RecodeData/EUC_JP.pod, lib/Locale/RecodeData/EUC_TW.pm,
 	lib/Locale/RecodeData/EUC_TW.pod,
 	lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod, t/02big-5.t, t/02big5-hkscs.t,
-	t/02cp1361.t, t/02cp949.t, t/02euc-jp.t, t/02euc-tw.t,
-	t/02ms_kanji.t: 
+	lib/Locale/RecodeData/MS_KANJI.pod: 
 	- optimized CJK multi-byte encodings 
 
 2003-06-05 22:08  Guido Flohr <guido@imperia.net>
 
 	* BUGS, MANIFEST, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/EUC_TW.pm, t/02euc-tw.t: fixed EUC-TW and
-	optimized it, attention: U+5344 has three representations 
+	lib/Locale/RecodeData/EUC_TW.pm: fixed EUC-TW and optimized it,
+	attention: U+5344 has three representations 
 
 2003-06-05 20:28  Guido Flohr <guido@imperia.net>
 
@@ -634,8 +685,7 @@
 	lib/Locale/RecodeData/EUC_KR.pm, lib/Locale/RecodeData/EUC_KR.pod,
 	lib/Locale/RecodeData/EUC_TW.pm, lib/Locale/RecodeData/EUC_TW.pod,
 	lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod, t/02cp1361.t, t/02cp949.t,
-	t/02euc-jp.t, t/02euc-kr.t: 
+	lib/Locale/RecodeData/MS_KANJI.pod: 
 	- insert empty lines in contiguous areas of large PODs 
 	- support for Korean CP1361 (JOHAB) 
 	- support for Korean CP949 (UHC) 
@@ -651,7 +701,7 @@
 	* MANIFEST, TODO, lib/Locale/Recode/_Conversions.pm,
 	lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
 	lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod, t/02big-5.t, t/02ms_kanji.t: 
+	lib/Locale/RecodeData/MS_KANJI.pod: 
 	- support for MS_Kanji (Shift-JIS) 
 	- support for Big-5 (traditional Chinese) 
 
@@ -664,8 +714,7 @@
 
 	* MANIFEST, lib/Locale/Recode.pm, lib/Locale/gettext_pp.pm,
 	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ISO_8859_11.pm, t/02iso-8859-11.t: support
-	for ISO-8859-11 
+	lib/Locale/RecodeData/ISO_8859_11.pm: support for ISO-8859-11 
 
 2003-06-04 14:16  Guido Flohr <guido@imperia.net>
 
@@ -769,42 +818,7 @@
 	lib/Locale/RecodeData/SAMI_WS2.pm,
 	lib/Locale/RecodeData/TIS_620.pm, lib/Locale/RecodeData/UTF_8.pm,
 	lib/Locale/RecodeData/UTF_8_Encode.pm,
-	lib/Locale/RecodeData/VISCII.pm, t/02ascii.t, t/02asmo_449.t,
-	t/02atari-st-euro.t, t/02atari-st.t, t/02cp10007.t, t/02cp1250.t,
-	t/02cp1251.t, t/02cp1252.t, t/02cp1253.t, t/02cp1254.t,
-	t/02cp1256.t, t/02cp1257.t, t/02csn_369103.t, t/02cwi.t,
-	t/02dec-mcs.t, t/02ebcdic-at-de-a.t, t/02ebcdic-at-de.t,
-	t/02ebcdic-ca-fr.t, t/02ebcdic-dk-no-a.t, t/02ebcdic-dk-no.t,
-	t/02ebcdic-es-a.t, t/02ebcdic-es-s.t, t/02ebcdic-es.t,
-	t/02ebcdic-fi-se-a.t, t/02ebcdic-fi-se.t, t/02ebcdic-fr.t,
-	t/02ebcdic-is-friss.t, t/02ebcdic-it.t, t/02ebcdic-pt.t,
-	t/02ebcdic-uk.t, t/02ebcdic-us.t, t/02ecma-cyrillic.t,
-	t/02georgian-academy.t, t/02georgian-ps.t, t/02gost_19768-74.t,
-	t/02greek-ccitt.t, t/02greek7-old.t, t/02greek7.t, t/02hp-roman8.t,
-	t/02ibm037.t, t/02ibm038.t, t/02ibm1004.t, t/02ibm1026.t,
-	t/02ibm1047.t, t/02ibm256.t, t/02ibm273.t, t/02ibm274.t,
-	t/02ibm275.t, t/02ibm277.t, t/02ibm278.t, t/02ibm280.t,
-	t/02ibm281.t, t/02ibm284.t, t/02ibm285.t, t/02ibm290.t,
-	t/02ibm297.t, t/02ibm420.t, t/02ibm423.t, t/02ibm424.t,
-	t/02ibm437.t, t/02ibm500.t, t/02ibm850.t, t/02ibm851.t,
-	t/02ibm852.t, t/02ibm855.t, t/02ibm857.t, t/02ibm860.t,
-	t/02ibm861.t, t/02ibm862.t, t/02ibm863.t, t/02ibm864.t,
-	t/02ibm865.t, t/02ibm866.t, t/02ibm868.t, t/02ibm869.t,
-	t/02ibm870.t, t/02ibm871.t, t/02ibm874.t, t/02ibm875.t,
-	t/02ibm880.t, t/02ibm891.t, t/02ibm903.t, t/02ibm904.t,
-	t/02ibm905.t, t/02ibm918.t, t/02iec_p27-1.t, t/02inis-8.t,
-	t/02inis-cyrillic.t, t/02inis.t, t/02iso-8859-1.t,
-	t/02iso-8859-10.t, t/02iso-8859-13.t, t/02iso-8859-14.t,
-	t/02iso-8859-15.t, t/02iso-8859-16.t, t/02iso-8859-2.t,
-	t/02iso-8859-3.t, t/02iso-8859-4.t, t/02iso-8859-5.t,
-	t/02iso-8859-6.t, t/02iso-8859-7.t, t/02iso-8859-8.t,
-	t/02iso-8859-9.t, t/02iso-ir-197.t, t/02iso-ir-209.t,
-	t/02iso_10367-box.t, t/02iso_2033-1983.t, t/02iso_5427-ext.t,
-	t/02iso_5427.t, t/02iso_5428.t, t/02koi-8.t, t/02koi8-r.t,
-	t/02koi8-t.t, t/02koi8-u.t, t/02latin-greek-1.t, t/02latin-greek.t,
-	t/02mac-is.t, t/02mac-sami.t, t/02mac-uk.t, t/02macintosh.t,
-	t/02nats-dano.t, t/02nats-sefi.t, t/02sami-ws2.t, t/02tis-620.t,
-	t/02utf-8.t, t/02viscii.t: 
+	lib/Locale/RecodeData/VISCII.pm: 
 	- support for Perl 5.8 
 	- vim lines 
 	- emacs variables 
@@ -1019,10 +1033,6 @@
 
 	* MANIFEST: updated 
 
-2002-08-01 15:54  Guido Flohr <guido@imperia.net>
-
-	* t/00gettext.t: forgotten to add 
-
 2002-07-15 13:00  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST: updated 
@@ -1030,119 +1040,6 @@
 2002-07-15 12:56  Guido Flohr <guido@imperia.net>
 
 	* Makefile.PL: renamed Iconv to Recode 
-
-2002-07-15 12:56  Guido Flohr <guido@imperia.net>
-
-	* t/po/: Makefile, additional.de.po, additional.de_AT.po,
-	existing.de.po, existing.de_AT.po: added tests for gettext library 
-
-2002-07-15 12:53  Guido Flohr <guido@imperia.net>
-
-	* t/: 00base.t, 00recode.t, 01trivial.t, 02ascii.t, 02asmo_449.t,
-	02atari-st-euro.t, 02atari-st.t, 02cp10007.t, 02cp1250.t,
-	02cp1251.t, 02cp1252.t, 02cp1253.t, 02cp1254.t, 02cp1256.t,
-	02cp1257.t, 02csn_369103.t, 02cwi.t, 02dec-mcs.t,
-	02ebcdic-at-de-a.t, 02ebcdic-at-de.t, 02ebcdic-ca-fr.t,
-	02ebcdic-dk-no-a.t, 02ebcdic-dk-no.t, 02ebcdic-es-a.t,
-	02ebcdic-es-s.t, 02ebcdic-es.t, 02ebcdic-fi-se-a.t,
-	02ebcdic-fi-se.t, 02ebcdic-fr.t, 02ebcdic-is-friss.t,
-	02ebcdic-it.t, 02ebcdic-pt.t, 02ebcdic-uk.t, 02ebcdic-us.t,
-	02ecma-cyrillic.t, 02georgian-academy.t, 02georgian-ps.t,
-	02gost_19768-74.t, 02greek-ccitt.t, 02greek7-old.t, 02greek7.t,
-	02hp-roman8.t, 02ibm037.t, 02ibm038.t, 02ibm1004.t, 02ibm1026.t,
-	02ibm1047.t, 02ibm256.t, 02ibm273.t, 02ibm274.t, 02ibm275.t,
-	02ibm277.t, 02ibm278.t, 02ibm280.t, 02ibm281.t, 02ibm284.t,
-	02ibm285.t, 02ibm290.t, 02ibm297.t, 02ibm420.t, 02ibm423.t,
-	02ibm424.t, 02ibm437.t, 02ibm500.t, 02ibm850.t, 02ibm851.t,
-	02ibm852.t, 02ibm855.t, 02ibm857.t, 02ibm860.t, 02ibm861.t,
-	02ibm862.t, 02ibm863.t, 02ibm864.t, 02ibm865.t, 02ibm866.t,
-	02ibm868.t, 02ibm869.t, 02ibm870.t, 02ibm871.t, 02ibm874.t,
-	02ibm875.t, 02ibm880.t, 02ibm891.t, 02ibm903.t, 02ibm904.t,
-	02ibm905.t, 02ibm918.t, 02iec_p27-1.t, 02inis-8.t,
-	02inis-cyrillic.t, 02inis.t, 02iso-8859-1.t, 02iso-8859-10.t,
-	02iso-8859-13.t, 02iso-8859-14.t, 02iso-8859-15.t, 02iso-8859-16.t,
-	02iso-8859-2.t, 02iso-8859-3.t, 02iso-8859-4.t, 02iso-8859-5.t,
-	02iso-8859-6.t, 02iso-8859-7.t, 02iso-8859-8.t, 02iso-8859-9.t,
-	02iso-ir-197.t, 02iso-ir-209.t, 02iso_10367-box.t,
-	02iso_2033-1983.t, 02iso_5427-ext.t, 02iso_5427.t, 02iso_5428.t,
-	02koi-8.t, 02koi8-r.t, 02koi8-t.t, 02koi8-u.t, 02latin-greek-1.t,
-	02latin-greek.t, 02mac-is.t, 02mac-sami.t, 02mac-uk.t,
-	02macintosh.t, 02nats-dano.t, 02nats-sefi.t, 02sami-ws2.t,
-	02tis-620.t, 02utf-8.t, 02viscii.t, ascii.t, asmo_449.t,
-	atari-st-euro.t, atari-st.t, cp10007.t, cp1250.t, cp1251.t,
-	cp1252.t, cp1253.t, cp1254.t, cp1256.t, cp1257.t, csn_369103.t,
-	cwi.t, dec-mcs.t, ebcdic-at-de-a.t, ebcdic-at-de.t, ebcdic-ca-fr.t,
-	ebcdic-dk-no-a.t, ebcdic-dk-no.t, ebcdic-es-a.t, ebcdic-es-s.t,
-	ebcdic-es.t, ebcdic-fi-se-a.t, ebcdic-fi-se.t, ebcdic-fr.t,
-	ebcdic-is-friss.t, ebcdic-it.t, ebcdic-pt.t, ebcdic-uk.t,
-	ebcdic-us.t, ecma-cyrillic.t, georgian-academy.t, georgian-ps.t,
-	gost_19768-74.t, greek-ccitt.t, greek7-old.t, greek7.t,
-	hp-roman8.t, ibm037.t, ibm038.t, ibm1004.t, ibm1026.t, ibm1047.t,
-	ibm256.t, ibm273.t, ibm274.t, ibm275.t, ibm277.t, ibm278.t,
-	ibm280.t, ibm281.t, ibm284.t, ibm285.t, ibm290.t, ibm297.t,
-	ibm420.t, ibm423.t, ibm424.t, ibm437.t, ibm500.t, ibm850.t,
-	ibm851.t, ibm852.t, ibm855.t, ibm857.t, ibm860.t, ibm861.t,
-	ibm862.t, ibm863.t, ibm864.t, ibm865.t, ibm866.t, ibm868.t,
-	ibm869.t, ibm870.t, ibm871.t, ibm874.t, ibm875.t, ibm880.t,
-	ibm891.t, ibm903.t, ibm904.t, ibm905.t, ibm918.t, iec_p27-1.t,
-	inis-8.t, inis-cyrillic.t, inis.t, iso-8859-1.t, iso-8859-10.t,
-	iso-8859-13.t, iso-8859-14.t, iso-8859-15.t, iso-8859-16.t,
-	iso-8859-2.t, iso-8859-3.t, iso-8859-4.t, iso-8859-5.t,
-	iso-8859-6.t, iso-8859-7.t, iso-8859-8.t, iso-8859-9.t,
-	iso-ir-197.t, iso-ir-209.t, iso_10367-box.t, iso_2033-1983.t,
-	iso_5427-ext.t, iso_5427.t, iso_5428.t, koi-8.t, koi8-r.t,
-	koi8-t.t, koi8-u.t, latin-greek-1.t, latin-greek.t, mac-is.t,
-	mac-sami.t, mac-uk.t, macintosh.t, nats-dano.t, nats-sefi.t,
-	sami-ws2.t, tis-620.t, utf-8.t, viscii.t: 
-	- added tests for gettext library 
-	- put numbers in front of file names (ordered tests) 
-
-2002-07-15 12:52  Guido Flohr <guido@imperia.net>
-
-	* t/: 03bind_textdomain_codeset.t, 03bind_textdomain_codeset_pp.t,
-	03bindtextdomain.t, 03bindtextdomain_pp.t, 03dcgettext.t,
-	03dcgettext_pp.t, 03dcngettext.t, 03dcngettext_pp.t, 03dgettext.t,
-	03dgettext_pp.t, 03dngettext.t, 03dngettext_pp.t, 03gettext.t,
-	03gettext_pp.t, 03ngettext.t, 03ngettext_pp.t, 03textdomain.t,
-	03textdomain_pp.t, locale/de/LC_MESSAGES/additional.mo,
-	locale/de/LC_MESSAGES/existing.mo,
-	locale/de_AT/LC_MESSAGES/additional.mo,
-	locale/de_AT/LC_MESSAGES/existing.mo: added text for gettext
-	library 
-
-2002-07-12 20:01  Guido Flohr <guido@imperia.net>
-
-	* t/: asmo_449.t, atari-st-euro.t, atari-st.t, cp10007.t, cp1250.t,
-	cp1251.t, cp1252.t, cp1253.t, cp1254.t, cp1256.t, cp1257.t,
-	csn_369103.t, cwi.t, dec-mcs.t, ebcdic-at-de-a.t, ebcdic-at-de.t,
-	ebcdic-ca-fr.t, ebcdic-dk-no-a.t, ebcdic-dk-no.t, ebcdic-es-a.t,
-	ebcdic-es-s.t, ebcdic-es.t, ebcdic-fi-se-a.t, ebcdic-fi-se.t,
-	ebcdic-fr.t, ebcdic-is-friss.t, ebcdic-it.t, ebcdic-pt.t,
-	ebcdic-uk.t, ebcdic-us.t, ecma-cyrillic.t, georgian-academy.t,
-	georgian-ps.t, gost_19768-74.t, greek-ccitt.t, greek7-old.t,
-	greek7.t, hp-roman8.t, ibm037.t, ibm038.t, ibm1004.t, ibm1026.t,
-	ibm1047.t, ibm256.t, ibm273.t, ibm274.t, ibm275.t, ibm277.t,
-	ibm278.t, ibm280.t, ibm281.t, ibm284.t, ibm285.t, ibm290.t,
-	ibm297.t, ibm420.t, ibm423.t, ibm424.t, ibm437.t, ibm500.t,
-	ibm850.t, ibm851.t, ibm852.t, ibm855.t, ibm857.t, ibm860.t,
-	ibm861.t, ibm862.t, ibm863.t, ibm864.t, ibm865.t, ibm866.t,
-	ibm868.t, ibm869.t, ibm870.t, ibm871.t, ibm874.t, ibm875.t,
-	ibm880.t, ibm891.t, ibm903.t, ibm904.t, ibm905.t, ibm918.t,
-	iec_p27-1.t, inis-8.t, inis-cyrillic.t, inis.t, iso-8859-1.t,
-	iso-8859-10.t, iso-8859-13.t, iso-8859-14.t, iso-8859-15.t,
-	iso-8859-16.t, iso-8859-2.t, iso-8859-3.t, iso-8859-4.t,
-	iso-8859-5.t, iso-8859-6.t, iso-8859-7.t, iso-8859-8.t,
-	iso-8859-9.t, iso-ir-197.t, iso-ir-209.t, iso_10367-box.t,
-	iso_2033-1983.t, iso_5427-ext.t, iso_5427.t, iso_5428.t, koi-8.t,
-	koi8-r.t, koi8-t.t, koi8-u.t, latin-greek-1.t, latin-greek.t,
-	mac-is.t, mac-sami.t, mac-uk.t, macintosh.t, nats-dano.t,
-	nats-sefi.t, sami-ws2.t, tis-620.t, viscii.t: removed reference to
-	my home directory 
-
-2002-07-12 20:00  Guido Flohr <guido@imperia.net>
-
-	* t/: ascii.t, utf-8.t: new charsets UTF-8 (requires Perl >= 5.6.0)
-	and ASCII.  
 
 2002-07-10 21:25  Guido Flohr <guido@imperia.net>
 
@@ -1169,35 +1066,6 @@
 
 2002-07-08 21:19  Guido Flohr <guido@imperia.net>
 
-	* Artistic, COPYING, MANIFEST, Makefile.PL, README, t/00base.t,
-	t/01trivial.t, t/asmo_449.t, t/atari-st-euro.t, t/atari-st.t,
-	t/cp10007.t, t/cp1250.t, t/cp1251.t, t/cp1252.t, t/cp1253.t,
-	t/cp1254.t, t/cp1256.t, t/cp1257.t, t/csn_369103.t, t/cwi.t,
-	t/dec-mcs.t, t/ebcdic-at-de-a.t, t/ebcdic-at-de.t,
-	t/ebcdic-ca-fr.t, t/ebcdic-dk-no-a.t, t/ebcdic-dk-no.t,
-	t/ebcdic-es-a.t, t/ebcdic-es-s.t, t/ebcdic-es.t,
-	t/ebcdic-fi-se-a.t, t/ebcdic-fi-se.t, t/ebcdic-fr.t,
-	t/ebcdic-is-friss.t, t/ebcdic-it.t, t/ebcdic-pt.t, t/ebcdic-uk.t,
-	t/ebcdic-us.t, t/ecma-cyrillic.t, t/georgian-academy.t,
-	t/georgian-ps.t, t/gost_19768-74.t, t/greek-ccitt.t,
-	t/greek7-old.t, t/greek7.t, t/hp-roman8.t, t/ibm037.t, t/ibm038.t,
-	t/ibm1004.t, t/ibm1026.t, t/ibm1047.t, t/ibm256.t, t/ibm273.t,
-	t/ibm274.t, t/ibm275.t, t/ibm277.t, t/ibm278.t, t/ibm280.t,
-	t/ibm281.t, t/ibm284.t, t/ibm285.t, t/ibm290.t, t/ibm297.t,
-	t/ibm420.t, t/ibm423.t, t/ibm424.t, t/ibm437.t, t/ibm500.t,
-	t/ibm850.t, t/ibm851.t, t/ibm852.t, t/ibm855.t, t/ibm857.t,
-	t/ibm860.t, t/ibm861.t, t/ibm862.t, t/ibm863.t, t/ibm864.t,
-	t/ibm865.t, t/ibm866.t, t/ibm868.t, t/ibm869.t, t/ibm870.t,
-	t/ibm871.t, t/ibm874.t, t/ibm875.t, t/ibm880.t, t/ibm891.t,
-	t/ibm903.t, t/ibm904.t, t/ibm905.t, t/ibm918.t, t/iec_p27-1.t,
-	t/inis-8.t, t/inis-cyrillic.t, t/inis.t, t/iso-8859-1.t,
-	t/iso-8859-10.t, t/iso-8859-13.t, t/iso-8859-14.t, t/iso-8859-15.t,
-	t/iso-8859-16.t, t/iso-8859-2.t, t/iso-8859-3.t, t/iso-8859-4.t,
-	t/iso-8859-5.t, t/iso-8859-6.t, t/iso-8859-7.t, t/iso-8859-8.t,
-	t/iso-8859-9.t, t/iso-ir-197.t, t/iso-ir-209.t, t/iso_10367-box.t,
-	t/iso_2033-1983.t, t/iso_5427-ext.t, t/iso_5427.t, t/iso_5428.t,
-	t/koi-8.t, t/koi8-r.t, t/koi8-t.t, t/koi8-u.t, t/latin-greek-1.t,
-	t/latin-greek.t, t/mac-is.t, t/mac-sami.t, t/mac-uk.t,
-	t/macintosh.t, t/nats-dano.t, t/nats-sefi.t, t/sami-ws2.t,
-	t/tis-620.t, t/viscii.t: Initial revision 
+	* Artistic, COPYING, MANIFEST, Makefile.PL, README: Initial
+	revision 
 
