@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.6 2004/01/08 17:25:57 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.7 2004/01/12 11:15:43 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -173,10 +173,10 @@ textdomain (domain)
 int
 _nl_putenv (str)
         char* str
-    PROTOTYPE: $$$
+    PROTOTYPE: $
     CODE:
 #if defined (WIN32)
-        RETVAL = putenv (str);
+        RETVAL = _putenv (str);
 #else
         RETVAL = 0;
 #endif
