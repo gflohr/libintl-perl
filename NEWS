@@ -1,3 +1,7 @@
+Version 1.08 - 30 Nov 2003
+
+* fixed bug #4512 on https://rt.cpan.org/ (reported by unknown guest)
+
 Version 1.07 - 28 Nov 2003
 
 * bug with charset detection via I18N::Langinfo fixed
