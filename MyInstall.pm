@@ -1,6 +1,7 @@
 package MyInstall;
 
 use ExtUtils::Install;
+use File::Find;
 
 use vars qw (@ISA @EXPORT @EXPORT_OK);
 
@@ -8,14 +9,20 @@ use vars qw (@ISA @EXPORT @EXPORT_OK);
 @EXPORT = @ExtUtils::Install::EXPORT;
 @EXPORT_OK = @ExtUtils::Install::EXPORT_OK;
 
-my $original_code = sub { &$ExtUtils::Install::directory_not_empty };
-
 sub ExtUtils::Install::directory_not_empty ($) {
 	my($dir) = @_;
 
 	return 0 if $dir eq 'blib/arch';
 
-	goto &$original_code;
+	my $files = 0;
+  	find(sub {
+        	return if $_ eq ".exists";
+           	if (-f) {
+             		$File::Find::prune++;
+             		$files = 1;
+           	}
+       	}, $dir);
+  	return $files;
 }
 
 sub AUTOLOAD
