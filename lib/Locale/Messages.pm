@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.10 2003/07/28 12:16:04 guido Exp $
+# $Id: Messages.pm,v 1.11 2003/08/07 10:38:59 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -318,6 +318,11 @@ If no translation can be found, the unmodified B<MSGID> is returned,
 i. e. the function can I<never> fail, and will I<never> mess up your
 original message.
 
+Note for Perl 5.8 and later: The returned string will I<always> have
+the UTF-8 flag off if the message has been touched, i. e. if it has
+been translated and if it has been converted to another charset.  It
+will be left untouched in all other cases.
+
 One common mistake is this:
 
     print gettext "Hello $name!";
@@ -327,9 +332,7 @@ will see the string.  Unless the corresponding message catalog
 contains a message "Hello Tom!", "Hello Dick!" or "Hello Harry!",
 no translation will be found.
 
-Using printf() is only an option here, if you have not more than
-one conversion specification like C<%d> or C<%s>.  A somewhat stupid
-example:
+Using printf() and friends has its own problems:
 
     print sprintf (gettext ("This is the %s %s."), $color, $thing);
 
@@ -346,15 +349,16 @@ then say:
 
     "C'est le %$2s %$1s."
 
-Perl printf() does not implement this feature.
+Perl printf() implements this feature as of version 5.8 or better.
+Consequently you can only use it, if you are sure that your software
+will run with Perl 5.8 or a later version.
+
+Another disadvantage of using printf() is its cryptic syntax (maybe
+not for you but translators of your software may have their own
+opinion).
 
 See the description of the function C<__x()> in Locale::TextDomain(3)
 for a much better way to get around this problem.
-
-Note for Perl 5.8 and later: The returned string will I<always> have
-the UTF-8 flag off if the message has been touched, i. e. if it has
-been translated and if it has been converted to another charset.  It
-will be left untouched in all other cases.
 
 =item B<dgettext TEXTDOMAIN, MSGID>
 
@@ -391,7 +395,7 @@ the best practice for internationalized programs was:
 This is a nuisance for the programmer and often still not sufficient
 for an adequate translation.  Many languages have completely different
 ideas on numerals.  Some (French, Italian, ...) treat 0 and 1 alike,
-other make no distinction at all (Japanese, Korean, Chinese, ...),
+others make no distinction at all (Japanese, Korean, Chinese, ...),
 others have two or more plural forms (Russian, Latvian, Czech,
 Polish, ...).  The solution is:
 
@@ -473,13 +477,13 @@ all systems, and assumes the arbitrary value 1729 otherwise.
 =item B<LC_ALL>
 
 If you specify the category B<LC_ALL> as the first argument to
-POSIX::setlocale(), I<all> locale categories will be accected at once.
+POSIX::setlocale(), I<all> locale categories will be affected at once.
 
 =back
 
 =head1 EXPORT_TAGS
 
-This module does not export anything unless explicitely requested.
+The module does not export anything unless explicitely requested.
 You can import groups of functions via two tags:
 
 =over 4

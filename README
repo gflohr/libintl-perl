@@ -1,6 +1,8 @@
 README for libintl-perl
 =======================
 
+$Id: README,v 1.8 2003/08/07 10:38:59 guido Exp $
+
 The package libintl-perl is an internationalization library for Perl
 that aims to be compatible with the Uniforum message translations
 system as implemented for example in GNU gettext.
@@ -207,7 +209,7 @@ run:
 	# message "No such file or directory".  Check the exact
 	# spelling on your system with something like 
 	# "ls NON-EXISTANT".
-	# Note the double underscore in fron of the string.  This is
+	# Note the double underscore in front of the string.  This is
 	# really a function call to the function __() that is
 	# automagically imported by Locale::TextDomain into your
 	# namespace.  This function takes its argument, looks up a

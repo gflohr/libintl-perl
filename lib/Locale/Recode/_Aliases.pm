@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: _Aliases.pm,v 1.7 2003/07/28 12:16:04 guido Exp $
+# $Id: _Aliases.pm,v 1.8 2003/08/07 10:38:59 guido Exp $
 
 # Internally known aliases for charsets.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -701,7 +701,7 @@ Locale::Recode::_Aliases
 
 use Locale::Recode::_Aliases
 
-This module is internal to libintl.  Do not use directly!
+die "This module is internal to libintl.  Do not use it directly!\n";
 
 =head1 DESCRIPTION
 
