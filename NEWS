@@ -5,6 +5,8 @@ Version 1.09 - 29 Dec 2003
 * in pure Perl version, use user supplied locale name when guessing
   the output character set
 
+* corrections for Atari character maps
+
 Version 1.08 - 30 Nov 2003
 
 * fixed bug #4512 on https://rt.cpan.org/ (reported by unknown guest)
