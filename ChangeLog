@@ -1,3 +1,12 @@
+2003-07-14 17:36  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: early exit if no directories for
+	catalogs exist 
+
+2003-07-14 17:11  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated 
+
 2003-07-14 17:11  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/Messages.pm: return converted string in utf8_off 
