@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.18 2003/08/07 10:56:21 guido Exp $
+# $Id: gettext_pp.pm,v 1.19 2003/09/04 10:48:25 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -213,15 +213,20 @@ sub textdomain(;$)
 sub bindtextdomain($;$)
 {
 	my ($domain, $directory) = @_;
-	
+
+	my $retval;	
 	if (defined $domain && length $domain) {
 		if (defined $directory && length $directory) {
-			return $__gettext_pp_domain_bindings->{$domain} = $directory;
+			$retval = $__gettext_pp_domain_bindings->{$domain} 
+				= $directory;
 		} elsif (exists $__gettext_pp_domain_bindings->{$domain}) {
-			return $__gettext_pp_domain_bindings->{$domain};
+			$retval = $__gettext_pp_domain_bindings->{$domain};
 		} else {
-			return $__gettext_pp_default_dir;
+			$retval = $__gettext_pp_default_dir;
 		}
+		$retval = '/usr/share/locale' unless defined $retval && 
+			length $retval;
+		return $retval;
 	} else {
 		return;
 	}
