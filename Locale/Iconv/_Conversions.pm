@@ -2,7 +2,7 @@
 # vim: syntax=perl
 #      tabstop=4
 # -*- perl -*-
-# $Id: _Conversions.pm,v 1.3 2002/07/10 19:05:56 guido Exp $
+# $Id: _Conversions.pm,v 1.4 2002/07/12 18:00:38 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -34,6 +34,10 @@ use integer;
 eval "use bytes;";
 
 use constant CONVERSIONS => {
+    'ASCII//' => {
+	'INTERNAL' => 'ASCII',
+	'UTF-8//' => 'ASCII',
+    },
     'ASMO_449//' => {
 	'INTERNAL' => 'ASMO_449',
 	'UTF-8//' => 'ASMO_449',
@@ -387,6 +391,7 @@ use constant CONVERSIONS => {
 	'UTF-8//' => 'INIS',
     },
     'INTERNAL' => {
+	'ASCII//' => 'ASCII',
 	'ASMO_449//' => 'ASMO_449',
 	'ATARI-ST-EURO//' => 'ATARI_ST_EURO',
 	'ATARI-ST//' => 'ATARI_ST',
@@ -509,6 +514,7 @@ use constant CONVERSIONS => {
 	'NATS-DANO//' => 'NATS_DANO',
 	'NATS-SEFI//' => 'NATS_SEFI',
 	'TIS-620//' => 'TIS_620',
+	'UTF-8//' => 'UTF_8',
 	'VISCII//' => 'VISCII',
 	'WIN-SAMI-2//' => 'SAMI_WS2',
     },
@@ -647,6 +653,9 @@ use constant CONVERSIONS => {
     'TIS-620//' => {
 	'INTERNAL' => 'TIS_620',
 	'UTF-8//' => 'TIS_620',
+    },
+    'UTF-8//' => {
+	'INTERNAL' => 'UTF_8',
     },
     'VISCII//' => {
 	'INTERNAL' => 'VISCII',
