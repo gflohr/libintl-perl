@@ -1,3 +1,50 @@
+2003-06-23 13:30  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/RecodeData/: ASMO_449.pm, ATARI_ST.pm,
+	ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
+	CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm, CWI.pm,
+	DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm, EBCDIC_CA_FR.pm,
+	EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm, EBCDIC_ES.pm, EBCDIC_ES_A.pm,
+	EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm, EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm,
+	EBCDIC_IS_FRISS.pm, EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm,
+	EBCDIC_US.pm, ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm,
+	GEORGIAN_PS.pm, GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm,
+	GREEK_CCITT.pm, HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm,
+	IBM1026.pm, IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
+	IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
+	IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
+	IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
+	IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
+	IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
+	IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
+	IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
+	ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
+	ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_11.pm,
+	ISO_8859_13.pm, ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm,
+	ISO_8859_2.pm, ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm,
+	ISO_8859_6.pm, ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm,
+	KOI8_R.pm, KOI8_RU.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
+	LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACARABIC.pm, MACCROATIAN.pm,
+	MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
+	MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
+	MACUKRAINE.pm, MAC_IS.pm, MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm,
+	NATS_SEFI.pm, NEXTSTEP.pm, SAMI_WS2.pm, TIS_620.pm, US_ASCII.pm,
+	UTF_8.pm, VISCII.pm: 
+	- use strict;  moved up 
+	- no bare words after 'use base' 
+
+2003-06-23 13:11  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/TextDomain.pm: fixed typo in pod 
+
+2003-06-23 12:14  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: leave undefined placeholders untouched 
+
+2003-06-20 17:06  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated 
+
 2003-06-20 17:05  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 0.11 
