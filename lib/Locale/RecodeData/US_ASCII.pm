@@ -1,6 +1,6 @@
 #! /bin/false
 
-# vim: tabstop=4
+# vim: set autoindent shiftwidth=4 tabstop=4:
 
 # Conversion routines for US-ASCII.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,

@@ -1,7 +1,7 @@
 #! /bin/false
 
-# vim: tabstop=4
-# $Id: Recode.pm,v 1.10 2004/01/08 17:25:57 guido Exp $
+# vim: set autoindent shiftwidth=4 tabstop=4:
+# $Id: Recode.pm,v 1.11 2004/04/20 16:38:32 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,

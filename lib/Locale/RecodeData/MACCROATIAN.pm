@@ -1,6 +1,6 @@
 #! /bin/false
-# vim: tabstop=4
-# $Id: MACCROATIAN.pm,v 1.5 2004/01/08 17:25:59 guido Exp $
+# vim: set autoindent shiftwidth=4 tabstop=4:
+# $Id: MACCROATIAN.pm,v 1.6 2004/04/20 16:38:33 guido Exp $
 
 # Conversion routines for MACCROATIAN.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, all

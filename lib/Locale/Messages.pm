@@ -1,7 +1,7 @@
 #! /bin/false
 
-# vim: tabstop=4
-# $Id: Messages.pm,v 1.22 2004/01/12 12:04:29 guido Exp $
+# vim: set autoindent shiftwidth=4 tabstop=4:
+# $Id: Messages.pm,v 1.23 2004/04/20 16:38:32 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
