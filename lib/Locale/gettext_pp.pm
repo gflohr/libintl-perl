@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.14 2003/07/14 12:24:57 ingrid Exp $
+# $Id: gettext_pp.pm,v 1.15 2003/07/14 14:20:51 ingrid Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -65,16 +65,15 @@ BEGIN {
     }
 }
 
-require POSIX;
-require Exporter;
-use IO::Handle;
-require Locale::Recode;
-
 BEGIN {
+	require POSIX;
+	require Exporter;
+	use IO::Handle;
+	require Locale::Recode;
 
 	my ($has_messages, $five_ok);
 	
-	my $has_messages = eval '&POSIX::LC_MESSAGES';
+	$has_messages = eval '&POSIX::LC_MESSAGES';
 
 	unless (defined $has_messages && length $has_messages) {
 		$five_ok = ! grep {my $x = eval "&POSIX::$_" || 0; $x eq '5';}
