@@ -3,3 +3,7 @@
 - optimize generated multi-byte converters:
   o Shift-JIS
   o Big-5
+  o EUC-JP
+  o EUC-KR
+  o EUC-TW
+  o CP1361 (JOHAB)

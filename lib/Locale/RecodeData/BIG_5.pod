@@ -22,9 +22,9 @@ This module is internal to libintl.  Do not use directly!
 =head1 DESCRIPTION
 
 The base for this module is generated and contains the conversion 
-tables and routines for BIG_5.
+tables and routines for BIG5.
 
-BIG_5 is a multi-byte encoding!
+BIG5 is a multi-byte encoding!
 
 
 =head1 COMMENTS
@@ -32,7 +32,7 @@ BIG_5 is a multi-byte encoding!
 The following comments have been extracted from the original charmap:
 
 
- Chinese charmap for BIG_5 (CP950)
+ Chinese charmap for BIG5 (CP950)
  version: 0.92
  Contact: Tung-Han Hsieh   E<lt>thhsieh@linux.org.twE<gt>
 	   Yuan-Chung Cheng E<lt>platin@ms31.hinet.netE<gt>
@@ -47,7 +47,7 @@ The following comments have been extracted from the original charmap:
      /xa2/xcc, /xa2/xce, /xf9/xe9, /xf9/xea, /xf9/xeb, 
      /xf9/xf9, /xf9/xfa, /xf9/xfb, /xf9/xfc, /xf9/xfd
 
- alias BIG_5-CP950
+ alias BIG5-CP950
 
 Please note that aliases listed above are not necessarily valid!
 
@@ -1059,6 +1059,7 @@ B<IRREVERSIBLE%<U5345>		/xa2/xce	<CJK>>
      /xa6/xef | 00004F57 | <CJK>
      /xa6/xf0 | 00004F5E | <CJK>
      /xa6/xf1 | 00004F34 | <CJK>
+
      /xa6/xf2 | 00004F5B | <CJK>
      /xa6/xf3 | 00004F55 | <CJK>
      /xa6/xf4 | 00004F30 | <CJK>
@@ -2059,6 +2060,7 @@ B<IRREVERSIBLE%<U5345>		/xa2/xce	<CJK>>
      /xad/x6a | 0000867B | <CJK>
      /xad/x6b | 0000867A | <CJK>
      /xad/x6c | 0000884D | <CJK>
+
      /xad/x6d | 0000886B | <CJK>
      /xad/x6e | 00008981 | <CJK>
      /xad/x6f | 000089D4 | <CJK>
@@ -3059,6 +3061,7 @@ B<IRREVERSIBLE%<U5345>		/xa2/xce	<CJK>>
      /xb3/xc6 | 00005099 | <CJK>
      /xb3/xc7 | 00005091 | <CJK>
      /xb3/xc8 | 00005080 | <CJK>
+
      /xb3/xc9 | 00005096 | <CJK>
      /xb3/xca | 00005098 | <CJK>
      /xb3/xcb | 0000509A | <CJK>
@@ -4059,6 +4062,7 @@ B<IRREVERSIBLE%<U5345>		/xa2/xce	<CJK>>
      /xba/x41 | 0000614B | <CJK>
      /xba/x42 | 00006177 | <CJK>
      /xba/x43 | 00006162 | <CJK>
+
      /xba/x44 | 00006163 | <CJK>
      /xba/x45 | 0000615F | <CJK>
      /xba/x46 | 0000615A | <CJK>
@@ -5059,6 +5063,7 @@ B<IRREVERSIBLE%<U5345>		/xa2/xce	<CJK>>
      /xc0/x7b | 00005680 | <CJK>
      /xc0/x7c | 00005690 | <CJK>
      /xc0/x7d | 00005685 | <CJK>
+
      /xc0/x7e | 00005687 | <CJK>
      /xc0/xa1 | 0000568F | <CJK>
      /xc0/xa2 | 000058D5 | <CJK>
@@ -6059,6 +6064,7 @@ B<>
      /xc6/xd3 | 0000F6E3 | <Private Use>
      /xc6/xd4 | 0000F6E4 | <Private Use>
      /xc6/xd5 | 0000F6E5 | <Private Use>
+
      /xc6/xd6 | 0000F6E6 | <Private Use>
      /xc6/xd7 | 0000F6E7 | <Private Use>
      /xc6/xd8 | 0000F6E8 | <Private Use>
@@ -7059,6 +7065,7 @@ B<>
      /xcd/x4b | 00006CB0 | <CJK>
      /xcd/x4c | 00006CF9 | <CJK>
      /xcd/x4d | 00006CCF | <CJK>
+
      /xcd/x4e | 00006CE9 | <CJK>
      /xcd/x4f | 00006CD1 | <CJK>
      /xcd/x50 | 00007094 | <CJK>
@@ -8059,6 +8066,7 @@ B<>
      /xd3/xa7 | 0000834D | <CJK>
      /xd3/xa8 | 00008316 | <CJK>
      /xd3/xa9 | 00008324 | <CJK>
+
      /xd3/xaa | 00008320 | <CJK>
      /xd3/xab | 00008337 | <CJK>
      /xd3/xac | 0000832F | <CJK>
@@ -9059,6 +9067,7 @@ B<>
      /xd9/xe1 | 00006B95 | <CJK>
      /xd9/xe2 | 00006BBD | <CJK>
      /xd9/xe3 | 00006BF0 | <CJK>
+
      /xd9/xe4 | 00006BF2 | <CJK>
      /xd9/xe5 | 00006BF3 | <CJK>
      /xd9/xe6 | 00006C30 | <CJK>
@@ -10059,6 +10068,7 @@ B<>
      /xe0/x5c | 00008D68 | <CJK>
      /xe0/x5d | 00008D69 | <CJK>
      /xe0/x5e | 00008D91 | <CJK>
+
      /xe0/x5f | 00008D8C | <CJK>
      /xe0/x60 | 00008D8E | <CJK>
      /xe0/x61 | 00008D8F | <CJK>
@@ -11059,6 +11069,7 @@ B<>
      /xe6/xb8 | 0000769C | <CJK>
      /xe6/xb9 | 0000769D | <CJK>
      /xe6/xba | 0000769E | <CJK>
+
      /xe6/xbb | 0000769B | <CJK>
      /xe6/xbc | 0000778D | <CJK>
      /xe6/xbd | 0000778F | <CJK>
@@ -12059,6 +12070,7 @@ B<>
      /xec/xf2 | 000066D2 | <CJK>
      /xec/xf3 | 00006A8D | <CJK>
      /xec/xf4 | 00006A96 | <CJK>
+
      /xec/xf5 | 00006A81 | <CJK>
      /xec/xf6 | 00006AA5 | <CJK>
      /xec/xf7 | 00006A89 | <CJK>
@@ -13059,6 +13071,7 @@ B<>
      /xf3/x6d | 000093D4 | <CJK>
      /xf3/x6e | 000093EE | <CJK>
      /xf3/x6f | 000093E3 | <CJK>
+
      /xf3/x70 | 000093D5 | <CJK>
      /xf3/x71 | 000093C4 | <CJK>
      /xf3/x72 | 000093CE | <CJK>
@@ -14059,6 +14072,7 @@ B<>
      /xf9/xc9 | 00009483 | <CJK>
      /xf9/xca | 00009C79 | <CJK>
      /xf9/xcb | 00009EB7 | <CJK>
+
      /xf9/xcc | 00007675 | <CJK>
      /xf9/xcd | 00009A6B | <CJK>
      /xf9/xce | 00009C7A | <CJK>

@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: BIG_5.pm,v 1.2 2003/06/05 11:39:16 ingrid Exp $
+# $Id: BIG_5.pm,v 1.3 2003/06/05 17:32:14 guido Exp $
 
 # Conversion routines for BIG_5.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -28128,7 +28128,7 @@ sub _recode
 			push @outbuf, ($to_ucs{$1} || 
 						   (exists $to_ucs{$1} ?
 							0 : $unknown));
-			/gex;
+			/gsex;
 
 		$_[1] = \@outbuf;
     }

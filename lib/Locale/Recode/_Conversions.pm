@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.4 2003/06/05 10:41:00 guido Exp $
+# $Id: _Conversions.pm,v 1.5 2003/06/05 17:32:14 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -84,6 +84,12 @@ use constant CONVERSIONS => {
 		'INTERNAL' => 'CP1257',
 		'UTF-8//' => 'CP1257',
     },
+	'CP1361//' => {
+		'INTERNAL' => 'CP1361',
+	},
+	'CP949//' => {
+		'INTERNAL' => 'CP949',
+	},
     'CSN_369103//' => {
 		'INTERNAL' => 'CSN_369103',
 		'UTF-8//' => 'CSN_369103',
@@ -164,6 +170,15 @@ use constant CONVERSIONS => {
 		'INTERNAL' => 'ECMA_CYRILLIC',
 		'UTF-8//' => 'ECMA_CYRILLIC',
     },
+    'EUC-JP//' => {
+		'INTERNAL' => 'EUC_JP',
+    },
+    'EUC-KR//' => {
+		'INTERNAL' => 'EUC_KR',
+    },
+    #'EUC-TW//' => {
+	#	'INTERNAL' => 'EUC_TW',
+    #},
     'GEORGIAN-ACADEMY//' => {
 		'INTERNAL' => 'GEORGIAN_ACADEMY',
 		'UTF-8//' => 'GEORGIAN_ACADEMY',
@@ -406,6 +421,7 @@ use constant CONVERSIONS => {
 		'CP1254//' => 'CP1254',
 		'CP1256//' => 'CP1256',
 		'CP1257//' => 'CP1257',
+		'CP1361//' => 'CP1361',
 		'CSN_369103//' => 'CSN_369103',
 		'CWI//' => 'CWI',
 		'DEC-MCS//' => 'DEC_MCS',
@@ -426,6 +442,9 @@ use constant CONVERSIONS => {
 		'EBCDIC-UK//' => 'EBCDIC_UK',
 		'EBCDIC-US//' => 'EBCDIC_US',
 		'ECMA-CYRILLIC//' => 'ECMA_CYRILLIC',
+		'EUC-JP//' => 'EUC_JP',
+		'EUC-KR//' => 'EUC_KR',
+		#'EUC-TW//' => 'EUC_TW',
 		'GEORGIAN-ACADEMY//' => 'GEORGIAN_ACADEMY',
 		'GEORGIAN-PS//' => 'GEORGIAN_PS',
 		'GOST_19768-74//' => 'GOST_19768_74',

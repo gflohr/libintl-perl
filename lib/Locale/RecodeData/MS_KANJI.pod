@@ -21,10 +21,10 @@ This module is internal to libintl.  Do not use directly!
 
 =head1 DESCRIPTION
 
-This base for this module is generated and contains the conversion 
-tables and routines for MS_KANJI.
+The base for this module is generated and contains the conversion 
+tables and routines for SHIFT_JIS.
 
-MS_KANJI is a multi-byte encoding!
+SHIFT_JIS is a multi-byte encoding!
 
 
 =head1 COMMENTS
@@ -34,20 +34,6 @@ The following comments have been extracted from the original charmap:
  alias SJIS
 
 Please note that aliases listed above are not necessarily valid!
-
-=head1 ALIASES
-
-=over 4
-
-=item B<SHIFT-JIS>
-
-=item B<SHIFT_JIS>
-
-=item B<SJIS>
-
-=item B<CSSHIFTJIS>
-
-=back
 
 =head1 CHARACTER TABLE
 
@@ -1057,6 +1043,7 @@ All character codes are in hexadecimal.  Please read 'Unicode' as
      /x8a/x7d | 00007B20 | <CJK>
      /x8a/x7e | 00006A2B | <CJK>
      /x8a/x80 | 00006A7F | <CJK>
+
      /x8a/x81 | 000068B6 | <CJK>
      /x8a/x82 | 00009C0D | <CJK>
      /x8a/x83 | 00006F5F | <CJK>
@@ -2057,6 +2044,7 @@ All character codes are in hexadecimal.  Please read 'Unicode' as
      /x8f/xba | 0000662D | <CJK>
      /x8f/xbb | 00006676 | <CJK>
      /x8f/xbc | 0000677E | <CJK>
+
      /x8f/xbd | 000068A2 | <CJK>
      /x8f/xbe | 00006A1F | <CJK>
      /x8f/xbf | 00006A35 | <CJK>
@@ -3057,6 +3045,7 @@ All character codes are in hexadecimal.  Please read 'Unicode' as
      /x94/xf6 | 00005C3E | <CJK>
      /x94/xf7 | 00005FAE | <CJK>
      /x94/xf8 | 00006787 | <CJK>
+
      /x94/xf9 | 00006BD8 | <CJK>
      /x94/xfa | 00007435 | <CJK>
      /x94/xfb | 00007709 | <CJK>
@@ -4057,6 +4046,7 @@ All character codes are in hexadecimal.  Please read 'Unicode' as
      /x9a/xa1 | 0000570D | <CJK>
      /x9a/xa2 | 00005713 | <CJK>
      /x9a/xa3 | 00005718 | <CJK>
+
      /x9a/xa4 | 00005716 | <CJK>
      /x9a/xa5 | 000055C7 | <CJK>
      /x9a/xa6 | 0000571C | <CJK>
@@ -5057,6 +5047,7 @@ All character codes are in hexadecimal.  Please read 'Unicode' as
      /x9f/xdd | 00006E24 | <CJK>
      /x9f/xde | 00006EFF | <CJK>
      /x9f/xdf | 00006E1D | <CJK>
+
      /x9f/xe0 | 00006E38 | <CJK>
      /x9f/xe1 | 00006E82 | <CJK>
      /x9f/xe2 | 00006EAA | <CJK>
@@ -6057,6 +6048,7 @@ B<>
      /xe4/xd2 | 0000842A | <CJK>
      /xe4/xd3 | 0000843C | <CJK>
      /xe4/xd4 | 0000855A | <CJK>
+
      /xe4/xd5 | 00008484 | <CJK>
      /xe4/xd6 | 00008477 | <CJK>
      /xe4/xd7 | 0000846B | <CJK>
@@ -7057,6 +7049,7 @@ B<>
      /xea/x51 | 00009DC1 | <CJK>
      /xea/x52 | 00009DBB | <CJK>
      /xea/x53 | 00009DB8 | <CJK>
+
      /xea/x54 | 00009DBA | <CJK>
      /xea/x55 | 00009DC6 | <CJK>
      /xea/x56 | 00009DCF | <CJK>

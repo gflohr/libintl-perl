@@ -10,6 +10,7 @@ lib/Locale/RecodeData/ASMO_449.pm
 lib/Locale/RecodeData/ATARI_ST.pm
 lib/Locale/RecodeData/ATARI_ST_EURO.pm
 lib/Locale/RecodeData/BIG_5.pm
+lib/Locale/RecodeData/BIG_5.pod
 lib/Locale/RecodeData/CP10007.pm
 lib/Locale/RecodeData/CP1250.pm
 lib/Locale/RecodeData/CP1251.pm
@@ -18,6 +19,10 @@ lib/Locale/RecodeData/CP1253.pm
 lib/Locale/RecodeData/CP1254.pm
 lib/Locale/RecodeData/CP1256.pm
 lib/Locale/RecodeData/CP1257.pm
+lib/Locale/RecodeData/CP1361.pm
+lib/Locale/RecodeData/CP1361.pod
+lib/Locale/RecodeData/CP949.pm
+lib/Locale/RecodeData/CP949.pod
 lib/Locale/RecodeData/CSN_369103.pm
 lib/Locale/RecodeData/CWI.pm
 lib/Locale/RecodeData/DEC_MCS.pm
@@ -38,6 +43,12 @@ lib/Locale/RecodeData/EBCDIC_PT.pm
 lib/Locale/RecodeData/EBCDIC_UK.pm
 lib/Locale/RecodeData/EBCDIC_US.pm
 lib/Locale/RecodeData/ECMA_CYRILLIC.pm
+lib/Locale/RecodeData/EUC_JP.pm
+lib/Locale/RecodeData/EUC_JP.pod
+lib/Locale/RecodeData/EUC_KR.pm
+lib/Locale/RecodeData/EUC_KR.pod
+lib/Locale/RecodeData/EUC_TW.pm
+lib/Locale/RecodeData/EUC_TW.pod
 lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm
 lib/Locale/RecodeData/GEORGIAN_PS.pm
 lib/Locale/RecodeData/GOST_19768_74.pm
@@ -157,6 +168,8 @@ t/02cp1253.t
 t/02cp1254.t
 t/02cp1256.t
 t/02cp1257.t
+t/02cp1361.t
+t/02cp949.t
 t/02csn_369103.t
 t/02cwi.t
 t/02dec-mcs.t
@@ -177,6 +190,8 @@ t/02ebcdic-pt.t
 t/02ebcdic-uk.t
 t/02ebcdic-us.t
 t/02ecma-cyrillic.t
+t/02euc-jp.t
+t/02euc-kr.t
 t/02georgian-academy.t
 t/02georgian-ps.t
 t/02gost_19768-74.t

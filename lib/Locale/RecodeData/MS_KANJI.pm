@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MS_KANJI.pm,v 1.2 2003/06/05 11:39:16 ingrid Exp $
+# $Id: MS_KANJI.pm,v 1.3 2003/06/05 17:32:16 guido Exp $
 
 # Conversion routines for MS_KANJI.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -14209,7 +14209,7 @@ sub _recode
 			push @outbuf, ($to_ucs4{$1} || 
 						   (exists $to_ucs4{$1} ?
 							0 : $unknown));
-			/gex;
+			/gsex;
 
 		$_[1] = \@outbuf;
     }
