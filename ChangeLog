@@ -1,3 +1,14 @@
+2003-06-23 16:32  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: 
+	- avoid intermediate function calls 
+	- renamed internal functions to initial values in order 
+	  to avoid unintended similarities to GNU implementation 
+
+2003-06-23 13:34  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated 
+
 2003-06-23 13:30  Ingrid Graefen <ingrid.graefen@imperia.net>
 
 	* lib/Locale/RecodeData/: ASMO_449.pm, ATARI_ST.pm,
