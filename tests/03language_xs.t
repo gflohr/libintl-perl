@@ -34,6 +34,7 @@ $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
 $locale_dir .= '/LocaleData';
 
 my $textdomain = 'existing';
+Locale::Messages::nl_putenv ("LANG=whatever");
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de_AT:de");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
