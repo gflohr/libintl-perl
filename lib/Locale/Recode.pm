@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Recode.pm,v 1.5 2003/06/16 11:16:48 guido Exp $
+# $Id: Recode.pm,v 1.6 2003/06/27 10:19:46 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -106,7 +106,7 @@ sub getCharsets
 
 	require Locale::Recode::_Aliases;
 
-	my $conversions = Locale::Recode::_Conversions::CONVERSIONS();
+	my $conversions = Locale::Recode::_Conversions->listSupported;
 	foreach my $charset (keys %{Locale::Recode::_Aliases::ALIASES()}) {
 		my $mime_name = $self->resolveAlias ($charset);
 		next unless exists $all{$mime_name};
