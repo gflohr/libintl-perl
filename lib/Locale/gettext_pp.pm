@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.8 2003/06/20 10:29:09 guido Exp $
+# $Id: gettext_pp.pm,v 1.9 2003/06/20 12:06:14 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -501,8 +501,23 @@ sub __load_catalog
 			$domain->{po_header}->{charset} = $content_type;
 		}
 	}
-	$domain->{po_header}->{plural_forms} = '' unless
-		$domain->{po_header}->{plural_forms};
+
+        my $code = $domain->{po_header}->{plural_forms} || '';
+        
+        # Whitespace, locale-independent.
+        my $s = qr/[ \t\r\n\013\014]*/o;
+
+        # Untaint the plural header.
+        if ($code =~ m{^($s
+			 nplurals$s=$s[0-9]+
+			 $s;$s
+			 plural$s=$s
+			 (?:.|$s|[-n\?\|\&=!<>+*/\%:;0-9\(\)])+
+			 )}xms) {
+	    $domain->{po_header}->{plural_forms} = $1;
+	} else {
+	    $domain->{po_header}->{plural_forms} = '';
+	}
 
 	# Determine plural rules.
 	# The leading and trailing space is necessary to be able to match
@@ -511,7 +526,8 @@ sub __load_catalog
 
 	if ($domain->{po_header}->{plural_forms}) {
 		my $code = ' ' . $domain->{po_header}->{plural_forms} . ' ';
-		$code =~ s/(\W)([_A-Za-z][_A-Za-z0-9]*)(\W)/$1\$$2$3/g;
+		$code =~ 
+		    s/([^_a-zA-Z0-9])([_a-z][_A-Za-z0-9]*)([^_a-zA-Z0-9])/$1\$$2$3/g;
 		$code =~ s/\`\s//g;
 		
 		$code = "sub { my \$n = shift; 
