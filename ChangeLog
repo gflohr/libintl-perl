@@ -1,3 +1,98 @@
+2003-07-28 14:20  Guido Flohr <guido@imperia.net>
+
+	* sample/: README, simplecal/MANIFEST, simplecal/Makefile.PL,
+	simplecal/bin/simplecal.pl, simplecal/lib/SimpleCal.pm,
+	simplecal/lib/LocaleData/ar/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/ar_SA/LC_MESSAGES/org.imperia.simplecal.mo
+	, simplecal/lib/LocaleData/de/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/de_AT/LC_MESSAGES/org.imperia.simplecal.mo
+	, simplecal/lib/LocaleData/fr/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/ga/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/it/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/nl/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/pt/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/lib/LocaleData/pt_BR/LC_MESSAGES/org.imperia.simplecal.mo
+	, simplecal/lib/LocaleData/ru/LC_MESSAGES/org.imperia.simplecal.mo,
+	simplecal/po/LINGUAS, simplecal/po/Makefile,
+	simplecal/po/POTFILES.in, simplecal/po/TEXTDOMAIN,
+	simplecal/po/all.pot, simplecal/po/ar.po, simplecal/po/ar_SA.po,
+	simplecal/po/de.po, simplecal/po/de_AT.po, simplecal/po/fr.po,
+	simplecal/po/ga.po, simplecal/po/it.po, simplecal/po/nl.po,
+	simplecal/po/org.imperia.simplecal.pot, simplecal/po/pt.po,
+	simplecal/po/pt_BR.po, simplecal/po/ru.po: added directory sample
+	with a self-containing example 
+
+2003-07-28 14:16  Guido Flohr <guido@imperia.net>
+
+	* README: updated 
+
+2003-07-28 14:15  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/: RecodeData/ASMO_449.pm, RecodeData/ATARI_ST.pm,
+	RecodeData/ATARI_ST_EURO.pm, RecodeData/CP10007.pm,
+	RecodeData/CP1250.pm, RecodeData/CP1251.pm, RecodeData/CP1252.pm,
+	RecodeData/CP1253.pm, RecodeData/CP1254.pm, RecodeData/CP1256.pm,
+	RecodeData/CP1257.pm, RecodeData/CSN_369103.pm, RecodeData/CWI.pm,
+	RecodeData/DEC_MCS.pm, RecodeData/EBCDIC_AT_DE.pm,
+	RecodeData/EBCDIC_AT_DE_A.pm, RecodeData/EBCDIC_CA_FR.pm,
+	RecodeData/EBCDIC_DK_NO.pm, RecodeData/EBCDIC_DK_NO_A.pm,
+	RecodeData/EBCDIC_ES.pm, RecodeData/EBCDIC_ES_A.pm,
+	RecodeData/EBCDIC_ES_S.pm, RecodeData/EBCDIC_FI_SE.pm,
+	RecodeData/EBCDIC_FI_SE_A.pm, RecodeData/EBCDIC_FR.pm,
+	RecodeData/EBCDIC_IS_FRISS.pm, RecodeData/EBCDIC_IT.pm,
+	RecodeData/EBCDIC_PT.pm, RecodeData/EBCDIC_UK.pm,
+	RecodeData/EBCDIC_US.pm, RecodeData/ECMA_CYRILLIC.pm,
+	RecodeData/GEORGIAN_ACADEMY.pm, RecodeData/GEORGIAN_PS.pm,
+	RecodeData/GOST_19768_74.pm, RecodeData/GREEK7.pm,
+	RecodeData/GREEK7_OLD.pm, RecodeData/GREEK_CCITT.pm,
+	RecodeData/HP_ROMAN8.pm, RecodeData/IBM037.pm,
+	RecodeData/IBM038.pm, RecodeData/IBM1004.pm, RecodeData/IBM1026.pm,
+	RecodeData/IBM1047.pm, RecodeData/IBM256.pm, RecodeData/IBM273.pm,
+	RecodeData/IBM274.pm, RecodeData/IBM275.pm, RecodeData/IBM277.pm,
+	RecodeData/IBM278.pm, RecodeData/IBM280.pm, RecodeData/IBM281.pm,
+	RecodeData/IBM284.pm, RecodeData/IBM285.pm, RecodeData/IBM290.pm,
+	RecodeData/IBM297.pm, RecodeData/IBM420.pm, RecodeData/IBM423.pm,
+	RecodeData/IBM424.pm, RecodeData/IBM437.pm, RecodeData/IBM500.pm,
+	RecodeData/IBM850.pm, RecodeData/IBM851.pm, RecodeData/IBM852.pm,
+	RecodeData/IBM855.pm, RecodeData/IBM857.pm, RecodeData/IBM860.pm,
+	RecodeData/IBM861.pm, RecodeData/IBM862.pm, RecodeData/IBM863.pm,
+	RecodeData/IBM864.pm, RecodeData/IBM865.pm, RecodeData/IBM866.pm,
+	RecodeData/IBM868.pm, RecodeData/IBM869.pm, RecodeData/IBM870.pm,
+	RecodeData/IBM871.pm, RecodeData/IBM874.pm, RecodeData/IBM875.pm,
+	RecodeData/IBM880.pm, RecodeData/IBM891.pm, RecodeData/IBM903.pm,
+	RecodeData/IBM904.pm, RecodeData/IBM905.pm, RecodeData/IBM918.pm,
+	RecodeData/IEC_P27_1.pm, RecodeData/INIS.pm, RecodeData/INIS_8.pm,
+	RecodeData/INIS_CYRILLIC.pm, RecodeData/ISO_10367_BOX.pm,
+	RecodeData/ISO_2033_1983.pm, RecodeData/ISO_5427.pm,
+	RecodeData/ISO_5427_EXT.pm, RecodeData/ISO_5428.pm,
+	RecodeData/ISO_8859_1.pm, RecodeData/ISO_8859_10.pm,
+	RecodeData/ISO_8859_11.pm, RecodeData/ISO_8859_13.pm,
+	RecodeData/ISO_8859_14.pm, RecodeData/ISO_8859_15.pm,
+	RecodeData/ISO_8859_16.pm, RecodeData/ISO_8859_2.pm,
+	RecodeData/ISO_8859_3.pm, RecodeData/ISO_8859_4.pm,
+	RecodeData/ISO_8859_5.pm, RecodeData/ISO_8859_6.pm,
+	RecodeData/ISO_8859_7.pm, RecodeData/ISO_8859_8.pm,
+	RecodeData/ISO_8859_9.pm, RecodeData/KOI8_R.pm,
+	RecodeData/KOI8_RU.pm, RecodeData/KOI8_T.pm, RecodeData/KOI8_U.pm,
+	RecodeData/KOI_8.pm, RecodeData/LATIN_GREEK.pm,
+	RecodeData/LATIN_GREEK_1.pm, RecodeData/MACARABIC.pm,
+	RecodeData/MACCROATIAN.pm, RecodeData/MACCYRILLIC.pm,
+	RecodeData/MACGREEK.pm, RecodeData/MACHEBREW.pm,
+	RecodeData/MACICELAND.pm, RecodeData/MACINTOSH.pm,
+	RecodeData/MACROMANIA.pm, RecodeData/MACTHAI.pm,
+	RecodeData/MACTURKISH.pm, RecodeData/MACUKRAINE.pm,
+	RecodeData/MAC_IS.pm, RecodeData/MAC_SAMI.pm, RecodeData/MAC_UK.pm,
+	RecodeData/NATS_DANO.pm, RecodeData/NATS_SEFI.pm,
+	RecodeData/NEXTSTEP.pm, RecodeData/SAMI_WS2.pm,
+	RecodeData/TIS_620.pm, RecodeData/US_ASCII.pm, RecodeData/UTF_8.pm,
+	RecodeData/VISCII.pm, RecodeData/_Encode.pm, Messages.pm,
+	Recode.pm, RecodeData.pm, TextDomain.pm, gettext_pp.pm,
+	Recode/_Aliases.pm, Recode/_Conversions.pm: # fixed Emacs variables 
+
+2003-07-15 14:09  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-07-15 14:07  Guido Flohr <guido@imperia.net>
 
 	* BUGS, MANIFEST, README, TODO: updated 
