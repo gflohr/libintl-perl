@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.4 2003/06/20 15:05:46 guido Exp $
+# $Id: TextDomain.pm,v 1.5 2003/06/23 10:14:43 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -72,7 +72,7 @@ use Locale::Messages qw (bindtextdomain dgettext dngettext);
 
 use vars qw ($VERSION);
 
-$VERSION = '0.11';
+$VERSION = '0.12';
 
 require Exporter;
 
@@ -256,7 +256,7 @@ sub __expand ($%)
     my ($translation, %args) = @_;
     
     my $re = join '|', map { quotemeta $_ } keys %args;
-    $translation =~ s/\[($re)\]/defined $args{$1} ? $args{$1} : $1/ge;
+    $translation =~ s/\[($re)\]/defined $args{$1} ? $args{$1} : "[$1]"/ge;
     
     return $translation;
 }
