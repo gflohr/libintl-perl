@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Encode.pm,v 1.4 2003/08/11 09:52:55 guido Exp $
+# $Id: _Encode.pm,v 1.5 2003/08/19 16:43:15 guido Exp $
 
 # Interface to Encode.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -49,12 +49,11 @@ sub _recode
 		return unless defined $retval;
 		$_[1] = [ unpack "N*", $_[1] ];
 	} else {
-		my $retval = Encode::from_to ($_[1], $_[0]->{_from}, $_[0]->{_to});
+		$retval = Encode::from_to ($_[1], $_[0]->{_from}, $_[0]->{_to});
 	}
 	
 	return unless defined $retval;
-	return '0E0' if $retval == 0;
-	return $retval;
+	return 1;
 }
 
 1;
