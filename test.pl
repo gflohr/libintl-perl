@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: test.pl,v 1.1 2003/08/19 16:48:52 guido Exp $
+# $Id: test.pl,v 1.2 2003/09/07 19:42:18 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -30,9 +30,11 @@
 # a too low limit on the length of the command line.
 
 use strict;
-use ExtUtils::Command::MM;
 use File::Basename;
 use Test::Harness;
+use File::Spec;
+
+sub test_harness;
 
 my $here = dirname ($0);
 my $test_dir = $here . '/tests';
@@ -43,6 +45,18 @@ opendir DIR, $test_dir or die "cannot open test directory '$test_dir': $!";
 closedir DIR;
 
 test_harness ($ENV{TEST_HARNESS} || 0, @lib_dirs);
+
+# This function is stolen from ExtUtils::Command::MM.  I did not want
+# libintl-perl depend on ExtUtils::Command::MM because this drags in
+# a long dependency chain when installing via CPAN.pm.
+sub test_harness
+{
+    $Test::Harness::verbose = shift;
+	
+    local @INC = @INC;
+    unshift @INC, map { File::Spec->rel2abs($_) } @_;
+    Test::Harness::runtests(sort { lc $a cmp lc $b } @ARGV);
+}
 
 __END__
 
