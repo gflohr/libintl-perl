@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.11 2003/06/23 15:20:12 guido Exp $
+# $Id: gettext_pp.pm,v 1.12 2003/06/27 10:24:46 ingrid Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -629,7 +629,7 @@ information on the topic.
 =head1 FUNCTIONS
 
 The module exports by default nothing.  Every function has to be
-imported explicitely or via an export tag (L</"EXPORT TAGS">).
+imported explicitely or via an export tag (L<"EXPORT TAGS">).
 
 =over 4
 
@@ -685,7 +685,7 @@ a detailed description
 =item B<LC_COLLATE>
 
 =item B<LC_MONETARY>
-								   
+
 =item B<LC_MESSAGES>
 
 =item B<LC_ALL>
@@ -694,7 +694,7 @@ See L<Locale::Messages/CONSTANTS> for more information.
 
 =back
 
-=head1 EXPORT_TAGS
+=head1 EXPORT TAGS
 
 This module does not export anything unless explicitely requested.
 You can import groups of functions via two tags:
