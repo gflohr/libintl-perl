@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.16 2003/09/15 12:13:53 guido Exp $
+# $Id: TextDomain.pm,v 1.17 2003/10/09 15:05:53 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -68,7 +68,7 @@ use Locale::Messages qw (bindtextdomain dgettext dngettext);
 
 use vars qw ($VERSION);
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 require Exporter;
 
