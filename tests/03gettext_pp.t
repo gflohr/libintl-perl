@@ -31,7 +31,7 @@ BEGIN {
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
-$locale_dir = File::Spec->catdir ($locale_dir, "LocaleData");
+$locale_dir .= '/LocaleData';
 
 my $textdomain = 'existing';
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
@@ -41,7 +41,8 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir && $locale_dir eq $bound_dir;
+ok defined $bound_dir &&
+	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
 
 my $bound_domain = textdomain $textdomain;
 

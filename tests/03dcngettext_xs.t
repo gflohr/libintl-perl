@@ -36,7 +36,7 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
-$locale_dir = File::Spec->catdir ($locale_dir, "LocaleData");
+$locale_dir .= '/LocaleData';
 
 bindtextdomain not_here => $locale_dir;
 
@@ -52,7 +52,8 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
 
-ok defined $bound_dir && $locale_dir eq $bound_dir;
+ok defined $bound_dir &&
+	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
 
 for (0 .. 9) {
 	my $translation = dcngettext (existing => $strings[0], $strings[1], $_, LC_MESSAGES);
@@ -74,7 +75,8 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 $bound_dir = bindtextdomain additional => $locale_dir;
 
-ok defined $bound_dir && $locale_dir eq $bound_dir;
+ok defined $bound_dir &&
+	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
 
 for (0 .. 9) {
 	my $translation = dcngettext (additional => $strings[0], $strings[1], $_, LC_MESSAGES);
