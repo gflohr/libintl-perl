@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Encode.pm,v 1.2 2003/07/28 12:15:39 guido Exp $
+# $Id: _Encode.pm,v 1.1.2.1 2003/08/07 14:54:12 ingrid Exp $
 
 # Interface to Encode.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -47,13 +47,27 @@ sub _recode
 		return unless $success;
 		$_[1] = [ unpack "N*", $_[1] ];
 	} else {
-		return Encode::from_to ($_[1], $_[0]->{_from}, $_[0]->{_to});
+		my $retval = Encode::from_to ($_[1], $_[0]->{_from}, $_[0]->{_to});
+		return unless defined $retval;
+		return '0E0' if $retval == 0;
+		return $retval;
 	}
 }
 
 1;
 
 __END__
+
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+tab-width: 4
+End:
 
 =head1 NAME
 
@@ -82,18 +96,3 @@ This software is contributed to the Perl community by Imperia
 =head1 SEE ALSO
 
 Locale::Recode(3), Encode(3), perl(1)
-
-=cut
-Local Variables:
-mode: perl
-perl-indent-level: 4
-perl-continued-statement-offset: 4
-perl-continued-brace-offset: 0
-perl-brace-offset: -4
-perl-brace-imaginary-offset: 0
-perl-label-offset: -4
-cperl-indent-level: 4
-cperl-continued-statement-offset: 2
-tab-width: 4
-End:
-=cut
