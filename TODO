@@ -1,0 +1,5 @@
+- add conversion modules for other Unicode encodings than UTF-8 
+  (UTF-16, UCS-*)
+- optimize generated multi-byte converters:
+  o Shift-JIS
+  o Big-5

@@ -9,6 +9,7 @@ lib/Locale/RecodeData/ASCII.pm
 lib/Locale/RecodeData/ASMO_449.pm
 lib/Locale/RecodeData/ATARI_ST.pm
 lib/Locale/RecodeData/ATARI_ST_EURO.pm
+lib/Locale/RecodeData/BIG_5.pm
 lib/Locale/RecodeData/CP10007.pm
 lib/Locale/RecodeData/CP1250.pm
 lib/Locale/RecodeData/CP1251.pm
@@ -126,6 +127,8 @@ lib/Locale/RecodeData/MACINTOSH.pm
 lib/Locale/RecodeData/MAC_IS.pm
 lib/Locale/RecodeData/MAC_SAMI.pm
 lib/Locale/RecodeData/MAC_UK.pm
+lib/Locale/RecodeData/MS_KANJI.pm
+lib/Locale/RecodeData/MS_KANJI.pod
 lib/Locale/RecodeData/NATS_DANO.pm
 lib/Locale/RecodeData/NATS_SEFI.pm
 lib/Locale/RecodeData/SAMI_WS2.pm
@@ -145,6 +148,7 @@ t/02ascii.t
 t/02asmo_449.t
 t/02atari-st-euro.t
 t/02atari-st.t
+t/02big-5.t
 t/02cp10007.t
 t/02cp1250.t
 t/02cp1251.t
