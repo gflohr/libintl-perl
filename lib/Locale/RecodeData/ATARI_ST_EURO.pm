@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ATARI_ST_EURO.pm,v 1.6 2003/06/23 11:30:35 ingrid Exp $
+# $Id: ATARI_ST_EURO.pm,v 1.7 2003/07/28 12:15:36 guido Exp $
 
 # Conversion routines for X-ATARI-ST-EURO.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -830,17 +830,6 @@ sub _recode
 
 __END__
 
-Local Variables:
-mode: perl
-perl-indent-level: 4
-perl-continued-statement-offset: 4
-perl-continued-brace-offset: 0
-perl-brace-offset: -4
-perl-brace-imaginary-offset: 0
-perl-label-offset: -4
-tab-width: 4
-End:
-
 =head1 NAME
 
 Locale::RecodeData::ATARI_ST_EURO
@@ -1141,3 +1130,17 @@ This software is contributed to the Perl community by Imperia
 
 Locale::RecodeData(3), Locale::Recode(3), perl(1)
 
+=cut
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+cperl-indent-level: 4
+cperl-continued-statement-offset: 2
+tab-width: 4
+End:
+=cut

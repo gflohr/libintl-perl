@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.8 2003/07/15 12:02:02 guido Exp $
+# $Id: TextDomain.pm,v 1.9 2003/07/28 12:16:04 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -264,19 +264,6 @@ sub __expand ($%)
 1;
 
 __END__
-
-Local Variables:
-mode: perl
-perl-indent-level: 4
-perl-continued-statement-offset: 4
-perl-continued-brace-offset: 0
-perl-brace-offset: -4
-perl-brace-imaginary-offset: 0
-perl-label-offset: -4
-cperl-indent-level: 4
-cperl-continued-statement-offset: 2
-tab-width: 4
-End:
 
 =head1 NAME
 
@@ -846,3 +833,17 @@ This software is contributed to the Perl community by Imperia
 Locale::Messages(3pm), Locale::gettext_pp(3pm), perl(1),
 gettext(1), gettext(3)
 
+=cut
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+cperl-indent-level: 4
+cperl-continued-statement-offset: 2
+tab-width: 4
+End:
+=cut

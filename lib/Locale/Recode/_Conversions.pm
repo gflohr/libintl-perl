@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.11 2003/06/16 12:05:25 guido Exp $
+# $Id: _Conversions.pm,v 1.12 2003/07/28 12:16:04 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -427,17 +427,6 @@ sub findPath
 
 __END__
 
-Local Variables:
-mode: perl
-perl-indent-level: 4
-perl-continued-statement-offset: 4
-perl-continued-brace-offset: 0
-perl-brace-offset: -4
-perl-brace-imaginary-offset: 0
-perl-label-offset: -4
-tab-width: 4
-End:
-
 =head1 NAME
 
 Locale::Recode::_Conversions
@@ -459,3 +448,18 @@ This software is contributed to the Perl community by Imperia
 =head1 SEE ALSO
 
 Locale::Recode(3), perl(1)
+
+=cut
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+cperl-indent-level: 4
+cperl-continued-statement-offset: 2
+tab-width: 4
+End:
+=cut

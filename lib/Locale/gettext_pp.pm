@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.16 2003/07/14 15:36:02 guido Exp $
+# $Id: gettext_pp.pm,v 1.17 2003/07/28 12:16:04 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -832,3 +832,18 @@ perl-brace-imaginary-offset: 0
 perl-label-offset: -4
 tab-width: 4
 End:
+
+=cut
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+cperl-indent-level: 4
+cperl-continued-statement-offset: 2
+tab-width: 4
+End:
+=cut

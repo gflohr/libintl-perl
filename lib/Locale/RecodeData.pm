@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: RecodeData.pm,v 1.3 2003/06/15 14:35:35 guido Exp $
+# $Id: RecodeData.pm,v 1.4 2003/07/28 12:16:04 guido Exp $
 
 # Virtual base class for Locale::Recode converters.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -61,3 +61,18 @@ cperl-indent-level: 4
 cperl-continued-statement-offset: 2
 tab-width: 4
 End:
+
+=cut
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+cperl-indent-level: 4
+cperl-continued-statement-offset: 2
+tab-width: 4
+End:
+=cut
