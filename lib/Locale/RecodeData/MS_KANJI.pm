@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MS_KANJI.pm,v 1.1 2003/06/05 10:41:00 guido Exp $
+# $Id: MS_KANJI.pm,v 1.2 2003/06/05 11:39:16 ingrid Exp $
 
 # Conversion routines for MS_KANJI.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -30,9 +30,10 @@
 
 package Locale::RecodeData::MS_KANJI;
 
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my %from_ucs4 = (
 	       0x0 => "\x00",

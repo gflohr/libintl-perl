@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: BIG_5.pm,v 1.1 2003/06/05 10:41:00 guido Exp $
+# $Id: BIG_5.pm,v 1.2 2003/06/05 11:39:16 ingrid Exp $
 
 # Conversion routines for BIG_5.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -30,9 +30,10 @@
 		
 package Locale::RecodeData::BIG_5;
 	
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my %from_ucs = (
 	       0x0 => "\x00",
