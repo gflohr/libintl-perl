@@ -12,6 +12,7 @@ use constant NUM_TESTS => 9;
 use Locale::Messages qw (bindtextdomain textdomain bind_textdomain_codeset 
 						 gettext);
 require POSIX;
+require File::Spec;
 
 BEGIN {
 	my $package;
@@ -31,7 +32,7 @@ BEGIN {
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
-$locale_dir .= '/LocaleData';
+$locale_dir = File::Spec->catdir ($locale_dir, "LocaleData");
 
 my $textdomain = 'existing';
 

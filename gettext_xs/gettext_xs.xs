@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.2 2003/10/10 15:38:09 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.3 2004/01/02 18:10:03 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -24,6 +24,8 @@
 #include "perl.h"
 #include "XSUB.h"
 #include <string.h>
+#include <locale.h>
+#include <libintl.h>
 
 MODULE = Locale::gettext_xs	PACKAGE = Locale::gettext_xs
 

@@ -11,6 +11,7 @@ use constant NUM_TESTS => 83;
 
 use Locale::Messages qw (bindtextdomain dngettext);
 require POSIX;
+require File::Spec;
 
 BEGIN {
 	my $package;
@@ -35,7 +36,7 @@ POSIX::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
-$locale_dir .= '/LocaleData';
+$locale_dir = File::Spec->catdir ($locale_dir, "LocaleData");
 
 bindtextdomain not_here => $locale_dir;
 
