@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.6 2003/06/15 14:35:35 guido Exp $
+# $Id: gettext_pp.pm,v 1.7 2003/06/16 11:16:48 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -611,7 +611,9 @@ for example used in GNU gettext and Sun's Solaris.
 Normally you should not use this module directly, but the high
 level interface Locale::TextDomain(3) that provides a much simpler
 interface.  This description is therefore deliberately kept
-brief.  FIXME: Point to GNU gettext online docs!
+brief.  Please refer to the GNU gettext documentation available at
+L<http://www.gnu.org/manual/gettext/> for in-depth and background 
+information on the topic.
 
 =head1 FUNCTIONS
 
@@ -622,135 +624,37 @@ imported explicitely or via an export tag (L</"EXPORT TAGS">).
 
 =item B<gettext MSGID>
 
-Returns the translation for B<MSGID>.  Example:
-
-    print gettext "Hello World!\n";
-
-If no translation can be found, the unmodified B<MSGID> is returned,
-i. e. the function can I<never> fail, and will I<never> mess up your
-original message.
-
-One common mistake is this:
-
-    print gettext "Hello $name!";
-
-Perl will interpolate the variable C<$name> I<before> the function
-will see the string.  Unless the corresponding message catalog 
-contains a message "Hello Tom!", "Hello Dick!" or "Hello Harry!",
-no translation will be found.
-
-Using printf() is only an option here, if you have not more than
-one conversion specification like C<%d> or C<%s>.  A somewhat stupid
-example:
-
-    print sprintf (gettext ("This is the %s %s."), $color, $thing);
-
-(The example is stupid because neither color nor thing will get
-translated here ...).
-
-In English the adjective (the color) will precede the noun, many
-other languages (for example French or Italian) differ here.  The 
-translator of the message may therefore have a hard time to find
-a translation that will still work and not sound stupid in the 
-target language.  Many C implementations of printf() allow to 
-change the order of the arguments, and a French translator could
-then say:
-
-    "C'est le %$2s %$1s."
-
-Perl printf() does not implement this feature.
-
-See the description of the function C<__x()> in Locale::TextDomain(3)
-for a much better way to get around this problem.
-
-Note for Perl 5.8 and later: The returned string will I<always> have
-the UTF-8 flag off if the message has been touched, i. e. if it has
-been translated and if it has been converted to another charset.  It
-will be left untouched in all other cases.
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<dgettext TEXTDOMAIN, MSGID>
 
-Like gettext(), but retrieves the message for the specified 
-B<TEXTDOMAIN> instead of the default domain.  In case you wonder what
-a textdomain is, you should really read on with Locale::TextDomain(3).
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<dcgettext TEXTDOMAIN, MSGID, CATEGORY>
 
-Like dgettext() but retrieves the message from the specified B<CATEGORY>
-instead of the default category C<LC_MESSAGES>.
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<ngettext MSGID, MSGID_PLURAL, COUNT>
 
-Retrieves the correct translation for B<COUNT> items.  In legacy software
-you will often find something like:
-
-    print "$count file(s) deleted.\n";
-
-or
-
-    printf "$count file%s deleted.\n", $count == 1 ? '' : 's';
-
-The first example looks awkward, the second will only work in English
-and languages with similar plural rules.  Before ngettext() was introduced,
-the best practice for internationalized programs was:
-
-    if ($count == 1) {
-        print gettext "One file deleted.\n";
-    } else {
-        printf gettext "%d files deleted.\n";
-    }
-
-This is a nuisance for the programmer and often still not sufficient
-for an adequate translation.  Many languages have completely different
-ideas on numerals.  Some (French, Italian, ...) treat 0 and 1 alike,
-other make no distinction at all (Japanese, Korean, Chinese, ...),
-others have two or more plural forms (Russian, Latvian, Czech,
-Polish, ...).  The solution is:
-
-    printf (ngettext ("One file deleted.\n",
-                     "%d files deleted.\n",
-                     $count), # argument to ngettext!
-            $count);          # argument to printf!
-
-In English, or if no translation can be found, the first argument
-(B<MSGID>) is picked if C<$count> is one, the second one otherwise.
-For other languages, the correct plural form (of 1, 2, 3, 4, ...)
-is automatically picked, too.  You don't have to know anything about
-the plural rules in the target language, ngettext() will take care
-of that.
-
-This is most of the time sufficient but you will have to prove your
-creativity in cases like
-
-    printf "%d file(s) deleted, and %d file(s) created.\n";
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<dngettext TEXTDOMAIN, MSGID, MSGID_PLURAL, COUNT>
 
-Like ngettext() but retrieves the translation from the specified
-textdomain instead of the default domain.
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<dcngettext TEXTDOMAIN, MSGID, MSGID_PLURAL, COUNT, CATEGORY>
 
-Like dngettext() but retrieves the translation from the specified
-category, instead of the default category C<LC_MESSAGES>.
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<textdomain TEXTDOMAIN>
 
-Sets the default textdomain (initially 'messages').
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<bindtextdomain TEXTDOMAIN, DIRECTORY>
 
-Binds B<TEXTDOMAIN> to B<DIRECTORY>.  Huh? An example:
-
-    bindtextdomain "my-package", "./mylocale";
-
-Say, the selected locale (actually the selected locale for category
-C<LC_MESSAGES>) of the program is 'fr_CH', then the message catalog
-will be expected in F<./mylocale/fr_CH/LC_MESSAGES/my-package.mo>.
+See L<Locale::Messages/FUNCTIONS>.
 
 =item B<bind_textdomain_codeset TEXTDOMAIN, ENCODING>
-
-Sets the output encoding for B<TEXTDOMAIN> to B<ENCODING>.  
 
 =back
 
@@ -773,19 +677,9 @@ a detailed description
 								   
 =item B<LC_MESSAGES>
 
-This locale category was the reason that these constants from POSIX(3)
-were included here.  Even if it was present in your systems C include
-file F<locale.h>, it was not provided by POSIX(3).  Perl 5.8 and later
-seems to export the constant if available, although it is not documented
-in POSIX(3).
-
-gettext_pp(3) makes an attempt to guess the value of this category for
-all systems, and assumes the arbitrary value 1729 otherwise.
-
 =item B<LC_ALL>
 
-If you specify the category B<LC_ALL> as the first argument to
-POSIX::setlocale(), I<all> locale categories will be accected at once.
+See L<Locale::Messages/CONSTANTS> for more information.
 
 =back
 
@@ -846,59 +740,6 @@ Imports the locale category constants:
 =back
 
 =back
-
-=head1 USAGE
-
-A complete example:
-
-    1: use Locale::gettext_pp qw (:locale_h :libintl_h);
-    2: use POSIX qw (setlocale);
-    3: setlocale (LC_MESSAGES, '');
-    4: textdomain ('my-package');
-    5: bindtextdomain ('my-package' => '/usr/local/share/locale');
-    6:
-    7: print gettext ("Hello world!\n");
-
-Step by step: Line 1 imports the necessary functions and constants.
-In line 3 we set the locale for category LC_MESSAGES to the default
-user settings.  For C programs you will often read that LC_ALL
-is the best category here but this will also change the locale for
-LC_NUMERIC and many programs will not work reliably after changing
-that category in Perl; choose your own poison!
-
-In line 4 we say that all messages (translations) without an explicit
-domain specification should be retrieved from the message catalog
-for the domain 'my-package'.  Line 5 has the effect that the message
-catalog will be searched under the directory F</usr/local/share/locale>.
-
-If the user has selected the locale 'fr_CH', and if the file 
-F</usr/local/share/locale/fr_CH/LC_MESSAGES/my-package.mo>
-exists, and if it contains a GNU message object file with a translation
-for the string "Hello world!\n", then line 7 will print the French
-translation (for Switzerland CH) to STDOUT.
-
-The documentation for GNU gettext explains how to extract translatable
-strings from your Perl files and how to create message catalogs.
-
-Another less portable example: If your system uses the GNU libc you
-should be able to find various files with the name F<libc.mo>, the
-message catalog for the library itself.  If you have found these
-files under F</usr/share/locale>, then you can try the following:
-
-    use Locale::gettext_pp qw (:locale_h :libintl_h);
-    use POSIX qw (setlocale);
-
-    setlocale LC_MESSAGES, "";
-    textdomain "libc";
-
-    # The following is actually not needed, since this is
-    # one of the default search directories.
-    bindtextdomain libc => '/usr/share/locale';
-    bind_textdomain_codeset libc => 'iso-8859-1';
-
-    print gettext ("No such file or directory");
-
-See Locale::TextDomain(3) for much simpler ways.
 
 =head1 AUTHOR
 

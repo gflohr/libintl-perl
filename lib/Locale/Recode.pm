@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Recode.pm,v 1.4 2003/06/15 14:35:35 guido Exp $
+# $Id: Recode.pm,v 1.5 2003/06/16 11:16:48 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -319,14 +319,18 @@ most Windows-* encodings (also known as CP*), Macintosh, Atari, etc.
 
 Each charset resp. encoding is available internally under a unique
 name.  Whenever the information was available, the preferred MIME name
-(FIXME: Link to IANA registry) was chosen as the internal name.
+(see L<http://www.iana.org/assignments/character-sets/>) was chosen as 
+the internal name.
 
 Alias handling is quite strict.  The module does not make wild guesses
 at what you mean ("What's the meaning of the acronym JIS" is a valid
 alias for "7bit-jis" in Encode(3) ....) but aims at providing common
-aliases only, most of them taken from the IANA registry.  The same
-applies to so-called aliases that are really mistakes, like "utf8" for
-UTF-8.
+aliases only.  The same applies to so-called aliases that are really 
+mistakes, like "utf8" for UTF-8.
+
+The module knows all aliases that are listed with the IANA character
+set registry (L<http://www.iana.org/assignments/character-sets/>), plus
+those known to libiconv version 1.8, and a bunch of additional ones.
 
 =head1 CONVERSION TABLES
 

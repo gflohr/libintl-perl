@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.4 2003/06/15 14:35:35 guido Exp $
+# $Id: Messages.pm,v 1.5 2003/06/16 11:16:48 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -40,50 +40,50 @@ use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 # Locale::gettext 1.01 lacks ngettext and friends and bind_textdomain_codeset.
 #eval "use Locale::gettext 2.00 ()";
 #if ($@) {
-	$package = 'gettext_pp';
-	require Locale::gettext_pp;
+    $package = 'gettext_pp';
+    require Locale::gettext_pp;
 #}
 
 require Exporter;
 @ISA = qw (Exporter);
 %EXPORT_TAGS = ( locale_h => [ qw (gettext
-								   dgettext
-								   dcgettext
-								   ngettext
-								   dngettext
-								   dcngettext
-								   textdomain
-								   bindtextdomain
-								   bind_textdomain_codeset
-								   )
-						  ],
-				 libintl_h => [ qw (LC_CTYPE
-									LC_NUMERIC
-									LC_TIME
-									LC_COLLATE
-									LC_MONETARY
-									LC_MESSAGES
-									LC_ALL)
-								],
-				 );
+				   dgettext
+				   dcgettext
+				   ngettext
+				   dngettext
+				   dcngettext
+				   textdomain
+				   bindtextdomain
+				   bind_textdomain_codeset
+				   )
+			       ],
+		 libintl_h => [ qw (LC_CTYPE
+				    LC_NUMERIC
+				    LC_TIME
+				    LC_COLLATE
+				    LC_MONETARY
+				    LC_MESSAGES
+				    LC_ALL)
+				],
+		 );
 
 @EXPORT_OK = qw (select_package
-				 gettext
-				 dgettext
-				 dcgettext
-				 ngettext
-				 dngettext
-				 dcngettext
-				 textdomain
-				 bindtextdomain
-				 bind_textdomain_codeset
-				 LC_CTYPE
-				 LC_NUMERIC
-				 LC_TIME
-				 LC_COLLATE
-				 LC_MONETARY
-				 LC_MESSAGES
-				 LC_ALL);
+		 gettext
+		 dgettext
+		 dcgettext
+		 ngettext
+		 dngettext
+		 dcngettext
+		 textdomain
+		 bindtextdomain
+		 bind_textdomain_codeset
+		 LC_CTYPE
+		 LC_NUMERIC
+		 LC_TIME
+		 LC_COLLATE
+		 LC_MONETARY
+		 LC_MESSAGES
+		 LC_ALL);
 
 sub select_package
 {
@@ -97,119 +97,119 @@ sub select_package
 #		$package = 'gettext' unless $@;
 #	}
 
-	return $package;
+    return $package;
 }
 
 sub textdomain(;$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::textdomain :
-			&Locale::gettext_pp::textdomain;
+    'gettext' eq $package ?
+	&Locale::gettext::textdomain :
+	&Locale::gettext_pp::textdomain;
 }
 
 sub bindtextdomain($;$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::bindtextdomain :
-			&Locale::gettext_pp::bindtextdomain;
+    'gettext' eq $package ?
+	&Locale::gettext::bindtextdomain :
+	&Locale::gettext_pp::bindtextdomain;
 }
 
 sub bind_textdomain_codeset($;$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::bind_textdomain_codeset :
-			&Locale::gettext_pp::bind_textdomain_codeset;
+    'gettext' eq $package ?
+	&Locale::gettext::bind_textdomain_codeset :
+	&Locale::gettext_pp::bind_textdomain_codeset;
 }
 
 sub gettext($)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::gettext :
-			&Locale::gettext_pp::gettext;
+    'gettext' eq $package ?
+	&Locale::gettext::gettext :
+	&Locale::gettext_pp::gettext;
 }
 
 sub dgettext($$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::dgettext :
-			&Locale::gettext_pp::dgettext;
+    'gettext' eq $package ?
+	&Locale::gettext::dgettext :
+	&Locale::gettext_pp::dgettext;
 }
 
 sub dcgettext($$$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::dcgettext :
-			&Locale::gettext_pp::dcgettext;
+    'gettext' eq $package ?
+	&Locale::gettext::dcgettext :
+	&Locale::gettext_pp::dcgettext;
 }
 
 sub ngettext($$$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::ngettext :
-			&Locale::gettext_pp::ngettext;
+    'gettext' eq $package ?
+	&Locale::gettext::ngettext :
+	&Locale::gettext_pp::ngettext;
 }
 
 sub dngettext($$$$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::dngettext :
-			&Locale::gettext_pp::dngettext;
+    'gettext' eq $package ?
+	&Locale::gettext::dngettext :
+	&Locale::gettext_pp::dngettext;
 }
 
 sub dcngettext($$$$$)
 {
-	'gettext' eq $package ?
-		&Locale::gettext::dcngettext :
-			&Locale::gettext_pp::dcngettext;
+    'gettext' eq $package ?
+	&Locale::gettext::dcngettext :
+	&Locale::gettext_pp::dcngettext;
 }
 
 sub LC_NUMERIC
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_NUMERIC :
-			&Locale::gettext_pp::LC_NUMERIC;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_NUMERIC :
+	&Locale::gettext_pp::LC_NUMERIC;
 }
 
 sub LC_CTYPE
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_CTYPE :
-			&Locale::gettext_pp::LC_CTYPE;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_CTYPE :
+	&Locale::gettext_pp::LC_CTYPE;
 }
 
 sub LC_TIME
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_TIME :
-			&Locale::gettext_pp::LC_TIME;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_TIME :
+	&Locale::gettext_pp::LC_TIME;
 }
 
 sub LC_COLLATE
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_COLLATE :
-			&Locale::gettext_pp::LC_COLLATE;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_COLLATE :
+	&Locale::gettext_pp::LC_COLLATE;
 }
 
 sub LC_MONETARY
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_MONETARY :
-			&Locale::gettext_pp::LC_MONETARY;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_MONETARY :
+	&Locale::gettext_pp::LC_MONETARY;
 }
 
 sub LC_MESSAGES
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_MESSAGES :
-			&Locale::gettext_pp::LC_MESSAGES;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_MESSAGES :
+	&Locale::gettext_pp::LC_MESSAGES;
 }
 
 sub LC_ALL
 {
-	'gettext' eq $package ?
-		&Locale::gettext::LC_ALL :
-			&Locale::gettext_pp::LC_ALL;
+    'gettext' eq $package ?
+	&Locale::gettext::LC_ALL :
+	&Locale::gettext_pp::LC_ALL;
 }
 
 1;
@@ -265,7 +265,9 @@ of the lower level libraries but this is not yet implemented.
 Normally you should not use this module directly, but the high
 level interface Locale::TextDomain(3) that provides a much simpler
 interface.  This description is therefore deliberately kept
-brief.  FIXME: Point to GNU gettext online docs!
+brief.  Please refer to the GNU gettext documentation available at
+L<http://www.gnu.org/manual/gettext/> for in-depth and background 
+information on the topic.
 
 The lower level module Locale::gettext_pp(3) provides the Perl
 implementation of gettext() and related functions.

@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w # -*- perl -*-
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.9 2003/06/10 16:05:06 guido Exp $
+# $Id: Makefile.PL,v 1.10 2003/06/16 11:16:48 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -32,9 +32,12 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 
 WriteMakefile(
-    'NAME'		=> 'libintl-perl',
-    'VERSION_FROM'	=> 'lib/Locale/TextDomain.pm', # finds $VERSION
-    'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
+    NAME		    => 'libintl-perl',
+    VERSION_FROM	=> 'lib/Locale/TextDomain.pm',
+    PREREQ_PM		=> {},
+	AUTHOR          => 'Guido Flohr <guido@imperia.net>',
+    ABSTRACT        => 'Uniform message translation for Perl',
+	PL_FILES        => {},
 );
 
 __END__

@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.9 2003/06/15 14:51:57 guido Exp $
+# $Id: _Conversions.pm,v 1.10 2003/06/16 11:16:48 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -31,22 +31,14 @@ package Locale::Recode::_Conversions;
 use strict;
 use integer;
 
-use vars qw ($conversions);
+use vars qw ($conversions $optional_conversions);
 
 # These are the canonical names of the encodings always available.
 $conversions = {
-	'ASCII' => 'ASCII',
 	'ASMO_449' => 'ASMO_449',
 	'ATARI-ST-EURO' => 'ATARI_ST_EURO',
 	'ATARI-ST' => 'ATARI_ST',
 	'CP10007' => 'CP10007',
-	'CP1250' => 'CP1250',
-	'CP1251' => 'CP1251',
-	'CP1252' => 'CP1252',
-	'CP1253' => 'CP1253',
-	'CP1254' => 'CP1254',
-	'CP1256' => 'CP1256',
-	'CP1257' => 'CP1257',
 	'CSN_369103' => 'CSN_369103',
 	'CWI' => 'CWI',
 	'DEC-MCS' => 'DEC_MCS',
@@ -139,8 +131,6 @@ $conversions = {
 	'ISO-8859-7' => 'ISO_8859_7',
 	'ISO-8859-8' => 'ISO_8859_8',
 	'ISO-8859-9' => 'ISO_8859_9',
-	'ISO-IR-197' => 'ISO_IR_197',
-	'ISO-IR-209' => 'ISO_IR_209',
 	'ISO_10367-BOX' => 'ISO_10367_BOX',
 	'ISO_2033-1983' => 'ISO_2033_1983',
 	'ISO_5427-EXT' => 'ISO_5427_EXT',
@@ -148,11 +138,12 @@ $conversions = {
 	'ISO_5428' => 'ISO_5428',
 	'KOI-8' => 'KOI_8',
 	'KOI8-R' => 'KOI8_R',
+	'KOI8-RU' => 'KOI8_RU',
 	'KOI8-T' => 'KOI8_T',
 	'KOI8-U' => 'KOI8_U',
 	'LATIN-GREEK-1' => 'LATIN_GREEK_1',
 	'LATIN-GREEK' => 'LATIN_GREEK',
-	'MAC' => 'MAC',
+	'MACINTOSH' => 'MACINTOSH',
 	'MACARABIC' => 'MACARABIC',
 	'MACCYRILLIC' => 'MACCYRILLIC',
 	'MACCROATIAN' => 'MACCROATIAN',
@@ -168,15 +159,24 @@ $conversions = {
 	'MAC-UK' => 'MAC_UK',
 	'NATS-DANO' => 'NATS_DANO',
 	'NATS-SEFI' => 'NATS_SEFI',
+	'NEXTSTEP' => 'NEXTSTEP',
 	'TIS-620' => 'TIS_620',
 	'UTF-8' => 'UTF_8',
 	'VISCII' => 'VISCII',
 	'WIN-SAMI-2' => 'SAMI_WS2',
+	'WINDOWS-1250' => 'CP1250',
+	'WINDOWS-1251' => 'CP1251',
+	'WINDOWS-1252' => 'CP1252',
+	'WINDOWS-1253' => 'CP1253',
+	'WINDOWS-1254' => 'CP1254',
+	'WINDOWS-1256' => 'CP1256',
+	'WINDOWS-1257' => 'CP1257',
+	'US-ASCII' => 'US_ASCII',
 };
 
 # These encodings are maybe available via Encode(3pm).
-my $optional_conversions = {
-	'ASCII' => undef,
+$optional_conversions = {
+	'BIG5' => undef,
 	'BIG5-HKSCS' => undef,
 	'CN-GB' => undef,
 	'CN-GB-ISOIR165' => undef,
@@ -253,14 +253,16 @@ my $optional_conversions = {
 	'KOI8-R' => undef,
     # 0x95 is BULLET, not BULLET OPERATOR.
 	# 'KOI8-U' => undef,
-	'MAC' => undef,
-	# TODO: Check other Mac encodings.
-	'MS_KANJI' => undef,
-	'NEXTSTEP' => undef,
+	'MACINTOSH' => undef,
+	# TODO: Check other Mac encodings for correctness.
+	# Nextstep is completely broken in my version of Encode.
+	# 'NEXTSTEP' => undef,
+	'SHIFT_JIS' => undef,
 	'UCS-2BE' => undef,
 	'UCS-2LE' => undef,
 	'UCS-4BE' => undef,
 	'UCS-4LE' => undef,
+	'US-ASCII' => undef,
 	'UTF-16' => undef,
 	'UTF-16BE' => undef,
 	'UTF-16LE' => undef,

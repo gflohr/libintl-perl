@@ -1,0 +1,12 @@
+~$
+x-.*\.pl$
+\bCVS\b
+^MANIFEST\.
+^Makefile$
+^blib/
+^MakeMaker-\d
+\.old$
+^#.*#$
+^\.#
+\.tar.gz$
+^pm_to_blib$
