@@ -1,5 +1,5 @@
 ~$
-x-.*\.pl$
+x-.*\.(?:pl|sh)$
 \bCVS\b
 ^MANIFEST\.
 ^Makefile$
@@ -10,3 +10,4 @@ x-.*\.pl$
 ^\.#
 \.tar.gz$
 ^pm_to_blib$
+^USERS$
