@@ -1,7 +1,7 @@
 #! /bin/false
 
-#      tabstop=4
-# $Id: UTF_8.pm,v 1.3 2003/06/02 11:16:56 guido Exp $
+# vim: tabstop=4
+# $Id: UTF_8.pm,v 1.4 2003/06/13 11:40:18 guido Exp $
 
 # Conversion routines for UTF-8 (perl < 5.8.0).
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
