@@ -6,18 +6,24 @@ package Locale::gettext_pp;
 
 use strict;
 
+require 5.004;
+
 use vars qw ($__gettext_pp_default_dir 
 			 $__gettext_pp_textdomain
 			 $__gettext_pp_domain_bindings
 			 $__gettext_pp_domain_codeset_bindings
 			 $__gettext_pp_domains
+			 $__gettext_pp_recoders
 			 $__gettext_pp_domain_cache);
+
+use locale;
 
 BEGIN {
 	$__gettext_pp_textdomain = 'messages';
 	$__gettext_pp_domain_bindings = {};
 	$__gettext_pp_domain_codeset_bindings = {};
 	$__gettext_pp_domains = {};
+	$__gettext_pp_recoders = {};
 	$__gettext_pp_domain_cache = {};
 
 	# Check whether we are on a GNU system.
@@ -34,6 +40,7 @@ BEGIN {
 require POSIX;
 require Exporter;
 use IO::Handle;
+require Locale::Recode;
 
 use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 
@@ -110,6 +117,8 @@ sub LC_MONETARY
 
 sub LC_MESSAGES
 {
+	local $!; # Do not clobber errno!
+
 	my $retval = eval '&POSIX::LC_MESSAGES';
 	return $retval if $retval;
 
@@ -129,7 +138,9 @@ sub LC_ALL
 sub textdomain
 {
 	my $new_domain = shift;
-	$__gettext_pp_textdomain = $new_domain if $new_domain;
+
+	$__gettext_pp_textdomain = $new_domain if defined $new_domain && 
+		length $new_domain;
 
 	return $__gettext_pp_textdomain;
 }
@@ -138,24 +149,32 @@ sub bindtextdomain
 {
 	my ($domain, $directory) = @_;
 
-	return unless defined $domain && length $domain;
-
-	$__gettext_pp_domain_bindings->{$domain} = $directory
-		if defined $directory && length $directory;
-
-	return $__gettext_pp_domain_bindings->{$domain};
+	if (defined $domain && length $domain) {
+		if (defined $directory && length $directory) {
+			return $__gettext_pp_domain_bindings->{$domain} = $directory;
+		} elsif (exists $__gettext_pp_domain_bindings->{$domain}) {
+			return $__gettext_pp_domain_bindings->{$domain};
+		} else {
+			return $__gettext_pp_default_dir;
+		}
+	} else {
+		return;
+	}
 }
 
 sub bind_textdomain_codeset
 {
 	my ($domain, $codeset) = @_;
 
-	return unless defined $domain && length $domain;
+	if (defined $domain && length $domain) {
+		if (defined $codeset && length $codeset) {
+			return $__gettext_pp_domain_codeset_bindings->{$domain} = $codeset;
+		} elsif (exists $__gettext_pp_domain_codeset_bindings->{$domain}) {
+			return $__gettext_pp_domain_codeset_bindings->{$domain};
+		}
+	}
 
-	$__gettext_pp_domain_codeset_bindings->{$domain} = uc $codeset
-		if defined $codeset && length $codeset;
-
-	return $__gettext_pp_domain_codeset_bindings->{$domain};
+	return;
 }
 
 # FIXME: Do not jump unnecessarily through intermediate functions.  This
@@ -217,15 +236,21 @@ sub dcigettext__
 	my $category_name = 'LC_MESSAGES';
 	$category = LC_MESSAGES;
 
-	my $domain = __find_domain ($textdomain, $category, $category_name);
+	my $domains = __find_domain ($textdomain, $category, $category_name);
 
 	my @trans = ();
-	if ($domain && defined $domain->{messages}->{$msgid1}) {
-		@trans = @{$domain->{messages}->{$msgid1}};
-		shift @trans;
-	} else {
-		@trans = ($msgid1, $msgid2);
+	my $domain;
+	my $found;
+	foreach my $this_domain (@$domains) {
+		if ($this_domain && defined $this_domain->{messages}->{$msgid1}) {
+			@trans = @{$this_domain->{messages}->{$msgid1}};
+			shift @trans;
+			$domain = $this_domain;
+			$found = 1;
+			last;
+		}
 	}
+	@trans = ($msgid1, $msgid2) unless @trans;
 
 	my $trans = $trans[0];
 	if ($plural) {
@@ -242,6 +267,44 @@ sub dcigettext__
 		$trans = $trans[$plural] if defined $trans[$plural];
 	}
 
+	if ($found && defined $domain->{po_header}->{charset}) {
+		my $input_codeset = $domain->{po_header}->{charset};
+		# Convert into output charset.
+		my $output_codeset = bind_textdomain_codeset ($textdomain);
+		$output_codeset = $ENV{OUTPUT_CHARSET} unless defined $output_codeset;
+		
+		unless (defined $output_codeset) {
+			# Still no point.
+			my $lc_ctype = __guess_category_value (POSIX::LC_CTYPE(), 
+												   'LC_CTYPE');
+			$output_codeset = $1
+				if $lc_ctype =~ /^[a-z]{2}(?:_[A-Z]{2})?\.([^@]+)/;
+		}
+
+		$output_codeset = Locale::Recode->resolveAlias ($output_codeset) if
+			defined $output_codeset;
+
+		if (defined $output_codeset &&
+			$output_codeset ne $domain->{po_header}->{charset}) {
+			# We have to convert.
+			my $recoder;
+
+			if (exists 
+				$__gettext_pp_recoders->{$input_codeset}->{$output_codeset}) {
+				$recoder = $__gettext_pp_recoders->{$input_codeset}->{$output_codeset};
+			} else {
+				$recoder = 
+					$__gettext_pp_recoders->{$input_codeset}->{$output_codeset} =
+					Locale::Recode->new (from => $input_codeset,
+										 to => $output_codeset,
+										 unknown => 0x3f, # '?'
+										 );
+			}
+			
+			$recoder->recode ($trans);
+		}
+	}
+
 	return $trans;
 }
 
@@ -256,9 +319,9 @@ sub __find_domain
 
 	my $locale = __guess_category_value ($category, $category_name);
 	# Have we looked that one up already?
-	my $domain = $__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$textdomain};
+	my $domains = $__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$textdomain};
 
-	if (defined $locale && length $locale && !defined $domain) {
+	if (defined $locale && length $locale && !defined $domains) {
 		my @dirs = ($dir);
 		my @tries = ($locale);
 
@@ -276,10 +339,11 @@ sub __find_domain
 		push @dirs, $__gettext_pp_default_dir
 			unless $dir eq $__gettext_pp_default_dir;
 
-		BASEDIR: foreach my $basedir (@dirs) {
+		foreach my $basedir (@dirs) {
 			foreach my $try (@tries) {
-				$domain = 
-					__load_catalog "$basedir/$try/$category_name/${textdomain}.mo";
+				my $fulldir = "$basedir/$try/$category_name";
+
+				my $domain = __load_catalog $fulldir, $textdomain;
 				next unless $domain;
 				
 				unless (defined $domain->{po_header}->{charset} &&
@@ -291,18 +355,27 @@ sub __find_domain
 						(?:\@[-_A-Za-z0-9]+)?$/x) {
 					$domain->{po_header}->{charset} = $1;
 				}
-				last BASEDIR;
+				
+				if (defined $domain->{po_header}->{charset}) {
+					$domain->{po_header}->{charset} = 
+					    Locale::Recode->resolveAlias ($domain->{po_header}->{charset});
+				}
+				push @$domains, $domain;
 			}
 		}
-		$__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$textdomain} = $domain;
+		$__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$textdomain} = $domains;
 	}
 
-	return $domain;
+	$domains = [] unless defined $domains;
+
+	return $domains;
 }
 
 sub __load_catalog
 {
-	my $filename = shift;
+	my ($directory, $textdomain) = @_;
+
+	my $filename = "$directory/$textdomain.mo";
 
 	# Alternatively we could check the filename for evil characters ...
 	# (Important for CGIs).
@@ -391,19 +464,22 @@ sub __load_catalog
 	}
 	$domain->{po_header} = $po_header;
 
-	$domain->{po_header}->{charset} = 'UTF-8' unless 
-		$domain->{po_header}->{charset};
-	$domain->{po_header}->{charset} = uc $domain->{po_header}->{charset};
-	$domain->{po_header}->{plural_form} = '' unless
-		$domain->{po_header}->{plural_form};
+	if (exists $domain->{po_header}->{content_type}) {
+		my $content_type = $domain->{po_header}->{content_type};
+		if ($content_type =~ s/.*=//) {
+			$domain->{po_header}->{charset} = $content_type;
+		}
+	}
+	$domain->{po_header}->{plural_forms} = '' unless
+		$domain->{po_header}->{plural_forms};
 
 	# Determine plural rules.
 	# The leading and trailing space is necessary to be able to match
 	# against word boundaries.
 	my $plural_func;
 
-	if ($domain->{po_header}->{plural_form}) {
-		my $code = ' ' . $domain->{po_header}->{plural_form} . ' ';
+	if ($domain->{po_header}->{plural_forms}) {
+		my $code = ' ' . $domain->{po_header}->{plural_forms} . ' ';
 		$code =~ s/(\W)([_A-Za-z][_A-Za-z0-9]*)(\W)/$1\$$2$3/g;
 		$code =~ s/\`\s//g;
 		
@@ -433,7 +509,7 @@ sub __guess_category_value
 
 	my $language = $ENV{LANGUAGE};
 	
-	my $value = eval "POSIX::setlocale ($category, '')";
+	my $value = eval "POSIX::setlocale ($category)";
 
 	# We support only XPG syntax, i. e.
 	# language[_territory[.codeset]][@modifier].
