@@ -1,3 +1,47 @@
+2003-10-09 17:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.04 
+
+2003-10-09 17:05  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST.SKIP: updated 
+
+2003-10-09 13:35  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated 
+
+2003-10-09 13:34  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: 
+	- support for language chain syntax in $LANGUAGE 
+	- performance tweaks 
+
+2003-10-09 13:34  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/README-NLS: clarification 
+
+2003-10-09 13:33  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: support for language chains in $LANGUAGE 
+
+2003-10-08 13:13  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated 
+
+2003-10-08 13:12  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode/_Conversions.pm: do not use Encode's
+	iso-8859-11 (broken in some Encode versions) 
+
+2003-09-24 12:50  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: localize $@ with checks for
+	availability of I18N::Langinfo and POSIX::LC_MESSAGES 
+
+2003-09-15 14:14  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: re-generated 
+
 2003-09-15 14:13  Guido Flohr <guido@imperia.net>
 
 	* NEWS, lib/Locale/TextDomain.pm: bumped version number to 1.03 
