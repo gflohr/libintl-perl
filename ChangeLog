@@ -1,3 +1,39 @@
+2003-12-29 20:02  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated 
+
+2003-12-29 20:01  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: 
+	- fixed pod typo 
+	- bumped version number to 1.09 
+
+2003-12-29 20:00  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: use user supplied locale name when
+	guessing character set 
+
+2003-12-29 19:59  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: check for correct XS version 
+
+2003-12-23 16:22  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ATARI_ST_EURO.pm, tests/02atari-st-euro.t: 
+	- various corrections 
+	- newer Atari versions seem to place the euro sign at 0xde (not
+	  0xee), thanks to Jo-Even Skarstein and Gerhard Stoll for the
+	information 
+
+2003-12-23 16:21  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ATARI_ST.pm, tests/02atari-st.t: various
+	corrections 
+
+2003-12-23 16:07  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/MANIFEST: updated to new Makefile logic 
+
 2003-11-30 19:47  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: deleted reference to unwritten docs on
@@ -5,7 +41,7 @@
 
 2003-11-30 19:45  Guido Flohr <guido@imperia.net>
 
-	* ChangeLog: #re-generated 
+	* ChangeLog, ChangeLog: #re-generated 
 
 2003-11-30 19:45  Guido Flohr <guido@imperia.net>
 
