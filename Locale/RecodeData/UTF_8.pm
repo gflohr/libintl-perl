@@ -2,7 +2,7 @@
 # vim: syntax=perl
 #      tabstop=4
 # -*- perl -*-
-# $Id: UTF_8.pm,v 1.1 2002/07/16 12:52:44 guido Exp $
+# $Id: UTF_8.pm,v 1.2 2002/08/01 13:55:13 guido Exp $
 
 # Conversion routines for VISCII.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -90,10 +90,59 @@ sub _fromInternal
 # encoders will handle the replacement character correctly.
 sub _toInternal
 {
-    eval '$_[1] = [ unpack "U*", $_[1] ]';
-    return 1 unless $@;  # Perl 5.6 or better.
+    if ($] >= 5.006) {
+	$_[1] = [ unpack "U*", $_[1] ];
+	return 1;
+    }
 
+    # Sigh, we have to decode ourselves.  FIXME: Should be optimized.
+    # The routine is awfully slow.
+    # It also does not necessarily detect illegal multi-byte sequences.
 
+    my @chars = ();
+    my @bytes = unpack "C*", $_[1];
+
+    BYTE: while (@bytes) {
+	my $byte = shift @bytes;
+        if ($byte < 0x80) {
+            push @chars, $byte;
+        } elsif ($byte < 0xc0 || $byte > 0xfd) {
+            push @chars, 0xfffd;
+        } else {
+            my $num_bytes;
+            my $char;
+            if ($byte < 0xe0) {
+                $char = $byte & 0x1f;
+                $num_bytes = 1;
+            } elsif ($byte < 0xf0) {
+                $char = $byte & 0xf;
+                $num_bytes = 2;
+            } elsif ($byte < 0xf8) {
+                $char = $byte & 0x7;
+                $num_bytes = 3;
+            } elsif ($byte < 0xfc) {
+                $char = $byte & 0x3;
+                $num_bytes = 4;
+            } else {
+                $char = $byte & 0x1;
+                $num_bytes = 5;
+            }
+            for (my $i = 0; $i < $num_bytes; ++$i) {
+                my $next = shift @bytes;
+                if (!defined $next || $next < 0x80 || $next > 0xbf) {
+                    push @chars, 0xfffd;
+                    next BYTE;
+                } else {
+                    $char <<= 6;
+                    $char |= $next & 0x3f;
+                }
+            }
+            push @chars, $char;
+        }
+    }
+    
+    $_[1] = \@chars;
+    
     return 1;
 }
 
