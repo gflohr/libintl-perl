@@ -1,4 +1,1 @@
-- In ms_kanji (shift-jis), the tilde and the backslash are actually
-  overloaded.  Whereas Encode(3pm) ignores that fact, the pure Perl
-  implementation behaves like Bruno Haible's libiconv and honors
-  it.  
+this file intentionally left empty (for now)

@@ -146,7 +146,6 @@ lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/VISCII.pm
 lib/Locale/TextDomain.pm
 lib/Locale/gettext_pp.pm
-BUGS
 MANIFEST
 Makefile.PL
 README
