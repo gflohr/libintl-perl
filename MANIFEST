@@ -148,8 +148,8 @@ lib/Locale/TextDomain.pm
 lib/Locale/gettext_pp.pm
 MANIFEST
 Makefile.PL
+NEWS
 README
-README-MSDOS
 THANKS
 TODO
 tests/00gettext.t
