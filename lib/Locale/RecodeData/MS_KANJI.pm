@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MS_KANJI.pm,v 1.3 2003/06/05 17:32:16 guido Exp $
+# $Id: MS_KANJI.pm,v 1.4 2003/06/05 18:02:32 guido Exp $
 
 # Conversion routines for MS_KANJI.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -35,7 +35,7 @@ use strict;
 require Locale::RecodeData;
 use base qw(Locale::RecodeData);
 
-my %from_ucs4 = (
+my %from_ucs = (
 	       0x0 => "\x00",
 	       0x1 => "\x01",
 	       0x2 => "\x02",
@@ -7109,7 +7109,7 @@ my %from_ucs4 = (
 
 );
 
-my %to_ucs4 = (
+my %to_ucs = (
 	        "\x00" => 0x0,
 	        "\x01" => 0x1,
 	        "\x02" => 0x2,
@@ -14183,31 +14183,49 @@ my %to_ucs4 = (
 
 );
 
-my $conv_re;
+sub eight_bit_area {
+	foreach my $i (0 .. 255) {
+		my $chr = chr $i;
+		printf STDERR "Missing 0x%02x ($chr)\n", $i
+			unless exists $to_ucs{$chr};
+	}
+	print STDERR "Ready\n";
+}
 
+sub double_byte_areas {
+	my $result = {};
+	foreach my $jis (keys %to_ucs) {
+		next unless length $jis == 2;
+		my $start = ord substr $jis, 0, 1;
+		++$result->{$start};
+	}
+	foreach my $escape (sort keys %$result) {
+		printf STDERR "0x%02x: %d\n", $escape, $result->{$escape};
+	}
+}
+
+my $conv_re;
 sub _recode
 {
 	my $unknown = $_[0]->{_unknown};
 
 	if ($_[0]->{_from} eq 'INTERNAL') {
-    	my $unknown_chr = $from_ucs4{$unknown};
+    	my $unknown_chr = $from_ucs{$unknown};
     	$unknown_chr = '' unless defined $unknown_chr;
 		$_[1] = join ('',
-					  map ($from_ucs4{$_} || 
-						   (exists $from_ucs4{$_} ? $from_ucs4{$_} :
+					  map ($from_ucs{$_} || 
+						   (exists $from_ucs{$_} ? $from_ucs{$_} :
 							$unknown_chr),
 						   @{$_[1]}));
     } else {
-		# FIXME: This is awfully slow!
 		unless ($conv_re) {
-			my $all = join '|', map quotemeta $_, keys %to_ucs4;
-			$conv_re = qr /$all/;
+			$conv_re = qr /([\x81-\x84\x88-\x9f\xe0-\xea].|.)/o;
 		}
 
 		my @outbuf;
 		$_[1] =~ s/($conv_re|.)/
-			push @outbuf, ($to_ucs4{$1} || 
-						   (exists $to_ucs4{$1} ?
+			push @outbuf, ($to_ucs{$1} || 
+						   (exists $to_ucs{$1} ?
 							0 : $unknown));
 			/gsex;
 
