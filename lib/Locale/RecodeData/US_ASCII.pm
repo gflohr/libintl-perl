@@ -1,8 +1,8 @@
 #! /bin/false
 
-#      tabstop=4
+# vim: tabstop=4
 
-# Conversion routines for ASCII.
+# Conversion routines for US-ASCII.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
@@ -25,7 +25,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA.
 
-package Locale::RecodeData::ASCII;
+package Locale::RecodeData::US_ASCII;
 
 require Locale::RecodeData;
 use base qw(Locale::RecodeData);
@@ -68,18 +68,5 @@ perl-continued-brace-offset: 0
 perl-brace-offset: -4
 perl-brace-imaginary-offset: 0
 perl-label-offset: -4
-tab-width: 4
-End:
-
-Local Variables:
-mode: perl
-perl-indent-level: 4
-perl-continued-statement-offset: 4
-perl-continued-brace-offset: 0
-perl-brace-offset: -4
-perl-brace-imaginary-offset: 0
-perl-label-offset: -4
-cperl-indent-level: 4
-cperl-continued-statement-offset: 2
 tab-width: 4
 End:
