@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.23 2003/09/10 17:03:33 guido Exp $
+# $Id: gettext_pp.pm,v 1.24 2003/09/24 10:50:18 ingrid Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -64,6 +64,7 @@ BEGIN {
 		use IO::Handle;
 		require Locale::Recode;
 
+		local $@;
 		my ($has_messages, $five_ok);
 		
 		$has_messages = eval '&POSIX::LC_MESSAGES';
@@ -596,6 +597,7 @@ sub __locale_category
 	
 	my $language = $ENV{LANGUAGE};
 	
+	local $@;
 	my $value = eval {POSIX::setlocale ($category)};
 	
 	# We support only XPG syntax, i. e.
@@ -623,6 +625,7 @@ sub __get_codeset
 {
 	my ($category, $category_name) = @_;
 
+	local $@;
 	unless (defined $has_nl_langinfo) {
 		eval {
 			require I18N::Langinfo;
