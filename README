@@ -1,7 +1,7 @@
 README for libintl-perl
 =======================
 
-$Id: README,v 1.8 2003/08/07 10:38:59 guido Exp $
+$Id: README,v 1.9 2003/08/19 18:48:49 guido Exp $
 
 The package libintl-perl is an internationalization library for Perl
 that aims to be compatible with the Uniforum message translations
@@ -58,9 +58,7 @@ Installation
 
 If libintl-perl is not installed on your system, you have to build it
 from the sources.  You need the program "make" for that and a command
-line shell.  No C compiler is required.  If you want to build the
-package under MS-DOS or MS-DOS derivates (Windows *), please read the
-file README-MSDOS first.
+line shell.  No C compiler is required.
 
 Unpack the package in a directory of your choice, cd into that
 directory and then type
