@@ -16,6 +16,7 @@ Locale/IconvData/CP1254.pm
 Locale/IconvData/CP1256.pm
 Locale/IconvData/CP1257.pm
 Locale/IconvData/CSN_369103.pm
+Locale/IconvData/CVS
 Locale/IconvData/CWI.pm
 Locale/IconvData/DEC_MCS.pm
 Locale/IconvData/EBCDIC_AT_DE.pm
@@ -128,11 +129,15 @@ Locale/IconvData/NATS_SEFI.pm
 Locale/IconvData/SAMI_WS2.pm
 Locale/IconvData/TIS_620.pm
 Locale/IconvData/VISCII.pm
+Locale/Messages.pm
+Locale/gettext_pp.pm
 MANIFEST
 Makefile.PL
 README
+THANKS
 t/00base.t
 t/01trivial.t
+t/CVS
 t/asmo_449.t
 t/atari-st-euro.t
 t/atari-st.t
@@ -257,3 +262,4 @@ t/nats-sefi.t
 t/sami-ws2.t
 t/tis-620.t
 t/viscii.t
+test-benchmark
