@@ -168,10 +168,16 @@ sub getSupported
 
 sub getCharsets
 {
+	my $self = shift;
 	my @all = @{&getSupported};
 
+	my $conversions = Locale::Recode::_Conversions::CONVERSIONS();
 	foreach my $charset (keys %{Locale::Recode::_Aliases::ALIASES()}) {
 		$charset =~ s|//$||;
+		my $official = $self->resolveAlias ($charset);
+		$official = $charset unless defined $official;
+
+		next unless $conversions->{"$official//"};
 		push @all, $charset;
 	}
 
