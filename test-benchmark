@@ -1,11 +1,11 @@
 #! /usr/local/bin/perl -w
 # -*- perl -*-
 # vim: syntax=perl
-#      tabstop=8
+#      tabstop=4
 
 # Benchmark conversion routines.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
-# $Id: test-benchmark,v 1.1 2002/07/09 19:04:43 guido Exp $
+# $Id: test-benchmark,v 1.2 2002/07/10 19:25:06 guido Exp $
 
 # Distribution either under the terms of the Artistic license (see
 # Artistic) or - at your choice - under the terms and conditions of
@@ -54,8 +54,9 @@ require Locale::Iconv;
 # - inside the common subset, the conversion is always
 #   reversible.
 #
-my $from = 'ISO-8859-2';
-my $to   = 'Windows-1250';
+use vars qw ($from $to);
+$from = 'ISO-8859-2';
+$to   = 'Windows-1250';
 
 my @valid_codes = map chr, (0x00 .. 0x7f, 0xa0 .. 0xff);
 
@@ -91,28 +92,66 @@ if ($cd1) {
 	timethese COUNT_LARGE, {
 		"a @{[ BYTES_LARGE ]} bytes buffer conversion" =>
 			'$cd1->recode ($large_buf)' };
+
+	print "Non-cached version\n";
+	timethese COUNT_TINY, {
+		"a @{[ BYTES_TINY ]} bytes buffer conversion" =>
+			'Locale::Iconv->new(from => $from, to => $to)->recode($tiny_buf)' };
+	timethese COUNT_SMALL, { 
+		"a @{[ BYTES_SMALL ]} bytes buffer conversion" =>
+			'Locale::Iconv->new(from => $from, to => $to)->recode($small_buf)' };
+	timethese COUNT_LARGE, {
+		"a @{[ BYTES_LARGE ]} bytes buffer conversion" =>
+			'Locale::Iconv->new(from => $from, to => $to)->recode($large_buf)' };
 } else {
 	warn "cannot convert from $from to $to :-(\n";
 }
 
 # Run against Text::Iconv if available.
 eval "require Text::Iconv";
-
 use vars '$converter';
 unless ($@) {
 	if ($converter = Text::Iconv->new ($from => $to)) {
 		print "comparing to Text::Iconv::iconv()\n";
-	
-		timethese COUNT_TINY, {
+		print "(attention: doing ten times as much as the Perl version)\n";	
+		timethese 10 * COUNT_TINY, {
 			"a @{[ BYTES_TINY ]} bytes buffer conversion" =>
 				'my $r = $converter->convert ($tiny_buf)' };
-		timethese COUNT_SMALL, { 
+		timethese 10 * COUNT_SMALL, { 
 			"a @{[ BYTES_SMALL ]} bytes buffer conversion" =>
 				'my $r = $converter->convert ($small_buf)' };
-		timethese COUNT_LARGE, {
+		timethese 10 * COUNT_LARGE, {
 			"a @{[ BYTES_LARGE ]} bytes buffer conversion" =>
 				'my $r = $converter->convert ($large_buf)' };
+
+		print "comparing to Text::Iconv::iconv() (non-cached conversion)\n";
+		print "(attention: doing ten times as much as the Perl version)\n";	
+		timethese 10 * COUNT_TINY, {
+			"a @{[ BYTES_TINY ]} bytes buffer conversion" =>
+				'my $r = Text::Iconv->new($from, $to)->convert ($tiny_buf)' };
+		timethese 10 * COUNT_SMALL, { 
+			"a @{[ BYTES_SMALL ]} bytes buffer conversion" =>
+				'my $r = Text::Iconv->new($from, $to)->convert ($small_buf)' };
+		timethese 10 * COUNT_LARGE, {
+			"a @{[ BYTES_LARGE ]} bytes buffer conversion" =>
+				'my $r = Text::Iconv->new($from, $to)->convert ($large_buf)' };
 	}
+}
+
+# Run against Encode if available.
+eval "require Encode";
+unless ($@) {
+		print "comparing to Encode::from_to()\n";
+		#print "(attention: doing ten times as much as the Perl version)\n";	
+		timethese COUNT_TINY, {
+			"a @{[ BYTES_TINY ]} bytes buffer conversion" =>
+				'Encode::from_to ($tiny_buf, $from, $to)' };
+		timethese COUNT_SMALL, { 
+			"a @{[ BYTES_SMALL ]} bytes buffer conversion" =>
+				'Encode::from_to ($small_buf, $from, $to)' };
+		timethese COUNT_LARGE, {
+			"a @{[ BYTES_LARGE ]} bytes buffer conversion" =>
+				'Encode::from_to ($large_buf, $from, $to)' };
 }
 
 __END__
