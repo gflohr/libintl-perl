@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: _Conversions.pm,v 1.1 2002/07/08 19:19:59 guido Exp $
+# $Id: _Conversions.pm,v 1.2 2002/07/09 19:04:10 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -28,6 +28,8 @@
 package Locale::Iconv::_Conversions;
 
 use strict;
+use integer;
+eval "use bytes;";
 
 use constant CONVERSIONS => {
     'ASMO_449//' => {
