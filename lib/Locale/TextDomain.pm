@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.5 2003/06/23 10:14:43 guido Exp $
+# $Id: TextDomain.pm,v 1.6 2003/06/23 11:11:02 ingrid Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -284,9 +284,9 @@ Locale::TextDomain - High-level interface to Perl i18n
 
 =head1 SYNOPSIS
 
- use Locale::Recode ('my-package', @locale_dirs);
+ use Locale::TextDomain ('my-package', @locale_dirs);
  
- use Locale::Recode qw (my-package);
+ use Locale::TextDomain qw (my-package);
  
  my $translated = __"Hello World!\n";
  
