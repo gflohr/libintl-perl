@@ -18,11 +18,11 @@ BEGIN {
 	if ($0 =~ /_pp\.t$/) {
 		$package = 'gettext_pp';
 	} else {
-		$package = 'gettext';
+		$package = 'gettext_xs';
 	}
 		
 	my $selected = Locale::Messages->select_package ($package);
-	if ($selected ne $package && 'gettext' eq $package) {
+	if ($selected ne $package && 'gettext_xs' eq $package) {
 		print "1..0 # Skip: Locale::$package not available here.\n";
 		exit 0;
 	}

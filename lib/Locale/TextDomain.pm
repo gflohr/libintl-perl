@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.14 2003/09/10 17:03:33 guido Exp $
+# $Id: TextDomain.pm,v 1.15 2003/09/15 08:21:46 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -263,7 +263,7 @@ __END__
 
 =head1 NAME
 
-Locale::TextDomain - High-Level Interface to libintl-perl Message Translation
+Locale::TextDomain - Perl Interface to Uniform Message Translation
 
 =head1 SYNOPSIS
 

@@ -9,7 +9,7 @@ use Test;
 
 use constant NUM_TESTS => 9;
 
-use Locale::Messages qw (bindtextdomain dgettext);
+use Locale::Messages qw (bindtextdomain dcgettext LC_MESSAGES);
 require POSIX;
 
 BEGIN {
@@ -17,11 +17,11 @@ BEGIN {
 	if ($0 =~ /_pp\.t$/) {
 		$package = 'gettext_pp';
 	} else {
-		$package = 'gettext';
+		$package = 'gettext_xs';
 	}
 		
 	my $selected = Locale::Messages->select_package ($package);
-	if ($selected ne $package && 'gettext' eq $package) {
+	if ($selected ne $package && 'gettext_xs' eq $package) {
 		print "1..0 # Skip: Locale::$package not available here.\n";
 		exit 0;
 	}
@@ -29,7 +29,7 @@ BEGIN {
 }
 
 my $locale_dir = $0;
-$locale_dir =~ s,[^/\\]+$,, or $locale_dir = '.';
+$locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
 $locale_dir .= '/locale';
 
 $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
@@ -43,14 +43,14 @@ ok defined $bound_dir && $locale_dir eq $bound_dir;
 $bound_dir = bindtextdomain additional => $locale_dir;
 ok defined $bound_dir && $locale_dir eq $bound_dir;
 
-ok 'Dezember' eq dgettext (existing => 'December');
-ok  'September' eq dgettext (existing => 'September');
-ok  'Not translated' eq dgettext (existing => 'Not translated');
-ok 'Jänner' eq dgettext (existing => 'January');
+ok 'Dezember' eq dcgettext (existing => 'December', LC_MESSAGES);
+ok  'September' eq dcgettext (existing => 'September', LC_MESSAGES);
+ok  'Not translated' eq dcgettext (existing => 'Not translated', LC_MESSAGES);
+ok 'Jänner' eq dcgettext (existing => 'January', LC_MESSAGES);
 
-ok 'Montag' eq dgettext (additional => 'Monday');
-ok  'Not translated' eq dgettext (additional => 'Not translated');
-ok 'Sonnabend' eq dgettext (additional => 'Saturday');
+ok 'Montag' eq dcgettext (additional => 'Monday', LC_MESSAGES);
+ok  'Not translated' eq dcgettext (additional => 'Not translated', LC_MESSAGES);
+ok 'Sonnabend' eq dcgettext (additional => 'Saturday', LC_MESSAGES);
 
 __END__
 

@@ -1,3 +1,8 @@
+Version 1.03 - 14 Sep 2003
+
+* alternative XS implemenation of gettext() and friends (outperforms
+  pure Perl version by factor 10-15)
+
 Version 1.02 - 04 Sep 2003
 
 * bugfixes for systems that lack both /usr/share/locale and

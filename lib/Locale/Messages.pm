@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.13 2003/09/10 17:03:33 guido Exp $
+# $Id: Messages.pm,v 1.14 2003/09/15 08:21:46 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -29,13 +29,12 @@ use strict;
 use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
 # Try to load the C version first.
-#$package = 'gettext';
-# Locale::gettext 1.01 lacks ngettext and friends and bind_textdomain_codeset.
-#eval "use Locale::gettext 2.00 ()";
-#if ($@) {
+$package = 'gettext_xs';
+eval "require Locale::gettext_xs";
+if ($@) {
     $package = 'gettext_pp';
     require Locale::gettext_pp;
-#}
+}
 
 require Exporter;
 @ISA = qw (Exporter);
@@ -122,128 +121,128 @@ EOF
 
 sub select_package
 {
-#	my ($class, $pkg) = @_;
-#
-#	if (defined $pkg && 'gettext_pp' eq $pkg) {
-#		require Locale::gettext_pp;
-#		$package = 'gettext_pp';
-#	} else {
-#		eval "use Locale::gettext 2.00 ()";
-#		$package = 'gettext' unless $@;
-#	}
+	my ($class, $pkg) = @_;
+
+	if (defined $pkg && 'gettext_pp' eq $pkg) {
+		require Locale::gettext_pp;
+		$package = 'gettext_pp';
+	} else {
+		eval "require Locale::gettext_xs";
+		$package = 'gettext_xs' unless $@;
+	}
 
     return $package;
 }
 
 sub textdomain(;$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::textdomain :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::textdomain :
 	&Locale::gettext_pp::textdomain;
 }
 
 sub bindtextdomain($;$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::bindtextdomain :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::bindtextdomain :
 	&Locale::gettext_pp::bindtextdomain;
 }
 
 sub bind_textdomain_codeset($;$)
 {
-    'gettext' eq $package ?
-	&Locale::gettext::bind_textdomain_codeset :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::bind_textdomain_codeset :
 	&Locale::gettext_pp::bind_textdomain_codeset;
 }
 
 sub gettext($)
 {
-    _turn_utf_8_off ('gettext' eq $package ?
-		     &Locale::gettext::gettext :
+    _turn_utf_8_off ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::gettext :
 		     &Locale::gettext_pp::gettext);
 }
 
 sub dgettext($$)
 {
-    _turn_utf_8_off ('gettext' eq $package ?
-		     &Locale::gettext::dgettext :
+    _turn_utf_8_off ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dgettext :
 		     &Locale::gettext_pp::dgettext);
 }
 
 sub dcgettext($$$)
 {
-    _turn_utf_8_off ('gettext' eq $package ?
-		     &Locale::gettext::dcgettext :
+    _turn_utf_8_off ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dcgettext :
 		     &Locale::gettext_pp::dcgettext);
 }
 
 sub ngettext($$$)
 {
-    _turn_utf_8_off ('gettext' eq $package ?
-		     &Locale::gettext::ngettext :
+    _turn_utf_8_off ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::ngettext :
 		     &Locale::gettext_pp::ngettext);
 }
 
 sub dngettext($$$$)
 {
-    _turn_utf_8_off ('gettext' eq $package ?
-		     &Locale::gettext::dngettext :
+    _turn_utf_8_off ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dngettext :
 		     &Locale::gettext_pp::dngettext);
 }
 
 sub dcngettext($$$$$)
 {
-    _turn_utf_8_off ('gettext' eq $package ?
-		     &Locale::gettext::dcngettext :
+    _turn_utf_8_off ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dcngettext :
 		     &Locale::gettext_pp::dcngettext);
 }
 
 sub LC_NUMERIC
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_NUMERIC :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_NUMERIC :
 	&Locale::gettext_pp::LC_NUMERIC;
 }
 
 sub LC_CTYPE
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_CTYPE :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_CTYPE :
 	&Locale::gettext_pp::LC_CTYPE;
 }
 
 sub LC_TIME
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_TIME :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_TIME :
 	&Locale::gettext_pp::LC_TIME;
 }
 
 sub LC_COLLATE
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_COLLATE :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_COLLATE :
 	&Locale::gettext_pp::LC_COLLATE;
 }
 
 sub LC_MONETARY
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_MONETARY :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_MONETARY :
 	&Locale::gettext_pp::LC_MONETARY;
 }
 
 sub LC_MESSAGES
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_MESSAGES :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_MESSAGES :
 	&Locale::gettext_pp::LC_MESSAGES;
 }
 
 sub LC_ALL
 {
-    'gettext' eq $package ?
-	&Locale::gettext::LC_ALL :
+    'gettext_xs' eq $package ?
+	&Locale::gettext_xs::LC_ALL :
 	&Locale::gettext_pp::LC_ALL;
 }
 
@@ -437,6 +436,20 @@ will be expected in F<./mylocale/fr_CH/LC_MESSAGES/my-package.mo>.
 
 Sets the output encoding for B<TEXTDOMAIN> to B<ENCODING>.  
 
+=item B<select_package PACKAGE>
+
+By default, B<Locale::Messages> will try to load the XS version of
+the gettext implementation, i. e. Locale::gettext_xs(3) and will fall
+back to the pure Perl implementation Locale::gettext_pp(3).  You can
+override this behavior by passing the string "gettext_pp" or
+"gettext_xs" to the function select_package().  Passing "gettext_pp"
+here, will prefer the pure Perl implementation.
+
+You will normally want to use that in a BEGIN block of your main
+script.
+
+The function was introduced with libintl-perl version 1.03.
+
 =back
 
 =head1 CONSTANTS
@@ -531,6 +544,10 @@ Imports the locale category constants:
 =back
 
 =back
+
+=head1 OTHER EXPORTS
+
+=item B<select_package PACKAGE>
 
 =head1 USAGE
 
