@@ -80,7 +80,7 @@ code separated by an underscore "_", for example:
 
 This will set your language preferences to French ("fr") for Belgium ("BE").
 Other examples are French for France ("fr_FR"), German for Austria ("de_AT"),
-and so on.  You can also omit the country part ("fr", "de", "it", "ru", ...)
+and so on.  You can also omit the country part ("FR", "DE", "IT", "RU", ...)
 in which case a default setting for the country will be assumed.
 
 If there are no translations available for your selected languages, the
