@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MS_KANJI.pm,v 1.5 2003/06/05 18:02:56 guido Exp $
+# $Id: MS_KANJI.pm,v 1.6 2003/06/05 18:10:01 guido Exp $
 
 # Conversion routines for MS_KANJI.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -14198,7 +14198,7 @@ sub _recode
 						   @{$_[1]}));
     } else {
 		unless ($conv_re) {
-			$conv_re = qr /([\x81-\x84\x88-\x9f\xe0-\xea].|.)/o;
+			$conv_re = qr /([\x81-\x84\x88-\x9f\xe0-\xea].|.)/so;
 		}
 
 		my @outbuf;
