@@ -36,8 +36,11 @@ $locale_dir .= '/LocaleData';
 
 my $textdomain = 'existing';
 
-$ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
-delete $ENV{OUTPUT_CHARSET};
+Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
+Locale::Messages::nl_putenv ("LC_ALL=de_AT");
+Locale::Messages::nl_putenv ("LANG=de_AT");
+Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
+Locale::Messages::nl_putenv ("OUTPUT_CHARSET");
 POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
