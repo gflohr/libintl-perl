@@ -47,7 +47,7 @@ The subdirectory "simplecal" contains a regular Perl package like the
 ones you will find on the CPAN.  You should first try to build and
 use the package:
 
-     cd simplecal.pl
+     cd simplecal
      perl Makefile.PL
      make
 
