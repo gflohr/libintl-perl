@@ -11,3 +11,6 @@ x-.*$
 \.tar.gz$
 ^pm_to_blib$
 ^USERS$
+^gettext_xs/Makefile
+^gettext_xs/.*\.(bs|c|o)$
+^gettext_xs/pm_to_blib$
