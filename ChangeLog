@@ -1,3 +1,46 @@
+2003-07-14 17:11  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: return converted string in utf8_off 
+
+2003-07-14 16:20  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: syntax errors 
+
+2003-07-14 14:24  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/: Messages.pm, gettext_pp.pm: performance tweaks 
+
+2003-07-14 13:02  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: fixed fatal typo 
+
+2003-07-14 12:46  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: 
+	- use nl_langinfo() if available to determine output charset 
+	- variable names 
+
+2003-06-30 21:12  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode.pm: compatibility tweak, (SuSE rpm
+	perl-5.8.0-104!) 
+
+2003-06-27 12:25  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/Messages.pm: fixed pod error 
+
+2003-06-27 12:24  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: fixed pod errors 
+
+2003-06-27 12:19  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode.pm: fixed for new conversion interface 
+
+2003-06-23 17:24  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: ChangeLog 
+
 2003-06-23 16:48  Guido Flohr <guido@imperia.net>
 
 	* ChangeLog: # updated 
