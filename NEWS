@@ -1,3 +1,7 @@
+Version 1.04 -
+
+* do not clobber $@ in Locale::gettext_pp
+
 Version 1.03 - 15 Sep 2003
 
 * alternative XS implemenation of gettext() and friends (outperforms
