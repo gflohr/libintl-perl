@@ -27,10 +27,10 @@
 
 package Locale::RecodeData::US_ASCII;
 
+use strict;
+
 require Locale::RecodeData;
 use base qw(Locale::RecodeData);
-
-use strict;
 
 sub _recode
 {

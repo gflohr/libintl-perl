@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: GREEK_CCITT.pm,v 1.4 2003/06/15 14:35:41 guido Exp $
+# $Id: GREEK_CCITT.pm,v 1.5 2003/06/23 11:30:35 ingrid Exp $
 
 # Conversion routines for GREEK-CCITT.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::GREEK_CCITT;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

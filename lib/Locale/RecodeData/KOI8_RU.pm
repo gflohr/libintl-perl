@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: KOI8_RU.pm,v 1.1 2003/06/16 11:10:51 guido Exp $
+# $Id: KOI8_RU.pm,v 1.2 2003/06/23 11:30:36 ingrid Exp $
 
 # Conversion routines for KOI8-RU.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::KOI8_RU;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

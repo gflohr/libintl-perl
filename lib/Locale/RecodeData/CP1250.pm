@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: CP1250.pm,v 1.4 2003/06/15 14:35:36 guido Exp $
+# $Id: CP1250.pm,v 1.5 2003/06/23 11:30:35 ingrid Exp $
 
 # Conversion routines for CP1250.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::CP1250;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

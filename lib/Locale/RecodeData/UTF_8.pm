@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: UTF_8.pm,v 1.4 2003/06/13 11:40:18 guido Exp $
+# $Id: UTF_8.pm,v 1.5 2003/06/23 11:30:36 ingrid Exp $
 
 # Conversion routines for UTF-8 (perl < 5.8.0).
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -29,10 +29,10 @@
 
 package Locale::RecodeData::UTF_8;
 
+use strict;
+
 require Locale::RecodeData;
 use base qw(Locale::RecodeData);
-
-use strict;
 
 sub _recode
 {

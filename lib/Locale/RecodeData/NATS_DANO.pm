@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: NATS_DANO.pm,v 1.4 2003/06/15 14:35:42 guido Exp $
+# $Id: NATS_DANO.pm,v 1.5 2003/06/23 11:30:36 ingrid Exp $
 
 # Conversion routines for NATS-DANO.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::NATS_DANO;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

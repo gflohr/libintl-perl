@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ATARI_ST.pm,v 1.5 2003/06/15 14:50:35 guido Exp $
+# $Id: ATARI_ST.pm,v 1.6 2003/06/23 11:30:35 ingrid Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::ATARI_ST;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

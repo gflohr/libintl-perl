@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MAC_IS.pm,v 1.4 2003/06/15 14:35:42 guido Exp $
+# $Id: MAC_IS.pm,v 1.5 2003/06/23 11:30:36 ingrid Exp $
 
 # Conversion routines for MAC-IS.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::MAC_IS;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

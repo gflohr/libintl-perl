@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MACCYRILLIC.pm,v 1.1 2003/06/16 11:08:50 guido Exp $
+# $Id: MACCYRILLIC.pm,v 1.2 2003/06/23 11:30:36 ingrid Exp $
 
 # Conversion routines for MACCYRILLIC.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::MACCYRILLIC;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

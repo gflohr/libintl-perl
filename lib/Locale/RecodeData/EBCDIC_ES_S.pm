@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: EBCDIC_ES_S.pm,v 1.4 2003/06/15 14:35:38 guido Exp $
+# $Id: EBCDIC_ES_S.pm,v 1.5 2003/06/23 11:30:35 ingrid Exp $
 
 # Conversion routines for EBCDIC-ES-S.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -28,10 +28,10 @@
 
 package Locale::RecodeData::EBCDIC_ES_S;
 
-require Locale::RecodeData;
-use base Locale::RecodeData;
-
 use strict;
+
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 my @to_ucs4 = (
     0x0000,

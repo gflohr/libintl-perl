@@ -27,10 +27,10 @@
 
 package Locale::RecodeData::ISO_8859_1;
 
+use strict;
+
 require Locale::RecodeData;
 use base qw(Locale::RecodeData);
-
-use strict;
 
 use constant TO_UTF8 => [
     "\x00",
