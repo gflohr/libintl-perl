@@ -1,6 +1,251 @@
+2004-01-12 12:17  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03language_pp.t, 03language_xs.t: $LANG must be set in
+	environment with $LANGUAGE 
+
+2004-01-12 12:16  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03bind_textdomain_codeset_pp.t,
+	03bind_textdomain_codeset_xs.t: use nl_putenv(), not %ENV 
+
+2004-01-12 12:15  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.xs: 
+	- fixed prototype for _nl_putenv 
+	- use _putenv() instead of putenv() (educated guess) 
+
+2004-01-12 12:14  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: updated 
+
+2004-01-12 12:13  Guido Flohr <guido@imperia.net>
+
+	* COPYING.LESSER, COPYING.LIB: renamed COPYING.LIB to
+	COPYING.LESSER to prevent deletion for make clean 
+
+2004-01-08 20:50  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03dcgettext_pp.t, 03dcgettext_xs.t, 03dcngettext_pp.t,
+	03dcngettext_xs.t, 03dgettext_pp.t, 03dgettext_xs.t,
+	03dngettext_pp.t, 03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t,
+	03language_pp.t, 03language_xs.t, 03ngettext_pp.t, 03ngettext_xs.t: 
+	compatibility tweaks for MS-DOS, use nl_putenv instead of %ENV 
+
+2004-01-08 20:49  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: fixed another typo 
+
+2004-01-08 20:12  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.pm, lib/Locale/gettext_pp.pm: fixed typo 
+
+2004-01-08 20:11  Guido Flohr <guido@imperia.net>
+
+	* META.yml, Makefile.PL: File::Spec required again 
+
+2004-01-08 19:38  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03bind_textdomain_codeset_pp.t,
+	03bind_textdomain_codeset_xs.t, 03dcgettext_pp.t, 03dcgettext_xs.t,
+	03dcngettext_pp.t, 03dcngettext_xs.t, 03dgettext_pp.t,
+	03dgettext_xs.t, 03dngettext_pp.t, 03dngettext_xs.t,
+	03gettext_pp.t, 03gettext_xs.t, 03language_pp.t, 03language_xs.t,
+	03ngettext_pp.t, 03ngettext_xs.t: 
+	- let bindtextdomain() take care of normalized paths 
+	- compare normalized paths 
+
+2004-01-08 19:09  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03bind_textdomain_codeset_pp.t,
+	03bind_textdomain_codeset_xs.t, 03dcngettext_pp.t,
+	03dcngettext_xs.t, 03dgettext_pp.t, 03dngettext_pp.t,
+	03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t, 03ngettext_pp.t,
+	03ngettext_xs.t: do not use hard-coded locale identifiers in calls
+	to setlocale() 
+
+2004-01-08 18:48  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03dcgettext_pp.t, 03dcgettext_xs.t, 03dgettext_xs.t,
+	03gettext_pp.t, 03gettext_xs.t, 03language_pp.t, 03language_xs.t: 
+	set OUTPUT_CHARSET for compatibility 
+
+2004-01-08 18:48  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: added META.yml 
+
+2004-01-08 18:39  Guido Flohr <guido@imperia.net>
+
+	* META.yml: new 
+
+2004-01-08 18:25  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, test.pl, gettext_xs/Makefile.PL,
+	gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
+	lib/Locale/Messages.pm, lib/Locale/Recode.pm,
+	lib/Locale/RecodeData.pm, lib/Locale/TextDomain.pm,
+	lib/Locale/gettext_pp.pm, lib/Locale/gettext_xs.pod,
+	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
+	lib/Locale/RecodeData/ASMO_449.pm,
+	lib/Locale/RecodeData/ATARI_ST.pm,
+	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	lib/Locale/RecodeData/CP10007.pm, lib/Locale/RecodeData/CP1250.pm,
+	lib/Locale/RecodeData/CP1251.pm, lib/Locale/RecodeData/CP1252.pm,
+	lib/Locale/RecodeData/CP1253.pm, lib/Locale/RecodeData/CP1254.pm,
+	lib/Locale/RecodeData/CP1256.pm, lib/Locale/RecodeData/CP1257.pm,
+	lib/Locale/RecodeData/CSN_369103.pm, lib/Locale/RecodeData/CWI.pm,
+	lib/Locale/RecodeData/DEC_MCS.pm,
+	lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
+	lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
+	lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
+	lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
+	lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
+	lib/Locale/RecodeData/EBCDIC_ES.pm,
+	lib/Locale/RecodeData/EBCDIC_ES_A.pm,
+	lib/Locale/RecodeData/EBCDIC_ES_S.pm,
+	lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
+	lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
+	lib/Locale/RecodeData/EBCDIC_FR.pm,
+	lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
+	lib/Locale/RecodeData/EBCDIC_IT.pm,
+	lib/Locale/RecodeData/EBCDIC_PT.pm,
+	lib/Locale/RecodeData/EBCDIC_UK.pm,
+	lib/Locale/RecodeData/EBCDIC_US.pm,
+	lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
+	lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
+	lib/Locale/RecodeData/GEORGIAN_PS.pm,
+	lib/Locale/RecodeData/GOST_19768_74.pm,
+	lib/Locale/RecodeData/GREEK7.pm,
+	lib/Locale/RecodeData/GREEK7_OLD.pm,
+	lib/Locale/RecodeData/GREEK_CCITT.pm,
+	lib/Locale/RecodeData/HP_ROMAN8.pm,
+	lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
+	lib/Locale/RecodeData/IBM1004.pm, lib/Locale/RecodeData/IBM1026.pm,
+	lib/Locale/RecodeData/IBM1047.pm, lib/Locale/RecodeData/IBM256.pm,
+	lib/Locale/RecodeData/IBM273.pm, lib/Locale/RecodeData/IBM274.pm,
+	lib/Locale/RecodeData/IBM275.pm, lib/Locale/RecodeData/IBM277.pm,
+	lib/Locale/RecodeData/IBM278.pm, lib/Locale/RecodeData/IBM280.pm,
+	lib/Locale/RecodeData/IBM281.pm, lib/Locale/RecodeData/IBM284.pm,
+	lib/Locale/RecodeData/IBM285.pm, lib/Locale/RecodeData/IBM290.pm,
+	lib/Locale/RecodeData/IBM297.pm, lib/Locale/RecodeData/IBM420.pm,
+	lib/Locale/RecodeData/IBM423.pm, lib/Locale/RecodeData/IBM424.pm,
+	lib/Locale/RecodeData/IBM437.pm, lib/Locale/RecodeData/IBM500.pm,
+	lib/Locale/RecodeData/IBM850.pm, lib/Locale/RecodeData/IBM851.pm,
+	lib/Locale/RecodeData/IBM852.pm, lib/Locale/RecodeData/IBM855.pm,
+	lib/Locale/RecodeData/IBM857.pm, lib/Locale/RecodeData/IBM860.pm,
+	lib/Locale/RecodeData/IBM861.pm, lib/Locale/RecodeData/IBM862.pm,
+	lib/Locale/RecodeData/IBM863.pm, lib/Locale/RecodeData/IBM864.pm,
+	lib/Locale/RecodeData/IBM865.pm, lib/Locale/RecodeData/IBM866.pm,
+	lib/Locale/RecodeData/IBM868.pm, lib/Locale/RecodeData/IBM869.pm,
+	lib/Locale/RecodeData/IBM870.pm, lib/Locale/RecodeData/IBM871.pm,
+	lib/Locale/RecodeData/IBM874.pm, lib/Locale/RecodeData/IBM875.pm,
+	lib/Locale/RecodeData/IBM880.pm, lib/Locale/RecodeData/IBM891.pm,
+	lib/Locale/RecodeData/IBM903.pm, lib/Locale/RecodeData/IBM904.pm,
+	lib/Locale/RecodeData/IBM905.pm, lib/Locale/RecodeData/IBM918.pm,
+	lib/Locale/RecodeData/IEC_P27_1.pm, lib/Locale/RecodeData/INIS.pm,
+	lib/Locale/RecodeData/INIS_8.pm,
+	lib/Locale/RecodeData/INIS_CYRILLIC.pm,
+	lib/Locale/RecodeData/ISO_10367_BOX.pm,
+	lib/Locale/RecodeData/ISO_2033_1983.pm,
+	lib/Locale/RecodeData/ISO_5427.pm,
+	lib/Locale/RecodeData/ISO_5427_EXT.pm,
+	lib/Locale/RecodeData/ISO_5428.pm,
+	lib/Locale/RecodeData/ISO_8859_1.pm,
+	lib/Locale/RecodeData/ISO_8859_10.pm,
+	lib/Locale/RecodeData/ISO_8859_11.pm,
+	lib/Locale/RecodeData/ISO_8859_13.pm,
+	lib/Locale/RecodeData/ISO_8859_14.pm,
+	lib/Locale/RecodeData/ISO_8859_15.pm,
+	lib/Locale/RecodeData/ISO_8859_16.pm,
+	lib/Locale/RecodeData/ISO_8859_2.pm,
+	lib/Locale/RecodeData/ISO_8859_3.pm,
+	lib/Locale/RecodeData/ISO_8859_4.pm,
+	lib/Locale/RecodeData/ISO_8859_5.pm,
+	lib/Locale/RecodeData/ISO_8859_6.pm,
+	lib/Locale/RecodeData/ISO_8859_7.pm,
+	lib/Locale/RecodeData/ISO_8859_8.pm,
+	lib/Locale/RecodeData/ISO_8859_9.pm,
+	lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_RU.pm,
+	lib/Locale/RecodeData/KOI8_T.pm, lib/Locale/RecodeData/KOI8_U.pm,
+	lib/Locale/RecodeData/KOI_8.pm,
+	lib/Locale/RecodeData/LATIN_GREEK.pm,
+	lib/Locale/RecodeData/LATIN_GREEK_1.pm,
+	lib/Locale/RecodeData/MACARABIC.pm,
+	lib/Locale/RecodeData/MACCROATIAN.pm,
+	lib/Locale/RecodeData/MACCYRILLIC.pm,
+	lib/Locale/RecodeData/MACGREEK.pm,
+	lib/Locale/RecodeData/MACHEBREW.pm,
+	lib/Locale/RecodeData/MACICELAND.pm,
+	lib/Locale/RecodeData/MACINTOSH.pm,
+	lib/Locale/RecodeData/MACROMANIA.pm,
+	lib/Locale/RecodeData/MACTHAI.pm,
+	lib/Locale/RecodeData/MACTURKISH.pm,
+	lib/Locale/RecodeData/MACUKRAINE.pm,
+	lib/Locale/RecodeData/MAC_IS.pm, lib/Locale/RecodeData/MAC_SAMI.pm,
+	lib/Locale/RecodeData/MAC_UK.pm,
+	lib/Locale/RecodeData/NATS_DANO.pm,
+	lib/Locale/RecodeData/NATS_SEFI.pm,
+	lib/Locale/RecodeData/NEXTSTEP.pm,
+	lib/Locale/RecodeData/SAMI_WS2.pm,
+	lib/Locale/RecodeData/TIS_620.pm,
+	lib/Locale/RecodeData/US_ASCII.pm, lib/Locale/RecodeData/UTF_8.pm,
+	lib/Locale/RecodeData/VISCII.pm, lib/Locale/RecodeData/_Encode.pm,
+	sample/simplecal/Makefile.PL: Happy New Year! 
+
+2004-01-08 18:24  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/Makefile.PL: File::Spec is required for the XS version 
+
+2004-01-08 18:20  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
+	lib/Locale/Messages.pm, lib/Locale/gettext_pp.pm,
+	lib/Locale/gettext_xs.pod: new function nl_putenv() for MS-DOS
+	ideosyncrasies 
+
+2004-01-08 18:14  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: do not require the variable _nl_domain_bindings for
+	building the XS version 
+
+2004-01-08 14:32  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/: gettext_xs.pm, gettext_xs.xs: convert directory to
+	local convention for Locale::gettext_xs::bindtextdomain 
+
+2004-01-02 19:18  Guido Flohr <guido@imperia.net>
+
+	* tests/po/Makefile: moved tests/locale to tests/LocaleData 
+
+2004-01-02 19:10  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.xs, tests/03bind_textdomain_codeset_pp.t,
+	tests/03bind_textdomain_codeset_xs.t, tests/03dcgettext_pp.t,
+	tests/03dcgettext_xs.t, tests/03dcngettext_pp.t,
+	tests/03dcngettext_xs.t, tests/03dgettext_pp.t,
+	tests/03dgettext_xs.t, tests/03dngettext_pp.t,
+	tests/03dngettext_xs.t, tests/03gettext_pp.t, tests/03gettext_xs.t,
+	tests/03language_pp.t, tests/03language_xs.t,
+	tests/03ngettext_pp.t, tests/03ngettext_xs.t: compatibility tweaks 
+
+2004-01-02 18:55  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, tests/03bind_textdomain_codeset_pp.t,
+	tests/03bind_textdomain_codeset_xs.t, tests/03dcgettext_pp.t,
+	tests/03dcgettext_xs.t, tests/03dcngettext_pp.t,
+	tests/03dcngettext_xs.t, tests/03dgettext_pp.t,
+	tests/03dgettext_xs.t, tests/03dngettext_pp.t,
+	tests/03dngettext_xs.t, tests/03gettext_pp.t, tests/03gettext_xs.t,
+	tests/03language_pp.t, tests/03language_xs.t,
+	tests/03ngettext_pp.t, tests/03ngettext_xs.t: moved tests/locale to
+	tests/LocaleData 
+
+2003-12-29 20:03  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: #re-generated 
+
 2003-12-29 20:02  Guido Flohr <guido@imperia.net>
 
-	* NEWS: updated 
+	* NEWS, NEWS: updated 
 
 2003-12-29 20:01  Guido Flohr <guido@imperia.net>
 
@@ -439,7 +684,7 @@
 
 2003-09-04 15:31  Guido Flohr <guido@imperia.net>
 
-	* tests/: locale/de_AT/LC_MESSAGES/additional.mo,
+	* tests/: LocaleData/de_AT/LC_MESSAGES/additional.mo,
 	po/additional.de_AT.po: added plural rules for de_AT to test
 	catalog 
 
@@ -550,10 +795,10 @@
 	tests/03dngettext.t, tests/03dngettext_pp.t, tests/03gettext.t,
 	tests/03gettext_pp.t, tests/03ngettext.t, tests/03ngettext_pp.t,
 	tests/03textdomain.t, tests/03textdomain_pp.t,
-	tests/locale/de/LC_MESSAGES/additional.mo,
-	tests/locale/de/LC_MESSAGES/existing.mo,
-	tests/locale/de_AT/LC_MESSAGES/additional.mo,
-	tests/locale/de_AT/LC_MESSAGES/existing.mo, tests/po/Makefile,
+	tests/LocaleData/de/LC_MESSAGES/additional.mo,
+	tests/LocaleData/de/LC_MESSAGES/existing.mo,
+	tests/LocaleData/de_AT/LC_MESSAGES/additional.mo,
+	tests/LocaleData/de_AT/LC_MESSAGES/existing.mo, tests/po/Makefile,
 	tests/po/additional.de.po, tests/po/additional.de_AT.po,
 	tests/po/existing.de.po, tests/po/existing.de_AT.po: 
 	- directory t/ moved to tests/ 

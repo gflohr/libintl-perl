@@ -1,3 +1,8 @@
+Version 1.10 - 12 Jan 2004
+
+* XS version now compiles under Windows (GNU gettext and libiconv required,
+  build with "perl Makefile.PL DIR=gettext_xs", see README.win32 for details)
+
 Version 1.09 - 29 Dec 2003
 
 * check version match with XS module

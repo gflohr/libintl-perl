@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.20 2004/01/08 17:25:57 guido Exp $
+# $Id: Messages.pm,v 1.21 2004/01/12 12:03:42 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -32,7 +32,7 @@ $package = 'gettext_xs';
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
-die "Version: $version mismatch (1.09 vs. $version)" unless $version eq '1.09';
+die "Version: $version mismatch (1.10 vs. $version)" unless $version eq '1.10';
 EOF
 if ($@) {
     $package = 'gettext_pp';
