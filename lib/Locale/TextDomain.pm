@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.21 2003/11/30 18:45:15 guido Exp $
+# $Id: TextDomain.pm,v 1.22 2003/11/30 18:47:20 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -387,10 +387,6 @@ for your textdomain there.  Example: If the path
 F</usr/lib/perl/5.8.0/site_perl> is in your C<@INC>, you can
 install your translation files in F</usr/lib/perl/5.8.0/site_perl/LocaleData>, 
 and they will be found at run-time.
-
-The document L<http://let.imperia.org/howto/en/perl-i18n/> describes
-in detail, how you can install translations so that libintl-perl
-will find them without any additional hassle.
 
 =head1 USAGE
 
@@ -812,9 +808,6 @@ The translation will never change, there is no need to retrieve it
 over and over again.  Although libintl-perl will of course cache
 the translation read from the file system, you can still avoid the
 overhead for the function calls.
-
-Up-to-date and in-depth information on the entire topic can be found at
-L<http://let.imperia.org/howto/en/perl-i18n/>.
 
 =head1 AUTHOR
 
