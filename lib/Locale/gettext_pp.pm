@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.28 2003/12/29 19:00:19 guido Exp $
+# $Id: gettext_pp.pm,v 1.29 2004/01/08 17:20:11 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -151,6 +151,7 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 				 textdomain
 				 bindtextdomain
 				 bind_textdomain_codeset
+                 nl_putenv
 				 LC_CTYPE
 				 LC_NUMERIC
 				 LC_TIME
@@ -379,6 +380,36 @@ sub dcngettext($$$$$)
 	}
 	
 	return $trans;
+}
+
+sub nl_putenv ($)
+{
+    my ($envspec) = $_;
+    return unless defined $envspec;
+    return unless length $envspec;
+    return if substr ($envspec, 0, 1) == '=';
+    
+    my ($var, $value) = split /=/, $envspec, 2;
+
+    # In Perl we *could* set empty environment variables even under
+    # MS-DOS, but for compatibility reasons, we implement the
+    # brain-damaged behavior of the Microsoft putenv().
+    if ($^O eq 'MSWin32') {
+        $value = '' unless defined $value;
+        if (length $value) {
+            $ENV{$var} = $value;
+        } else {
+            delete $ENV{$var};
+        }
+    } else {
+        if (defined $value) {
+            $ENV{$var} = $value;
+        } else {
+            delete $ENV{$var};
+        }
+    }
+
+    return 1;
 }
 
 sub __load_domain
@@ -768,6 +799,10 @@ See L<Locale::Messages/FUNCTIONS>.
 See L<Locale::Messages/FUNCTIONS>.
 
 =item B<bind_textdomain_codeset TEXTDOMAIN, ENCODING>
+
+=item B<nl_putenv ENVSPEC>
+
+See L<Locale::Messages/FUNCTIONS>.
 
 =back
 

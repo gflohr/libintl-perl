@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_xs.pm,v 1.2 2004/01/08 13:32:48 guido Exp $
+# $Id: gettext_xs.pm,v 1.3 2004/01/08 17:20:11 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -63,6 +63,7 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA);
 				 textdomain
 				 bindtextdomain
 				 bind_textdomain_codeset
+                                 nl_putenv
 				 LC_CTYPE
 				 LC_NUMERIC
 				 LC_TIME
@@ -88,6 +89,35 @@ sub bindtextdomain ($;$)
 	} else {
 		return &Locale::gettext_xs::_bindtextdomain;
 	}
+}
+
+sub nl_putenv ($)
+{
+    my ($envspec) = @_;
+    
+    return unless defined $envspec;
+    return unless length $envspec;
+    return if substr ($envspec, 0, 1) == '=';
+    
+    my ($var, $value) = split /=/, $envspec, 2;
+    
+    if ($^O eq 'MSWin32') {
+        $value = '' unless defined $value;
+        return unless Locale::gettext_xs::_nl_putenv ("$var=$value") == 0;
+        if (length $value) {
+            $ENV{$var} = $value;
+        } else {
+            delete $ENV{$var};
+        }
+    } else {
+        if (defined $value) {
+            $ENV{$var} = $value;
+        } else {
+            delete $ENV{$var};
+        }
+    }
+
+    return 1;
 }
 
 1;

@@ -1,9 +1,8 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.18 2003/12/29 18:59:33 guido Exp $
+# $Id: Messages.pm,v 1.19 2004/01/08 17:20:11 guido Exp $
 
-# Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
@@ -73,6 +72,7 @@ require Exporter;
 		 textdomain
 		 bindtextdomain
 		 bind_textdomain_codeset
+                 nl_putenv
 		 LC_CTYPE
 		 LC_NUMERIC
 		 LC_TIME
@@ -199,6 +199,13 @@ sub dcngettext($$$$$)
     turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dcngettext :
 		     &Locale::gettext_pp::dcngettext);
+}
+
+sub nl_putenv($)
+{
+    'gettext_xs' eq $package ?
+		     &Locale::gettext_xs::nl_putenv :
+		     &Locale::gettext_pp::nl_putenv;
 }
 
 sub LC_NUMERIC
@@ -461,6 +468,69 @@ guaranteed to be turned off.  This function does not really fit into
 the module, but it is often handy nevertheless.
 
 The function was introduced with libintl-perl version 1.07.
+
+=item B<nl_putenv ENVSPEC>
+
+Resembles the ANSI C putenv(3) function.  The sole purpose of this 
+function is to work around some ideosyncrasies in the environment
+processing of Windows systems.  If you want to portably set or
+unset environment variables, use this function instead of directly
+manipulating C<%ENV>.
+
+The argument B<ENVSPEC> may have three different forms.
+
+=over 8
+
+=item B<LANGUAGE=fr_CH>
+
+This would set the environment variable C<LANGUAGE> to "fr_CH".
+
+=item B<LANGUAGE=>
+
+Normally, this will set the environment variable C<LANGUAGE> to an
+empty string.  Under Windows, however, the environment variable will
+be deleted instead (and is no longer present in C<%ENV>).  Since
+within libintl-perl empty environment variables are useless, consider
+this usage as deprecated.
+
+=item B<LANGUAGE>
+
+This will delete the environment variable B<LANGUAGE>.  If you are
+familiar with the brain-damaged implementation of putenv(3) (resp.
+_putenv()) in the so-called standard C library of MS-Windows, you
+may suspect that this is an invalid argument.  This is not the case!
+Passing a variable name not followed by an equal sign will always
+delete the variable, no matter which operating system you use.
+
+=back
+
+The function returns true for success, and false for failure.  Possible
+reasons for failure are an invalid syntax or - only under Windows -
+failure to allocate space for the new environment entry ($! will be
+set accordingly in this case).
+
+Why all this hassle?  The 32-bit versions of MS-DOS (currently
+Windows 95/98/ME/NT/2000/XP/CE/.NET) maintain two distinct blocks
+of environment variables per process.  Which block is considered
+the "correct" environment is a compile-time option of the Perl
+interpreter.  Unfortunately, if you have build the XS version 
+Locale::gettext_xs(3) under Windows, the underlying library may use 
+a different environment block, and changes you make to C<%ENV> may
+not be visible to the library.
+
+The function nl_putenv() is mostly a funny way of saying
+
+    LANGUAGE=some_value
+    
+but it does its best, to pass this information to the gettext 
+library.  Under other operating systems than Windows, it only
+operates on C<%ENV>, under Windows it will call the C library
+function _putenv() (after doing some cleanup to its arguments),
+before manipulating C<%ENV>.
+
+Please note, that you C<%ENV> is updated by nl_putenv() automatically.
+
+The function has been introduced in libintl-perl version 1.10.
 
 =back
 

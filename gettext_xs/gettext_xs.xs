@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.4 2004/01/08 13:32:48 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.5 2004/01/08 17:20:11 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -168,6 +168,21 @@ textdomain (domain)
     OUTPUT:
 	RETVAL
 
+# This function is a no-op except for MS-DOS with its completely 
+# brain-damaged environment interface.
+int
+_nl_putenv (str)
+        char* str
+    PROTOTYPE: $$$
+    CODE:
+#if defined (WIN32)
+        RETVAL = putenv (str);
+#else
+        RETVAL = 0;
+#endif
+    OUTPUT:
+        RETVAL
+        
 char*
 _bindtextdomain (domain = NULL, dirname = NULL)
 	char* domain
