@@ -78,13 +78,12 @@ my $test_string2 = [ unpack 'c*', 'Supergirl' ];
 
 $cd_utf8 = Locale::Recode->new (from => 'INTERNAL',
 							   to => 'ASCII',
-							   unknown => 0x2a,  # Asterisk!
 							  );
-my $asterisk = [ (0x2a) ]; # Asterisk!
+my $unknown = [ (ord '?') ]; # Unknown character!
 $result_utf8 = $cd_utf8->recode ($test_string1) &&
 	$cd_utf8->recode ($test_string2) &&
-		$cd_utf8->recode ($asterisk);
-$test_string2 = $asterisk . $test_string2 . $asterisk;
+		$cd_utf8->recode ($unknown);
+$test_string2 = $unknown . $test_string2 . $unknown;
 ok $test_string1 eq $test_string2;
 
 sub int2utf8

@@ -1,6 +1,6 @@
 #! /bin/false
 
-#      tabstop=4
+# vim: tabstop=4
 
 # Conversion routines for ISO-8859-1.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -293,14 +293,10 @@ use constant TO_UTF8 => [
 
 sub _recode
 {
-	my $unknown = $_[0]->{_unknown};
-
     if ($_[0]->{_from} eq 'INTERNAL') {
-		my $unknown_chr = chr $unknown;
-		$unknown_chr = '' unless defined $unknown_chr;
 		# FIXME: Maybe the lookup is cheaper than the call to chr().
 		$_[1] = join '', 
-		    map $_ > 255 ? $unknown_chr : chr $_,
+		    map $_ > 255 ? "\x3f" : chr $_,
 			    @{$_[1]};
     } elsif ($_[0]->{_to} =~ m,^UTF-8/+,) {
 		return $_[0]->_toUTF8 ($_[1]);
@@ -329,18 +325,5 @@ perl-continued-brace-offset: 0
 perl-brace-offset: -4
 perl-brace-imaginary-offset: 0
 perl-label-offset: -4
-tab-width: 4
-End:
-
-Local Variables:
-mode: perl
-perl-indent-level: 4
-perl-continued-statement-offset: 4
-perl-continued-brace-offset: 0
-perl-brace-offset: -4
-perl-brace-imaginary-offset: 0
-perl-label-offset: -4
-cperl-indent-level: 4
-cperl-continued-statement-offset: 2
 tab-width: 4
 End:

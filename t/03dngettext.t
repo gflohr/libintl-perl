@@ -34,14 +34,14 @@ delete $ENV{OUTPUT_CHARSET};
 POSIX::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
-$locale_dir =~ s,/[^/]+$,, or $locale_dir = '.';
+$locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
 $locale_dir .= '/locale';
 
 bindtextdomain not_here => $locale_dir;
 
 my @strings = qw (Singular Plural);
 for (0 .. 9) {
-	my $translation = dngettext (not_here => @strings, $_);
+	my $translation = dngettext (not_here => $strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
@@ -54,7 +54,7 @@ my $bound_dir = bindtextdomain existing => $locale_dir;
 ok defined $bound_dir && $locale_dir eq $bound_dir;
 
 for (0 .. 9) {
-	my $translation = dngettext (existing => @strings, $_);
+	my $translation = dngettext (existing => $strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
@@ -63,7 +63,7 @@ $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
 
 for (0 .. 9) {
-	my $translation = dngettext (existing => @strings, $_);
+	my $translation = dngettext (existing => $strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Einzahl' eq $translation : 'Mehrzahl' eq $translation;
 }
 
@@ -76,7 +76,7 @@ $bound_dir = bindtextdomain additional => $locale_dir;
 ok defined $bound_dir && $locale_dir eq $bound_dir;
 
 for (0 .. 9) {
-	my $translation = dngettext (additional => @strings, $_);
+	my $translation = dngettext (additional => $strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
@@ -85,7 +85,7 @@ $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
 
 for (0 .. 40) {
-	my $translation = dngettext (additional => @strings, $_);
+	my $translation = dngettext (additional => $strings[0], $strings[1], $_);
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);

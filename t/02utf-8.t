@@ -65,10 +65,9 @@ ok $result_rev;
 my $test_string1 = "\xffSupergirl\xff";
 $cd_rev = Locale::Recode->new (from => 'ASCII',
 							   to => 'UTF-8',
-							   unknown => 0x2a,  # Asterisk!
 							  );
 $result_rev = $cd_rev->recode ($test_string1);
-ok $result_rev && $test_string1 eq "*Supergirl*";
+ok $result_rev && $test_string1 eq "�Supergirl�";
 
 sub int2utf8
 {

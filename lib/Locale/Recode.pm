@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Recode.pm,v 1.3 2003/06/04 12:16:44 guido Exp $
+# $Id: Recode.pm,v 1.4 2003/06/15 14:35:35 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -30,10 +30,10 @@ package Locale::Recode;
 
 use strict;
 
-require Locale::Recode::_Aliases;
 require Locale::Recode::_Conversions;
 
 my $loaded = {};
+my $has_encode;
 
 sub new
 {
@@ -43,77 +43,26 @@ sub new
 
     my $self = bless {}, $class;
 
-    my ($from_codeset, $to_codeset,
-		$unknown, $illegal) = @args{qw (from to unknown illegal)};
+    my ($from_codeset, $to_codeset) = @args{qw (from to)};
     
     unless ($from_codeset && $to_codeset) {
 		require Carp;
         Carp::croak (<<EOF);
 	Usage: $class->new (from => FROM_CODESET, to => TO_CODESET);
 EOF
-}
-
-    $unknown = ord '?' unless exists $args{unknown};
-    $illegal = $unknown unless exists $args{illegal};
-
-    # Canonicalize codesets.
-    $from_codeset = uc $from_codeset;
-    $to_codeset = uc $to_codeset;
-    # Resolve aliases.
-    $from_codeset = Locale::Recode::_Aliases::ALIASES()->{$from_codeset} if
-		exists Locale::Recode::_Aliases::ALIASES()->{$from_codeset};
-    $to_codeset = Locale::Recode::_Aliases::ALIASES()->{$to_codeset} if
-		exists Locale::Recode::_Aliases::ALIASES()->{$to_codeset};
-    $from_codeset .= '//' unless 'INTERNAL' eq $from_codeset;
-    $to_codeset .= '//' unless 'INTERNAL' eq $to_codeset;
+    }
 
     # Find a conversion path.
-    my @path = ();
-    unless ($from_codeset eq $to_codeset) {
-		my $start = Locale::Recode::_Conversions::CONVERSIONS()->{$from_codeset};
-
-		unless (defined $start) {
-			$self->{__error} = 'EINVAL';
-			return $self;
-	}
-		
-	my $intermediate = $start->{$to_codeset};
-		if (defined $intermediate) {
-			# We have an immediate conversion.
-			push @path, [ $intermediate, $from_codeset, $to_codeset ];
-	} else {
-	    $intermediate = $start->{INTERNAL};
-	    unless (defined $intermediate) {
-			# Oops, not even an entry for INTERNAL.
-			$self->{__error} = 'EINVAL';
+	my $path = Locale::Recode::_Conversions->findPath ($from_codeset, 
+													   $to_codeset);
+	unless ($path) {
+		$self->{__error} = 'EINVAL';
 		return $self;
-	    }
-	    push @path, [ $intermediate, $from_codeset, 'INTERNAL' ];
-
-	    my $from_internal = 
-			Locale::Recode::_Conversions::CONVERSIONS()->{INTERNAL};
-
-	    unless (defined $from_internal) {
-			# Oops ...
-			$self->{__error} = 'EINVAL';
-			return $self;
-	    }
-		
-	    my $end = $from_internal->{$to_codeset};
-	    unless (defined $end) {
-			$self->{__error} = 'EINVAL';
-			return $self;
-	    }
-		
-	    push @path, [ $end, INTERNAL => $to_codeset ];
 	}
-    }
-	
-    my @conversions = ();
-    foreach (@path) {
-		my ($module, $from, $to) = @$_;
 
-		$module = 'UTF_8_Encode' if $] >= 5.008 && 'UTF_8' eq $module;
+	my @conversions = ();
+	foreach (@$path) {
+		my ($module, $from, $to) = @$_;
 		
 		unless ($loaded->{$module}) {
 			eval "require Locale::RecodeData::$module";
@@ -128,15 +77,13 @@ EOF
 		my $module_name = "Locale::RecodeData::$module";
 		my $method = 'new';
 		my $object = $module_name->$method (from => $from,
-											to => $to,
-											illegal => $illegal,
-											unknown => $unknown);
-
+											to => $to);
+		
 		push @conversions, $object;
-    }
-	
-    $self->{__conversions} = \@conversions;
+	}
 
+	$self->{__conversions} = \@conversions;
+		
     return $self;
 }
 
@@ -144,45 +91,29 @@ sub resolveAlias
 {
 	my ($class, $alias) = @_;
 
-	$alias = $class unless defined $alias;
-	
-	my $codeset = Locale::Recode::_Aliases::ALIASES()->{uc $alias} ||
-		uc $alias;
-
-	my $lookup = 'INTERNAL' eq $codeset ? $codeset : $codeset . '//';
-
-	return $codeset if 
-		exists Locale::Recode::_Conversions::CONVERSIONS()->{uc $lookup};
-
-	# Not found.
-	return;
+	return Locale::Recode::_Conversions->resolveAlias ($alias);
 }
 
 sub getSupported
 {
-	my %all = %{Locale::Recode::_Conversions::CONVERSIONS()};
-
-	delete $all{INTERNAL};
-
-	return [ map { s|//$||; $_ } keys %all ];
+	return [ Locale::Recode::_Conversions->listSupported ];
 }
 
 sub getCharsets
 {
 	my $self = shift;
-	my @all = @{&getSupported};
+	my %all = map $_ => 1, @{&getSupported};
+
+	require Locale::Recode::_Aliases;
 
 	my $conversions = Locale::Recode::_Conversions::CONVERSIONS();
 	foreach my $charset (keys %{Locale::Recode::_Aliases::ALIASES()}) {
-		$charset =~ s|//$||;
-		my $official = $self->resolveAlias ($charset);
-		$official = $charset unless defined $official;
-
-		next unless $conversions->{"$official//"};
-		push @all, $charset;
+		my $mime_name = $self->resolveAlias ($charset);
+		next unless exists $all{$mime_name};
+		$all{$charset} = 1;
 	}
 	
-	return \@all;
+	return [ keys %all ];
 }
 
 sub recode
@@ -238,41 +169,191 @@ End:
 
 =head1 NAME
 
-Locale::Recode
+Locale::Recode - Object-oriented charset conversion
 
 =head1 SYNOPSIS
 
-use Locale::Recode qw (iconv_open iconv iconv_close recode);
+  use Locale::Recode;
 
-$cd = Locale::Recode->new (from => 'UTF-8',
-                           to   => 'ISO-8859-1');
+  $cd = Locale::Recode->new (from => 'UTF-8',
+                             to   => 'ISO-8859-1');
 
-die $cd->getError if $cd->getError;
+  die $cd->getError if $cd->getError;
 
-$cd->recode ($text) or
-    die $cd->getError;
+  $cd->recode ($text) or die $cd->getError;
 
-$irreversible = $cd->iconv ($text, $inbytes_left,
-                            $converted, $outbytes_left);
+  $mime_name = Locale::Recode->resolveAlias ('latin-1');
 
-die $cd->getError if $cd->getError;
+  $supported = Locale::Recode->getSupported;
 
-$cd = iconv_open ('ISO-8859-1', 'UTF-8');
-
-recode ($cd, $text) or
-    die $Locale::Recode::getError();
-
-$irreversible = iconv ($cd, $text, $inbytes_left, 
-                       $converted, $outbytes_left);
-
-die $Locale::Recode::getError() if $irreversible == -1;
-
-iconv_close ($cd);
+  $complete = Locale::Recode->getCharsets;
 
 =head1 DESCRIPTION
 
 This module provides routines that convert textual data from one
-codeset to another.  
+codeset to another in a portable way.  The module has been started
+before Encode(3) was written.  It's main purpose today is to provide
+charset conversion even when Encode(3) is not available on the system.
+It should also work for older Perl versions without Unicode support.
+
+Internally Locale::Recode(3) will use Encode(3) whenever possible,
+to allow for a faster conversion and for a wider range of supported
+charsets, and will only fall back to the Perl implementation when
+Encode(3) is not available or does not support a particular charset
+that Locale::Recode(3) does.
+
+Locale::Recode(3) is part of libintl-perl, and it's main purpose is
+actually to implement a portable charset conversion framework for
+the message translation facilities described in Locale::TextDomain(3).
+
+=head1 CONSTRUCTOR
+
+The constructor C<new()> requires two named arguments:
+
+=over 4
+
+=item B<from>
+
+The encoding of the original data.  Case doesn't matter, aliases
+are resolved.
+
+=item B<to>
+
+The target encoding.  Again, case doesn't matter, and aliases
+are resolved.
+
+=back
+
+The constructor will never fail.  In case of an error, the object's
+internal state is set to bad and it will refuse to do any conversions.
+You can inquire the reason for the failure with the method
+getError().
+
+=head1 OBJECT METHODS
+
+The following object methods are available.
+
+=over 4
+
+=item B<recode (STRING)>
+
+Converts B<STRING> from the source encoding into the destination
+encoding.  In case of success, a truth value is returned, false
+otherwise.  You can inquire the reason for the failure with the
+method getError().
+
+=item B<getError>
+
+Returns either false if the object is not in an error state or
+an error message.
+
+=back
+
+=head1 CLASS METHODS
+
+The object provides some additional class methods:
+
+=over 4
+
+=item B<getSupported>
+
+Returns a reference to a list of all supported charsets.  This
+may implicitely load additional Encode(3) conversions like 
+Encode::HanExtra(3) which may produce considerable load on your
+system.
+
+The method is therefore not intended for regular use but rather
+for getting resp. displaying I<once> a list of available encodings.
+
+The members of the list are all converted to uppercase!
+
+=item B<getCharsets>
+
+Like getSupported() but also returns all available aliases.
+
+=back
+
+=head1 SUPPORTED CHARSETS
+
+The range of supported charsets is system-dependent.  The following
+somewhat special charsets are always available:
+
+=over 4
+
+=item B<UTF-8>
+
+UTF-8 is available independently of your Perl version.  For Perl 5.6
+or better or in the presence of Encode(3), conversions are not done
+in Perl but with the interfaces provided by these facilities which
+are written in C, hence much faster.
+
+Encoding data I<into> UTF-8 is fast, even if it is done in Perl.
+Decoding it in Perl may become quite slow.  If you frequently have
+to decode UTF-8 with B<Locale::Recode> you will probably want to
+make sure that you do that with Perl 5.6 or beter, or install Encode(3) to
+speed up things.
+
+=item B<INTERNAL>
+
+UTF-8 is fast to write but hard to read for applications.  It is 
+therefore not the worst for internal string representation but not
+far from that.  Locale::Recode(3) stores strings internally as a
+reference to an array of integer values like most programming languages
+(Perl is an exception) do, trading memory for performance.
+
+The integer values are the UCS-4 codes of the characters in host
+byte order.
+
+The encoding B<INTERNAL> is directly availabe via Locale::Recode(3)
+but of course you should not really use it for data exchange, unless
+you know what you are doing.
+
+=back
+
+Locale::Recode(3) has native support for a plethora of other encodings,
+most of them 8 bit encodings that are fast to decode, including most
+encodings used on popular micros like the ISO-8859-* series of encodings,
+most Windows-* encodings (also known as CP*), Macintosh, Atari, etc.
+
+=head1 NAMES AND ALIASES
+
+Each charset resp. encoding is available internally under a unique
+name.  Whenever the information was available, the preferred MIME name
+(FIXME: Link to IANA registry) was chosen as the internal name.
+
+Alias handling is quite strict.  The module does not make wild guesses
+at what you mean ("What's the meaning of the acronym JIS" is a valid
+alias for "7bit-jis" in Encode(3) ....) but aims at providing common
+aliases only, most of them taken from the IANA registry.  The same
+applies to so-called aliases that are really mistakes, like "utf8" for
+UTF-8.
+
+=head1 CONVERSION TABLES
+
+The conversion tables have either been taken from official sources
+like the IANA or the Unicode Consortium, from Bruno Haible's libiconv,
+or from the sources of the GNU libc and the regression tests for 
+libintl-perl will check for conformance here.  For some encodings this data
+differs from Encode(3)'s data which would cause these tests to fail.  
+In these cases, the module will not invoke the Encode(3) methods, but
+will fall back to the internal implementation for the sake of 
+consistency.
+
+The few encodings that are affected are so simple that you will not
+experience any real performance penalty unless you convert large chunks
+of data.  But the package is not really intended for such use anyway, and
+since Encode(3) is relatively new, I rather think that the differences
+are bugs in Encode which will be fixed soon.
+
+=head1 BUGS
+
+The module should provide fall back conversions for other Unicode
+encoding schemes like UCS-2, UCS-4 (big- and little-endian).
+
+The pure Perl UTF-8 decoder will not always handle corrupt UTF-8
+correctly, especially at the end and at the beginning of the string.
+This is not likely to be fixed, since the module's intention is not
+to be a consistency checker for UTF-8 data.
 
 =head1 AUTHOR
 
@@ -284,5 +365,5 @@ This software is contributed to the Perl community by Imperia
 
 =head1 SEE ALSO
 
-iconv(3), iconv(1), perl(1)
+Encode(3), iconv(3), iconv(1), recode(1), perl(1)
 

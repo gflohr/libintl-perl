@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: TextDomain.pm,v 1.1 2003/06/10 16:05:30 guido Exp $
+# $Id: TextDomain.pm,v 1.2 2003/06/15 14:35:35 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -41,21 +41,21 @@ sub TIEHASH
 sub FETCH
 {
     my ($self, $msg) = @_;
-
+    
     &{$self->{__function}} ($msg);
 }
 
 sub FIRSTKEY
 {
-        my $self = shift;
-        my $reset_iterator = keys %$self;
-        return scalar each %$self;
+    my $self = shift;
+    my $reset_iterator = keys %$self;
+    return scalar each %$self;
 }
 
 sub NEXTKEY
 {
-        my $self = shift;
-        return scalar each %$self;
+    my $self = shift;
+    return scalar each %$self;
 }
 
 sub CLEAR {}
@@ -72,7 +72,7 @@ use Locale::Messages qw (bindtextdomain dgettext dngettext);
 
 use vars qw ($VERSION);
 
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 require Exporter;
 
@@ -85,180 +85,180 @@ my %textdomains = ();
 my %bound_dirs = ();
 
 sub __ ($);
-
+	
 sub __find_domain ($);
 sub __expand ($%);
 sub __tied_gettext ($$);
 
 BEGIN {
-	# Tie the hash to gettext().
-	tie %__, '__TiedTextDomain', \&__tied_gettext;
-	$__ = \%__;
+    # Tie the hash to gettext().
+    tie %__, '__TiedTextDomain', \&__tied_gettext;
+    $__ = \%__;
 }
 
 # Normal gettext.
 sub __ ($)
 {
-	my $msgid = shift;
+    my $msgid = shift;
 
-	my $package = caller;
-
-	my $textdomain = $textdomains{$package};
-
-	__find_domain $textdomain if defined $bound_dirs{$textdomain};
-
-	return dgettext $textdomain => $msgid;
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    
+    return dgettext $textdomain => $msgid;
 }
 
 # Called from tied hash.
 sub __tied_gettext ($$)
 {
-	my ($msgid) = @_;
-
-	my ($package) = caller (1);
-
-	my $textdomain = $textdomains{$package};
-
-	__find_domain $textdomain if defined $bound_dirs{$textdomain};
-
-	return dgettext $textdomain => $msgid;
+    my ($msgid) = @_;
+    
+    my ($package) = caller (1);
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    
+    return dgettext $textdomain => $msgid;
 }
 
 # With interpolation.
 sub __x ($@)
 {
-	my ($msgid, %vars) = @_;
-
-	my $package = caller;
-
-	my $textdomain = $textdomains{$package};
-
-	__find_domain $textdomain if defined $bound_dirs{$textdomain};
-
-	return __expand ((dgettext $textdomain => $msgid), %vars);
+    my ($msgid, %vars) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    
+    return __expand ((dgettext $textdomain => $msgid), %vars);
 }
 
 # Plural.
 sub __n ($@)
 {
-	my ($msgid, $msgid_plural, $count) = @_;
-
-	my $package = caller;
-
-	my $textdomain = $textdomains{$package};
-
-	__find_domain $textdomain if defined $bound_dirs{$textdomain};
-
-	return dngettext $textdomain, $msgid, $msgid_plural, $count;
+    my ($msgid, $msgid_plural, $count) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    
+    return dngettext $textdomain, $msgid, $msgid_plural, $count;
 }
 
 # Plural with interpolation.
 sub __nx ($@)
 {
-	my ($msgid, $msgid_plural, $count, %args) = @_;
-
-	my $package = caller;
-
-	my $textdomain = $textdomains{$package};
-
-	__find_domain $textdomain if defined $bound_dirs{$textdomain};
-
-	return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
-					 %args);
+    my ($msgid, $msgid_plural, $count, %args) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    
+    return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
+		     %args);
 }
 
 # Plural with interpolation.
 sub __xn ($@)
 {
-	my ($msgid, $msgid_plural, $count, %args) = @_;
-
-	my $package = caller;
-
-	my $textdomain = $textdomains{$package};
-
-	__find_domain $textdomain if defined $bound_dirs{$textdomain};
-
-	return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
-					 %args);
+    my ($msgid, $msgid_plural, $count, %args) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    
+    return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
+		     %args);
 }
 
 # Dummy functions for string marking.
 sub N__
 {
-	return @_;
+    return @_;
 }
 
 sub N__n
 {
-	return @_;
+    return @_;
 }
 
 sub import
 {
-	my ($self, $textdomain, @search_dirs) = @_;
-
-	# Check our caller.
-	my $package = caller;
-	return if exists $textdomains{$package};
-
-	# Was a textdomain specified?
-	$textdomain = '' unless defined $textdomain && length $textdomain;
-
-	# Remember the textdomain of that package.
-	$textdomains{$package} = $textdomain;
-
-	# Remember that we still have to bind that textdomain to
-	# a directory.
-	unless (exists $bound_dirs{$textdomain}) {
-		@search_dirs = map $_ . '/LocaleData', @INC
-			unless @search_dirs;
-		$bound_dirs{$textdomain} = \@search_dirs;
-
-		Locale::TextDomain->export_to_level (1, $package, @EXPORT);
-	}
-
-	return;
+    my ($self, $textdomain, @search_dirs) = @_;
+    
+    # Check our caller.
+    my $package = caller;
+    return if exists $textdomains{$package};
+    
+    # Was a textdomain specified?
+    $textdomain = '' unless defined $textdomain && length $textdomain;
+    
+    # Remember the textdomain of that package.
+    $textdomains{$package} = $textdomain;
+    
+    # Remember that we still have to bind that textdomain to
+    # a directory.
+    unless (exists $bound_dirs{$textdomain}) {
+	@search_dirs = map $_ . '/LocaleData', @INC
+	    unless @search_dirs;
+	$bound_dirs{$textdomain} = \@search_dirs;
+	
+	Locale::TextDomain->export_to_level (1, $package, @EXPORT);
+    }
+    
+    return;
 }
 
 # Private functions.
 sub __find_domain ($)
 {
-	my $domain = shift;
-
-	my $try_dirs = $bound_dirs{$domain};
-
-	if (defined $try_dirs) {
-		my $empty = '';
-		my $msgstr = '';
-		foreach my $dir (@$try_dirs) {
-			bindtextdomain $domain => $dir;
-
-			# Try to read the PO-header as a check.  If you can think
-			# of something less dirty, let me know ...
-			$msgstr = dgettext $domain => $empty;
-
-			last if length $msgstr;
-		}
-
-		# If there was no success, fall back to the default search
-		# directories.
-		bindtextdomain $domain => '' unless length $msgstr;
+    my $domain = shift;
+    
+    my $try_dirs = $bound_dirs{$domain};
+    
+    if (defined $try_dirs) {
+	my $empty = '';
+	my $msgstr = '';
+	foreach my $dir (@$try_dirs) {
+	    bindtextdomain $domain => $dir;
+	    
+	    # Try to read the PO-header as a check.  If you can think
+	    # of something less dirty, let me know ...
+	    $msgstr = dgettext $domain => $empty;
+	    
+	    last if length $msgstr;
 	}
-
-	# The search has completed.
-	undef $bound_dirs{$domain};
-
-	return 1;
+	
+	# If there was no success, fall back to the default search
+	# directories.
+	bindtextdomain $domain => '' unless length $msgstr;
+    }
+    
+    # The search has completed.
+    undef $bound_dirs{$domain};
+    
+    return 1;
 }
 
 sub __expand ($%)
 {
-	my ($translation, %args) = @_;
-	
-	my $re = join '|', map { quotemeta $_ } keys %args;
-	$translation =~ s/\[($re)\]/defined $args{$1} ? $args{$1} : $1/ge;
-	
-	return $translation;
+    my ($translation, %args) = @_;
+    
+    my $re = join '|', map { quotemeta $_ } keys %args;
+    $translation =~ s/\[($re)\]/defined $args{$1} ? $args{$1} : $1/ge;
+    
+    return $translation;
 }
 
 1;

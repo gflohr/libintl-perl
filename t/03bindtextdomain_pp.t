@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 8;
+use constant NUM_TESTS => 6;
 
 use Locale::Messages qw (bindtextdomain);
 
@@ -27,13 +27,7 @@ BEGIN {
 	plan tests => NUM_TESTS;
 }
 
-my $bound_domain = bindtextdomain;
-ok !defined $bound_domain;
-
-$bound_domain = bindtextdomain '', '.';
-ok !defined $bound_domain;
-
-$bound_domain = bindtextdomain 'existing';
+my $bound_domain = bindtextdomain 'existing';
 ok defined $bound_domain && length $bound_domain;
 
 $bound_domain = bindtextdomain 'existing', '.';

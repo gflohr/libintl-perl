@@ -42,7 +42,8 @@ textdomain 'not_here';
 
 my @strings = qw (Singular Plural);
 for (0 .. 9) {
-	my $translation = ngettext (@strings, $_);
+	# Prototype checking fails here if you pass the list @strings.
+	my $translation = ngettext ($strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
@@ -60,7 +61,7 @@ my $bound_domain = textdomain $textdomain;
 ok  defined $bound_domain && $textdomain eq $bound_domain;
 
 for (0 .. 9) {
-	my $translation = ngettext (@strings, $_);
+	my $translation = ngettext ($strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
@@ -69,7 +70,7 @@ $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
 
 for (0 .. 9) {
-	my $translation = ngettext (@strings, $_);
+	my $translation = ngettext ($strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Einzahl' eq $translation : 'Mehrzahl' eq $translation;
 }
 
@@ -87,7 +88,7 @@ $bound_domain = textdomain $textdomain;
 ok  defined $bound_domain && $textdomain eq $bound_domain;
 
 for (0 .. 9) {
-	my $translation = ngettext (@strings, $_);
+	my $translation = ngettext ($strings[0], $strings[1], $_);
 	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
 }
 
@@ -96,7 +97,7 @@ $ENV{LANGUAGE} = $ENV{LC_ALL} = $ENV{LANG} = $ENV{LC_MESSAGES} = 'de_AT';
 POSIX::setlocale (POSIX::LC_ALL() => 'de_AT');
 
 for (0 .. 40) {
-	my $translation = ngettext (@strings, $_);
+	my $translation = ngettext ($strings[0], $strings[1], $_);
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);

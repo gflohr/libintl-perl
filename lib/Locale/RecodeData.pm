@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: RecodeData.pm,v 1.2 2003/06/02 11:16:54 guido Exp $
+# $Id: RecodeData.pm,v 1.3 2003/06/15 14:35:35 guido Exp $
 
 # Virtual base class for Locale::Recode converters.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -37,16 +37,7 @@ sub new
     bless {
 		_from => $args{from},
 		_to => $args{to},
-		_unknown => $args{unknown},
-		_illegal => $args{illegal},
     }, $class;
-}
-
-sub _setUnknown
-{
-    my ($self, $unknown) = @_;
-    $unknown = '?' unless defined $unknown;
-    return $self->{_unknown} = $unknown;
 }
 
 sub _getError

@@ -29,7 +29,7 @@ BEGIN {
 }
 
 my $locale_dir = $0;
-$locale_dir =~ s,/[^/]+$,, or $locale_dir = '.';
+$locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
 $locale_dir .= '/locale';
 
 my $textdomain = 'existing';
