@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.10 2003/06/23 14:32:55 guido Exp $
+# $Id: gettext_pp.pm,v 1.11 2003/06/23 15:20:12 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -213,64 +213,64 @@ sub gettext($)
 
 sub dgettext($$)
 {
-    my ($textdomain, $msgid) = @_;
+    my ($domainname, $msgid) = @_;
 
-    return dcngettext ($textdomain, $msgid, undef, undef, LC_MESSAGES);
+    return dcngettext ($domainname, $msgid, undef, undef, LC_MESSAGES);
 }
 
 sub dcgettext($$$)
 {
-    my ($textdomain, $msgid, $category) = @_;
+    my ($domainname, $msgid, $category) = @_;
 
-    return dcngettext ($textdomain, $msgid, undef, undef, $category);
+    return dcngettext ($domainname, $msgid, undef, undef, $category);
 }
 
 sub ngettext($$$)
 {
-    my ($msgid1, $msgid2, $n) = @_;
+    my ($msgid, $msgid_plural, $n) = @_;
 
-    return dcngettext ('', $msgid1, $msgid2, $n, LC_MESSAGES);
+    return dcngettext ('', $msgid, $msgid_plural, $n, LC_MESSAGES);
 }
 
 sub dngettext($$$$)
 {
-    my ($textdomain, $msgid1, $msgid2, $n) = @_;
+    my ($domainname, $msgid, $msgid_plural, $n) = @_;
 
-    return dcngettext ($textdomain, $msgid1, $msgid2, $n, LC_MESSAGES);
+    return dcngettext ($domainname, $msgid, $msgid_plural, $n, LC_MESSAGES);
 }
 
 sub dcngettext($$$$$)
 {
-    my ($textdomain, $msgid1, $msgid2, $n, $category) = @_;
+    my ($domainname, $msgid, $msgid_plural, $n, $category) = @_;
 
-    return unless defined $msgid1;
+    return unless defined $msgid;
 
-    my $plural = defined $msgid2;
+    my $plural = defined $msgid_plural;
     
     local $!; # Do not clobber errno!
     
-    # This is also done in __find_domain but we need a proper value.
-    $textdomain = textdomain unless defined $textdomain && length $textdomain;
+    # This is also done in __load_domain but we need a proper value.
+    $domainname = textdomain unless defined $domainname && length $domainname;
     
     # Category is always LC_MESSAGES (other categories are ignored).
     my $category_name = 'LC_MESSAGES';
     $category = LC_MESSAGES;
     
-    my $domains = __find_domain ($textdomain, $category, $category_name);
+    my $domains = __load_domain ($domainname, $category, $category_name);
     
     my @trans = ();
     my $domain;
     my $found;
     foreach my $this_domain (@$domains) {
-	if ($this_domain && defined $this_domain->{messages}->{$msgid1}) {
-	    @trans = @{$this_domain->{messages}->{$msgid1}};
+	if ($this_domain && defined $this_domain->{messages}->{$msgid}) {
+	    @trans = @{$this_domain->{messages}->{$msgid}};
 	    shift @trans;
 	    $domain = $this_domain;
 	    $found = 1;
 	    last;
 	}
     }
-    @trans = ($msgid1, $msgid2) unless @trans;
+    @trans = ($msgid, $msgid_plural) unless @trans;
     
     my $trans = $trans[0];
     if ($plural) {
@@ -290,7 +290,7 @@ sub dcngettext($$$$$)
     if ($found && defined $domain->{po_header}->{charset}) {
 	my $input_codeset = $domain->{po_header}->{charset};
 	# Convert into output charset.
-	my $output_codeset = bind_textdomain_codeset ($textdomain);
+	my $output_codeset = bind_textdomain_codeset ($domainname);
 	$output_codeset = $ENV{OUTPUT_CHARSET} unless defined $output_codeset;
 	
 	unless (defined $output_codeset) {
@@ -327,18 +327,18 @@ sub dcngettext($$$$$)
     return $trans;
 }
 
-sub __find_domain
+sub __load_domain
 {
-    my ($textdomain, $category, $category_name) = @_;
+    my ($domainname, $category, $category_name) = @_;
     
-    $textdomain = textdomain ('') unless defined $textdomain && 
-	length $textdomain;
-    my $dir = bindtextdomain ($textdomain, '');
+    $domainname = textdomain ('') unless defined $domainname && 
+	length $domainname;
+    my $dir = bindtextdomain ($domainname, '');
     $dir = $__gettext_pp_default_dir unless defined $dir && length $dir;
     
     my $locale = __locale_category ($category, $category_name);
     # Have we looked that one up already?
-    my $domains = $__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$textdomain};
+    my $domains = $__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$domainname};
     
     if (defined $locale && length $locale && !defined $domains) {
 	my @dirs = ($dir);
@@ -365,7 +365,7 @@ sub __find_domain
 		
 		next if $seen{$fulldir}++;
 		
-		my $domain = __load_catalog $fulldir, $textdomain;
+		my $domain = __load_catalog $fulldir, $domainname;
 		next unless $domain;
 		
 		unless (defined $domain->{po_header}->{charset} &&
@@ -385,7 +385,7 @@ sub __find_domain
 		push @$domains, $domain;
 	    }
 	}
-	$__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$textdomain} = $domains;
+	$__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$domainname} = $domains;
     }
     
     $domains = [] unless defined $domains;
@@ -395,9 +395,9 @@ sub __find_domain
 
 sub __load_catalog
 {
-    my ($directory, $textdomain) = @_;
+    my ($directory, $domainname) = @_;
     
-    my $filename = "$directory/$textdomain.mo";
+    my $filename = "$directory/$domainname.mo";
     
     # Alternatively we could check the filename for evil characters ...
     # (Important for CGIs).
@@ -597,14 +597,14 @@ Locale::gettext_pp - Pure Perl implementation of Uniforum Message Translation
  use gettext_pp (:locale_h :libintl_h);
 
  gettext $msgid;
- dgettext $textdomain, $msgid;
- dcgettext $textdomain, $msgid, LC_MESSAGES;
+ dgettext $domainname, $msgid;
+ dcgettext $domainname, $msgid, LC_MESSAGES;
  ngettext $msgid, $msgid_plural, $count;
- dngettext $textdomain, $msgid, $msgid_plural, $count;
- dcngettext $textdomain, $msgid, $msgid_plural, $count, LC_MESSAGES;
- textdomain $textdomain;
- bindtextdomain $textdomain, $directory;
- bind_textdomain_codeset $textdomain, $encoding;
+ dngettext $domainname, $msgid, $msgid_plural, $count;
+ dcngettext $domainname, $msgid, $msgid_plural, $count, LC_MESSAGES;
+ textdomain $domainname;
+ bindtextdomain $domainname, $directory;
+ bind_textdomain_codeset $domainname, $encoding;
  my $category = LC_CTYPE;
  my $category = LC_NUMERIC;
  my $category = LC_TIME;
