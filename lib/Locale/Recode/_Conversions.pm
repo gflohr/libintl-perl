@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.10 2003/06/16 11:16:48 guido Exp $
+# $Id: _Conversions.pm,v 1.11 2003/06/16 12:05:25 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -183,15 +183,6 @@ $optional_conversions = {
 	'CP1006' => undef,
 	'CP1026' => undef,
 	'CP1047' => undef,
-	'CP1250' => undef,
-	'CP1251' => undef,
-	'CP1252' => undef,
-	'CP1253' => undef,
-	'CP1254' => undef,
-	'CP1255' => undef,
-	'CP1256' => undef,
-	'CP1257' => undef,
-	'CP1258' => undef,
 	'CP1361' => undef,
 	'CP949' => undef,
     'CP37' => undef,
@@ -272,6 +263,15 @@ $optional_conversions = {
 	'UTF-8' => undef,
     # 0x86 is missing, 0xa6 is incorrectly encoded.
 	# 'VISCII' => undef,
+	'WINDOWS-1250' => undef,
+	'WINDOWS-1251' => undef,
+	'WINDOWS-1252' => undef,
+	'WINDOWS-1253' => undef,
+	'WINDOWS-1254' => undef,
+	'WINDOWS-1255' => undef,
+	'WINDOWS-1256' => undef,
+	'WINDOWS-1257' => undef,
+	'WINDOWS-1258' => undef,
 };
 
 my $has_encode;
