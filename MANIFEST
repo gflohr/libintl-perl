@@ -1,4 +1,5 @@
 Artistic
+ChangeLog
 COPYING
 lib/Locale/Messages.pm
 lib/Locale/Recode.pm
@@ -115,6 +116,7 @@ lib/Locale/RecodeData/ISO_8859_7.pm
 lib/Locale/RecodeData/ISO_8859_8.pm
 lib/Locale/RecodeData/ISO_8859_9.pm
 lib/Locale/RecodeData/KOI8_R.pm
+lib/Locale/RecodeData/KOI8_RU.pm
 lib/Locale/RecodeData/KOI8_T.pm
 lib/Locale/RecodeData/KOI8_U.pm
 lib/Locale/RecodeData/KOI_8.pm
@@ -264,6 +266,7 @@ t/02iso_5427.t
 t/02iso_5428.t
 t/02koi-8.t
 t/02koi8-r.t
+t/02koi8-ru.t
 t/02koi8-t.t
 t/02koi8-u.t
 t/02latin-greek-1.t
