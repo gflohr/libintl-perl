@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.26 2004/04/20 16:38:32 guido Exp $
+# $Id: TextDomain.pm,v 1.27 2004/06/11 10:54:31 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -79,6 +79,7 @@ use vars qw (@ISA @EXPORT %__ $__);
 
 my %textdomains = ();
 my %bound_dirs = ();
+my @default_dirs = ();
 
 sub __ ($);
 	
@@ -90,18 +91,27 @@ BEGIN {
     # Tie the hash to gettext().
     tie %__, '__TiedTextDomain', \&__tied_gettext;
     $__ = \%__;
+
+	# Add default search directories, but only if they exist.
+	for my $dir (qw (/usr/share/locale /usr/local/share/locale)) {
+        if (-d $dir) {
+            @default_dirs = ($dir);
+            last;
+        }
+    }
 }
 
 # Normal gettext.
 sub __ ($)
 {
     my $msgid = shift;
-
+	
     my $package = caller;
     
     my $textdomain = $textdomains{$package};
     
-    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    __find_domain $textdomain if 
+		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return dgettext $textdomain => $msgid;
 }
@@ -115,7 +125,8 @@ sub __tied_gettext ($$)
     
     my $textdomain = $textdomains{$package};
     
-    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return dgettext $textdomain => $msgid;
 }
@@ -129,7 +140,8 @@ sub __x ($@)
     
     my $textdomain = $textdomains{$package};
     
-    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return __expand ((dgettext $textdomain => $msgid), %vars);
 }
@@ -143,7 +155,8 @@ sub __n ($@)
     
     my $textdomain = $textdomains{$package};
     
-    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return dngettext $textdomain, $msgid, $msgid_plural, $count;
 }
@@ -157,10 +170,11 @@ sub __nx ($@)
     
     my $textdomain = $textdomains{$package};
     
-    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
-		     %args);
+					 %args);
 }
 
 # Plural with interpolation.
@@ -172,10 +186,11 @@ sub __xn ($@)
     
     my $textdomain = $textdomains{$package};
     
-    __find_domain $textdomain if defined $bound_dirs{$textdomain};
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
-		     %args);
+					 %args);
 }
 
 # Dummy functions for string marking.
@@ -198,7 +213,7 @@ sub import
     return if exists $textdomains{$package};
     
     # Was a textdomain specified?
-    $textdomain = '' unless defined $textdomain && length $textdomain;
+    $textdomain = 'messages' unless defined $textdomain && length $textdomain;
     
     # Remember the textdomain of that package.
     $textdomains{$package} = $textdomain;
@@ -206,9 +221,9 @@ sub import
     # Remember that we still have to bind that textdomain to
     # a directory.
     unless (exists $bound_dirs{$textdomain}) {
-	@search_dirs = map $_ . '/LocaleData', @INC
-	    unless @search_dirs;
-	$bound_dirs{$textdomain} = \@search_dirs;
+		@search_dirs = map $_ . '/LocaleData', @INC, @default_dirs
+			unless @search_dirs;
+		$bound_dirs{$textdomain} = \@search_dirs;
     }
 	
     Locale::TextDomain->export_to_level (1, $package, @EXPORT);
@@ -219,26 +234,26 @@ sub import
 # Private functions.
 sub __find_domain ($)
 {
-    my $domain = shift;
-    
-    my $try_dirs = $bound_dirs{$domain};
-    
-    if (defined $try_dirs) {
-	my $empty = '';
-	my $msgstr = '';
-	foreach my $dir (@$try_dirs) {
-	    bindtextdomain $domain => $dir;
-	    
-	    # Try to read the PO-header as a check.  If you can think
-	    # of something less dirty, let me know ...
-	    $msgstr = dgettext $domain => $empty;
-	    
-	    last if length $msgstr;
-	}
+	my $domain = shift;
 	
-	# If there was no success, fall back to the default search
-	# directories.
-	bindtextdomain $domain => '' unless length $msgstr;
+	my $try_dirs = $bound_dirs{$domain};
+	
+	if (defined $try_dirs) {
+		my $empty = '';
+		my $msgstr = '';
+		foreach my $dir (@$try_dirs) {
+			bindtextdomain $domain => $dir;
+			
+			# Try to read the PO-header as a check.  If you can think
+			# of something less dirty, let me know ...
+			$msgstr = dgettext $domain => $empty;
+			
+			last if length $msgstr;
+		}
+		
+		# If there was no success, fall back to the default search
+		# directories.
+		bindtextdomain $domain => '' unless length $msgstr;
     }
     
     # The search has completed.
