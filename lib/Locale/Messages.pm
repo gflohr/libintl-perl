@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.21 2004/01/12 12:03:42 guido Exp $
+# $Id: Messages.pm,v 1.22 2004/01/12 12:04:29 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -463,7 +463,7 @@ The function was introduced with libintl-perl version 1.03.
 
 =item B<turn_utf_8_off VARIABLE>
 
-Returns VARIABLE but with the UTF-8 flag (only known in Perl >5.6)
+Returns VARIABLE but with the UTF-8 flag (only known in Perl >=5.6)
 guaranteed to be turned off.  This function does not really fit into
 the module, but it is often handy nevertheless.
 
