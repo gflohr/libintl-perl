@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.28 2004/06/11 11:13:37 guido Exp $
+# $Id: TextDomain.pm,v 1.29 2004/07/20 14:31:07 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -64,7 +64,7 @@ package Locale::TextDomain;
 
 use strict;
 
-use Locale::Messages qw (bindtextdomain dgettext dngettext);
+use Locale::Messages qw (textdomain bindtextdomain dgettext dngettext);
 
 use vars qw ($VERSION);
 
@@ -213,7 +213,7 @@ sub import
     return if exists $textdomains{$package};
     
     # Was a textdomain specified?
-    $textdomain = 'messages' unless defined $textdomain && length $textdomain;
+	$textdomain = textdomain unless defined $textdomain && length $textdomain;
     
     # Remember the textdomain of that package.
     $textdomains{$package} = $textdomain;
@@ -319,7 +319,8 @@ When your request a translation for a given string, the system used
 in libintl-perl follows a standard strategy to find a suitable message
 catalog containing the translation: Unless you explicitely define
 a name for the message catalog, libintl-perl will assume that your
-catalog is called 'messages'.
+catalog is called 'messages' (unless you have changed the default
+value to something else via Locale::Messages(3pm), method textdomain()).
 
 You might think that his default strategy leaves room for optimization
 and you are right.  It would be a lot smarter if multiple software
