@@ -298,19 +298,13 @@ sub _recode
 		$_[1] = join '', 
 		    map $_ > 255 ? "\x3f" : chr $_,
 			    @{$_[1]};
-    } elsif ($_[0]->{_to} =~ m,^UTF-8/+,) {
-		return $_[0]->_toUTF8 ($_[1]);
+    } elsif ($_[0]->{_to} eq 'UTF-8') {
+		$_[1] = join '', map TO_UTF8->[$_], unpack 'C*', $_[1];
     } else {
 		$_[1] = [ unpack 'C*', $_[1] ];
     }
 
     return 1;
-}
-
-sub _toUTF8
-{
-	$_[1] = join '', map TO_UTF8->[$_], unpack 'C*', $_[1];
-	return 1;
 }
 
 1;
