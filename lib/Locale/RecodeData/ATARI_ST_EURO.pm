@@ -1,8 +1,8 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ATARI_ST_EURO.pm,v 1.8 2003/09/10 17:03:33 guido Exp $
+# $Id: ATARI_ST_EURO.pm,v 1.9 2003/12/23 15:22:58 guido Exp $
 
-# Conversion routines for X-ATARI-ST-EURO.
+# Conversion routines for ATARI-ST-EURO.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
@@ -157,7 +157,7 @@ my @to_ucs4 = (
     0x007c,
     0x007d,
     0x007e,
-    0x25b3,
+    0x007f,
     0x00c7,
     0x00fc,
     0x00e9,
@@ -211,13 +211,13 @@ my @to_ucs4 = (
     0x00d8,
     0x00f8,
     0x0153,
-    0x0154,
+    0x0152,
     0x00c0,
     0x00c3,
     0x00d5,
     0x00a8,
     0x00b4,
-    0xfffd,
+    0x2020,
     0x00b6,
     0x00a9,
     0x00ae,
@@ -252,7 +252,7 @@ my @to_ucs4 = (
     0x05e3,
     0x05e5,
     0x00a7,
-    0xfffd,
+    0x20ac,
     0x221e,
     0x03b1,
     0x03b2,
@@ -263,13 +263,13 @@ my @to_ucs4 = (
     0x00b5,
     0x03c4,
     0x03a6,
-    0x0398,
+    0x03b8,
     0x03a9,
     0x03b4,
-    0xfffd,
+    0x222e,
     0x03c6,
-    0x20a0,
-    0x2229,
+    0x2208,
+    0x220f,
     0x2261,
     0x00b1,
     0x2265,
@@ -279,7 +279,7 @@ my @to_ucs4 = (
     0x00f7,
     0x2248,
     0x00b0,
-    0x2219,
+    0x2022,
     0x00b7,
     0x221a,
     0x207f,
@@ -416,7 +416,7 @@ my @to_utf8 = (
     "\x7c",
     "\x7d",
     "\x7e",
-    "\xe2\x96\xb3",
+    "\x7f",
     "\xc3\x87",
     "\xc3\xbc",
     "\xc3\xa9",
@@ -470,13 +470,13 @@ my @to_utf8 = (
     "\xc3\x98",
     "\xc3\xb8",
     "\xc5\x93",
-    "\xc5\x94",
+    "\xc5\x92",
     "\xc3\x80",
     "\xc3\x83",
     "\xc3\x95",
     "\xc2\xa8",
     "\xc2\xb4",
-    "\xef\xbf\xbd",
+    "\xe2\x80\xa0",
     "\xc2\xb6",
     "\xc2\xa9",
     "\xc2\xae",
@@ -511,7 +511,7 @@ my @to_utf8 = (
     "\xd7\xa3",
     "\xd7\xa5",
     "\xc2\xa7",
-    "\xef\xbf\xbd",
+    "\xe2\x82\xac",
     "\xe2\x88\x9e",
     "\xce\xb1",
     "\xce\xb2",
@@ -522,13 +522,13 @@ my @to_utf8 = (
     "\xc2\xb5",
     "\xcf\x84",
     "\xce\xa6",
-    "\xce\x98",
+    "\xce\xb8",
     "\xce\xa9",
     "\xce\xb4",
-    "\xef\xbf\xbd",
+    "\xe2\x88\xae",
     "\xcf\x86",
-    "\xe2\x82\xa0",
-    "\xe2\x88\xa9",
+    "\xe2\x88\x88",
+    "\xe2\x88\x8f",
     "\xe2\x89\xa1",
     "\xc2\xb1",
     "\xe2\x89\xa5",
@@ -538,7 +538,7 @@ my @to_utf8 = (
     "\xc3\xb7",
     "\xe2\x89\x88",
     "\xc2\xb0",
-    "\xe2\x88\x99",
+    "\xe2\x80\xa2",
     "\xc2\xb7",
     "\xe2\x88\x9a",
     "\xe2\x81\xbf",
@@ -675,6 +675,7 @@ my %from_ucs4 = (
     0x0000007c => "\x7c",
     0x0000007d => "\x7d",
     0x0000007e => "\x7e",
+    0x0000007f => "\x7f",
     0x000000a1 => "\xad",
     0x000000a2 => "\x9b",
     0x000000a3 => "\x9c",
@@ -744,17 +745,17 @@ my %from_ucs4 = (
     0x000000ff => "\x98",
     0x00000132 => "\xc1",
     0x00000133 => "\xc0",
+    0x00000152 => "\xb5",
     0x00000153 => "\xb4",
-    0x00000154 => "\xb5",
     0x00000192 => "\x9f",
     0x00000393 => "\xe2",
-    0x00000398 => "\xe9",
     0x000003a3 => "\xe4",
     0x000003a6 => "\xe8",
     0x000003a9 => "\xea",
     0x000003b1 => "\xe0",
     0x000003b2 => "\xe1",
     0x000003b4 => "\xeb",
+    0x000003b8 => "\xe9",
     0x000003c0 => "\xe3",
     0x000003c3 => "\xe5",
     0x000003c4 => "\xe7",
@@ -786,13 +787,16 @@ my %from_ucs4 = (
     0x000005e8 => "\xd5",
     0x000005e9 => "\xd6",
     0x000005ea => "\xd7",
+    0x00002020 => "\xbb",
+    0x00002022 => "\xf9",
     0x0000207f => "\xfc",
-    0x000020a0 => "\xee",
+    0x000020ac => "\xde",
     0x00002122 => "\xbf",
-    0x00002219 => "\xf9",
+    0x00002208 => "\xee",
+    0x0000220f => "\xef",
     0x0000221a => "\xfb",
     0x0000221e => "\xdf",
-    0x00002229 => "\xef",
+    0x0000222e => "\xec",
     0x00002248 => "\xf7",
     0x00002261 => "\xf0",
     0x00002264 => "\xf3",
@@ -800,7 +804,6 @@ my %from_ucs4 = (
     0x00002310 => "\xa9",
     0x00002320 => "\xf4",
     0x00002321 => "\xf5",
-    0x000025b3 => "\x7f",
 );
 
 sub _recode
@@ -837,13 +840,13 @@ This module is internal to libintl.  Do not use directly!
 =head1 DESCRIPTION
 
 This module is generated and contains the conversion tables and
-routines for X-ATARI-ST-EURO.
+routines for ATARI-ST-EURO.
 
 =head1 COMMENTS
 
 The following comments have been extracted from the original charmap:
 
- version: 1.0
+ version: 1.1
   source: Guido Flohr E<lt>guido@imperia.netE<gt>
  alias ATARIST-EURO
  alias X-ATARIST-EURO
@@ -986,7 +989,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     7C |  0000007C | VERTICAL LINE
     7D |  0000007D | RIGHT CURLY BRACKET
     7E |  0000007E | TILDE
-    7F |  000025B3 | WHITE UP-POINTING TRIANGLE
+    7F |  0000007F | DELETE
     80 |  000000C7 | LATIN CAPITAL LETTER C WITH CEDILLA
     81 |  000000FC | LATIN SMALL LETTER U WITH DIAERESIS
     82 |  000000E9 | LATIN SMALL LETTER E WITH ACUTE
@@ -1017,7 +1020,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     9B |  000000A2 | CENT SIGN
     9C |  000000A3 | POUND SIGN
     9D |  000000A5 | YEN SIGN
-    9E |  000000DF | LATIN SMALLL LETTER SHARP S
+    9E |  000000DF | LATIN SMALL LETTER SHARP S
     9F |  00000192 | LATIN SMALL LETTER F WITH HOOK
     A0 |  000000E1 | LATIN SMALL LETTER A WITH ACUTE
     A1 |  000000ED | LATIN SMALL LETTER I WITH ACUTE
@@ -1040,12 +1043,13 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     B2 |  000000D8 | LATIN CAPITAL LETTER O WITH STROKE
     B3 |  000000F8 | LATIN SMALL LETTER O WITH STROKE
     B4 |  00000153 | LATIN SMALL LIGATURE OE
-    B5 |  00000154 | LATIN CAPITAL LIGATURE OE
+    B5 |  00000152 | LATIN CAPITAL LIGATURE OE
     B6 |  000000C0 | LATIN CAPITAL LETTER A WITH GRAVE
     B7 |  000000C3 | LATIN CAPITAL LETTER A WITH TILDE
     B8 |  000000D5 | LATIN CAPITAL LETTER O WITH TILDE
     B9 |  000000A8 | DIAERESIS
     BA |  000000B4 | ACUTE ACCENT
+    BB |  00002020 | DAGGER
     BC |  000000B6 | PILCROW SIGN
     BD |  000000A9 | COPYRIGHT SIGN
     BE |  000000AE | REGISTERED SIGN
@@ -1080,6 +1084,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     DB |  000005E3 | HEBREW LETTER FINAL PE
     DC |  000005E5 | HEBREW LETTER FINAL TSADI
     DD |  000000A7 | SECTION SIGN
+    DE |  000020AC | EURO SIGN
     DF |  0000221E | INFINITY
     E0 |  000003B1 | GREEK SMALL LETTER ALPHA
     E1 |  000003B2 | GREEK SMALL LETTER BETA
@@ -1090,12 +1095,13 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     E6 |  000000B5 | MICRO SIGN
     E7 |  000003C4 | GREEK SMALL LETTER TAU
     E8 |  000003A6 | GREEK CAPITAL LETTER PHI
-    E9 |  00000398 | GREEK CAPITAL LETTER THETA
+    E9 |  000003B8 | GREEK SMALL LETTER THETA
     EA |  000003A9 | GREEK CAPITAL LETTER OMEGA
     EB |  000003B4 | GREEK SMALL LETTER DELTA
+    EC |  0000222E | CONTOUR INTEGRAL
     ED |  000003C6 | GREEK SMALL LETTER PHI
-    EE |  000020A0 | EURO-CURRENCY SIGN
-    EF |  00002229 | INTERSECTION
+    EE |  00002208 | ELEMENT OF
+    EF |  0000220F | N-ARY PRODUCT
     F0 |  00002261 | IDENTICAL TO
     F1 |  000000B1 | PLUS-MINUS SIGN
     F2 |  00002265 | GREATER-THAN OR EQUAL TO
@@ -1105,14 +1111,13 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     F6 |  000000F7 | DIVISION SIGN
     F7 |  00002248 | ALMOST EQUAL TO
     F8 |  000000B0 | DEGREE SIGN
-    F9 |  00002219 | BULLET OPERATOR
+    F9 |  00002022 | BULLET
     FA |  000000B7 | MIDDLE DOT
     FB |  0000221A | SQUARE ROOT
     FC |  0000207F | SUPERSCRIPT LATIN SMALL LETTER N
     FD |  000000B2 | SUPERSCRIPT TWO
     FE |  000000B3 | SUPERSCRIPT THREE
     FF |  000000AF | MACRON
-
 
 =head1 AUTHOR
 
