@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.15 2003/10/10 15:38:09 guido Exp $
+# $Id: Messages.pm,v 1.16 2003/11/28 16:05:56 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -63,7 +63,7 @@ require Exporter;
 				],
 		 );
 
-@EXPORT_OK = qw (select_package
+@EXPORT_OK = qw (select_package turn_utf_8_off
 		 gettext
 		 dgettext
 		 dcgettext
@@ -99,7 +99,7 @@ BEGIN {
 	# Turn the UTF-8 flag off unconditionally.
 	if ($has_encode) {
 		eval <<'EOF';
-sub _turn_utf_8_off($)
+sub turn_utf_8_off($)
 {
 	Encode::_utf8_off ($_[0]);
 	return $_[0];
@@ -107,7 +107,7 @@ sub _turn_utf_8_off($)
 EOF
 	} elsif ($has_bytes) {
 		eval <<'EOF';
-sub _turn_utf_8_off($)
+sub turn_utf_8_off($)
 {
 	use bytes;
 	$_[0] = join "", split //, $_[0];
@@ -115,7 +115,7 @@ sub _turn_utf_8_off($)
 EOF
 	} else {
 		eval <<'EOF';
-sub _turn_utf_8_off($)
+sub turn_utf_8_off($)
 {
 	return $_[0];
 }
@@ -161,42 +161,42 @@ sub bind_textdomain_codeset($;$)
 
 sub gettext($)
 {
-    _turn_utf_8_off ('gettext_xs' eq $package ?
+    turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::gettext :
 		     &Locale::gettext_pp::gettext);
 }
 
 sub dgettext($$)
 {
-    _turn_utf_8_off ('gettext_xs' eq $package ?
+    turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dgettext :
 		     &Locale::gettext_pp::dgettext);
 }
 
 sub dcgettext($$$)
 {
-    _turn_utf_8_off ('gettext_xs' eq $package ?
+    turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dcgettext :
 		     &Locale::gettext_pp::dcgettext);
 }
 
 sub ngettext($$$)
 {
-    _turn_utf_8_off ('gettext_xs' eq $package ?
+    turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::ngettext :
 		     &Locale::gettext_pp::ngettext);
 }
 
 sub dngettext($$$$)
 {
-    _turn_utf_8_off ('gettext_xs' eq $package ?
+    turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dngettext :
 		     &Locale::gettext_pp::dngettext);
 }
 
 sub dcngettext($$$$$)
 {
-    _turn_utf_8_off ('gettext_xs' eq $package ?
+    turn_utf_8_off ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dcngettext :
 		     &Locale::gettext_pp::dcngettext);
 }
@@ -453,6 +453,14 @@ You will normally want to use that in a BEGIN block of your main
 script.
 
 The function was introduced with libintl-perl version 1.03.
+
+=item B<turn_utf_8_off VARIABLE>
+
+Returns VARIABLE but with the UTF-8 flag (only known in Perl >5.6)
+guaranteed to be turned off.  This function does not really fit into
+the module, but it is often handy nevertheless.
+
+The function was introduced with libintl-perl version 1.07.
 
 =back
 
