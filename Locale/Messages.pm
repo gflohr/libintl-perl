@@ -10,7 +10,8 @@ use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
 # Try to load the C version first.
 $package = 'gettext';
-eval "use Locale::gettext 1.01 ()";
+# Locale::gettext 1.01 lacks ngettext and friends and bind_textdomain_codeset.
+eval "use Locale::gettext 99.99 ()";
 if ($@) {
 	$package = 'gettext_pp';
 	require Locale::gettext_pp;
