@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Encode.pm,v 1.1.2.1 2003/08/07 14:54:12 ingrid Exp $
+# $Id: _Encode.pm,v 1.1.2.2 2003/08/07 15:12:25 ingrid Exp $
 
 # Interface to Encode.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -39,19 +39,22 @@ sub _recode
 {
 	use bytes;
 
+	my $retval;
+	
 	if ($_[0]->{_from} eq 'INTERNAL') {
 		$_[1] = pack "N*", @{$_[1]};
-		return unless Encode::from_to ($_[1], 'UTF-32BE', $_[0]->{_to});
+		$retval = Encode::from_to ($_[1], 'UTF-32BE', $_[0]->{_to});
 	} elsif ($_[0]->{_to} eq 'INTERNAL') {
-		my $success = Encode::from_to ($_[1], $_[0]->{_from}, 'UTF-32BE');
-		return unless $success;
+		$retval = Encode::from_to ($_[1], $_[0]->{_from}, 'UTF-32BE');
+		return unless defined $retval;
 		$_[1] = [ unpack "N*", $_[1] ];
 	} else {
 		my $retval = Encode::from_to ($_[1], $_[0]->{_from}, $_[0]->{_to});
-		return unless defined $retval;
-		return '0E0' if $retval == 0;
-		return $retval;
 	}
+	
+	return unless defined $retval;
+	return '0E0' if $retval == 0;
+	return $retval;
 }
 
 1;
