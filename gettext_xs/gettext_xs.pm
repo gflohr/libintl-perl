@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_xs.pm,v 1.4 2004/01/08 17:25:57 guido Exp $
+# $Id: gettext_xs.pm,v 1.5 2004/01/08 19:12:10 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -97,7 +97,7 @@ sub nl_putenv ($)
     
     return unless defined $envspec;
     return unless length $envspec;
-    return if substr ($envspec, 0, 1) == '=';
+    return if substr ($envspec, 0, 1) eq '=';
     
     my ($var, $value) = split /=/, $envspec, 2;
     
