@@ -1,3 +1,12 @@
+2003-09-04 18:05  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: 
+	- removed obsolete line 
+
+2003-09-04 18:00  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-09-04 17:58  Ingrid Graefen <ingrid.graefen@imperia.net>
 
 	* lib/Locale/gettext_pp.pm: 
