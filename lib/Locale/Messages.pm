@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.6 2003/06/20 14:58:30 guido Exp $
+# $Id: Messages.pm,v 1.7 2003/06/27 10:25:03 ingrid Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -450,7 +450,7 @@ a detailed description
 =item B<LC_COLLATE>
 
 =item B<LC_MONETARY>
-								   
+
 =item B<LC_MESSAGES>
 
 This locale category was the reason that these constants from POSIX(3)
