@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.8 2003/07/14 12:24:57 ingrid Exp $
+# $Id: Messages.pm,v 1.9 2003/07/14 15:11:28 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -106,10 +106,10 @@ BEGIN {
 sub _turn_utf_8_off($)
 {
 	Encode::_utf8_off ($_[0]);
+	return $_[0];
 }
 EOF
-	}
-	elsif ($has_bytes) {
+	} elsif ($has_bytes) {
 		eval <<'EOF';
 sub _turn_utf_8_off($)
 {
@@ -117,8 +117,7 @@ sub _turn_utf_8_off($)
 	$_[0] = join "", split //, $_[0];
 }
 EOF
-	}
-	else {
+	} else {
 		eval <<'EOF';
 sub _turn_utf_8_off($)
 {
