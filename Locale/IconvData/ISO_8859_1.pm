@@ -1,4 +1,6 @@
 #! /bin/false
+# vim: syntax=perl
+#      tabstop=4
 # -*- perl -*-
 
 # Conversion routines for ISO-8859-1.
@@ -290,11 +292,15 @@ use constant TO_UTF8 => [
 
 sub _recode
 {
+	my $unknown = $_[0]->{_unknown};
+
     if ($_[0]->{_from} eq 'INTERNAL') {
-		$_[1] = join '', map {
-			$_ > 255 ? (defined $_[0]->{_unknown} ?
-						(chr $_[0]->{_unknown}) : '') : (chr $_)
-			} @{$_[1]};
+		my $unknown_chr = chr $unknown;
+		$unknown_chr = '' unless defined $unknown_chr;
+		# FIXME: Maybe the lookup is cheaper than the call to chr().
+		$_[1] = join '', 
+		    map $_ > 255 ? $unknown_chr : chr $_,
+			    @{$_[1]};
     } elsif ($_[0]->{_to} =~ m,^UTF-8/+,) {
 		return $_[0]->_toUTF8 ($_[1]);
     } else {
@@ -306,7 +312,7 @@ sub _recode
 
 sub _toUTF8
 {
-	$_[1] = join '', map { TO_UTF8->[$_] } unpack 'C*', $_[1];
+	$_[1] = join '', map TO_UTF8->[$_], unpack 'C*', $_[1];
 	return 1;
 }
 
