@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ISO_8859_11.pm,v 1.5 2003/07/28 12:15:38 guido Exp $
+# $Id: ISO_8859_11.pm,v 1.6 2003/08/19 18:37:46 guido Exp $
 
 # Conversion routines for ISO-8859-11.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
@@ -162,38 +162,38 @@ my @to_ucs4 = (
     0x007d,
     0x007e,
     0x007f,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
-    0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
+	0xfffd,
     0x00a0,
     0x0e01,
     0x0e02,
@@ -286,10 +286,10 @@ my @to_ucs4 = (
     0x0e59,
     0x0e5a,
     0x0e5b,
-    0x00fc,
-    0x00fd,
-    0x00fe,
-    0x00ff,
+    0xfffd,
+    0xfffd,
+    0xfffd,
+    0xfffd,
 );
 
 my @to_utf8 = (
@@ -545,10 +545,10 @@ my @to_utf8 = (
     "\xe0\xb9\x99",
     "\xe0\xb9\x9a",
     "\xe0\xb9\x9b",
-    "\xc3\xbc",
-    "\xc3\xbd",
-    "\xc3\xbe",
-    "\xc3\xbf",
+    "\xef\xbf\xbd",
+    "\xef\xbf\xbd",
+    "\xef\xbf\xbd",
+    "\xef\xbf\xbd",
 );
 
 my %from_ucs4 = (
@@ -681,10 +681,6 @@ my %from_ucs4 = (
     0x0000007e => "\x7e",
     0x0000007f => "\x7f",
     0x000000a0 => "\xa0",
-    0x000000fc => "\xfc",
-    0x000000fd => "\xfd",
-    0x000000fe => "\xfe",
-    0x000000ff => "\xff",
     0x00000e01 => "\xa1",
     0x00000e02 => "\xa2",
     0x00000e03 => "\xa3",
@@ -1048,10 +1044,6 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
     F9 |  00000E59 | THAI DIGIT NINE
     FA |  00000E5A | THAI CHARACTER ANGKHANKHU
     FB |  00000E5B | THAI CHARACTER KHOMUT
-    FC |  000000FC | LATIN SMALL LETTER U WITH DIAERESIS
-    FD |  000000FD | LATIN SMALL LETTER Y WITH ACUTE
-    FE |  000000FE | LATIN SMALL LETTER THORN (Icelandic)
-    FF |  000000FF | LATIN SMALL LETTER Y WITH DIAERESIS
 
 
 =head1 AUTHOR
