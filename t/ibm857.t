@@ -8,7 +8,6 @@ use strict;
 use Test;
 
 BEGIN {
-	push @INC, '/home/guido/perl/iconv';
 	plan tests => 7;
 }
 
