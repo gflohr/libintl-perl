@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.24 2003/09/24 10:50:18 ingrid Exp $
+# $Id: gettext_pp.pm,v 1.25 2003/10/09 11:34:48 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -35,7 +35,8 @@ use vars qw ($__gettext_pp_default_dir
 			 $__gettext_pp_domains
 			 $__gettext_pp_recoders
 			 $__gettext_pp_unavailable_dirs
-			 $__gettext_pp_domain_cache);
+			 $__gettext_pp_domain_cache
+			 $__gettext_pp_alias_cache);
 
 use locale;
 
@@ -47,6 +48,7 @@ BEGIN {
 	$__gettext_pp_recoders = {};
 	$__gettext_pp_unavailable_dirs = {};
 	$__gettext_pp_domain_cache = {};
+	$__gettext_pp_alias_cache = {};
 	
 	$__gettext_pp_default_dir = '';
 	
@@ -88,7 +90,7 @@ sub LC_MESSAGES()
 {
 	local $!; # Do not clobber errno!
 	
-		return eval '&POSIX::LC_MESSAGES';
+	return &POSIX::LC_MESSAGES;
 }
 EOF
 		} elsif ($five_ok) {
@@ -97,9 +99,9 @@ sub LC_MESSAGES()
 {
 	local $!; # Do not clobber errno!
 
-		# Hack: POSIX.pm deems LC_MESSAGES an invalid macro until
-		# Perl 5.8.0.  However, on LC_MESSAGES should be 5 ...
-		return 5;
+	# Hack: POSIX.pm deems LC_MESSAGES an invalid macro until
+	# Perl 5.8.0.  However, on LC_MESSAGES should be 5 ...
+	return 5;
 }
 EOF
 		} else {
@@ -287,7 +289,8 @@ sub dcngettext($$$$$)
 	local $!; # Do not clobber errno!
 	
 	# This is also done in __load_domain but we need a proper value.
-	$domainname = textdomain unless defined $domainname && length $domainname;
+	$domainname = 	$__gettext_pp_textdomain
+		unless defined $domainname && length $domainname;
 	
 	# Category is always LC_MESSAGES (other categories are ignored).
 	my $category_name = 'LC_MESSAGES';
@@ -327,7 +330,8 @@ sub dcngettext($$$$$)
 	if ($found && defined $domain->{po_header}->{charset}) {
 		my $input_codeset = $domain->{po_header}->{charset};
 		# Convert into output charset.
-		my $output_codeset = bind_textdomain_codeset ($domainname);
+		my $output_codeset = $__gettext_pp_domain_codeset_bindings->{$domainname};
+
 		$output_codeset = $ENV{OUTPUT_CHARSET} unless defined $output_codeset;
 		$output_codeset = __get_codeset ($category, $category_name)
 			unless defined $output_codeset;
@@ -335,13 +339,18 @@ sub dcngettext($$$$$)
 		unless (defined $output_codeset) {
 			# Still no point.
 			my $lc_ctype = __locale_category (POSIX::LC_CTYPE(), 
-											  'LC_CTYPE');
+										   'LC_CTYPE');
 			$output_codeset = $1
 				if $lc_ctype =~ /^[a-z]{2}(?:_[A-Z]{2})?\.([^@]+)/;
 		}
 		
-		$output_codeset = Locale::Recode->resolveAlias ($output_codeset) if
-			defined $output_codeset;
+		if (exists $__gettext_pp_domain_cache->{$output_codeset}) {
+			$output_codeset = $__gettext_pp_domain_cache->{$output_codeset};
+		} else {
+			$output_codeset = 
+				$__gettext_pp_domain_cache->{$output_codeset} =
+				Locale::Recode->resolveAlias ($output_codeset);
+		}
 		
 		if (defined $output_codeset &&
 			$output_codeset ne $domain->{po_header}->{charset}) {
@@ -370,34 +379,46 @@ sub __load_domain
 {
 	my ($domainname, $category, $category_name) = @_;
 	
-	$domainname = textdomain ('') unless defined $domainname && 
-		length $domainname;
+	$domainname = $__gettext_pp_textdomain
+		unless defined $domainname && length $domainname;
+
 	my $dir = bindtextdomain ($domainname, '');
 	$dir = $__gettext_pp_default_dir unless defined $dir && length $dir;
 	return [] unless defined $dir && length $dir;
 
-		my $locale = __locale_category ($category, $category_name);
-	# Have we looked that one up already?
-	my $domains = $__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$domainname};
-	
-	if (defined $locale && length $locale && !defined $domains) {
-		my @dirs = ($dir);
-		my @tries = ($locale);
-		
-		if ($locale =~ /^([a-z][a-z])
-			(?:(_[A-Z][A-Z])?
-			 (\.[-_A-Za-z0-9]+)?
-			 )?
-			(\@[-_A-Za-z0-9]+)?$/x) {
+	my @locales;
+	my $cache_key;
 
-			if (defined $3) {
-				defined $2 ?
-						push @tries, $1 . $2 . $3 : push @tries, $1 . $3;
-			}
-			push @tries, $1 . $2 if defined $2;
-			push @tries, $1 if defined $1;
-		}
+	if (defined $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
+		@locales = split /:/, $ENV{LANGUAGE};
+		$cache_key = $ENV{LANGUAGE};
+	} else {
+		@locales = $cache_key = __locale_category ($category, $category_name);
+	}
+
+	# Have we looked that one up already?
+	my $domains = $__gettext_pp_domain_cache->{$dir}->{$cache_key}->{$category_name}->{$domainname};
+	
+	if (@locales && !defined $domains) {
+		my @dirs = ($dir);
+		my @tries = (@locales);
 		
+		foreach my $locale (@locales) {
+			if ($locale =~ /^([a-z][a-z])
+				(?:(_[A-Z][A-Z])?
+				 (\.[-_A-Za-z0-9]+)?
+				 )?
+				(\@[-_A-Za-z0-9]+)?$/x) {
+				
+				if (defined $3) {
+					defined $2 ?
+						push @tries, $1 . $2 . $3 : push @tries, $1 . $3;
+				}
+				push @tries, $1 . $2 if defined $2;
+				push @tries, $1 if defined $1;
+			}
+		}
+
 		push @dirs, $__gettext_pp_default_dir
 			if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
 		
@@ -435,11 +456,10 @@ sub __load_domain
 				push @$domains, $domain;
 			}
 		}
-		$__gettext_pp_domain_cache->{$dir}->{$locale}->{$category_name}->{$domainname} = $domains;
+		$__gettext_pp_domain_cache->{$dir}->{$cache_key}->{$category_name}->{$domainname} = $domains;
 	}
-	
+
 	$domains = [] unless defined $domains;
-	
 	return $domains;
 }
 
@@ -595,8 +615,6 @@ sub __locale_category
 {
 	my ($category, $category_name) = @_;
 	
-	my $language = $ENV{LANGUAGE};
-	
 	local $@;
 	my $value = eval {POSIX::setlocale ($category)};
 	
@@ -617,8 +635,7 @@ sub __locale_category
 		return 'C' unless defined $value && length $value;
 	}
 	
-	return defined $language && length $language &&
-		$value ne 'C' && $value ne 'POSIX' ? $language : $value;
+	return $value if $value ne 'C' && $value ne 'POSIX';
 }
 
 sub __get_codeset
