@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Recode.pm,v 1.6 2003/06/27 10:19:46 guido Exp $
+# $Id: Recode.pm,v 1.7 2003/06/30 19:12:56 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -102,7 +102,7 @@ sub getSupported
 sub getCharsets
 {
 	my $self = shift;
-	my %all = map $_ => 1, @{&getSupported};
+	my %all = map { $_ => 1 } @{&getSupported};
 
 	require Locale::Recode::_Aliases;
 
