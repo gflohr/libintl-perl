@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.20 2003/09/04 15:58:26 ingrid Exp $
+# $Id: gettext_pp.pm,v 1.21 2003/09/04 16:05:20 ingrid Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -576,7 +576,6 @@ sub __load_catalog
 		my $code = ' ' . $domain->{po_header}->{plural_forms} . ' ';
 		$code =~ 
 			s/([^_a-zA-Z0-9])([_a-z][_A-Za-z0-9]*)([^_a-zA-Z0-9])/$1\$$2$3/g;
-		$code =~ s/\`\s//g;
 		
 		$code = "sub { my \$n = shift; 
 				   my (\$plural, \$nplurals); 
