@@ -2,7 +2,7 @@
 # vim: syntax=perl
 # vim: tabstop=4
 # -*- perl -*-
-# $Id: ATARI_ST_EURO.pm,v 1.1 2002/08/16 10:49:21 guido Exp $
+# $Id: ATARI_ST_EURO.pm,v 1.2 2002/10/22 11:20:44 ingrid Exp $
 
 # Conversion routines for ATARI-ST-EURO.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -29,7 +29,8 @@
 
 package Locale::RecodeData::ATARI_ST_EURO;
 
-use base Locale::RecodeData;
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 use strict;
 

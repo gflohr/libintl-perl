@@ -27,7 +27,8 @@
 
 package Locale::RecodeData::ASCII;
 
-use base Locale::RecodeData;
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 use strict;
 

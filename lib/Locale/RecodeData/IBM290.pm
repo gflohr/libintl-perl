@@ -2,7 +2,7 @@
 # vim: syntax=perl
 # vim: tabstop=4
 # -*- perl -*-
-# $Id: IBM290.pm,v 1.1 2002/08/16 10:49:21 guido Exp $
+# $Id: IBM290.pm,v 1.2 2002/10/22 11:20:45 ingrid Exp $
 
 # Conversion routines for IBM290.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -29,7 +29,8 @@
 
 package Locale::RecodeData::IBM290;
 
-use base Locale::RecodeData;
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 use strict;
 

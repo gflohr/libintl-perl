@@ -2,7 +2,7 @@
 # vim: syntax=perl
 # vim: tabstop=4
 # -*- perl -*-
-# $Id: ISO_10367_BOX.pm,v 1.1 2002/08/16 10:49:22 guido Exp $
+# $Id: ISO_10367_BOX.pm,v 1.2 2002/10/22 11:20:45 ingrid Exp $
 
 # Conversion routines for ISO_10367-BOX.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -29,7 +29,8 @@
 
 package Locale::RecodeData::ISO_10367_BOX;
 
-use base Locale::RecodeData;
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 use strict;
 

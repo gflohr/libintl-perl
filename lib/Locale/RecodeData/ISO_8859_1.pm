@@ -27,7 +27,8 @@
 
 package Locale::RecodeData::ISO_8859_1;
 
-use base Locale::RecodeData;
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 use strict;
 

@@ -2,7 +2,7 @@
 # vim: syntax=perl
 # vim: tabstop=4
 # -*- perl -*-
-# $Id: LATIN_GREEK.pm,v 1.1 2002/08/16 10:49:22 guido Exp $
+# $Id: LATIN_GREEK.pm,v 1.2 2002/10/22 11:20:46 ingrid Exp $
 
 # Conversion routines for LATIN-GREEK.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -29,7 +29,8 @@
 
 package Locale::RecodeData::LATIN_GREEK;
 
-use base Locale::RecodeData;
+require Locale::RecodeData;
+use base qw(Locale::RecodeData);
 
 use strict;
 
