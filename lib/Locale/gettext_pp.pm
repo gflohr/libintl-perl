@@ -119,7 +119,8 @@ sub LC_MESSAGES
 {
 	local $!; # Do not clobber errno!
 
-	my $retval = eval '&POSIX::LC_MESSAGES';
+	my $retval = eval '&POSIX::LC_MESSAGES'
+		if $POSIX::{LC_MESSAGES};
 	return $retval if $retval;
 
 	# Hack: POSIX.pm deems LC_MESSAGES an invalid macro.  However, on 
