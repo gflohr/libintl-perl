@@ -1,3 +1,12 @@
+2003-11-30 19:47  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: deleted reference to unwritten docs on
+	let.imperia.org 
+
+2003-11-30 19:45  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: #re-generated 
+
 2003-11-30 19:45  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 1.08 
