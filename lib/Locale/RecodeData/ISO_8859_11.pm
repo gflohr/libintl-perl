@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: ISO_8859_11.pm,v 1.1 2003/06/04 12:16:44 guido Exp $
+# $Id: ISO_8859_11.pm,v 1.2 2003/06/04 12:20:02 guido Exp $
 
 # Conversion routines for ISO-8859-11.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -830,7 +830,8 @@ This module contains the conversion tables and routines for ISO-8859-11.
 
 ISO-8859-11 is - at the time of this writing (June 2003) - not yet
 an official standard.  The charmap is mostly identical to TIS-620,
-with the additional NO-BREAK SPACE.
+with the additional NO-BREAK SPACE.  The information is taken from
+http://homepages.cwi.nl/~dik/english/codes/8859.html.
 
 =head1 CHARACTER TABLE
 
