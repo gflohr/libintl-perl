@@ -2,7 +2,7 @@
 # vim: syntax=perl
 # vim: tabstop=4
 # -*- perl -*-
-# $Id: _Conversions.pm,v 1.1 2002/08/16 10:09:43 guido Exp $
+# $Id: _Conversions.pm,v 1.1 2002/08/16 10:49:21 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.

@@ -1,6 +1,6 @@
 #! /bin/false
 # -*- perl -*-
-# $Id: _Aliases.pm,v 1.1 2002/08/16 10:09:43 guido Exp $
+# $Id: _Aliases.pm,v 1.1 2002/08/16 10:49:21 guido Exp $
 
 # Internally known aliases for charsets.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
