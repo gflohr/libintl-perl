@@ -6,6 +6,7 @@ Makefile.PL
 MyInstall.pm
 NEWS
 README
+README.win32
 THANKS
 TODO
 gettext_xs/Makefile.PL
