@@ -1,3 +1,13 @@
+2003-09-04 17:58  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: 
+	- untaint of plural header 
+	- Perl 5.005 compatibility 
+
+2003-09-04 17:24  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated 
+
 2003-09-04 17:23  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/TextDomain.pm: bumped version number to 1.02 
