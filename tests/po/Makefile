@@ -21,7 +21,7 @@ default: install
 
 install: $(MO_FILES)
 	cd $(srcdir); \
-	targetdir='$(top_srcdir)/locale'; \
+	targetdir='$(top_srcdir)/LocaleData'; \
 	languages='$(LINGUAS)'; \
 	packages='$(PACKAGES)'; \
 	for package in $$packages; do \
