@@ -1,30 +1,26 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: NEXTSTEP.pm,v 1.3 2003/07/28 12:15:39 guido Exp $
+# $Id: NEXTSTEP.pm,v 1.4 2003/09/10 17:03:35 guido Exp $
 
 # Conversion routines for NEXTSTEP.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
 
-# Distribution either under the terms of the Artistic license (see
-# Artistic) or - at your choice - under the terms and conditions of
-# the GNU General Public License described below.
-
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Library General Public License as published
+# by the Free Software Foundation; either version 2, or (at your option)
 # any later version.
-
+                                                                                
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+                                                                                
+# You should have received a copy of the GNU Library General Public 
+# License along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
+# USA.
 
 package Locale::RecodeData::NEXTSTEP;
 
@@ -1124,7 +1120,7 @@ Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 
-(http://www.imperia.net/).
+(L<http://www.imperia.net/>).
 
 =head1 SEE ALSO
 

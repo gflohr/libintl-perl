@@ -1,30 +1,26 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: ISO_8859_8.pm,v 1.6 2003/07/28 12:15:38 guido Exp $
+# $Id: ISO_8859_8.pm,v 1.7 2003/09/10 17:03:35 guido Exp $
 
 # Conversion routines for ISO-8859-8.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
 
-# Distribution either under the terms of the Artistic license (see
-# Artistic) or - at your choice - under the terms and conditions of
-# the GNU General Public License described below.
-
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Library General Public License as published
+# by the Free Software Foundation; either version 2, or (at your option)
 # any later version.
-
+                                                                                
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+                                                                                
+# You should have received a copy of the GNU Library General Public 
+# License along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
+# USA.
 
 package Locale::RecodeData::ISO_8859_8;
 
@@ -1059,7 +1055,7 @@ Copyright (C) 2002-2003, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 
-(http://www.imperia.net/).
+(L<http://www.imperia.net/>).
 
 =head1 SEE ALSO
 
