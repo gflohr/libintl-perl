@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.31 2004/01/08 19:12:10 guido Exp $
+# $Id: gettext_pp.pm,v 1.32 2004/01/08 19:49:23 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -384,7 +384,7 @@ sub dcngettext($$$$$)
 
 sub nl_putenv ($)
 {
-    my ($envspec) = $_;
+    my ($envspec) = @_;
     return unless defined $envspec;
     return unless length $envspec;
     return if substr ($envspec, 0, 1) eq '=';
