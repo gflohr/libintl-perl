@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.17 2003/07/28 12:16:04 guido Exp $
+# $Id: gettext_pp.pm,v 1.18 2003/08/07 10:56:21 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -480,30 +480,30 @@ sub __load_catalog
 	}
 	my $domain_unpack = $unpack x 6;
 	
-	my ($revision, $nstrings, $orig_tab_offset, $trans_tab_offset,
-		$hash_tab_size, $hash_tab_offset) = 
+	my ($revision, $num_strings, $msgids_off, $msgstrs_off,
+		$hash_size, $hash_off) = 
 			unpack (($unpack x 6), substr $raw, 4, 24);
 	
 	return unless $revision == 0; # Invalid revision number.
 	
 	$domain->{revision} = $revision;
-	$domain->{nstrings} = $nstrings;
-	$domain->{orig_tab_offset} = $orig_tab_offset;
-	$domain->{trans_tab_offset} = $trans_tab_offset;
-	$domain->{hash_tab_size} = $hash_tab_size;
-	$domain->{hash_tab_offset} = $hash_tab_offset;
+	$domain->{num_strings} = $num_strings;
+	$domain->{msgids_off} = $msgids_off;
+	$domain->{msgstrs_off} = $msgstrs_off;
+	$domain->{hash_size} = $hash_size;
+	$domain->{hash_off} = $hash_off;
 	
-	return if $orig_tab_offset + 4 * $nstrings > $filesize;
-	return if $trans_tab_offset + 4 * $nstrings > $filesize;
+	return if $msgids_off + 4 * $num_strings > $filesize;
+	return if $msgstrs_off + 4 * $num_strings > $filesize;
 	
-	my @orig_tab = unpack (($unpack x (2 * $nstrings)), 
-						   substr $raw, $orig_tab_offset, 8 * $nstrings);
-	my @trans_tab = unpack (($unpack x (2 * $nstrings)), 
-							substr $raw, $trans_tab_offset, 8 * $nstrings);
+	my @orig_tab = unpack (($unpack x (2 * $num_strings)), 
+						   substr $raw, $msgids_off, 8 * $num_strings);
+	my @trans_tab = unpack (($unpack x (2 * $num_strings)), 
+							substr $raw, $msgstrs_off, 8 * $num_strings);
 	
 	my $messages = {};
 	
-	for (my $count = 0; $count < 2 * $nstrings; $count += 2) {
+	for (my $count = 0; $count < 2 * $num_strings; $count += 2) {
 		my $orig_length = $orig_tab[$count];
 		my $orig_offset = $orig_tab[$count + 1];
 		my $trans_length = $trans_tab[$count];
