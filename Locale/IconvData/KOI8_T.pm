@@ -1,6 +1,8 @@
 #! /bin/false
+# vim: syntax=perl
+#      tabstop=4
 # -*- perl -*-
-# $Id: KOI8_T.pm,v 1.2 2002/07/09 19:02:17 guido Exp $
+# $Id: KOI8_T.pm,v 1.3 2002/07/10 19:05:07 guido Exp $
 
 # Conversion routines for KOI8-T.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -823,7 +825,7 @@ __END__
 
 =head1 NAME
 
-Locale::IconvData::$module_name
+Locale::IconvData::KOI8_T
 
 =head1 SYNOPSIS
 
@@ -832,7 +834,7 @@ This module is internal to libintl.  Do not use directly!
 =head1 DESCRIPTION
 
 This module is generated and contains the conversion tables and
-routines for $codeset.
+routines for KOI8-T.
 
 =head1 COMMENTS
 

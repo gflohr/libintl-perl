@@ -1,6 +1,8 @@
 #! /bin/false
+# vim: syntax=perl
+#      tabstop=4
 # -*- perl -*-
-# $Id: IBM290.pm,v 1.2 2002/07/09 19:02:16 guido Exp $
+# $Id: IBM290.pm,v 1.3 2002/07/10 19:05:06 guido Exp $
 
 # Conversion routines for IBM290.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -781,7 +783,7 @@ __END__
 
 =head1 NAME
 
-Locale::IconvData::$module_name
+Locale::IconvData::IBM290
 
 =head1 SYNOPSIS
 
@@ -790,7 +792,7 @@ This module is internal to libintl.  Do not use directly!
 =head1 DESCRIPTION
 
 This module is generated and contains the conversion tables and
-routines for $codeset.
+routines for IBM290.
 
 =head1 COMMENTS
 

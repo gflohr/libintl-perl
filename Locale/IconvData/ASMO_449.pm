@@ -1,6 +1,8 @@
 #! /bin/false
+# vim: syntax=perl
+#      tabstop=4
 # -*- perl -*-
-# $Id: ASMO_449.pm,v 1.2 2002/07/09 19:02:15 guido Exp $
+# $Id: ASMO_449.pm,v 1.3 2002/07/10 19:05:05 guido Exp $
 
 # Conversion routines for ASMO_449.
 # Copyright (C) 2002 Guido Flohr <guido@imperia.net>, all rights reserved.
@@ -706,7 +708,7 @@ __END__
 
 =head1 NAME
 
-Locale::IconvData::$module_name
+Locale::IconvData::ASMO_449
 
 =head1 SYNOPSIS
 
@@ -715,7 +717,7 @@ This module is internal to libintl.  Do not use directly!
 =head1 DESCRIPTION
 
 This module is generated and contains the conversion tables and
-routines for $codeset.
+routines for ASMO_449.
 
 =head1 COMMENTS
 
