@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.1 2003/09/15 08:21:46 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.2 2003/10/10 15:38:09 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -29,6 +29,13 @@ MODULE = Locale::gettext_xs	PACKAGE = Locale::gettext_xs
 
 PROTOTYPES: ENABLE
 
+char*
+__gettext_xs_version ()
+     CODE:
+	  RETVAL = (VERSION);
+     OUTPUT:
+	  RETVAL
+ 
 double
 LC_CTYPE ()
      CODE:

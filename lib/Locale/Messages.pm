@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: Messages.pm,v 1.14 2003/09/15 08:21:46 guido Exp $
+# $Id: Messages.pm,v 1.15 2003/10/10 15:38:09 guido Exp $
 
 # Conversion routines for ATARI-ST.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -26,11 +26,15 @@ package Locale::Messages;
 
 use strict;
 
-use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
+use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA);
 
 # Try to load the C version first.
 $package = 'gettext_xs';
-eval "require Locale::gettext_xs";
+eval <<'EOF';
+require Locale::gettext_xs; 
+my $version = Locale::gettext_xs::__gettext_xs_version();
+die "Version: $version not sufficient" unless $version eq '1.05';
+EOF
 if ($@) {
     $package = 'gettext_pp';
     require Locale::gettext_pp;
