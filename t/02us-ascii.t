@@ -69,21 +69,21 @@ while (my ($code, $ucs4) = each %$codes) {
 }
 ok $result_int;
 
-# Check handling of unknown characters.  This assumes that the 
-# character set is a subset of US-ASCII.
+# Check handling of unknown characters.
 my $test_string1 = [ unpack 'c*', ' Supergirl ' ];
 $test_string1->[0] = 0xad0be;
 $test_string1->[-1] = 0xbeefbabe;
 my $test_string2 = [ unpack 'c*', 'Supergirl' ];
 
-$cd_utf8 = Locale::Recode->new (from => 'INTERNAL',
-							   to => 'ASCII',
-							  );
-my $unknown = [ (ord '?') ]; # Unknown character!
-$result_utf8 = $cd_utf8->recode ($test_string1) &&
-	$cd_utf8->recode ($test_string2) &&
-		$cd_utf8->recode ($unknown);
-$test_string2 = $unknown . $test_string2 . $unknown;
+my $unknown = "\x3f"; # Unknown character!
+
+$cd_rev = Locale::Recode->new (from => 'INTERNAL',
+                       to => 'ISO-8859-2',
+                )
+&& $cd_rev->recode ($test_string1)
+&& $cd_rev->recode ($test_string2)
+&& ($test_string2 = $unknown . $test_string2 . $unknown);
+
 ok $test_string1 eq $test_string2;
 
 sub int2utf8

@@ -34,23 +34,17 @@ use strict;
 
 sub _recode
 {
-	my $unknown = $_[0]->{_unknown};
-
     if ($_[0]->{_from} eq 'INTERNAL') {
-		my $unknown_chr = chr $unknown;
-		$unknown_chr = '' unless defined $unknown_chr;
 		# FIXME: Maybe the lookup is cheaper than the call to chr().
 		$_[1] = join '', 
-		    map $_ > 0x7f ? $unknown_chr : chr $_,
+		    map $_ > 0x7f ? '?' : chr $_,
 			    @{$_[1]};
-    } elsif ($_[0]->{_to} =~ m,^UTF-8/+,) {
-		my $unknown_chr = $unknown <= 0x7f ? chr $unknown : '';
-		$unknown_chr = '' unless defined $unknown_chr;
+    } elsif ($_[0]->{_to} eq 'UTF-8') {
 		# FIXME: Maybe the lookup is cheaper than the call to chr().
 		$_[1] = join '', 
-		    map $_ > 0x7f ? $unknown_chr : chr $_, unpack 'C*', $_[1];
+		    map $_ > 0x7f ? "\xef\xbf\xbd" : chr $_, unpack 'C*', $_[1];
     } else {
-		$_[1] = [ map { $_ > 0x7f ? $unknown : $_ } unpack 'C*', $_[1] ];
+		$_[1] = [ map { $_ > 0x7f ? 0xfffd : $_ } unpack 'C*', $_[1] ];
     }
 
     return 1;
