@@ -1,8 +1,8 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: MS_KANJI.pm,v 1.7 2003/06/05 18:13:53 guido Exp $
+# $Id: MS_KANJI.pm,v 1.8 2003/06/06 11:38:38 guido Exp $
 
-# Conversion routines for MS_KANJI.
+# Conversion routines for SHIFT_JIS.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
 # all rights reserved.
 # This file is generated, do not edit!
@@ -27,13 +27,13 @@
 # 02111-1307, USA.
 
 # See Locale::RecodeData::MS_KANJI.pod for documentation!
-
+		
 package Locale::RecodeData::MS_KANJI;
-
+	
 use strict;
 
 require Locale::RecodeData;
-use base qw(Locale::RecodeData);
+use base qw (Locale::RecodeData);
 
 my %from_ucs = (
 	       0x0 => "\x00",
@@ -14202,7 +14202,7 @@ sub _recode
 		}
 
 		my @outbuf;
-		$_[1] =~ s/($conv_re|.)/
+		$_[1] =~ s/$conv_re/
 			push @outbuf, ($to_ucs{$1} || 
 						   (exists $to_ucs{$1} ?
 							0 : $unknown));

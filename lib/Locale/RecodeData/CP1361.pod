@@ -31,7 +31,7 @@ JOHAB is a multi-byte encoding!
 
 The following comments have been extracted from the original charmap:
 
- Generated from the mappings/eastasia/johab.txt from the Unicode CDROM.
+  Generated from the mappings/eastasia/johab.txt from the Unicode CDROM.
 
 Please note that aliases listed above are not necessarily valid!
 
@@ -41,9 +41,8 @@ The following table is sorted in the same order as the original charmap.
 All character codes are in hexadecimal.  Please read 'Unicode' as
 'ISO-10646-UCS4'.
 
-       Local |  Unicode | Description
--------------+----------+-----------------------------------------------
-
+        Local |  Unicode | Description
+--------------+----------+----------------------------------------------
          /x00 | 00000000 | NULL (NUL)
          /x01 | 00000001 | START OF HEADING (SOH)
          /x02 | 00000002 | START OF TEXT (STX)

@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: CP949.pm,v 1.1 2003/06/05 17:32:15 guido Exp $
+# $Id: CP949.pm,v 1.2 2003/06/06 11:38:35 guido Exp $
 
 # Conversion routines for CP949.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -34409,14 +34409,12 @@ sub _recode
 							$unknown_chr),
 						   @{$_[1]}));
     } else {
-		# FIXME: This is awfully slow!
 		unless ($conv_re) {
-			my $all = join '|', map quotemeta $_, keys %to_ucs;
-			$conv_re = qr /$all/;
+			$conv_re = qr /([\x81-\xfe][\x41-\x5a\x61-\x7a\x81-\xfe]|.)/os;
 		}
 
 		my @outbuf;
-		$_[1] =~ s/($conv_re|.)/
+		$_[1] =~ s/$conv_re/
 			push @outbuf, ($to_ucs{$1} || 
 						   (exists $to_ucs{$1} ?
 							0 : $unknown));

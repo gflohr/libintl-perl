@@ -8,43 +8,46 @@ use strict;
 use Test;
 
 BEGIN {
-	plan tests => 4;
+    plan tests => 4;
 }
 
 use Locale::Recode;
 
-my $codes = {};
+my $local2ucs = {};
+my $ucs2local = {};
 
 while (<DATA>) {
-	my ($code, $ucs4, undef) = split /\s+/, $_;
-	next unless defined $ucs4 && length $ucs4;
-	$code = eval qq{"$code"};
-	$codes->{$code} = oct $ucs4; 
+    my ($code, $ucs4, $irr) = split /\s+/, $_;
+    next unless defined $ucs4 && length $ucs4;
+    $code = eval qq{"$code"};
+	$ucs4 = oct $ucs4;
+    $local2ucs->{$code} = $ucs4;
+	$ucs2local->{$ucs4} = $code unless $irr;
 }
 
-my $cd_int = Locale::Recode->new (from => 'MS_KANJI',
+my $cd_int = Locale::Recode->new (from => 'SHIFT_JIS',
                                  to => 'INTERNAL');
 ok !$cd_int->getError;
 
 my $cd_rev = Locale::Recode->new (from => 'INTERNAL',
-                                 to => 'MS_KANJI');
+                                 to => 'SHIFT_JIS');
 ok !$cd_rev->getError;
 
 # Convert into internal representation.
 my $result_int = 1;
-while (my ($code, $ucs4) = each %$codes) {
+while (my ($code, $ucs4) = each %$local2ucs) {
     my $outbuf = $code;
     my $result = $cd_int->recode ($outbuf);
     unless ($result && $outbuf->[0] == $ucs4) {
         $result_int = 0;
         last;
     }
-}   
+}
 ok $result_int;
 
 # Convert from internal representation.
 my $result_rev = 1;
-while (my ($code, $ucs4) = each %$codes) {
+while (my ($ucs4, $code) = each %$ucs2local) {
     my $outbuf = [ $ucs4 ];
     my $result = $cd_rev->recode ($outbuf);
     unless ($result && $code eq $outbuf) {

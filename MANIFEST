@@ -11,6 +11,8 @@ lib/Locale/RecodeData/ATARI_ST.pm
 lib/Locale/RecodeData/ATARI_ST_EURO.pm
 lib/Locale/RecodeData/BIG_5.pm
 lib/Locale/RecodeData/BIG_5.pod
+lib/Locale/RecodeData/BIG5_HKSCS.pm
+lib/Locale/RecodeData/BIG5_HKSCS.pod
 lib/Locale/RecodeData/CP10007.pm
 lib/Locale/RecodeData/CP1250.pm
 lib/Locale/RecodeData/CP1251.pm
@@ -148,10 +150,12 @@ lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/UTF_8_Encode.pm
 lib/Locale/RecodeData/VISCII.pm
 lib/Locale/gettext_pp.pm
+BUGS
 MANIFEST
 Makefile.PL
 README
 THANKS
+TODO
 t/00gettext.t
 t/00recode.t
 t/01trivial.t
@@ -160,6 +164,7 @@ t/02asmo_449.t
 t/02atari-st-euro.t
 t/02atari-st.t
 t/02big-5.t
+t/02big5-hkscs.t
 t/02cp10007.t
 t/02cp1250.t
 t/02cp1251.t

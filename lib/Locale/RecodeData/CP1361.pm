@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: CP1361.pm,v 1.1 2003/06/05 17:32:14 guido Exp $
+# $Id: CP1361.pm,v 1.2 2003/06/06 11:38:34 guido Exp $
 
 # Conversion routines for JOHAB.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -34405,14 +34405,12 @@ sub _recode
 							$unknown_chr),
 						   @{$_[1]}));
     } else {
-		# FIXME: This is awfully slow!
 		unless ($conv_re) {
-			my $all = join '|', map quotemeta $_, keys %to_ucs;
-			$conv_re = qr /$all/;
+			$conv_re = qr /([\x84-\xd3][\x41-\x7e\x81-\xfe]|[\xd8-\xde\xe0-\xf9][\x31-\x7e\x91-\xfe]|.)/os;
 		}
 
 		my @outbuf;
-		$_[1] =~ s/($conv_re|.)/
+		$_[1] =~ s/$conv_re/
 			push @outbuf, ($to_ucs{$1} || 
 						   (exists $to_ucs{$1} ?
 							0 : $unknown));

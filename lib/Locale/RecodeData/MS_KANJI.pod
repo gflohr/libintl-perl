@@ -31,7 +31,7 @@ SHIFT_JIS is a multi-byte encoding!
 
 The following comments have been extracted from the original charmap:
 
- alias SJIS
+  alias SJIS
 
 Please note that aliases listed above are not necessarily valid!
 
@@ -41,9 +41,8 @@ The following table is sorted in the same order as the original charmap.
 All character codes are in hexadecimal.  Please read 'Unicode' as
 'ISO-10646-UCS4'.
 
-       Local |  Unicode | Description
--------------+----------+-----------------------------------------------
-
+        Local |  Unicode | Description
+--------------+----------+----------------------------------------------
          /x00 | 00000000 | NULL (NUL)
          /x01 | 00000001 | START OF HEADING (SOH)
          /x02 | 00000002 | START OF TEXT (STX)
@@ -5078,9 +5077,10 @@ All character codes are in hexadecimal.  Please read 'Unicode' as
      /x9f/xfb | 00006F32 | <CJK>
      /x9f/xfc | 00006ECC | <CJK>
 
-B<>
-B< Half-width Katakana>
-B<>
+
+
+B<Half-width Katakana>
+
          /xa1 | 0000FF61 | HALFWIDTH IDEOGRAPHIC FULL STOP
          /xa2 | 0000FF62 | HALFWIDTH LEFT CORNER BRACKET
          /xa3 | 0000FF63 | HALFWIDTH RIGHT CORNER BRACKET
@@ -5145,9 +5145,6 @@ B<>
          /xde | 0000FF9E | HALFWIDTH KATAKANA VOICED SOUND MARK
          /xdf | 0000FF9F | HALFWIDTH KATAKANA SEMI-VOICED SOUND MARK
 
-B<>
-B<>
-B<>
      /xe0/x40 | 00006F3E | <CJK>
      /xe0/x41 | 00006F13 | <CJK>
      /xe0/x42 | 00006EF7 | <CJK>
@@ -6048,12 +6045,12 @@ B<>
      /xe4/xd2 | 0000842A | <CJK>
      /xe4/xd3 | 0000843C | <CJK>
      /xe4/xd4 | 0000855A | <CJK>
-
      /xe4/xd5 | 00008484 | <CJK>
      /xe4/xd6 | 00008477 | <CJK>
      /xe4/xd7 | 0000846B | <CJK>
      /xe4/xd8 | 000084AD | <CJK>
      /xe4/xd9 | 0000846E | <CJK>
+
      /xe4/xda | 00008482 | <CJK>
      /xe4/xdb | 00008469 | <CJK>
      /xe4/xdc | 00008446 | <CJK>
@@ -7049,12 +7046,12 @@ B<>
      /xea/x51 | 00009DC1 | <CJK>
      /xea/x52 | 00009DBB | <CJK>
      /xea/x53 | 00009DB8 | <CJK>
-
      /xea/x54 | 00009DBA | <CJK>
      /xea/x55 | 00009DC6 | <CJK>
      /xea/x56 | 00009DCF | <CJK>
      /xea/x57 | 00009DC2 | <CJK>
      /xea/x58 | 00009DD9 | <CJK>
+
      /xea/x59 | 00009DD3 | <CJK>
      /xea/x5a | 00009DF8 | <CJK>
      /xea/x5b | 00009DE6 | <CJK>

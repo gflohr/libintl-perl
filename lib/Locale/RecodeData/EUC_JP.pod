@@ -31,9 +31,9 @@ EUC-JP is a multi-byte encoding!
 
 The following comments have been extracted from the original charmap:
 
- EUC-JP character map
- Ulrich Drepper E<lt>drepper@redhat.comE<gt>, 2000.
- Last changed: 2000-06-20
+  EUC-JP character map
+  Ulrich Drepper <drepper@redhat.com>, 2000.
+  Last changed: 2000-06-20
 
 Please note that aliases listed above are not necessarily valid!
 
@@ -43,13 +43,13 @@ The following table is sorted in the same order as the original charmap.
 All character codes are in hexadecimal.  Please read 'Unicode' as
 'ISO-10646-UCS4'.
 
-       Local |  Unicode | Description
--------------+----------+-----------------------------------------------
+        Local |  Unicode | Description
+--------------+----------+----------------------------------------------
 
 
-B<>
-B< ASCII or JIS X 0201 Roman>
-B<>
+
+B<ASCII or JIS X 0201 Roman>
+
          /x00 | 00000000 | NULL
          /x01 | 00000001 | START OF HEADING
          /x02 | 00000002 | START OF TEXT
@@ -179,9 +179,10 @@ B<>
          /x7e | 0000007E | TILDE
          /x7f | 0000007F | DELETE
 
-B<>
-B< C1 area is mapped to itself.  Excluding SS2 and SS3.>
-B<>
+
+
+B<C1 area is mapped to itself.  Excluding SS2 and SS3.>
+
          /x80 | 00000080 | PADDING CHARACTER (PAD)
          /x81 | 00000081 | HIGH OCTET PRESET (HOP)
          /x82 | 00000082 | BREAK PERMITTED HERE (BPH)
@@ -213,9 +214,10 @@ B<>
          /x9e | 0000009E | PRIVACY MESSAGE (PM)
          /x9f | 0000009F | APPLICATION PROGRAM COMMAND (APC)
 
-B<>
-B< JIS X 0201 Kana>
-B<>
+
+
+B<JIS X 0201 Kana>
+
      /x8e/xa1 | 0000FF61 | HALFWIDTH IDEOGRAPHIC FULL STOP
      /x8e/xa2 | 0000FF62 | HALFWIDTH LEFT CORNER BRACKET
      /x8e/xa3 | 0000FF63 | HALFWIDTH RIGHT CORNER BRACKET
@@ -280,9 +282,10 @@ B<>
      /x8e/xde | 0000FF9E | HALFWIDTH KATAKANA VOICED SOUND MARK
      /x8e/xdf | 0000FF9F | HALFWIDTH KATAKANA SEMI-VOICED SOUND MARK
 
-B<>
-B< JIS X 0208>
-B<>
+
+
+B<JIS X 0208>
+
      /xa1/xa1 | 00003000 | IDEOGRAPHIC SPACE
      /xa1/xa2 | 00003001 | IDEOGRAPHIC COMMA
      /xa1/xa3 | 00003002 | IDEOGRAPHIC FULL STOP
@@ -1045,7 +1048,6 @@ B<>
      /xb2/xd0 | 0000706B | <CJK>
      /xb2/xd1 | 000073C2 | <CJK>
      /xb2/xd2 | 0000798D | <CJK>
-
      /xb2/xd3 | 000079BE | <CJK>
      /xb2/xd4 | 00007A3C | <CJK>
      /xb2/xd5 | 00007B87 | <CJK>
@@ -1054,6 +1056,7 @@ B<>
      /xb2/xd8 | 00008304 | <CJK>
      /xb2/xd9 | 00008377 | <CJK>
      /xb2/xda | 000083EF | <CJK>
+
      /xb2/xdb | 000083D3 | <CJK>
      /xb2/xdc | 00008766 | <CJK>
      /xb2/xdd | 00008AB2 | <CJK>
@@ -2046,7 +2049,6 @@ B<>
      /xbd/xae | 0000821F | <CJK>
      /xbd/xaf | 00008490 | <CJK>
      /xbd/xb0 | 00008846 | <CJK>
-
      /xbd/xb1 | 00008972 | <CJK>
      /xbd/xb2 | 00008B90 | <CJK>
      /xbd/xb3 | 00008E74 | <CJK>
@@ -2055,6 +2057,7 @@ B<>
      /xbd/xb6 | 0000914B | <CJK>
      /xbd/xb7 | 0000916C | <CJK>
      /xbd/xb8 | 000096C6 | <CJK>
+
      /xbd/xb9 | 0000919C | <CJK>
      /xbd/xba | 00004EC0 | <CJK>
      /xbd/xbb | 00004F4F | <CJK>
@@ -3047,7 +3050,6 @@ B<>
      /xc7/xea | 000077E7 | <CJK>
      /xc7/xeb | 00008429 | <CJK>
      /xc7/xec | 00004F2F | <CJK>
-
      /xc7/xed | 00005265 | <CJK>
      /xc7/xee | 0000535A | <CJK>
      /xc7/xef | 000062CD | <CJK>
@@ -3056,6 +3058,7 @@ B<>
      /xc7/xf2 | 0000767D | <CJK>
      /xc7/xf3 | 00007B94 | <CJK>
      /xc7/xf4 | 00007C95 | <CJK>
+
      /xc7/xf5 | 00008236 | <CJK>
      /xc7/xf6 | 00008584 | <CJK>
      /xc7/xf7 | 00008FEB | <CJK>
@@ -4048,7 +4051,6 @@ B<>
      /xd2/xf3 | 00005476 | <CJK>
      /xd2/xf4 | 00005484 | <CJK>
      /xd2/xf5 | 00005490 | <CJK>
-
      /xd2/xf6 | 00005486 | <CJK>
      /xd2/xf7 | 000054C7 | <CJK>
      /xd2/xf8 | 000054A2 | <CJK>
@@ -4057,6 +4059,7 @@ B<>
      /xd2/xfb | 000054AC | <CJK>
      /xd2/xfc | 000054C4 | <CJK>
      /xd2/xfd | 000054C8 | <CJK>
+
      /xd2/xfe | 000054A8 | <CJK>
      /xd3/xa1 | 000054AB | <CJK>
      /xd3/xa2 | 000054C2 | <CJK>
@@ -5049,7 +5052,6 @@ B<>
      /xdd/xd1 | 00006BAB | <CJK>
      /xdd/xd2 | 00006BAF | <CJK>
      /xdd/xd3 | 00006BB2 | <CJK>
-
      /xdd/xd4 | 00006BB1 | <CJK>
      /xdd/xd5 | 00006BB3 | <CJK>
      /xdd/xd6 | 00006BB7 | <CJK>
@@ -5058,6 +5060,7 @@ B<>
      /xdd/xd9 | 00006BCB | <CJK>
      /xdd/xda | 00006BD3 | <CJK>
      /xdd/xdb | 00006BDF | <CJK>
+
      /xdd/xdc | 00006BEC | <CJK>
      /xdd/xdd | 00006BEB | <CJK>
      /xdd/xde | 00006BF3 | <CJK>
@@ -6050,7 +6053,6 @@ B<>
      /xe8/xaf | 0000839A | <CJK>
      /xe8/xb0 | 000083AA | <CJK>
      /xe8/xb1 | 0000839F | <CJK>
-
      /xe8/xb2 | 000083A2 | <CJK>
      /xe8/xb3 | 00008396 | <CJK>
      /xe8/xb4 | 00008323 | <CJK>
@@ -6059,6 +6061,7 @@ B<>
      /xe8/xb7 | 0000838A | <CJK>
      /xe8/xb8 | 0000837C | <CJK>
      /xe8/xb9 | 000083B5 | <CJK>
+
      /xe8/xba | 00008373 | <CJK>
      /xe8/xbb | 00008375 | <CJK>
      /xe8/xbc | 000083A0 | <CJK>
@@ -7051,7 +7054,6 @@ B<>
      /xf2/xeb | 00009CEC | <CJK>
      /xf2/xec | 00009CF0 | <CJK>
      /xf2/xed | 00009D09 | <CJK>
-
      /xf2/xee | 00009D08 | <CJK>
      /xf2/xef | 00009CEB | <CJK>
      /xf2/xf0 | 00009D03 | <CJK>
@@ -7060,6 +7062,7 @@ B<>
      /xf2/xf3 | 00009D26 | <CJK>
      /xf2/xf4 | 00009DAF | <CJK>
      /xf2/xf5 | 00009D23 | <CJK>
+
      /xf2/xf6 | 00009D1F | <CJK>
      /xf2/xf7 | 00009D44 | <CJK>
      /xf2/xf8 | 00009D15 | <CJK>
@@ -7170,9 +7173,10 @@ B<>
      /xf4/xa5 | 000051DC | <CJK>
      /xf4/xa6 | 00007199 | <CJK>
 
-B<>
-B< JIS X 0212>
-B<>
+
+
+B<JIS X 0212>
+
  /x8f/xa2/xaf | 000002D8 | BREVE
  /x8f/xa2/xb0 | 000002C7 | CARON (Mandarin Chinese third tone)
  /x8f/xa2/xb1 | 000000B8 | CEDILLA
@@ -8052,7 +8056,6 @@ B<>
  /x8f/xb6/xcf | 0000566D | <CJK>
  /x8f/xb6/xd0 | 0000566F | <CJK>
  /x8f/xb6/xd1 | 00005671 | <CJK>
-
  /x8f/xb6/xd2 | 00005672 | <CJK>
  /x8f/xb6/xd3 | 00005675 | <CJK>
  /x8f/xb6/xd4 | 00005684 | <CJK>
@@ -8063,6 +8066,7 @@ B<>
  /x8f/xb6/xd9 | 00005695 | <CJK>
  /x8f/xb6/xda | 00005699 | <CJK>
  /x8f/xb6/xdb | 0000569A | <CJK>
+
  /x8f/xb6/xdc | 0000569D | <CJK>
  /x8f/xb6/xdd | 0000569E | <CJK>
  /x8f/xb6/xde | 0000569F | <CJK>
@@ -9053,7 +9057,6 @@ B<>
  /x8f/xc1/xad | 000064E9 | <CJK>
  /x8f/xc1/xae | 000064EA | <CJK>
  /x8f/xc1/xaf | 000064ED | <CJK>
-
  /x8f/xc1/xb0 | 000064F0 | <CJK>
  /x8f/xc1/xb1 | 000064F5 | <CJK>
  /x8f/xc1/xb2 | 000064F7 | <CJK>
@@ -9064,6 +9067,7 @@ B<>
  /x8f/xc1/xb7 | 00006508 | <CJK>
  /x8f/xc1/xb8 | 00006509 | <CJK>
  /x8f/xc1/xb9 | 0000650A | <CJK>
+
  /x8f/xc1/xba | 0000650F | <CJK>
  /x8f/xc1/xbb | 00006513 | <CJK>
  /x8f/xc1/xbc | 00006514 | <CJK>
@@ -10054,7 +10058,6 @@ B<>
  /x8f/xcb/xe9 | 000073C6 | <CJK>
  /x8f/xcb/xea | 000073C9 | <CJK>
  /x8f/xcb/xeb | 000073CB | <CJK>
-
  /x8f/xcb/xec | 000073CC | <CJK>
  /x8f/xcb/xed | 000073CF | <CJK>
  /x8f/xcb/xee | 000073D2 | <CJK>
@@ -10065,6 +10068,7 @@ B<>
  /x8f/xcb/xf3 | 000073E1 | <CJK>
  /x8f/xcb/xf4 | 000073E3 | <CJK>
  /x8f/xcb/xf5 | 000073E6 | <CJK>
+
  /x8f/xcb/xf6 | 000073E7 | <CJK>
  /x8f/xcb/xf7 | 000073E9 | <CJK>
  /x8f/xcb/xf8 | 000073F4 | <CJK>
@@ -11055,7 +11059,6 @@ B<>
  /x8f/xd6/xc7 | 00008184 | <CJK>
  /x8f/xd6/xc8 | 00008185 | <CJK>
  /x8f/xd6/xc9 | 00008186 | <CJK>
-
  /x8f/xd6/xca | 0000818B | <CJK>
  /x8f/xd6/xcb | 0000818E | <CJK>
  /x8f/xd6/xcc | 00008196 | <CJK>
@@ -11066,6 +11069,7 @@ B<>
  /x8f/xd6/xd1 | 000081AE | <CJK>
  /x8f/xd6/xd2 | 000081B2 | <CJK>
  /x8f/xd6/xd3 | 000081B4 | <CJK>
+
  /x8f/xd6/xd4 | 000081BB | <CJK>
  /x8f/xd6/xd5 | 000081CB | <CJK>
  /x8f/xd6/xd6 | 000081C3 | <CJK>
@@ -12056,7 +12060,6 @@ B<>
  /x8f/xe1/xa5 | 00008F52 | <CJK>
  /x8f/xe1/xa6 | 00008F53 | <CJK>
  /x8f/xe1/xa7 | 00008F54 | <CJK>
-
  /x8f/xe1/xa8 | 00008F55 | <CJK>
  /x8f/xe1/xa9 | 00008F58 | <CJK>
  /x8f/xe1/xaa | 00008F5D | <CJK>
@@ -12067,6 +12070,7 @@ B<>
  /x8f/xe1/xaf | 00008FA1 | <CJK>
  /x8f/xe1/xb0 | 00008FA4 | <CJK>
  /x8f/xe1/xb1 | 00008FA5 | <CJK>
+
  /x8f/xe1/xb2 | 00008FA6 | <CJK>
  /x8f/xe1/xb3 | 00008FB5 | <CJK>
  /x8f/xe1/xb4 | 00008FB6 | <CJK>
@@ -13057,7 +13061,6 @@ B<>
  /x8f/xeb/xe1 | 00009D18 | <CJK>
  /x8f/xeb/xe2 | 00009D1C | <CJK>
  /x8f/xeb/xe3 | 00009D1D | <CJK>
-
  /x8f/xeb/xe4 | 00009D1E | <CJK>
  /x8f/xeb/xe5 | 00009D2F | <CJK>
  /x8f/xeb/xe6 | 00009D30 | <CJK>
@@ -13068,6 +13071,7 @@ B<>
  /x8f/xeb/xeb | 00009D3C | <CJK>
  /x8f/xeb/xec | 00009D45 | <CJK>
  /x8f/xeb/xed | 00009D3D | <CJK>
+
  /x8f/xeb/xee | 00009D42 | <CJK>
  /x8f/xeb/xef | 00009D43 | <CJK>
  /x8f/xeb/xf0 | 00009D47 | <CJK>

@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: _Conversions.pm,v 1.6 2003/06/05 20:08:39 guido Exp $
+# $Id: _Conversions.pm,v 1.7 2003/06/06 11:38:34 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -51,6 +51,9 @@ use constant CONVERSIONS => {
     },
 	'BIG-5//' => {
 		'INTERNAL' => 'BIG_5',
+	},
+	'BIG5-HKSCS//' => {
+		'INTERNAL' => 'BIG5_HKSCS',
 	},
     'CP10007//' => {
 		'INTERNAL' => 'CP10007',
@@ -413,6 +416,7 @@ use constant CONVERSIONS => {
 		'ATARI-ST-EURO//' => 'ATARI_ST_EURO',
 		'ATARI-ST//' => 'ATARI_ST',
 		'BIG-5//' => 'BIG_5',
+		'BIG5-HKSCS//' => 'BIG5_HKSCS',
 		'CP10007//' => 'CP10007',
 		'CP1250//' => 'CP1250',
 		'CP1251//' => 'CP1251',
@@ -422,6 +426,7 @@ use constant CONVERSIONS => {
 		'CP1256//' => 'CP1256',
 		'CP1257//' => 'CP1257',
 		'CP1361//' => 'CP1361',
+		'CP949//' => 'CP949',
 		'CSN_369103//' => 'CSN_369103',
 		'CWI//' => 'CWI',
 		'DEC-MCS//' => 'DEC_MCS',

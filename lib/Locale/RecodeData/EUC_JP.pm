@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: tabstop=4
-# $Id: EUC_JP.pm,v 1.2 2003/06/05 18:28:00 guido Exp $
+# $Id: EUC_JP.pm,v 1.3 2003/06/06 11:38:35 guido Exp $
 
 # Conversion routines for EUC-JP.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>, 
@@ -26377,39 +26377,6 @@ my %to_ucs = (
 
 );
 
-sub single_byte_area {
-	foreach my $i (0 .. 255) {
-		my $chr = chr $i;
-		printf STDERR "Missing 0x%02x ($chr)\n", $i
-			unless exists $to_ucs{$chr};
-	}
-	print STDERR "Ready\n";
-}
-
-sub double_byte_area {
-	my $result = {};
-	foreach my $jis (keys %to_ucs) {
-		next unless length $jis == 2;
-		my $start = ord substr $jis, 0, 1;
-		++$result->{$start};
-	}
-	foreach my $escape (sort keys %$result) {
-		printf STDERR "0x%02x: %d\n", $escape, $result->{$escape};
-	}
-}
-
-sub triple_byte_area {
-	my $result = {};
-	foreach my $jis (keys %to_ucs) {
-		next unless length $jis == 3;
-		my $start = ord substr $jis, 0, 1;
-		++$result->{$start};
-	}
-	foreach my $escape (sort keys %$result) {
-		printf STDERR "0x%02x: %d\n", $escape, $result->{$escape};
-	}
-}
-
 my $conv_re;
 sub _recode
 {
@@ -26424,7 +26391,6 @@ sub _recode
 							$unknown_chr),
 						   @{$_[1]}));
     } else {
-		# FIXME: This is awfully slow!
 		unless ($conv_re) {
 			$conv_re = qr /(?:\x8f..|[\x8e\xa1-\xfe].|.)/so;
 		}
