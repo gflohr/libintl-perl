@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_pp.pm,v 1.12 2003/06/27 10:24:46 ingrid Exp $
+# $Id: gettext_pp.pm,v 1.13 2003/07/14 10:46:36 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2003 Guido Flohr <guido@imperia.net>,
@@ -109,6 +109,8 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 		 LC_MESSAGES
 		 LC_ALL);
 @ISA = qw (Exporter);
+
+my $has_nl_langinfo;
 
 sub __load_catalog;
 sub __load_domain;
@@ -292,6 +294,8 @@ sub dcngettext($$$$$)
 	# Convert into output charset.
 	my $output_codeset = bind_textdomain_codeset ($domainname);
 	$output_codeset = $ENV{OUTPUT_CHARSET} unless defined $output_codeset;
+	$output_codeset = __get_codeset ($category, $category_name)
+	    unless defined $output_codeset;
 	
 	unless (defined $output_codeset) {
 	    # Still no point.
@@ -420,11 +424,11 @@ sub __load_catalog
     # Read the magic number in order to determine the byte order.
     my $domain = {};
     my $unpack = 'N';
-    $domain->{magic} = unpack $unpack, substr $raw, 0, 4;
+    $domain->{potter} = unpack $unpack, substr $raw, 0, 4;
     
-    if ($domain->{magic} == 0xde120495) {
+    if ($domain->{potter} == 0xde120495) {
 	$unpack = 'V';
-    } elsif ($domain->{magic} != 0x950412de) {
+    } elsif ($domain->{potter} != 0x950412de) {
 	return;
     }
     my $domain_unpack = $unpack x 6;
@@ -571,6 +575,23 @@ sub __locale_category
 	$value ne 'C' && $value ne 'POSIX' ? $language : $value;
 }
 
+sub __get_codeset
+{
+    my ($category, $category_name) = @_;
+
+    unless (defined $has_nl_langinfo) {
+	eval {
+	    require I18N::Langinfo;
+	};
+	$has_nl_langinfo = !$@;
+    }
+
+    return I18N::Langinfo::langinfo (I18N::Langinfo::CODESET())
+	if $has_nl_langinfo;
+
+    return;
+}
+    
 1;
 
 __END__
