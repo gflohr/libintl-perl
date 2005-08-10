@@ -34,8 +34,7 @@ Locale::Messages::nl_putenv ("LC_ALL=C");
 Locale::Messages::nl_putenv ("LANG=C");
 Locale::Messages::nl_putenv ("LC_MESSAGES=C");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
-
-POSIX::setlocale (POSIX::LC_ALL() => '');
+POSIX::setlocale (POSIX::LC_ALL() => ''); 
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
@@ -71,11 +70,13 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+    '' : 'locale de_AT missing';
 
 for (0 .. 9) {
 	my $translation = dcngettext (existing => $strings[0], $strings[1], $_, LC_MESSAGES);
-	ok $_ == 1 ? 'Einzahl' eq $translation : 'Mehrzahl' eq $translation;
+	skip $missing_locale,
+		 $_ == 1 ? 'Einzahl' eq $translation : 'Mehrzahl' eq $translation;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=C");
@@ -107,7 +108,7 @@ for (0 .. 40) {
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	ok "Numerus $plural" eq $translation;
+	skip $missing_locale, "Numerus $plural" eq $translation;
 }
 
 __END__

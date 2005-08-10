@@ -14,6 +14,9 @@ require POSIX;
 require File::Spec;
 
 BEGIN {
+	# The xs version of this test is omitted on purpose.  We can
+	# only test it when the locale de and de_AT are installed, but
+	# checking for them will spoil our results.
 	my $package;
 	if ($0 =~ /_pp\.t$/) {
 		$package = 'gettext_pp';
@@ -26,8 +29,19 @@ BEGIN {
 		print "1..0 # Skip: Locale::$package not available here.\n";
 		exit 0;
 	}
+
 	plan tests => NUM_TESTS;
 }
+
+Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
+Locale::Messages::nl_putenv ("LC_ALL=de_AT");
+Locale::Messages::nl_putenv ("LANG=de_AT");
+Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
+# Actually both de_AT and de are required.  We assume here that
+# de will be installed, too, if de_AT is.
+my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+    '' : 'locale de_AT missing';
+POSIX::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
@@ -35,8 +49,11 @@ $locale_dir .= '/LocaleData';
 
 my $textdomain = 'existing';
 Locale::Messages::nl_putenv ("LANG=whatever");
+Locale::Messages::nl_putenv ("LC_ALL=whatever");
+Locale::Messages::nl_putenv ("LC_MESSAGES=whatever");
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de_AT:de");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
+POSIX::setlocale (POSIX::LC_ALL(), '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
@@ -48,10 +65,13 @@ my $bound_domain = textdomain $textdomain;
 ok  defined $bound_domain && $textdomain eq $bound_domain;
 
 # Austrian German has precedence.
-ok 'Jänner' eq gettext ('January');
+skip $missing_locale, 'Jänner' eq gettext ('January');
+my $translation = gettext ('January');
 
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de:de_AT");
-ok 'Februar' eq gettext ('February'); # not 'Feber'!
+skip $missing_locale, 'Februar' eq gettext ('February'); # not 'Feber'!
+
+$translation = gettext ('February');
 
 __END__
 

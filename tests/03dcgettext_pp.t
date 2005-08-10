@@ -39,7 +39,8 @@ Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+	'' : 'locale de_AT missing';
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
 ok defined $bound_dir &&
@@ -49,14 +50,18 @@ $bound_dir = bindtextdomain additional => $locale_dir;
 ok defined $bound_dir &&
 	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
 
-ok 'Dezember' eq dcgettext (existing => 'December', LC_MESSAGES);
-ok  'September' eq dcgettext (existing => 'September', LC_MESSAGES);
-ok  'Not translated' eq dcgettext (existing => 'Not translated', LC_MESSAGES);
-ok 'Jänner' eq dcgettext (existing => 'January', LC_MESSAGES);
+skip $missing_locale, 
+	'Dezember' eq dcgettext (existing => 'December', LC_MESSAGES);
+ok 'September' eq dcgettext (existing => 'September', LC_MESSAGES);
+ok 'Not translated' eq dcgettext (existing => 'Not translated', LC_MESSAGES);
+skip $missing_locale, 
+	'Jänner' eq dcgettext (existing => 'January', LC_MESSAGES);
 
-ok 'Montag' eq dcgettext (additional => 'Monday', LC_MESSAGES);
-ok  'Not translated' eq dcgettext (additional => 'Not translated', LC_MESSAGES);
-ok 'Sonnabend' eq dcgettext (additional => 'Saturday', LC_MESSAGES);
+skip $missing_locale, 
+	'Montag' eq dcgettext (additional => 'Monday', LC_MESSAGES);
+ok 'Not translated' eq dcgettext (additional => 'Not translated', LC_MESSAGES);
+skip $missing_locale, 
+	'Sonnabend' eq dcgettext (additional => 'Saturday', LC_MESSAGES);
 
 __END__
 
