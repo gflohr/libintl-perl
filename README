@@ -1,7 +1,7 @@
 README for libintl-perl
 =======================
 
-$Id: README,v 1.10 2003/09/10 17:03:33 guido Exp $
+$Id: README,v 1.11 2005/08/10 21:01:46 guido Exp $
 
 The package libintl-perl is an internationalization library for Perl
 that aims to be compatible with the Uniforum message translations
@@ -59,8 +59,9 @@ Installation
 ------------
 
 If libintl-perl is not installed on your system, you have to build it
-from the sources.  You need the program "make" for that and a command
-line shell.  No C compiler is required.
+from the sources, which is a lot easier than you may think.  You need 
+the program "make" for that and a command line shell.  No C compiler is 
+required.
 
 Unpack the package in a directory of your choice, cd into that
 directory and then type
@@ -79,6 +80,22 @@ To install the package, type
 You will probably need root permissions to do that.
 
 Of course, you can also use the CPAN module to install the package.
+
+Feedback
+--------
+
+Send negative (and positive!) feedback to me.  Bug reports can be send 
+directly to me or you can use the bugtracking system at http://rt.cpan.org/.
+
+If you use libintl-perl for your project, private or public, free or
+commercial, please let me know.  I am interested in such information.
+
+If you really like (or dislike?) libintl-perl, tell the world about.  You
+can rate it and even write a review at http://cpanratings.perl.org/
+(search for "libintl-perl").  You can also increase the popularity index of
+libintl-perl at freshmeat.net by visiting its project page at
+http://freshmeat.net/projects/libintl-perl, by subscribing to new
+releases from the project page, or by rating it. 
 
 Design Goals
 ------------
