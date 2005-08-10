@@ -1,1770 +1,2013 @@
-2004-01-12 12:17  Guido Flohr <guido@imperia.net>
-
-	* tests/: 03language_pp.t, 03language_xs.t: $LANG must be set in
-	environment with $LANGUAGE 
-
-2004-01-12 12:16  Guido Flohr <guido@imperia.net>
+2005-08-10 23:20  Guido Flohr <guido@imperia.net>
 
 	* tests/: 03bind_textdomain_codeset_pp.t,
-	03bind_textdomain_codeset_xs.t: use nl_putenv(), not %ENV 
+	  03bind_textdomain_codeset_xs.t, 03dcgettext_pp.t,
+	  03dcgettext_xs.t, 03dcngettext_pp.t, 03dcngettext_xs.t,
+	  03dgettext_pp.t, 03dgettext_xs.t, 03dngettext_pp.t,
+	  03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t,
+	  03language_pp.t, 03language_xs.t, 03ngettext_pp.t,
+	  03ngettext_xs.t: avoid failures because of missing locale
+	  definitions
 
-2004-01-12 12:15  Guido Flohr <guido@imperia.net>
+2005-08-10 20:50  Guido Flohr <guido@imperia.net>
 
-	* gettext_xs/gettext_xs.xs: 
-	- fixed prototype for _nl_putenv 
-	- use _putenv() instead of putenv() (educated guess) 
+	* lib/Locale/TextDomain.pm, tests/04find_domain_bug.t: allow to
+	  switch languages (thanks to Jan Kratochvil for the hint)
 
-2004-01-12 12:14  Guido Flohr <guido@imperia.net>
+2005-08-10 20:48  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: updated 
+	* tests/LocaleData/: de/LC_MESSAGES/existing.mo,
+	  de_AT/LC_MESSAGES/existing.mo: regenerated
 
-2004-01-12 12:13  Guido Flohr <guido@imperia.net>
+2005-08-10 20:48  Guido Flohr <guido@imperia.net>
 
-	* COPYING.LESSER, COPYING.LIB: renamed COPYING.LIB to
-	COPYING.LESSER to prevent deletion for make clean 
+	* tests/po/existing.de_AT.po: Austrians have their own version of
+	  February.
 
-2004-01-08 20:50  Guido Flohr <guido@imperia.net>
+2005-08-10 20:47  Guido Flohr <guido@imperia.net>
 
-	* tests/: 03dcgettext_pp.t, 03dcgettext_xs.t, 03dcngettext_pp.t,
-	03dcngettext_xs.t, 03dgettext_pp.t, 03dgettext_xs.t,
-	03dngettext_pp.t, 03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t,
-	03language_pp.t, 03language_xs.t, 03ngettext_pp.t, 03ngettext_xs.t: 
-	compatibility tweaks for MS-DOS, use nl_putenv instead of %ENV 
+	* tests/po/existing.de.po: added plural header
 
-2004-01-08 20:49  Guido Flohr <guido@imperia.net>
+2005-08-10 20:47  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/gettext_pp.pm: fixed another typo 
+	* THANKS: updated
 
-2004-01-08 20:12  Guido Flohr <guido@imperia.net>
+2005-08-10 16:59  Guido Flohr <guido@imperia.net>
 
-	* gettext_xs/gettext_xs.pm, lib/Locale/gettext_pp.pm: fixed typo 
+	* sample/README: clarifications for changing the language via
+	  environment (solves issue
+	  https://rt.cpan.org/Ticket/Display.html?id=13957)
 
-2004-01-08 20:11  Guido Flohr <guido@imperia.net>
+2004-07-20 17:31  Guido Flohr <guido@imperia.net>
 
-	* META.yml, Makefile.PL: File::Spec required again 
+	* lib/Locale/TextDomain.pm: default textdomain is now determined by
+	  Locale::Messages::textdomain().
 
-2004-01-08 19:38  Guido Flohr <guido@imperia.net>
+2004-06-11 14:13  Guido Flohr <guido@imperia.net>
 
-	* tests/: 03bind_textdomain_codeset_pp.t,
-	03bind_textdomain_codeset_xs.t, 03dcgettext_pp.t, 03dcgettext_xs.t,
-	03dcngettext_pp.t, 03dcngettext_xs.t, 03dgettext_pp.t,
-	03dgettext_xs.t, 03dngettext_pp.t, 03dngettext_xs.t,
-	03gettext_pp.t, 03gettext_xs.t, 03language_pp.t, 03language_xs.t,
-	03ngettext_pp.t, 03ngettext_xs.t: 
-	- let bindtextdomain() take care of normalized paths 
-	- compare normalized paths 
+	* META.yml, lib/Locale/Messages.pm, lib/Locale/TextDomain.pm:
+	  bumped version number to 1.11
 
-2004-01-08 19:09  Guido Flohr <guido@imperia.net>
-
-	* tests/: 03bind_textdomain_codeset_pp.t,
-	03bind_textdomain_codeset_xs.t, 03dcngettext_pp.t,
-	03dcngettext_xs.t, 03dgettext_pp.t, 03dngettext_pp.t,
-	03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t, 03ngettext_pp.t,
-	03ngettext_xs.t: do not use hard-coded locale identifiers in calls
-	to setlocale() 
-
-2004-01-08 18:48  Guido Flohr <guido@imperia.net>
-
-	* tests/: 03dcgettext_pp.t, 03dcgettext_xs.t, 03dgettext_xs.t,
-	03gettext_pp.t, 03gettext_xs.t, 03language_pp.t, 03language_xs.t: 
-	set OUTPUT_CHARSET for compatibility 
-
-2004-01-08 18:48  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST: added META.yml 
-
-2004-01-08 18:39  Guido Flohr <guido@imperia.net>
-
-	* META.yml: new 
-
-2004-01-08 18:25  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL, test.pl, gettext_xs/Makefile.PL,
-	gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
-	lib/Locale/Messages.pm, lib/Locale/Recode.pm,
-	lib/Locale/RecodeData.pm, lib/Locale/TextDomain.pm,
-	lib/Locale/gettext_pp.pm, lib/Locale/gettext_xs.pod,
-	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ASMO_449.pm,
-	lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
-	lib/Locale/RecodeData/CP10007.pm, lib/Locale/RecodeData/CP1250.pm,
-	lib/Locale/RecodeData/CP1251.pm, lib/Locale/RecodeData/CP1252.pm,
-	lib/Locale/RecodeData/CP1253.pm, lib/Locale/RecodeData/CP1254.pm,
-	lib/Locale/RecodeData/CP1256.pm, lib/Locale/RecodeData/CP1257.pm,
-	lib/Locale/RecodeData/CSN_369103.pm, lib/Locale/RecodeData/CWI.pm,
-	lib/Locale/RecodeData/DEC_MCS.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_S.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
-	lib/Locale/RecodeData/EBCDIC_IT.pm,
-	lib/Locale/RecodeData/EBCDIC_PT.pm,
-	lib/Locale/RecodeData/EBCDIC_UK.pm,
-	lib/Locale/RecodeData/EBCDIC_US.pm,
-	lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
-	lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
-	lib/Locale/RecodeData/GEORGIAN_PS.pm,
-	lib/Locale/RecodeData/GOST_19768_74.pm,
-	lib/Locale/RecodeData/GREEK7.pm,
-	lib/Locale/RecodeData/GREEK7_OLD.pm,
-	lib/Locale/RecodeData/GREEK_CCITT.pm,
-	lib/Locale/RecodeData/HP_ROMAN8.pm,
-	lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
-	lib/Locale/RecodeData/IBM1004.pm, lib/Locale/RecodeData/IBM1026.pm,
-	lib/Locale/RecodeData/IBM1047.pm, lib/Locale/RecodeData/IBM256.pm,
-	lib/Locale/RecodeData/IBM273.pm, lib/Locale/RecodeData/IBM274.pm,
-	lib/Locale/RecodeData/IBM275.pm, lib/Locale/RecodeData/IBM277.pm,
-	lib/Locale/RecodeData/IBM278.pm, lib/Locale/RecodeData/IBM280.pm,
-	lib/Locale/RecodeData/IBM281.pm, lib/Locale/RecodeData/IBM284.pm,
-	lib/Locale/RecodeData/IBM285.pm, lib/Locale/RecodeData/IBM290.pm,
-	lib/Locale/RecodeData/IBM297.pm, lib/Locale/RecodeData/IBM420.pm,
-	lib/Locale/RecodeData/IBM423.pm, lib/Locale/RecodeData/IBM424.pm,
-	lib/Locale/RecodeData/IBM437.pm, lib/Locale/RecodeData/IBM500.pm,
-	lib/Locale/RecodeData/IBM850.pm, lib/Locale/RecodeData/IBM851.pm,
-	lib/Locale/RecodeData/IBM852.pm, lib/Locale/RecodeData/IBM855.pm,
-	lib/Locale/RecodeData/IBM857.pm, lib/Locale/RecodeData/IBM860.pm,
-	lib/Locale/RecodeData/IBM861.pm, lib/Locale/RecodeData/IBM862.pm,
-	lib/Locale/RecodeData/IBM863.pm, lib/Locale/RecodeData/IBM864.pm,
-	lib/Locale/RecodeData/IBM865.pm, lib/Locale/RecodeData/IBM866.pm,
-	lib/Locale/RecodeData/IBM868.pm, lib/Locale/RecodeData/IBM869.pm,
-	lib/Locale/RecodeData/IBM870.pm, lib/Locale/RecodeData/IBM871.pm,
-	lib/Locale/RecodeData/IBM874.pm, lib/Locale/RecodeData/IBM875.pm,
-	lib/Locale/RecodeData/IBM880.pm, lib/Locale/RecodeData/IBM891.pm,
-	lib/Locale/RecodeData/IBM903.pm, lib/Locale/RecodeData/IBM904.pm,
-	lib/Locale/RecodeData/IBM905.pm, lib/Locale/RecodeData/IBM918.pm,
-	lib/Locale/RecodeData/IEC_P27_1.pm, lib/Locale/RecodeData/INIS.pm,
-	lib/Locale/RecodeData/INIS_8.pm,
-	lib/Locale/RecodeData/INIS_CYRILLIC.pm,
-	lib/Locale/RecodeData/ISO_10367_BOX.pm,
-	lib/Locale/RecodeData/ISO_2033_1983.pm,
-	lib/Locale/RecodeData/ISO_5427.pm,
-	lib/Locale/RecodeData/ISO_5427_EXT.pm,
-	lib/Locale/RecodeData/ISO_5428.pm,
-	lib/Locale/RecodeData/ISO_8859_1.pm,
-	lib/Locale/RecodeData/ISO_8859_10.pm,
-	lib/Locale/RecodeData/ISO_8859_11.pm,
-	lib/Locale/RecodeData/ISO_8859_13.pm,
-	lib/Locale/RecodeData/ISO_8859_14.pm,
-	lib/Locale/RecodeData/ISO_8859_15.pm,
-	lib/Locale/RecodeData/ISO_8859_16.pm,
-	lib/Locale/RecodeData/ISO_8859_2.pm,
-	lib/Locale/RecodeData/ISO_8859_3.pm,
-	lib/Locale/RecodeData/ISO_8859_4.pm,
-	lib/Locale/RecodeData/ISO_8859_5.pm,
-	lib/Locale/RecodeData/ISO_8859_6.pm,
-	lib/Locale/RecodeData/ISO_8859_7.pm,
-	lib/Locale/RecodeData/ISO_8859_8.pm,
-	lib/Locale/RecodeData/ISO_8859_9.pm,
-	lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_RU.pm,
-	lib/Locale/RecodeData/KOI8_T.pm, lib/Locale/RecodeData/KOI8_U.pm,
-	lib/Locale/RecodeData/KOI_8.pm,
-	lib/Locale/RecodeData/LATIN_GREEK.pm,
-	lib/Locale/RecodeData/LATIN_GREEK_1.pm,
-	lib/Locale/RecodeData/MACARABIC.pm,
-	lib/Locale/RecodeData/MACCROATIAN.pm,
-	lib/Locale/RecodeData/MACCYRILLIC.pm,
-	lib/Locale/RecodeData/MACGREEK.pm,
-	lib/Locale/RecodeData/MACHEBREW.pm,
-	lib/Locale/RecodeData/MACICELAND.pm,
-	lib/Locale/RecodeData/MACINTOSH.pm,
-	lib/Locale/RecodeData/MACROMANIA.pm,
-	lib/Locale/RecodeData/MACTHAI.pm,
-	lib/Locale/RecodeData/MACTURKISH.pm,
-	lib/Locale/RecodeData/MACUKRAINE.pm,
-	lib/Locale/RecodeData/MAC_IS.pm, lib/Locale/RecodeData/MAC_SAMI.pm,
-	lib/Locale/RecodeData/MAC_UK.pm,
-	lib/Locale/RecodeData/NATS_DANO.pm,
-	lib/Locale/RecodeData/NATS_SEFI.pm,
-	lib/Locale/RecodeData/NEXTSTEP.pm,
-	lib/Locale/RecodeData/SAMI_WS2.pm,
-	lib/Locale/RecodeData/TIS_620.pm,
-	lib/Locale/RecodeData/US_ASCII.pm, lib/Locale/RecodeData/UTF_8.pm,
-	lib/Locale/RecodeData/VISCII.pm, lib/Locale/RecodeData/_Encode.pm,
-	sample/simplecal/Makefile.PL: Happy New Year! 
-
-2004-01-08 18:24  Guido Flohr <guido@imperia.net>
-
-	* gettext_xs/Makefile.PL: File::Spec is required for the XS version 
-
-2004-01-08 18:20  Guido Flohr <guido@imperia.net>
-
-	* gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
-	lib/Locale/Messages.pm, lib/Locale/gettext_pp.pm,
-	lib/Locale/gettext_xs.pod: new function nl_putenv() for MS-DOS
-	ideosyncrasies 
-
-2004-01-08 18:14  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL: do not require the variable _nl_domain_bindings for
-	building the XS version 
-
-2004-01-08 14:32  Guido Flohr <guido@imperia.net>
-
-	* gettext_xs/: gettext_xs.pm, gettext_xs.xs: convert directory to
-	local convention for Locale::gettext_xs::bindtextdomain 
-
-2004-01-02 19:18  Guido Flohr <guido@imperia.net>
-
-	* tests/po/Makefile: moved tests/locale to tests/LocaleData 
-
-2004-01-02 19:10  Guido Flohr <guido@imperia.net>
-
-	* gettext_xs/gettext_xs.xs, tests/03bind_textdomain_codeset_pp.t,
-	tests/03bind_textdomain_codeset_xs.t, tests/03dcgettext_pp.t,
-	tests/03dcgettext_xs.t, tests/03dcngettext_pp.t,
-	tests/03dcngettext_xs.t, tests/03dgettext_pp.t,
-	tests/03dgettext_xs.t, tests/03dngettext_pp.t,
-	tests/03dngettext_xs.t, tests/03gettext_pp.t, tests/03gettext_xs.t,
-	tests/03language_pp.t, tests/03language_xs.t,
-	tests/03ngettext_pp.t, tests/03ngettext_xs.t: compatibility tweaks 
-
-2004-01-02 18:55  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST, tests/03bind_textdomain_codeset_pp.t,
-	tests/03bind_textdomain_codeset_xs.t, tests/03dcgettext_pp.t,
-	tests/03dcgettext_xs.t, tests/03dcngettext_pp.t,
-	tests/03dcngettext_xs.t, tests/03dgettext_pp.t,
-	tests/03dgettext_xs.t, tests/03dngettext_pp.t,
-	tests/03dngettext_xs.t, tests/03gettext_pp.t, tests/03gettext_xs.t,
-	tests/03language_pp.t, tests/03language_xs.t,
-	tests/03ngettext_pp.t, tests/03ngettext_xs.t: moved tests/locale to
-	tests/LocaleData 
-
-2003-12-29 20:03  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: #re-generated 
-
-2003-12-29 20:02  Guido Flohr <guido@imperia.net>
-
-	* NEWS, NEWS: updated 
-
-2003-12-29 20:01  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: 
-	- fixed pod typo 
-	- bumped version number to 1.09 
-
-2003-12-29 20:00  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: use user supplied locale name when
-	guessing character set 
-
-2003-12-29 19:59  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Messages.pm: check for correct XS version 
-
-2003-12-23 16:22  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/ATARI_ST_EURO.pm, tests/02atari-st-euro.t: 
-	- various corrections 
-	- newer Atari versions seem to place the euro sign at 0xde (not
-	  0xee), thanks to Jo-Even Skarstein and Gerhard Stoll for the
-	information 
-
-2003-12-23 16:21  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/ATARI_ST.pm, tests/02atari-st.t: various
-	corrections 
-
-2003-12-23 16:07  Guido Flohr <guido@imperia.net>
-
-	* sample/simplecal/MANIFEST: updated to new Makefile logic 
-
-2003-11-30 19:47  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: deleted reference to unwritten docs on
-	let.imperia.org 
-
-2003-11-30 19:45  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog, ChangeLog: #re-generated 
-
-2003-11-30 19:45  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.08 
-
-2003-11-30 19:44  Guido Flohr <guido@imperia.net>
-
-	* NEWS: updated 
-
-2003-11-30 19:35  Guido Flohr <guido@imperia.net>
-
-	* MyInstall.pm: fixed bug #4512 on https://rt.cpan.org/ 
-
-2003-11-28 17:47  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-11-28 17:47  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.07 
-
-2003-11-28 17:47  Guido Flohr <guido@imperia.net>
-
-	* BUGS, MANIFEST: removed BUGS (only known bug should be fixed now) 
-
-2003-11-28 17:13  Guido Flohr <guido@imperia.net>
-
-	* NEWS: updated 
-
-2003-11-28 17:09  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: 
-	- only call I18N::Langinfo methods for validated locales 
-	- allow 'utf8' as an alias for charsets derived from locale ids 
-
-2003-11-28 17:06  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL: redirect configure output to config.log 
-
-2003-11-28 17:05  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Messages.pm: export turn_utf_8_off() 
-
-2003-11-28 17:05  Guido Flohr <guido@imperia.net>
-
-	* MyInstall.pm: removed debugging noise 
-
-2003-11-24 19:14  Guido Flohr <guido@imperia.net>
-
-	* sample/simplecal/po/: Crypt-Twofish_PP.pot, POTFILES.in, de.mo,
-	de.po: updated 
-
-2003-11-24 16:32  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-11-24 16:32  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.06 
-
-2003-11-24 16:32  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/: ISO_8859_1.pm, US_ASCII.pm: added pod 
-
-2003-11-24 16:31  Guido Flohr <guido@imperia.net>
-
-	* BUGS, NEWS: updated 
-
-2003-11-24 14:57  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: avoid warning without I18N::Langinfo 
-
-2003-11-24 14:57  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST: updated 
-
-2003-11-24 14:32  Guido Flohr <guido@imperia.net>
-
-	* sample/README: all package-dependent information now goes into
-	one single file PACKAGE 
-
-2003-11-24 14:31  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL: do not include -liconv twice 
-
-2003-11-24 14:25  Guido Flohr <guido@imperia.net>
-
-	* sample/simplecal/po/: LINGUAS, Makefile, PACKAGE, TEXTDOMAIN: put
-	all package-dependent information into single file PACKAGE 
-
-2003-10-10 17:38  Guido Flohr <guido@imperia.net>
-
-	* gettext_xs/gettext_xs.xs, lib/Locale/Messages.pm: check for
-	version match (do not load stale XS versions at run-time) 
-
-2003-10-10 17:14  Guido Flohr <guido@imperia.net>
-
-	* tests/: 03language_pp.t, 03language_xs.t: added 
-
-2003-10-10 17:13  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog, ChangeLog: # re-generated 
-
-2003-10-10 17:13  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.05 
-
-2003-10-10 17:12  Guido Flohr <guido@imperia.net>
-
-	* gettext_xs/Makefile.old: removed junk file 
-
-2003-10-10 17:12  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL, NEWS: fixed compatibility problems with Solaris 8
-	and above 
-
-2003-10-10 15:03  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST: removed Artistic 
-
-2003-10-10 12:11  Guido Flohr <guido@imperia.net>
-
-	* sample/README: fixed typo 
-
-2003-10-10 12:10  Guido Flohr <guido@imperia.net>
-
-	* Artistic: obsolete 
-
-2003-10-09 17:06  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # regenerated 
-
-2003-10-09 17:05  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.04 
-
-2003-10-09 17:05  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST.SKIP: updated 
-
-2003-10-09 13:35  Guido Flohr <guido@imperia.net>
-
-	* NEWS: updated 
-
-2003-10-09 13:34  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: 
-	- support for language chain syntax in $LANGUAGE 
-	- performance tweaks 
-
-2003-10-09 13:34  Guido Flohr <guido@imperia.net>
-
-	* sample/simplecal/README-NLS: clarification 
-
-2003-10-09 13:33  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST: support for language chains in $LANGUAGE 
-
-2003-10-08 13:13  Guido Flohr <guido@imperia.net>
-
-	* NEWS: updated 
-
-2003-10-08 13:12  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Recode/_Conversions.pm: do not use Encode's
-	iso-8859-11 (broken in some Encode versions) 
-
-2003-09-24 12:50  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: localize $@ with checks for
-	availability of I18N::Langinfo and POSIX::LC_MESSAGES 
-
-2003-09-15 14:14  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: re-generated 
-
-2003-09-15 14:13  Guido Flohr <guido@imperia.net>
-
-	* NEWS, lib/Locale/TextDomain.pm: bumped version number to 1.03 
-
-2003-09-15 10:21  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST, MANIFEST.SKIP, Makefile.PL, MyInstall.pm, NEWS, TODO,
-	USERS, gettest.c, x-changelog.sh, gettext_xs/Makefile.PL,
-	gettext_xs/Makefile.old, gettext_xs/gettext_xs.pm,
-	gettext_xs/gettext_xs.xs, lib/Locale/Messages.pm,
-	lib/Locale/TextDomain.pm, lib/Locale/gettext_xs.pod,
-	tests/03bind_textdomain_codeset.t,
-	tests/03bind_textdomain_codeset_pp.t,
-	tests/03bind_textdomain_codeset_xs.t, tests/03bindtextdomain.t,
-	tests/03bindtextdomain_pp.t, tests/03bindtextdomain_xs.t,
-	tests/03dcgettext.t, tests/03dcgettext_pp.t,
-	tests/03dcgettext_xs.t, tests/03dcngettext.t,
-	tests/03dcngettext_pp.t, tests/03dcngettext_xs.t,
-	tests/03dgettext.t, tests/03dgettext_pp.t, tests/03dgettext_xs.t,
-	tests/03dngettext.t, tests/03dngettext_pp.t,
-	tests/03dngettext_xs.t, tests/03gettext.t, tests/03gettext_pp.t,
-	tests/03gettext_xs.t, tests/03ngettext.t, tests/03ngettext_pp.t,
-	tests/03ngettext_xs.t, tests/03textdomain.t,
-	tests/03textdomain_pp.t, tests/03textdomain_xs.t: alternative XS
-	version 
-
-2003-09-10 20:29  Guido Flohr <guido@imperia.net>
-
-	* gettest.c: test file for gettext support 
-
-2003-09-10 19:03  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL, README, test.pl, lib/Locale/Messages.pm,
-	lib/Locale/Recode.pm, lib/Locale/RecodeData.pm,
-	lib/Locale/TextDomain.pm, lib/Locale/gettext_pp.pm,
-	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ASMO_449.pm,
-	lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
-	lib/Locale/RecodeData/CP10007.pm, lib/Locale/RecodeData/CP1250.pm,
-	lib/Locale/RecodeData/CP1251.pm, lib/Locale/RecodeData/CP1252.pm,
-	lib/Locale/RecodeData/CP1253.pm, lib/Locale/RecodeData/CP1254.pm,
-	lib/Locale/RecodeData/CP1256.pm, lib/Locale/RecodeData/CP1257.pm,
-	lib/Locale/RecodeData/CSN_369103.pm, lib/Locale/RecodeData/CWI.pm,
-	lib/Locale/RecodeData/DEC_MCS.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_S.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
-	lib/Locale/RecodeData/EBCDIC_IT.pm,
-	lib/Locale/RecodeData/EBCDIC_PT.pm,
-	lib/Locale/RecodeData/EBCDIC_UK.pm,
-	lib/Locale/RecodeData/EBCDIC_US.pm,
-	lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
-	lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
-	lib/Locale/RecodeData/GEORGIAN_PS.pm,
-	lib/Locale/RecodeData/GOST_19768_74.pm,
-	lib/Locale/RecodeData/GREEK7.pm,
-	lib/Locale/RecodeData/GREEK7_OLD.pm,
-	lib/Locale/RecodeData/GREEK_CCITT.pm,
-	lib/Locale/RecodeData/HP_ROMAN8.pm,
-	lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
-	lib/Locale/RecodeData/IBM1004.pm, lib/Locale/RecodeData/IBM1026.pm,
-	lib/Locale/RecodeData/IBM1047.pm, lib/Locale/RecodeData/IBM256.pm,
-	lib/Locale/RecodeData/IBM273.pm, lib/Locale/RecodeData/IBM274.pm,
-	lib/Locale/RecodeData/IBM275.pm, lib/Locale/RecodeData/IBM277.pm,
-	lib/Locale/RecodeData/IBM278.pm, lib/Locale/RecodeData/IBM280.pm,
-	lib/Locale/RecodeData/IBM281.pm, lib/Locale/RecodeData/IBM284.pm,
-	lib/Locale/RecodeData/IBM285.pm, lib/Locale/RecodeData/IBM290.pm,
-	lib/Locale/RecodeData/IBM297.pm, lib/Locale/RecodeData/IBM420.pm,
-	lib/Locale/RecodeData/IBM423.pm, lib/Locale/RecodeData/IBM424.pm,
-	lib/Locale/RecodeData/IBM437.pm, lib/Locale/RecodeData/IBM500.pm,
-	lib/Locale/RecodeData/IBM850.pm, lib/Locale/RecodeData/IBM851.pm,
-	lib/Locale/RecodeData/IBM852.pm, lib/Locale/RecodeData/IBM855.pm,
-	lib/Locale/RecodeData/IBM857.pm, lib/Locale/RecodeData/IBM860.pm,
-	lib/Locale/RecodeData/IBM861.pm, lib/Locale/RecodeData/IBM862.pm,
-	lib/Locale/RecodeData/IBM863.pm, lib/Locale/RecodeData/IBM864.pm,
-	lib/Locale/RecodeData/IBM865.pm, lib/Locale/RecodeData/IBM866.pm,
-	lib/Locale/RecodeData/IBM868.pm, lib/Locale/RecodeData/IBM869.pm,
-	lib/Locale/RecodeData/IBM870.pm, lib/Locale/RecodeData/IBM871.pm,
-	lib/Locale/RecodeData/IBM874.pm, lib/Locale/RecodeData/IBM875.pm,
-	lib/Locale/RecodeData/IBM880.pm, lib/Locale/RecodeData/IBM891.pm,
-	lib/Locale/RecodeData/IBM903.pm, lib/Locale/RecodeData/IBM904.pm,
-	lib/Locale/RecodeData/IBM905.pm, lib/Locale/RecodeData/IBM918.pm,
-	lib/Locale/RecodeData/IEC_P27_1.pm, lib/Locale/RecodeData/INIS.pm,
-	lib/Locale/RecodeData/INIS_8.pm,
-	lib/Locale/RecodeData/INIS_CYRILLIC.pm,
-	lib/Locale/RecodeData/ISO_10367_BOX.pm,
-	lib/Locale/RecodeData/ISO_2033_1983.pm,
-	lib/Locale/RecodeData/ISO_5427.pm,
-	lib/Locale/RecodeData/ISO_5427_EXT.pm,
-	lib/Locale/RecodeData/ISO_5428.pm,
-	lib/Locale/RecodeData/ISO_8859_1.pm,
-	lib/Locale/RecodeData/ISO_8859_10.pm,
-	lib/Locale/RecodeData/ISO_8859_11.pm,
-	lib/Locale/RecodeData/ISO_8859_13.pm,
-	lib/Locale/RecodeData/ISO_8859_14.pm,
-	lib/Locale/RecodeData/ISO_8859_15.pm,
-	lib/Locale/RecodeData/ISO_8859_16.pm,
-	lib/Locale/RecodeData/ISO_8859_2.pm,
-	lib/Locale/RecodeData/ISO_8859_3.pm,
-	lib/Locale/RecodeData/ISO_8859_4.pm,
-	lib/Locale/RecodeData/ISO_8859_5.pm,
-	lib/Locale/RecodeData/ISO_8859_6.pm,
-	lib/Locale/RecodeData/ISO_8859_7.pm,
-	lib/Locale/RecodeData/ISO_8859_8.pm,
-	lib/Locale/RecodeData/ISO_8859_9.pm,
-	lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_RU.pm,
-	lib/Locale/RecodeData/KOI8_T.pm, lib/Locale/RecodeData/KOI8_U.pm,
-	lib/Locale/RecodeData/KOI_8.pm,
-	lib/Locale/RecodeData/LATIN_GREEK.pm,
-	lib/Locale/RecodeData/LATIN_GREEK_1.pm,
-	lib/Locale/RecodeData/MACARABIC.pm,
-	lib/Locale/RecodeData/MACCROATIAN.pm,
-	lib/Locale/RecodeData/MACCYRILLIC.pm,
-	lib/Locale/RecodeData/MACGREEK.pm,
-	lib/Locale/RecodeData/MACHEBREW.pm,
-	lib/Locale/RecodeData/MACICELAND.pm,
-	lib/Locale/RecodeData/MACINTOSH.pm,
-	lib/Locale/RecodeData/MACROMANIA.pm,
-	lib/Locale/RecodeData/MACTHAI.pm,
-	lib/Locale/RecodeData/MACTURKISH.pm,
-	lib/Locale/RecodeData/MACUKRAINE.pm,
-	lib/Locale/RecodeData/MAC_IS.pm, lib/Locale/RecodeData/MAC_SAMI.pm,
-	lib/Locale/RecodeData/MAC_UK.pm,
-	lib/Locale/RecodeData/NATS_DANO.pm,
-	lib/Locale/RecodeData/NATS_SEFI.pm,
-	lib/Locale/RecodeData/NEXTSTEP.pm,
-	lib/Locale/RecodeData/SAMI_WS2.pm,
-	lib/Locale/RecodeData/TIS_620.pm,
-	lib/Locale/RecodeData/US_ASCII.pm, lib/Locale/RecodeData/UTF_8.pm,
-	lib/Locale/RecodeData/VISCII.pm, lib/Locale/RecodeData/_Encode.pm,
-	sample/simplecal/Makefile.PL: 
-	- switched from double license to single license (LGPL) in order to 
-	  avoid licensing problems 
-	- fixed POD 
-
-2003-09-10 18:27  Guido Flohr <guido@imperia.net>
-
-	* tests/02iso-8859-11.t: workaround for broken Encode versions 
-
-2003-09-10 18:26  Guido Flohr <guido@imperia.net>
-
-	* COPYING, COPYING.LIB, MANIFEST: changed from double license to
-	single license (LGPL) 
-
-2003-09-07 21:45  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/US_ASCII.pm: removed second block of emacs
-	vars 
-
-2003-09-07 21:44  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Messages.pm: pod errors 
-
-2003-09-07 21:44  Guido Flohr <guido@imperia.net>
-
-	* TODO: updated 
-
-2003-09-07 21:44  Guido Flohr <guido@imperia.net>
-
-	* sample/README: new section on informational files 
-
-2003-09-07 21:43  Guido Flohr <guido@imperia.net>
-
-	* sample/simplecal/: README-NLS, TRANSLATIONS: new 
-
-2003-09-07 21:43  Guido Flohr <guido@imperia.net>
-
-	* sample/simplecal/po/Makefile: fixed invocation of xgettext 
-
-2003-09-07 21:42  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL, test.pl: get rid of dependency on
-	ExtUtils::Command::MM 
-
-2003-09-04 18:13  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: removed double emacs var block 
-
-2003-09-04 18:09  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-09-04 18:05  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: 
-	- removed obsolete line 
-
-2003-09-04 18:00  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-09-04 17:58  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: 
-	- untaint of plural header 
-	- Perl 5.005 compatibility 
-
-2003-09-04 17:24  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-09-04 17:23  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.02 
-
-2003-09-04 17:23  Guido Flohr <guido@imperia.net>
-
-	* BUGS, NEWS, TODO: updated 
-
-2003-09-04 15:31  Guido Flohr <guido@imperia.net>
-
-	* tests/: LocaleData/de_AT/LC_MESSAGES/additional.mo,
-	po/additional.de_AT.po: added plural rules for de_AT to test
-	catalog 
-
-2003-09-04 12:48  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: compatibility with GNU gettext for
-	systems w/o /usr/share/locale 
-
-2003-08-19 20:49  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # updated 
-
-2003-08-19 20:49  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.01 
-
-2003-08-19 20:48  Guido Flohr <guido@imperia.net>
-
-	* README: deleted reference to README-MSDOS 
-
-2003-08-19 20:44  Guido Flohr <guido@imperia.net>
-
-	* BUGS: bug report from cpan-testers 
-
-2003-08-19 20:38  Guido Flohr <guido@imperia.net>
-
-	* Makefile.PL: requires ExtUtils::Command::MM for test wrapper 
-
-2003-08-19 20:37  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/ISO_8859_11.pm, tests/02iso-8859-11.t,
-	tests/02tis-620.t: fixed ISO-8859-11 recoding 
-
-2003-08-19 19:25  Guido Flohr <guido@imperia.net>
-
-	* tests/: 02iso-8859-11.t, 02tis-620.t: fixed Thai character sets 
-
-2003-08-19 18:52  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST, NEWS: updated/added 
-
-2003-08-19 18:49  Guido Flohr <guido@imperia.net>
-
-	* README-MSDOS: obsolete 
-
-2003-08-19 18:48  Guido Flohr <guido@imperia.net>
-
-	* test.pl: workaround for broken or limited shells to allow testing 
-	(thanks to DH <crazyinsomniac@yahoo.com> for the hint) 
-
-2003-08-19 18:47  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST, tests/00gettext.t, tests/00recode.t, tests/01trivial.t,
-	tests/02asmo_449.t, tests/02atari-st-euro.t, tests/02atari-st.t,
-	tests/02cp10007.t, tests/02cp1250.t, tests/02cp1251.t,
-	tests/02cp1252.t, tests/02cp1253.t, tests/02cp1254.t,
-	tests/02cp1256.t, tests/02cp1257.t, tests/02csn_369103.t,
-	tests/02cwi.t, tests/02dec-mcs.t, tests/02ebcdic-at-de-a.t,
-	tests/02ebcdic-at-de.t, tests/02ebcdic-ca-fr.t,
-	tests/02ebcdic-dk-no-a.t, tests/02ebcdic-dk-no.t,
-	tests/02ebcdic-es-a.t, tests/02ebcdic-es-s.t, tests/02ebcdic-es.t,
-	tests/02ebcdic-fi-se-a.t, tests/02ebcdic-fi-se.t,
-	tests/02ebcdic-fr.t, tests/02ebcdic-is-friss.t,
-	tests/02ebcdic-it.t, tests/02ebcdic-pt.t, tests/02ebcdic-uk.t,
-	tests/02ebcdic-us.t, tests/02ecma-cyrillic.t,
-	tests/02georgian-academy.t, tests/02georgian-ps.t,
-	tests/02gost_19768-74.t, tests/02greek-ccitt.t,
-	tests/02greek7-old.t, tests/02greek7.t, tests/02hp-roman8.t,
-	tests/02ibm037.t, tests/02ibm038.t, tests/02ibm1004.t,
-	tests/02ibm1026.t, tests/02ibm1047.t, tests/02ibm256.t,
-	tests/02ibm273.t, tests/02ibm274.t, tests/02ibm275.t,
-	tests/02ibm277.t, tests/02ibm278.t, tests/02ibm280.t,
-	tests/02ibm281.t, tests/02ibm284.t, tests/02ibm285.t,
-	tests/02ibm290.t, tests/02ibm297.t, tests/02ibm420.t,
-	tests/02ibm423.t, tests/02ibm424.t, tests/02ibm437.t,
-	tests/02ibm500.t, tests/02ibm850.t, tests/02ibm851.t,
-	tests/02ibm852.t, tests/02ibm855.t, tests/02ibm857.t,
-	tests/02ibm860.t, tests/02ibm861.t, tests/02ibm862.t,
-	tests/02ibm863.t, tests/02ibm864.t, tests/02ibm865.t,
-	tests/02ibm866.t, tests/02ibm868.t, tests/02ibm869.t,
-	tests/02ibm870.t, tests/02ibm871.t, tests/02ibm874.t,
-	tests/02ibm875.t, tests/02ibm880.t, tests/02ibm891.t,
-	tests/02ibm903.t, tests/02ibm904.t, tests/02ibm905.t,
-	tests/02ibm918.t, tests/02iec_p27-1.t, tests/02inis-8.t,
-	tests/02inis-cyrillic.t, tests/02inis.t, tests/02iso-8859-1.t,
-	tests/02iso-8859-10.t, tests/02iso-8859-11.t,
-	tests/02iso-8859-13.t, tests/02iso-8859-14.t,
-	tests/02iso-8859-15.t, tests/02iso-8859-16.t, tests/02iso-8859-2.t,
-	tests/02iso-8859-3.t, tests/02iso-8859-4.t, tests/02iso-8859-5.t,
-	tests/02iso-8859-6.t, tests/02iso-8859-7.t, tests/02iso-8859-8.t,
-	tests/02iso-8859-9.t, tests/02iso_10367-box.t,
-	tests/02iso_2033-1983.t, tests/02iso_5427-ext.t,
-	tests/02iso_5427.t, tests/02iso_5428.t, tests/02koi-8.t,
-	tests/02koi8-r.t, tests/02koi8-ru.t, tests/02koi8-t.t,
-	tests/02koi8-u.t, tests/02latin-greek-1.t, tests/02latin-greek.t,
-	tests/02mac-is.t, tests/02mac-sami.t, tests/02mac-uk.t,
-	tests/02macarabic.t, tests/02maccroatian.t, tests/02maccyrillic.t,
-	tests/02macgreek.t, tests/02machebrew.t, tests/02maciceland.t,
-	tests/02macintosh.t, tests/02macromania.t, tests/02macthai.t,
-	tests/02macturkish.t, tests/02macukraine.t, tests/02nats-dano.t,
-	tests/02nats-sefi.t, tests/02nextstep.t, tests/02sami-ws2.t,
-	tests/02tis-620.t, tests/02us-ascii.t, tests/02utf-8.t,
-	tests/02viscii.t, tests/03bind_textdomain_codeset.t,
-	tests/03bind_textdomain_codeset_pp.t, tests/03bindtextdomain.t,
-	tests/03bindtextdomain_pp.t, tests/03dcgettext.t,
-	tests/03dcgettext_pp.t, tests/03dcngettext.t,
-	tests/03dcngettext_pp.t, tests/03dgettext.t, tests/03dgettext_pp.t,
-	tests/03dngettext.t, tests/03dngettext_pp.t, tests/03gettext.t,
-	tests/03gettext_pp.t, tests/03ngettext.t, tests/03ngettext_pp.t,
-	tests/03textdomain.t, tests/03textdomain_pp.t,
-	tests/LocaleData/de/LC_MESSAGES/additional.mo,
-	tests/LocaleData/de/LC_MESSAGES/existing.mo,
-	tests/LocaleData/de_AT/LC_MESSAGES/additional.mo,
-	tests/LocaleData/de_AT/LC_MESSAGES/existing.mo, tests/po/Makefile,
-	tests/po/additional.de.po, tests/po/additional.de_AT.po,
-	tests/po/existing.de.po, tests/po/existing.de_AT.po: 
-	- directory t/ moved to tests/ 
-
-2003-08-19 18:43  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/_Encode.pm: merged from norma branch 
-
-2003-08-11 11:52  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/_Encode.pm: fixed pod typo (reported by
-	Mike Castle <dalgoda@ix.netcom.com>) 
-
-2003-08-07 17:53  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/RecodeData/_Encode.pm: _recode must return a true
-	value if Encode::from_to returns 0 
-
-2003-08-07 12:57  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-08-07 12:56  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: renamed variables 
-
-2003-08-07 12:54  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 1.00 
-
-2003-08-07 12:38  Guido Flohr <guido@imperia.net>
-
-	* README, lib/Locale/Messages.pm, lib/Locale/RecodeData.pm,
-	lib/Locale/Recode/_Aliases.pm, sample/README: documentation tweaks 
-
-2003-07-28 14:57  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # regenerated 
-
-2003-07-28 14:54  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: bumped version number to 0.14 
-
-2003-07-28 14:51  Guido Flohr <guido@imperia.net>
-
-	* README, sample/README: fixed web addresses 
-
-2003-07-28 14:21  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-07-28 14:20  Guido Flohr <guido@imperia.net>
-
-	* sample/: README, simplecal/MANIFEST, simplecal/Makefile.PL,
-	simplecal/bin/simplecal.pl, simplecal/lib/SimpleCal.pm,
-	simplecal/lib/LocaleData/ar/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/ar_SA/LC_MESSAGES/org.imperia.simplecal.mo
-	, simplecal/lib/LocaleData/de/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/de_AT/LC_MESSAGES/org.imperia.simplecal.mo
-	, simplecal/lib/LocaleData/fr/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/ga/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/it/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/nl/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/pt/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/lib/LocaleData/pt_BR/LC_MESSAGES/org.imperia.simplecal.mo
-	, simplecal/lib/LocaleData/ru/LC_MESSAGES/org.imperia.simplecal.mo,
-	simplecal/po/LINGUAS, simplecal/po/Makefile,
-	simplecal/po/POTFILES.in, simplecal/po/TEXTDOMAIN,
-	simplecal/po/all.pot, simplecal/po/ar.po, simplecal/po/ar_SA.po,
-	simplecal/po/de.po, simplecal/po/de_AT.po, simplecal/po/fr.po,
-	simplecal/po/ga.po, simplecal/po/it.po, simplecal/po/nl.po,
-	simplecal/po/org.imperia.simplecal.pot, simplecal/po/pt.po,
-	simplecal/po/pt_BR.po, simplecal/po/ru.po: added directory sample
-	with a self-containing example 
-
-2003-07-28 14:16  Guido Flohr <guido@imperia.net>
-
-	* README: updated 
-
-2003-07-28 14:15  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/: RecodeData/ASMO_449.pm, RecodeData/ATARI_ST.pm,
-	RecodeData/ATARI_ST_EURO.pm, RecodeData/CP10007.pm,
-	RecodeData/CP1250.pm, RecodeData/CP1251.pm, RecodeData/CP1252.pm,
-	RecodeData/CP1253.pm, RecodeData/CP1254.pm, RecodeData/CP1256.pm,
-	RecodeData/CP1257.pm, RecodeData/CSN_369103.pm, RecodeData/CWI.pm,
-	RecodeData/DEC_MCS.pm, RecodeData/EBCDIC_AT_DE.pm,
-	RecodeData/EBCDIC_AT_DE_A.pm, RecodeData/EBCDIC_CA_FR.pm,
-	RecodeData/EBCDIC_DK_NO.pm, RecodeData/EBCDIC_DK_NO_A.pm,
-	RecodeData/EBCDIC_ES.pm, RecodeData/EBCDIC_ES_A.pm,
-	RecodeData/EBCDIC_ES_S.pm, RecodeData/EBCDIC_FI_SE.pm,
-	RecodeData/EBCDIC_FI_SE_A.pm, RecodeData/EBCDIC_FR.pm,
-	RecodeData/EBCDIC_IS_FRISS.pm, RecodeData/EBCDIC_IT.pm,
-	RecodeData/EBCDIC_PT.pm, RecodeData/EBCDIC_UK.pm,
-	RecodeData/EBCDIC_US.pm, RecodeData/ECMA_CYRILLIC.pm,
-	RecodeData/GEORGIAN_ACADEMY.pm, RecodeData/GEORGIAN_PS.pm,
-	RecodeData/GOST_19768_74.pm, RecodeData/GREEK7.pm,
-	RecodeData/GREEK7_OLD.pm, RecodeData/GREEK_CCITT.pm,
-	RecodeData/HP_ROMAN8.pm, RecodeData/IBM037.pm,
-	RecodeData/IBM038.pm, RecodeData/IBM1004.pm, RecodeData/IBM1026.pm,
-	RecodeData/IBM1047.pm, RecodeData/IBM256.pm, RecodeData/IBM273.pm,
-	RecodeData/IBM274.pm, RecodeData/IBM275.pm, RecodeData/IBM277.pm,
-	RecodeData/IBM278.pm, RecodeData/IBM280.pm, RecodeData/IBM281.pm,
-	RecodeData/IBM284.pm, RecodeData/IBM285.pm, RecodeData/IBM290.pm,
-	RecodeData/IBM297.pm, RecodeData/IBM420.pm, RecodeData/IBM423.pm,
-	RecodeData/IBM424.pm, RecodeData/IBM437.pm, RecodeData/IBM500.pm,
-	RecodeData/IBM850.pm, RecodeData/IBM851.pm, RecodeData/IBM852.pm,
-	RecodeData/IBM855.pm, RecodeData/IBM857.pm, RecodeData/IBM860.pm,
-	RecodeData/IBM861.pm, RecodeData/IBM862.pm, RecodeData/IBM863.pm,
-	RecodeData/IBM864.pm, RecodeData/IBM865.pm, RecodeData/IBM866.pm,
-	RecodeData/IBM868.pm, RecodeData/IBM869.pm, RecodeData/IBM870.pm,
-	RecodeData/IBM871.pm, RecodeData/IBM874.pm, RecodeData/IBM875.pm,
-	RecodeData/IBM880.pm, RecodeData/IBM891.pm, RecodeData/IBM903.pm,
-	RecodeData/IBM904.pm, RecodeData/IBM905.pm, RecodeData/IBM918.pm,
-	RecodeData/IEC_P27_1.pm, RecodeData/INIS.pm, RecodeData/INIS_8.pm,
-	RecodeData/INIS_CYRILLIC.pm, RecodeData/ISO_10367_BOX.pm,
-	RecodeData/ISO_2033_1983.pm, RecodeData/ISO_5427.pm,
-	RecodeData/ISO_5427_EXT.pm, RecodeData/ISO_5428.pm,
-	RecodeData/ISO_8859_1.pm, RecodeData/ISO_8859_10.pm,
-	RecodeData/ISO_8859_11.pm, RecodeData/ISO_8859_13.pm,
-	RecodeData/ISO_8859_14.pm, RecodeData/ISO_8859_15.pm,
-	RecodeData/ISO_8859_16.pm, RecodeData/ISO_8859_2.pm,
-	RecodeData/ISO_8859_3.pm, RecodeData/ISO_8859_4.pm,
-	RecodeData/ISO_8859_5.pm, RecodeData/ISO_8859_6.pm,
-	RecodeData/ISO_8859_7.pm, RecodeData/ISO_8859_8.pm,
-	RecodeData/ISO_8859_9.pm, RecodeData/KOI8_R.pm,
-	RecodeData/KOI8_RU.pm, RecodeData/KOI8_T.pm, RecodeData/KOI8_U.pm,
-	RecodeData/KOI_8.pm, RecodeData/LATIN_GREEK.pm,
-	RecodeData/LATIN_GREEK_1.pm, RecodeData/MACARABIC.pm,
-	RecodeData/MACCROATIAN.pm, RecodeData/MACCYRILLIC.pm,
-	RecodeData/MACGREEK.pm, RecodeData/MACHEBREW.pm,
-	RecodeData/MACICELAND.pm, RecodeData/MACINTOSH.pm,
-	RecodeData/MACROMANIA.pm, RecodeData/MACTHAI.pm,
-	RecodeData/MACTURKISH.pm, RecodeData/MACUKRAINE.pm,
-	RecodeData/MAC_IS.pm, RecodeData/MAC_SAMI.pm, RecodeData/MAC_UK.pm,
-	RecodeData/NATS_DANO.pm, RecodeData/NATS_SEFI.pm,
-	RecodeData/NEXTSTEP.pm, RecodeData/SAMI_WS2.pm,
-	RecodeData/TIS_620.pm, RecodeData/US_ASCII.pm, RecodeData/UTF_8.pm,
-	RecodeData/VISCII.pm, RecodeData/_Encode.pm, Messages.pm,
-	Recode.pm, RecodeData.pm, TextDomain.pm, gettext_pp.pm,
-	Recode/_Aliases.pm, Recode/_Conversions.pm: # fixed Emacs variables 
-
-2003-07-15 14:09  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # re-generated 
-
-2003-07-15 14:07  Guido Flohr <guido@imperia.net>
-
-	* BUGS, MANIFEST, README, TODO: updated 
-
-2003-07-15 14:02  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: 
-	- changed placeholder format to {curlies} 
-	- bumped version number to 0.13 
-
-2003-07-14 17:46  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # updated 
-
-2003-07-14 17:36  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: early exit if no directories for
-	catalogs exist 
-
-2003-07-14 17:11  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: updated 
-
-2003-07-14 17:11  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Messages.pm: return converted string in utf8_off 
-
-2003-07-14 16:20  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: syntax errors 
-
-2003-07-14 14:24  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/: Messages.pm, gettext_pp.pm: performance tweaks 
-
-2003-07-14 13:02  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/TextDomain.pm: fixed fatal typo 
-
-2003-07-14 12:46  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: 
-	- use nl_langinfo() if available to determine output charset 
-	- variable names 
-
-2003-06-30 21:12  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Recode.pm: compatibility tweak, (SuSE rpm
-	perl-5.8.0-104!) 
-
-2003-06-27 12:25  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/Messages.pm: fixed pod error 
-
-2003-06-27 12:24  Ingrid Graefen <ingrid.graefen@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: fixed pod errors 
-
-2003-06-27 12:19  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Recode.pm: fixed for new conversion interface 
-
-2003-06-23 17:24  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: ChangeLog 
-
-2003-06-23 16:48  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: # updated 
-
-2003-06-23 16:32  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/gettext_pp.pm: 
-	- avoid intermediate function calls 
-	- renamed internal functions to initial values in order 
-	  to avoid unintended similarities to GNU implementation 
-
-2003-06-23 13:34  Guido Flohr <guido@imperia.net>
-
-	* ChangeLog: updated 
-
-2003-06-23 13:30  Ingrid Graefen <ingrid.graefen@imperia.net>
+2004-06-11 14:06  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/RecodeData/: ASMO_449.pm, ATARI_ST.pm,
-	ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
-	CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm, CWI.pm,
-	DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm, EBCDIC_CA_FR.pm,
-	EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm, EBCDIC_ES.pm, EBCDIC_ES_A.pm,
-	EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm, EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm,
-	EBCDIC_IS_FRISS.pm, EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm,
-	EBCDIC_US.pm, ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm,
-	GEORGIAN_PS.pm, GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm,
-	GREEK_CCITT.pm, HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm,
-	IBM1026.pm, IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
-	IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
-	IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
-	IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
-	IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
-	IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
-	IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
-	IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
-	ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
-	ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_11.pm,
-	ISO_8859_13.pm, ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm,
-	ISO_8859_2.pm, ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm,
-	ISO_8859_6.pm, ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm,
-	KOI8_R.pm, KOI8_RU.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
-	LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACARABIC.pm, MACCROATIAN.pm,
-	MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
-	MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
-	MACUKRAINE.pm, MAC_IS.pm, MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm,
-	NATS_SEFI.pm, NEXTSTEP.pm, SAMI_WS2.pm, TIS_620.pm, US_ASCII.pm,
-	UTF_8.pm, VISCII.pm: 
-	- use strict;  moved up 
-	- no bare words after 'use base' 
+	  ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
+	  CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm,
+	  CWI.pm, DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm,
+	  EBCDIC_CA_FR.pm, EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm,
+	  EBCDIC_ES.pm, EBCDIC_ES_A.pm, EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm,
+	  EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm, EBCDIC_IS_FRISS.pm,
+	  EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm, EBCDIC_US.pm,
+	  ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm, GEORGIAN_PS.pm,
+	  GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm, GREEK_CCITT.pm,
+	  HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm, IBM1026.pm,
+	  IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
+	  IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
+	  IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
+	  IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
+	  IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
+	  IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
+	  IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
+	  IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
+	  ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
+	  ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_11.pm,
+	  ISO_8859_13.pm, ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm,
+	  ISO_8859_2.pm, ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm,
+	  ISO_8859_6.pm, ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm,
+	  KOI8_R.pm, KOI8_RU.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
+	  LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACARABIC.pm, MACCROATIAN.pm,
+	  MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
+	  MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
+	  MACUKRAINE.pm, MAC_IS.pm, MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm,
+	  NATS_SEFI.pm, NEXTSTEP.pm, SAMI_WS2.pm, TIS_620.pm, US_ASCII.pm,
+	  UTF_8.pm, VISCII.pm, _Encode.pm: added proper headlines for
+	  manual pages
 
-2003-06-23 13:11  Ingrid Graefen <ingrid.graefen@imperia.net>
+2004-06-11 13:54  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/TextDomain.pm: fixed typo in pod 
+	* lib/Locale/TextDomain.pm:
+	  - add default directories /usr/share/locale resp.
+	    /usr/local/share/locale to search path if they exist (reported by
+	  Cao Hongija)
+	  - changed default textdomain to 'messages'
+	  - fixed warning that occured when the import() method is not
+	    properly called
 
-2003-06-23 12:14  Guido Flohr <guido@imperia.net>
+2004-04-20 19:38  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/TextDomain.pm: leave undefined placeholders untouched 
+	* lib/Locale/: Messages.pm, Recode.pm, RecodeData.pm,
+	  TextDomain.pm, gettext_pp.pm, gettext_xs.pod, Recode/_Aliases.pm,
+	  Recode/_Conversions.pm, RecodeData/ASMO_449.pm,
+	  RecodeData/ATARI_ST.pm, RecodeData/ATARI_ST_EURO.pm,
+	  RecodeData/CP10007.pm, RecodeData/CP1250.pm,
+	  RecodeData/CP1251.pm, RecodeData/CP1252.pm, RecodeData/CP1253.pm,
+	  RecodeData/CP1254.pm, RecodeData/CP1256.pm, RecodeData/CP1257.pm,
+	  RecodeData/CSN_369103.pm, RecodeData/CWI.pm,
+	  RecodeData/DEC_MCS.pm, RecodeData/EBCDIC_AT_DE.pm,
+	  RecodeData/EBCDIC_AT_DE_A.pm, RecodeData/EBCDIC_CA_FR.pm,
+	  RecodeData/EBCDIC_DK_NO.pm, RecodeData/EBCDIC_DK_NO_A.pm,
+	  RecodeData/EBCDIC_ES.pm, RecodeData/EBCDIC_ES_A.pm,
+	  RecodeData/EBCDIC_ES_S.pm, RecodeData/EBCDIC_FI_SE.pm,
+	  RecodeData/EBCDIC_FI_SE_A.pm, RecodeData/EBCDIC_FR.pm,
+	  RecodeData/EBCDIC_IS_FRISS.pm, RecodeData/EBCDIC_IT.pm,
+	  RecodeData/EBCDIC_PT.pm, RecodeData/EBCDIC_UK.pm,
+	  RecodeData/EBCDIC_US.pm, RecodeData/ECMA_CYRILLIC.pm,
+	  RecodeData/GEORGIAN_ACADEMY.pm, RecodeData/GEORGIAN_PS.pm,
+	  RecodeData/GOST_19768_74.pm, RecodeData/GREEK7.pm,
+	  RecodeData/GREEK7_OLD.pm, RecodeData/GREEK_CCITT.pm,
+	  RecodeData/HP_ROMAN8.pm, RecodeData/IBM037.pm,
+	  RecodeData/IBM038.pm, RecodeData/IBM1004.pm,
+	  RecodeData/IBM1026.pm, RecodeData/IBM1047.pm,
+	  RecodeData/IBM256.pm, RecodeData/IBM273.pm, RecodeData/IBM274.pm,
+	  RecodeData/IBM275.pm, RecodeData/IBM277.pm, RecodeData/IBM278.pm,
+	  RecodeData/IBM280.pm, RecodeData/IBM281.pm, RecodeData/IBM284.pm,
+	  RecodeData/IBM285.pm, RecodeData/IBM290.pm, RecodeData/IBM297.pm,
+	  RecodeData/IBM420.pm, RecodeData/IBM423.pm, RecodeData/IBM424.pm,
+	  RecodeData/IBM437.pm, RecodeData/IBM500.pm, RecodeData/IBM850.pm,
+	  RecodeData/IBM851.pm, RecodeData/IBM852.pm, RecodeData/IBM855.pm,
+	  RecodeData/IBM857.pm, RecodeData/IBM860.pm, RecodeData/IBM861.pm,
+	  RecodeData/IBM862.pm, RecodeData/IBM863.pm, RecodeData/IBM864.pm,
+	  RecodeData/IBM865.pm, RecodeData/IBM866.pm, RecodeData/IBM868.pm,
+	  RecodeData/IBM869.pm, RecodeData/IBM870.pm, RecodeData/IBM871.pm,
+	  RecodeData/IBM874.pm, RecodeData/IBM875.pm, RecodeData/IBM880.pm,
+	  RecodeData/IBM891.pm, RecodeData/IBM903.pm, RecodeData/IBM904.pm,
+	  RecodeData/IBM905.pm, RecodeData/IBM918.pm,
+	  RecodeData/IEC_P27_1.pm, RecodeData/INIS.pm,
+	  RecodeData/INIS_8.pm, RecodeData/INIS_CYRILLIC.pm,
+	  RecodeData/ISO_10367_BOX.pm, RecodeData/ISO_2033_1983.pm,
+	  RecodeData/ISO_5427.pm, RecodeData/ISO_5427_EXT.pm,
+	  RecodeData/ISO_5428.pm, RecodeData/ISO_8859_1.pm,
+	  RecodeData/ISO_8859_10.pm, RecodeData/ISO_8859_11.pm,
+	  RecodeData/ISO_8859_13.pm, RecodeData/ISO_8859_14.pm,
+	  RecodeData/ISO_8859_15.pm, RecodeData/ISO_8859_16.pm,
+	  RecodeData/ISO_8859_2.pm, RecodeData/ISO_8859_3.pm,
+	  RecodeData/ISO_8859_4.pm, RecodeData/ISO_8859_5.pm,
+	  RecodeData/ISO_8859_6.pm, RecodeData/ISO_8859_7.pm,
+	  RecodeData/ISO_8859_8.pm, RecodeData/ISO_8859_9.pm,
+	  RecodeData/KOI8_R.pm, RecodeData/KOI8_RU.pm,
+	  RecodeData/KOI8_T.pm, RecodeData/KOI8_U.pm, RecodeData/KOI_8.pm,
+	  RecodeData/LATIN_GREEK.pm, RecodeData/LATIN_GREEK_1.pm,
+	  RecodeData/MACARABIC.pm, RecodeData/MACCROATIAN.pm,
+	  RecodeData/MACCYRILLIC.pm, RecodeData/MACGREEK.pm,
+	  RecodeData/MACHEBREW.pm, RecodeData/MACICELAND.pm,
+	  RecodeData/MACINTOSH.pm, RecodeData/MACROMANIA.pm,
+	  RecodeData/MACTHAI.pm, RecodeData/MACTURKISH.pm,
+	  RecodeData/MACUKRAINE.pm, RecodeData/MAC_IS.pm,
+	  RecodeData/MAC_SAMI.pm, RecodeData/MAC_UK.pm,
+	  RecodeData/NATS_DANO.pm, RecodeData/NATS_SEFI.pm,
+	  RecodeData/NEXTSTEP.pm, RecodeData/SAMI_WS2.pm,
+	  RecodeData/TIS_620.pm, RecodeData/US_ASCII.pm,
+	  RecodeData/UTF_8.pm, RecodeData/VISCII.pm, RecodeData/_Encode.pm:
+	  fixed vim line
 
-2003-06-20 17:06  Guido Flohr <guido@imperia.net>
+2004-01-15 15:50  Guido Flohr <guido@imperia.net>
 
-	* ChangeLog: updated 
+	* sample/simplecal/po/Crypt-Twofish_PP.pot: Oops...
 
-2003-06-20 17:05  Guido Flohr <guido@imperia.net>
+2004-01-12 14:27  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/TextDomain.pm: bumped version number to 0.11 
+	* META.yml: removed dynamic_config (not recognized?)
 
-2003-06-20 17:04  Guido Flohr <guido@imperia.net>
+2004-01-12 14:26  Guido Flohr <guido@imperia.net>
 
-	* ChangeLog: new 
+	* META.yml: added dynamic_config
 
-2003-06-20 17:03  Guido Flohr <guido@imperia.net>
+2004-01-12 14:09  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: 
-	- added ChangeLog 
-	- added KOI8-RU files 
+	* README.win32: added statement by Bruno Haible regarding MSVC 7.0
 
-2003-06-20 17:03  Guido Flohr <guido@imperia.net>
+2004-01-12 14:08  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST.SKIP: also exclude x-shell scripts from distcheck 
+	* MANIFEST: added README.win32
 
-2003-06-20 16:58  Guido Flohr <guido@imperia.net>
+2004-01-12 14:07  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/Messages.pm: always turn utf-8 flag off for messages 
+	* README.win32: new
 
-2003-06-20 14:06  Guido Flohr <guido@imperia.net>
+2004-01-12 14:04  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/gettext_pp.pm: untaint the plural header code 
+	* lib/Locale/Messages.pm: fixed typo
 
-2003-06-20 12:29  Guido Flohr <guido@imperia.net>
+2004-01-12 14:03  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/gettext_pp.pm: avoid re-loading of message catalogs 
+	* ChangeLog, META.yml, NEWS, lib/Locale/Messages.pm,
+	  lib/Locale/TextDomain.pm: bumped version number to 1.10
+
+2004-01-12 13:17  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03language_pp.t, 03language_xs.t: $LANG must be set in
+	  environment with $LANGUAGE
+
+2004-01-12 13:16  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03bind_textdomain_codeset_pp.t,
+	  03bind_textdomain_codeset_xs.t: use nl_putenv(), not %ENV
+
+2004-01-12 13:15  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.xs:
+	  - fixed prototype for _nl_putenv
+	  - use _putenv() instead of putenv() (educated guess)
+
+2004-01-12 13:14  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: updated
+
+2004-01-12 13:13  Guido Flohr <guido@imperia.net>
+
+	* COPYING.LESSER, COPYING.LIB: renamed COPYING.LIB to
+	  COPYING.LESSER to prevent deletion for make clean
+
+2004-01-08 21:50  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03dcgettext_pp.t, 03dcgettext_xs.t, 03dcngettext_pp.t,
+	  03dcngettext_xs.t, 03dgettext_pp.t, 03dgettext_xs.t,
+	  03dngettext_pp.t, 03dngettext_xs.t, 03gettext_pp.t,
+	  03gettext_xs.t, 03language_pp.t, 03language_xs.t,
+	  03ngettext_pp.t, 03ngettext_xs.t: compatibility tweaks for
+	  MS-DOS, use nl_putenv instead of %ENV
+
+2004-01-08 21:49  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: fixed another typo
+
+2004-01-08 21:12  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.pm, lib/Locale/gettext_pp.pm: fixed typo
+
+2004-01-08 21:11  Guido Flohr <guido@imperia.net>
+
+	* META.yml, Makefile.PL: File::Spec required again
+
+2004-01-08 20:38  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03bind_textdomain_codeset_pp.t,
+	  03bind_textdomain_codeset_xs.t, 03dcgettext_pp.t,
+	  03dcgettext_xs.t, 03dcngettext_pp.t, 03dcngettext_xs.t,
+	  03dgettext_pp.t, 03dgettext_xs.t, 03dngettext_pp.t,
+	  03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t,
+	  03language_pp.t, 03language_xs.t, 03ngettext_pp.t,
+	  03ngettext_xs.t:
+	  - let bindtextdomain() take care of normalized paths
+	  - compare normalized paths
+
+2004-01-08 20:09  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03bind_textdomain_codeset_pp.t,
+	  03bind_textdomain_codeset_xs.t, 03dcngettext_pp.t,
+	  03dcngettext_xs.t, 03dgettext_pp.t, 03dngettext_pp.t,
+	  03dngettext_xs.t, 03gettext_pp.t, 03gettext_xs.t,
+	  03ngettext_pp.t, 03ngettext_xs.t: do not use hard-coded locale
+	  identifiers in calls to setlocale()
+
+2004-01-08 19:48  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03dcgettext_pp.t, 03dcgettext_xs.t, 03dgettext_xs.t,
+	  03gettext_pp.t, 03gettext_xs.t, 03language_pp.t, 03language_xs.t:
+	  set OUTPUT_CHARSET for compatibility
+
+2004-01-08 19:48  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: added META.yml
+
+2004-01-08 19:39  Guido Flohr <guido@imperia.net>
+
+	* META.yml: new
+
+2004-01-08 19:25  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, test.pl, gettext_xs/Makefile.PL,
+	  gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
+	  lib/Locale/Messages.pm, lib/Locale/Recode.pm,
+	  lib/Locale/RecodeData.pm, lib/Locale/TextDomain.pm,
+	  lib/Locale/gettext_pp.pm, lib/Locale/gettext_xs.pod,
+	  lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
+	  lib/Locale/RecodeData/ASMO_449.pm,
+	  lib/Locale/RecodeData/ATARI_ST.pm,
+	  lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	  lib/Locale/RecodeData/CP10007.pm,
+	  lib/Locale/RecodeData/CP1250.pm, lib/Locale/RecodeData/CP1251.pm,
+	  lib/Locale/RecodeData/CP1252.pm, lib/Locale/RecodeData/CP1253.pm,
+	  lib/Locale/RecodeData/CP1254.pm, lib/Locale/RecodeData/CP1256.pm,
+	  lib/Locale/RecodeData/CP1257.pm,
+	  lib/Locale/RecodeData/CSN_369103.pm,
+	  lib/Locale/RecodeData/CWI.pm, lib/Locale/RecodeData/DEC_MCS.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_S.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
+	  lib/Locale/RecodeData/EBCDIC_IT.pm,
+	  lib/Locale/RecodeData/EBCDIC_PT.pm,
+	  lib/Locale/RecodeData/EBCDIC_UK.pm,
+	  lib/Locale/RecodeData/EBCDIC_US.pm,
+	  lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
+	  lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
+	  lib/Locale/RecodeData/GEORGIAN_PS.pm,
+	  lib/Locale/RecodeData/GOST_19768_74.pm,
+	  lib/Locale/RecodeData/GREEK7.pm,
+	  lib/Locale/RecodeData/GREEK7_OLD.pm,
+	  lib/Locale/RecodeData/GREEK_CCITT.pm,
+	  lib/Locale/RecodeData/HP_ROMAN8.pm,
+	  lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
+	  lib/Locale/RecodeData/IBM1004.pm,
+	  lib/Locale/RecodeData/IBM1026.pm,
+	  lib/Locale/RecodeData/IBM1047.pm,
+	  lib/Locale/RecodeData/IBM256.pm, lib/Locale/RecodeData/IBM273.pm,
+	  lib/Locale/RecodeData/IBM274.pm, lib/Locale/RecodeData/IBM275.pm,
+	  lib/Locale/RecodeData/IBM277.pm, lib/Locale/RecodeData/IBM278.pm,
+	  lib/Locale/RecodeData/IBM280.pm, lib/Locale/RecodeData/IBM281.pm,
+	  lib/Locale/RecodeData/IBM284.pm, lib/Locale/RecodeData/IBM285.pm,
+	  lib/Locale/RecodeData/IBM290.pm, lib/Locale/RecodeData/IBM297.pm,
+	  lib/Locale/RecodeData/IBM420.pm, lib/Locale/RecodeData/IBM423.pm,
+	  lib/Locale/RecodeData/IBM424.pm, lib/Locale/RecodeData/IBM437.pm,
+	  lib/Locale/RecodeData/IBM500.pm, lib/Locale/RecodeData/IBM850.pm,
+	  lib/Locale/RecodeData/IBM851.pm, lib/Locale/RecodeData/IBM852.pm,
+	  lib/Locale/RecodeData/IBM855.pm, lib/Locale/RecodeData/IBM857.pm,
+	  lib/Locale/RecodeData/IBM860.pm, lib/Locale/RecodeData/IBM861.pm,
+	  lib/Locale/RecodeData/IBM862.pm, lib/Locale/RecodeData/IBM863.pm,
+	  lib/Locale/RecodeData/IBM864.pm, lib/Locale/RecodeData/IBM865.pm,
+	  lib/Locale/RecodeData/IBM866.pm, lib/Locale/RecodeData/IBM868.pm,
+	  lib/Locale/RecodeData/IBM869.pm, lib/Locale/RecodeData/IBM870.pm,
+	  lib/Locale/RecodeData/IBM871.pm, lib/Locale/RecodeData/IBM874.pm,
+	  lib/Locale/RecodeData/IBM875.pm, lib/Locale/RecodeData/IBM880.pm,
+	  lib/Locale/RecodeData/IBM891.pm, lib/Locale/RecodeData/IBM903.pm,
+	  lib/Locale/RecodeData/IBM904.pm, lib/Locale/RecodeData/IBM905.pm,
+	  lib/Locale/RecodeData/IBM918.pm,
+	  lib/Locale/RecodeData/IEC_P27_1.pm,
+	  lib/Locale/RecodeData/INIS.pm, lib/Locale/RecodeData/INIS_8.pm,
+	  lib/Locale/RecodeData/INIS_CYRILLIC.pm,
+	  lib/Locale/RecodeData/ISO_10367_BOX.pm,
+	  lib/Locale/RecodeData/ISO_2033_1983.pm,
+	  lib/Locale/RecodeData/ISO_5427.pm,
+	  lib/Locale/RecodeData/ISO_5427_EXT.pm,
+	  lib/Locale/RecodeData/ISO_5428.pm,
+	  lib/Locale/RecodeData/ISO_8859_1.pm,
+	  lib/Locale/RecodeData/ISO_8859_10.pm,
+	  lib/Locale/RecodeData/ISO_8859_11.pm,
+	  lib/Locale/RecodeData/ISO_8859_13.pm,
+	  lib/Locale/RecodeData/ISO_8859_14.pm,
+	  lib/Locale/RecodeData/ISO_8859_15.pm,
+	  lib/Locale/RecodeData/ISO_8859_16.pm,
+	  lib/Locale/RecodeData/ISO_8859_2.pm,
+	  lib/Locale/RecodeData/ISO_8859_3.pm,
+	  lib/Locale/RecodeData/ISO_8859_4.pm,
+	  lib/Locale/RecodeData/ISO_8859_5.pm,
+	  lib/Locale/RecodeData/ISO_8859_6.pm,
+	  lib/Locale/RecodeData/ISO_8859_7.pm,
+	  lib/Locale/RecodeData/ISO_8859_8.pm,
+	  lib/Locale/RecodeData/ISO_8859_9.pm,
+	  lib/Locale/RecodeData/KOI8_R.pm,
+	  lib/Locale/RecodeData/KOI8_RU.pm,
+	  lib/Locale/RecodeData/KOI8_T.pm, lib/Locale/RecodeData/KOI8_U.pm,
+	  lib/Locale/RecodeData/KOI_8.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK_1.pm,
+	  lib/Locale/RecodeData/MACARABIC.pm,
+	  lib/Locale/RecodeData/MACCROATIAN.pm,
+	  lib/Locale/RecodeData/MACCYRILLIC.pm,
+	  lib/Locale/RecodeData/MACGREEK.pm,
+	  lib/Locale/RecodeData/MACHEBREW.pm,
+	  lib/Locale/RecodeData/MACICELAND.pm,
+	  lib/Locale/RecodeData/MACINTOSH.pm,
+	  lib/Locale/RecodeData/MACROMANIA.pm,
+	  lib/Locale/RecodeData/MACTHAI.pm,
+	  lib/Locale/RecodeData/MACTURKISH.pm,
+	  lib/Locale/RecodeData/MACUKRAINE.pm,
+	  lib/Locale/RecodeData/MAC_IS.pm,
+	  lib/Locale/RecodeData/MAC_SAMI.pm,
+	  lib/Locale/RecodeData/MAC_UK.pm,
+	  lib/Locale/RecodeData/NATS_DANO.pm,
+	  lib/Locale/RecodeData/NATS_SEFI.pm,
+	  lib/Locale/RecodeData/NEXTSTEP.pm,
+	  lib/Locale/RecodeData/SAMI_WS2.pm,
+	  lib/Locale/RecodeData/TIS_620.pm,
+	  lib/Locale/RecodeData/US_ASCII.pm,
+	  lib/Locale/RecodeData/UTF_8.pm, lib/Locale/RecodeData/VISCII.pm,
+	  lib/Locale/RecodeData/_Encode.pm, sample/simplecal/Makefile.PL:
+	  Happy New Year!
+
+2004-01-08 19:24  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/Makefile.PL: File::Spec is required for the XS version
+
+2004-01-08 19:20  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
+	  lib/Locale/Messages.pm, lib/Locale/gettext_pp.pm,
+	  lib/Locale/gettext_xs.pod: new function nl_putenv() for MS-DOS
+	  ideosyncrasies
+
+2004-01-08 19:14  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: do not require the variable _nl_domain_bindings for
+	  building the XS version
+
+2004-01-08 15:32  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/: gettext_xs.pm, gettext_xs.xs: convert directory to
+	  local convention for Locale::gettext_xs::bindtextdomain
+
+2004-01-02 20:18  Guido Flohr <guido@imperia.net>
+
+	* tests/po/Makefile: moved tests/locale to tests/LocaleData
+
+2004-01-02 20:10  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.xs, tests/03bind_textdomain_codeset_pp.t,
+	  tests/03bind_textdomain_codeset_xs.t, tests/03dcgettext_pp.t,
+	  tests/03dcgettext_xs.t, tests/03dcngettext_pp.t,
+	  tests/03dcngettext_xs.t, tests/03dgettext_pp.t,
+	  tests/03dgettext_xs.t, tests/03dngettext_pp.t,
+	  tests/03dngettext_xs.t, tests/03gettext_pp.t,
+	  tests/03gettext_xs.t, tests/03language_pp.t,
+	  tests/03language_xs.t, tests/03ngettext_pp.t,
+	  tests/03ngettext_xs.t: compatibility tweaks
+
+2004-01-02 19:55  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, tests/03bind_textdomain_codeset_pp.t,
+	  tests/03bind_textdomain_codeset_xs.t, tests/03dcgettext_pp.t,
+	  tests/03dcgettext_xs.t, tests/03dcngettext_pp.t,
+	  tests/03dcngettext_xs.t, tests/03dgettext_pp.t,
+	  tests/03dgettext_xs.t, tests/03dngettext_pp.t,
+	  tests/03dngettext_xs.t, tests/03gettext_pp.t,
+	  tests/03gettext_xs.t, tests/03language_pp.t,
+	  tests/03language_xs.t, tests/03ngettext_pp.t,
+	  tests/03ngettext_xs.t: moved tests/locale to tests/LocaleData
+
+2003-12-29 21:03  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: #re-generated
+
+2003-12-29 21:02  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated
+
+2003-12-29 21:01  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm:
+	  - fixed pod typo
+	  - bumped version number to 1.09
+
+2003-12-29 21:00  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: use user supplied locale name when
+	  guessing character set
+
+2003-12-29 20:59  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: check for correct XS version
+
+2003-12-23 17:22  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ATARI_ST_EURO.pm, tests/02atari-st-euro.t:
+	  - various corrections
+	  - newer Atari versions seem to place the euro sign at 0xde (not
+	    0xee), thanks to Jo-Even Skarstein and Gerhard Stoll for the
+	  information
+
+2003-12-23 17:21  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ATARI_ST.pm, tests/02atari-st.t: various
+	  corrections
+
+2003-12-23 17:07  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/MANIFEST: updated to new Makefile logic
+
+2003-11-30 20:47  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: deleted reference to unwritten docs on
+	  let.imperia.org
+
+2003-11-30 20:45  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: #re-generated
+
+2003-11-30 20:45  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.08
+
+2003-11-30 20:44  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated
+
+2003-11-30 20:35  Guido Flohr <guido@imperia.net>
+
+	* MyInstall.pm: fixed bug #4512 on https://rt.cpan.org/
+
+2003-11-28 18:47  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-11-28 18:47  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.07
+
+2003-11-28 18:47  Guido Flohr <guido@imperia.net>
+
+	* BUGS, MANIFEST: removed BUGS (only known bug should be fixed now)
+
+2003-11-28 18:13  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated
+
+2003-11-28 18:09  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm:
+	  - only call I18N::Langinfo methods for validated locales
+	  - allow 'utf8' as an alias for charsets derived from locale ids
+
+2003-11-28 18:06  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: redirect configure output to config.log
+
+2003-11-28 18:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: export turn_utf_8_off()
+
+2003-11-28 18:05  Guido Flohr <guido@imperia.net>
+
+	* MyInstall.pm: removed debugging noise
+
+2003-11-24 20:14  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/: Crypt-Twofish_PP.pot, POTFILES.in, de.mo,
+	  de.po: updated
+
+2003-11-24 17:32  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-11-24 17:32  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.06
+
+2003-11-24 17:32  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/: ISO_8859_1.pm, US_ASCII.pm: added pod
+
+2003-11-24 17:31  Guido Flohr <guido@imperia.net>
+
+	* BUGS, NEWS: updated
+
+2003-11-24 15:57  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: avoid warning without I18N::Langinfo
+
+2003-11-24 15:57  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: updated
+
+2003-11-24 15:32  Guido Flohr <guido@imperia.net>
+
+	* sample/README: all package-dependent information now goes into
+	  one single file PACKAGE
+
+2003-11-24 15:31  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: do not include -liconv twice
+
+2003-11-24 15:25  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/: LINGUAS, Makefile, PACKAGE, TEXTDOMAIN: put
+	  all package-dependent information into single file PACKAGE
+
+2003-10-10 18:38  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/gettext_xs.xs, lib/Locale/Messages.pm: check for
+	  version match (do not load stale XS versions at run-time)
+
+2003-10-10 18:14  Guido Flohr <guido@imperia.net>
+
+	* tests/: 03language_pp.t, 03language_xs.t: added
+
+2003-10-10 18:13  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-10-10 18:13  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.05
+
+2003-10-10 18:12  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/Makefile.old: removed junk file
+
+2003-10-10 18:12  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, NEWS: fixed compatibility problems with Solaris 8
+	  and above
+
+2003-10-10 16:03  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: removed Artistic
+
+2003-10-10 13:11  Guido Flohr <guido@imperia.net>
+
+	* sample/README: fixed typo
+
+2003-10-10 13:10  Guido Flohr <guido@imperia.net>
+
+	* Artistic: obsolete
+
+2003-10-09 18:06  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # regenerated
+
+2003-10-09 18:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.04
+
+2003-10-09 18:05  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST.SKIP: updated
+
+2003-10-09 14:35  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated
+
+2003-10-09 14:34  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm:
+	  - support for language chain syntax in $LANGUAGE
+	  - performance tweaks
+
+2003-10-09 14:34  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/README-NLS: clarification
+
+2003-10-09 14:33  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: support for language chains in $LANGUAGE
+
+2003-10-08 14:13  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated
+
+2003-10-08 14:12  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode/_Conversions.pm: do not use Encode's
+	  iso-8859-11 (broken in some Encode versions)
+
+2003-09-24 13:50  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: localize $@ with checks for
+	  availability of I18N::Langinfo and POSIX::LC_MESSAGES
+
+2003-09-15 15:14  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: re-generated
+
+2003-09-15 15:13  Guido Flohr <guido@imperia.net>
+
+	* NEWS, lib/Locale/TextDomain.pm: bumped version number to 1.03
+
+2003-09-15 11:21  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, MANIFEST.SKIP, Makefile.PL, MyInstall.pm, NEWS, TODO,
+	  USERS, gettest.c, x-changelog.sh, gettext_xs/Makefile.PL,
+	  gettext_xs/Makefile.old, gettext_xs/gettext_xs.pm,
+	  gettext_xs/gettext_xs.xs, lib/Locale/Messages.pm,
+	  lib/Locale/TextDomain.pm, lib/Locale/gettext_xs.pod,
+	  tests/03bind_textdomain_codeset.t,
+	  tests/03bind_textdomain_codeset_pp.t,
+	  tests/03bind_textdomain_codeset_xs.t, tests/03bindtextdomain.t,
+	  tests/03bindtextdomain_pp.t, tests/03bindtextdomain_xs.t,
+	  tests/03dcgettext.t, tests/03dcgettext_pp.t,
+	  tests/03dcgettext_xs.t, tests/03dcngettext.t,
+	  tests/03dcngettext_pp.t, tests/03dcngettext_xs.t,
+	  tests/03dgettext.t, tests/03dgettext_pp.t, tests/03dgettext_xs.t,
+	  tests/03dngettext.t, tests/03dngettext_pp.t,
+	  tests/03dngettext_xs.t, tests/03gettext.t, tests/03gettext_pp.t,
+	  tests/03gettext_xs.t, tests/03ngettext.t, tests/03ngettext_pp.t,
+	  tests/03ngettext_xs.t, tests/03textdomain.t,
+	  tests/03textdomain_pp.t, tests/03textdomain_xs.t: alternative XS
+	  version
+
+2003-09-10 21:29  Guido Flohr <guido@imperia.net>
+
+	* gettest.c: test file for gettext support
+
+2003-09-10 20:03  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, README, test.pl, lib/Locale/Messages.pm,
+	  lib/Locale/Recode.pm, lib/Locale/RecodeData.pm,
+	  lib/Locale/TextDomain.pm, lib/Locale/gettext_pp.pm,
+	  lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
+	  lib/Locale/RecodeData/ASMO_449.pm,
+	  lib/Locale/RecodeData/ATARI_ST.pm,
+	  lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	  lib/Locale/RecodeData/CP10007.pm,
+	  lib/Locale/RecodeData/CP1250.pm, lib/Locale/RecodeData/CP1251.pm,
+	  lib/Locale/RecodeData/CP1252.pm, lib/Locale/RecodeData/CP1253.pm,
+	  lib/Locale/RecodeData/CP1254.pm, lib/Locale/RecodeData/CP1256.pm,
+	  lib/Locale/RecodeData/CP1257.pm,
+	  lib/Locale/RecodeData/CSN_369103.pm,
+	  lib/Locale/RecodeData/CWI.pm, lib/Locale/RecodeData/DEC_MCS.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_S.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
+	  lib/Locale/RecodeData/EBCDIC_IT.pm,
+	  lib/Locale/RecodeData/EBCDIC_PT.pm,
+	  lib/Locale/RecodeData/EBCDIC_UK.pm,
+	  lib/Locale/RecodeData/EBCDIC_US.pm,
+	  lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
+	  lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
+	  lib/Locale/RecodeData/GEORGIAN_PS.pm,
+	  lib/Locale/RecodeData/GOST_19768_74.pm,
+	  lib/Locale/RecodeData/GREEK7.pm,
+	  lib/Locale/RecodeData/GREEK7_OLD.pm,
+	  lib/Locale/RecodeData/GREEK_CCITT.pm,
+	  lib/Locale/RecodeData/HP_ROMAN8.pm,
+	  lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
+	  lib/Locale/RecodeData/IBM1004.pm,
+	  lib/Locale/RecodeData/IBM1026.pm,
+	  lib/Locale/RecodeData/IBM1047.pm,
+	  lib/Locale/RecodeData/IBM256.pm, lib/Locale/RecodeData/IBM273.pm,
+	  lib/Locale/RecodeData/IBM274.pm, lib/Locale/RecodeData/IBM275.pm,
+	  lib/Locale/RecodeData/IBM277.pm, lib/Locale/RecodeData/IBM278.pm,
+	  lib/Locale/RecodeData/IBM280.pm, lib/Locale/RecodeData/IBM281.pm,
+	  lib/Locale/RecodeData/IBM284.pm, lib/Locale/RecodeData/IBM285.pm,
+	  lib/Locale/RecodeData/IBM290.pm, lib/Locale/RecodeData/IBM297.pm,
+	  lib/Locale/RecodeData/IBM420.pm, lib/Locale/RecodeData/IBM423.pm,
+	  lib/Locale/RecodeData/IBM424.pm, lib/Locale/RecodeData/IBM437.pm,
+	  lib/Locale/RecodeData/IBM500.pm, lib/Locale/RecodeData/IBM850.pm,
+	  lib/Locale/RecodeData/IBM851.pm, lib/Locale/RecodeData/IBM852.pm,
+	  lib/Locale/RecodeData/IBM855.pm, lib/Locale/RecodeData/IBM857.pm,
+	  lib/Locale/RecodeData/IBM860.pm, lib/Locale/RecodeData/IBM861.pm,
+	  lib/Locale/RecodeData/IBM862.pm, lib/Locale/RecodeData/IBM863.pm,
+	  lib/Locale/RecodeData/IBM864.pm, lib/Locale/RecodeData/IBM865.pm,
+	  lib/Locale/RecodeData/IBM866.pm, lib/Locale/RecodeData/IBM868.pm,
+	  lib/Locale/RecodeData/IBM869.pm, lib/Locale/RecodeData/IBM870.pm,
+	  lib/Locale/RecodeData/IBM871.pm, lib/Locale/RecodeData/IBM874.pm,
+	  lib/Locale/RecodeData/IBM875.pm, lib/Locale/RecodeData/IBM880.pm,
+	  lib/Locale/RecodeData/IBM891.pm, lib/Locale/RecodeData/IBM903.pm,
+	  lib/Locale/RecodeData/IBM904.pm, lib/Locale/RecodeData/IBM905.pm,
+	  lib/Locale/RecodeData/IBM918.pm,
+	  lib/Locale/RecodeData/IEC_P27_1.pm,
+	  lib/Locale/RecodeData/INIS.pm, lib/Locale/RecodeData/INIS_8.pm,
+	  lib/Locale/RecodeData/INIS_CYRILLIC.pm,
+	  lib/Locale/RecodeData/ISO_10367_BOX.pm,
+	  lib/Locale/RecodeData/ISO_2033_1983.pm,
+	  lib/Locale/RecodeData/ISO_5427.pm,
+	  lib/Locale/RecodeData/ISO_5427_EXT.pm,
+	  lib/Locale/RecodeData/ISO_5428.pm,
+	  lib/Locale/RecodeData/ISO_8859_1.pm,
+	  lib/Locale/RecodeData/ISO_8859_10.pm,
+	  lib/Locale/RecodeData/ISO_8859_11.pm,
+	  lib/Locale/RecodeData/ISO_8859_13.pm,
+	  lib/Locale/RecodeData/ISO_8859_14.pm,
+	  lib/Locale/RecodeData/ISO_8859_15.pm,
+	  lib/Locale/RecodeData/ISO_8859_16.pm,
+	  lib/Locale/RecodeData/ISO_8859_2.pm,
+	  lib/Locale/RecodeData/ISO_8859_3.pm,
+	  lib/Locale/RecodeData/ISO_8859_4.pm,
+	  lib/Locale/RecodeData/ISO_8859_5.pm,
+	  lib/Locale/RecodeData/ISO_8859_6.pm,
+	  lib/Locale/RecodeData/ISO_8859_7.pm,
+	  lib/Locale/RecodeData/ISO_8859_8.pm,
+	  lib/Locale/RecodeData/ISO_8859_9.pm,
+	  lib/Locale/RecodeData/KOI8_R.pm,
+	  lib/Locale/RecodeData/KOI8_RU.pm,
+	  lib/Locale/RecodeData/KOI8_T.pm, lib/Locale/RecodeData/KOI8_U.pm,
+	  lib/Locale/RecodeData/KOI_8.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK_1.pm,
+	  lib/Locale/RecodeData/MACARABIC.pm,
+	  lib/Locale/RecodeData/MACCROATIAN.pm,
+	  lib/Locale/RecodeData/MACCYRILLIC.pm,
+	  lib/Locale/RecodeData/MACGREEK.pm,
+	  lib/Locale/RecodeData/MACHEBREW.pm,
+	  lib/Locale/RecodeData/MACICELAND.pm,
+	  lib/Locale/RecodeData/MACINTOSH.pm,
+	  lib/Locale/RecodeData/MACROMANIA.pm,
+	  lib/Locale/RecodeData/MACTHAI.pm,
+	  lib/Locale/RecodeData/MACTURKISH.pm,
+	  lib/Locale/RecodeData/MACUKRAINE.pm,
+	  lib/Locale/RecodeData/MAC_IS.pm,
+	  lib/Locale/RecodeData/MAC_SAMI.pm,
+	  lib/Locale/RecodeData/MAC_UK.pm,
+	  lib/Locale/RecodeData/NATS_DANO.pm,
+	  lib/Locale/RecodeData/NATS_SEFI.pm,
+	  lib/Locale/RecodeData/NEXTSTEP.pm,
+	  lib/Locale/RecodeData/SAMI_WS2.pm,
+	  lib/Locale/RecodeData/TIS_620.pm,
+	  lib/Locale/RecodeData/US_ASCII.pm,
+	  lib/Locale/RecodeData/UTF_8.pm, lib/Locale/RecodeData/VISCII.pm,
+	  lib/Locale/RecodeData/_Encode.pm, sample/simplecal/Makefile.PL:
+	  - switched from double license to single license (LGPL) in order to
+	    avoid licensing problems
+	  - fixed POD
+
+2003-09-10 19:27  Guido Flohr <guido@imperia.net>
+
+	* tests/02iso-8859-11.t: workaround for broken Encode versions
+
+2003-09-10 19:26  Guido Flohr <guido@imperia.net>
+
+	* COPYING, COPYING.LIB, MANIFEST: changed from double license to
+	  single license (LGPL)
+
+2003-09-07 22:45  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/US_ASCII.pm: removed second block of emacs
+	  vars
+
+2003-09-07 22:44  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: pod errors
+
+2003-09-07 22:44  Guido Flohr <guido@imperia.net>
+
+	* TODO: updated
+
+2003-09-07 22:44  Guido Flohr <guido@imperia.net>
+
+	* sample/README: new section on informational files
+
+2003-09-07 22:43  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/: README-NLS, TRANSLATIONS: new
+
+2003-09-07 22:43  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/Makefile: fixed invocation of xgettext
+
+2003-09-07 22:42  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, test.pl: get rid of dependency on
+	  ExtUtils::Command::MM
+
+2003-09-04 19:13  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: removed double emacs var block
+
+2003-09-04 19:09  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-09-04 19:05  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm:
+	  - removed obsolete line
+
+2003-09-04 19:00  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-09-04 18:58  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm:
+	  - untaint of plural header
+	  - Perl 5.005 compatibility
+
+2003-09-04 18:24  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-09-04 18:23  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.02
+
+2003-09-04 18:23  Guido Flohr <guido@imperia.net>
+
+	* BUGS, NEWS, TODO: updated
+
+2003-09-04 16:31  Guido Flohr <guido@imperia.net>
+
+	* tests/: LocaleData/de_AT/LC_MESSAGES/additional.mo,
+	  po/additional.de_AT.po: added plural rules for de_AT to test
+	  catalog
+
+2003-09-04 13:48  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: compatibility with GNU gettext for
+	  systems w/o /usr/share/locale
+
+2003-08-19 21:49  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # updated
+
+2003-08-19 21:49  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.01
+
+2003-08-19 21:48  Guido Flohr <guido@imperia.net>
+
+	* README: deleted reference to README-MSDOS
+
+2003-08-19 21:44  Guido Flohr <guido@imperia.net>
+
+	* BUGS: bug report from cpan-testers
+
+2003-08-19 21:38  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: requires ExtUtils::Command::MM for test wrapper
+
+2003-08-19 21:37  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ISO_8859_11.pm, tests/02iso-8859-11.t,
+	  tests/02tis-620.t: fixed ISO-8859-11 recoding
+
+2003-08-19 20:25  Guido Flohr <guido@imperia.net>
+
+	* tests/: 02iso-8859-11.t, 02tis-620.t: fixed Thai character sets
+
+2003-08-19 19:52  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, NEWS: updated/added
+
+2003-08-19 19:49  Guido Flohr <guido@imperia.net>
+
+	* README-MSDOS: obsolete
+
+2003-08-19 19:48  Guido Flohr <guido@imperia.net>
+
+	* test.pl: workaround for broken or limited shells to allow testing
+	  (thanks to DH <crazyinsomniac@yahoo.com> for the hint)
+
+2003-08-19 19:47  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, tests/00gettext.t, tests/00recode.t, tests/01trivial.t,
+	  tests/02asmo_449.t, tests/02atari-st-euro.t, tests/02atari-st.t,
+	  tests/02cp10007.t, tests/02cp1250.t, tests/02cp1251.t,
+	  tests/02cp1252.t, tests/02cp1253.t, tests/02cp1254.t,
+	  tests/02cp1256.t, tests/02cp1257.t, tests/02csn_369103.t,
+	  tests/02cwi.t, tests/02dec-mcs.t, tests/02ebcdic-at-de-a.t,
+	  tests/02ebcdic-at-de.t, tests/02ebcdic-ca-fr.t,
+	  tests/02ebcdic-dk-no-a.t, tests/02ebcdic-dk-no.t,
+	  tests/02ebcdic-es-a.t, tests/02ebcdic-es-s.t,
+	  tests/02ebcdic-es.t, tests/02ebcdic-fi-se-a.t,
+	  tests/02ebcdic-fi-se.t, tests/02ebcdic-fr.t,
+	  tests/02ebcdic-is-friss.t, tests/02ebcdic-it.t,
+	  tests/02ebcdic-pt.t, tests/02ebcdic-uk.t, tests/02ebcdic-us.t,
+	  tests/02ecma-cyrillic.t, tests/02georgian-academy.t,
+	  tests/02georgian-ps.t, tests/02gost_19768-74.t,
+	  tests/02greek-ccitt.t, tests/02greek7-old.t, tests/02greek7.t,
+	  tests/02hp-roman8.t, tests/02ibm037.t, tests/02ibm038.t,
+	  tests/02ibm1004.t, tests/02ibm1026.t, tests/02ibm1047.t,
+	  tests/02ibm256.t, tests/02ibm273.t, tests/02ibm274.t,
+	  tests/02ibm275.t, tests/02ibm277.t, tests/02ibm278.t,
+	  tests/02ibm280.t, tests/02ibm281.t, tests/02ibm284.t,
+	  tests/02ibm285.t, tests/02ibm290.t, tests/02ibm297.t,
+	  tests/02ibm420.t, tests/02ibm423.t, tests/02ibm424.t,
+	  tests/02ibm437.t, tests/02ibm500.t, tests/02ibm850.t,
+	  tests/02ibm851.t, tests/02ibm852.t, tests/02ibm855.t,
+	  tests/02ibm857.t, tests/02ibm860.t, tests/02ibm861.t,
+	  tests/02ibm862.t, tests/02ibm863.t, tests/02ibm864.t,
+	  tests/02ibm865.t, tests/02ibm866.t, tests/02ibm868.t,
+	  tests/02ibm869.t, tests/02ibm870.t, tests/02ibm871.t,
+	  tests/02ibm874.t, tests/02ibm875.t, tests/02ibm880.t,
+	  tests/02ibm891.t, tests/02ibm903.t, tests/02ibm904.t,
+	  tests/02ibm905.t, tests/02ibm918.t, tests/02iec_p27-1.t,
+	  tests/02inis-8.t, tests/02inis-cyrillic.t, tests/02inis.t,
+	  tests/02iso-8859-1.t, tests/02iso-8859-10.t,
+	  tests/02iso-8859-11.t, tests/02iso-8859-13.t,
+	  tests/02iso-8859-14.t, tests/02iso-8859-15.t,
+	  tests/02iso-8859-16.t, tests/02iso-8859-2.t,
+	  tests/02iso-8859-3.t, tests/02iso-8859-4.t, tests/02iso-8859-5.t,
+	  tests/02iso-8859-6.t, tests/02iso-8859-7.t, tests/02iso-8859-8.t,
+	  tests/02iso-8859-9.t, tests/02iso_10367-box.t,
+	  tests/02iso_2033-1983.t, tests/02iso_5427-ext.t,
+	  tests/02iso_5427.t, tests/02iso_5428.t, tests/02koi-8.t,
+	  tests/02koi8-r.t, tests/02koi8-ru.t, tests/02koi8-t.t,
+	  tests/02koi8-u.t, tests/02latin-greek-1.t, tests/02latin-greek.t,
+	  tests/02mac-is.t, tests/02mac-sami.t, tests/02mac-uk.t,
+	  tests/02macarabic.t, tests/02maccroatian.t,
+	  tests/02maccyrillic.t, tests/02macgreek.t, tests/02machebrew.t,
+	  tests/02maciceland.t, tests/02macintosh.t, tests/02macromania.t,
+	  tests/02macthai.t, tests/02macturkish.t, tests/02macukraine.t,
+	  tests/02nats-dano.t, tests/02nats-sefi.t, tests/02nextstep.t,
+	  tests/02sami-ws2.t, tests/02tis-620.t, tests/02us-ascii.t,
+	  tests/02utf-8.t, tests/02viscii.t,
+	  tests/03bind_textdomain_codeset.t,
+	  tests/03bind_textdomain_codeset_pp.t, tests/03bindtextdomain.t,
+	  tests/03bindtextdomain_pp.t, tests/03dcgettext.t,
+	  tests/03dcgettext_pp.t, tests/03dcngettext.t,
+	  tests/03dcngettext_pp.t, tests/03dgettext.t,
+	  tests/03dgettext_pp.t, tests/03dngettext.t,
+	  tests/03dngettext_pp.t, tests/03gettext.t, tests/03gettext_pp.t,
+	  tests/03ngettext.t, tests/03ngettext_pp.t, tests/03textdomain.t,
+	  tests/03textdomain_pp.t,
+	  tests/LocaleData/de/LC_MESSAGES/additional.mo,
+	  tests/LocaleData/de/LC_MESSAGES/existing.mo,
+	  tests/LocaleData/de_AT/LC_MESSAGES/additional.mo,
+	  tests/LocaleData/de_AT/LC_MESSAGES/existing.mo,
+	  tests/po/Makefile, tests/po/additional.de.po,
+	  tests/po/additional.de_AT.po, tests/po/existing.de.po,
+	  tests/po/existing.de_AT.po:
+	  - directory t/ moved to tests/
+
+2003-08-19 19:43  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/_Encode.pm: merged from norma branch
+
+2003-08-11 12:52  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/_Encode.pm: fixed pod typo (reported by
+	  Mike Castle <dalgoda@ix.netcom.com>)
+
+2003-08-07 18:53  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/RecodeData/_Encode.pm: _recode must return a true
+	  value if Encode::from_to returns 0
+
+2003-08-07 13:57  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-08-07 13:56  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: renamed variables
+
+2003-08-07 13:54  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 1.00
+
+2003-08-07 13:38  Guido Flohr <guido@imperia.net>
+
+	* README, lib/Locale/Messages.pm, lib/Locale/RecodeData.pm,
+	  lib/Locale/Recode/_Aliases.pm, sample/README: documentation
+	  tweaks
+
+2003-07-28 15:57  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # regenerated
+
+2003-07-28 15:54  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 0.14
+
+2003-07-28 15:51  Guido Flohr <guido@imperia.net>
+
+	* README, sample/README: fixed web addresses
+
+2003-07-28 15:21  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-07-28 15:20  Guido Flohr <guido@imperia.net>
+
+	* sample/: README, simplecal/MANIFEST, simplecal/Makefile.PL,
+	  simplecal/bin/simplecal.pl, simplecal/lib/SimpleCal.pm,
+	  simplecal/lib/LocaleData/ar/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/ar_SA/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/de/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/de_AT/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/fr/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/ga/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/it/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/nl/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/pt/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/pt_BR/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/lib/LocaleData/ru/LC_MESSAGES/org.imperia.simplecal.mo,
+	  simplecal/po/LINGUAS, simplecal/po/Makefile,
+	  simplecal/po/POTFILES.in, simplecal/po/TEXTDOMAIN,
+	  simplecal/po/all.pot, simplecal/po/ar.po, simplecal/po/ar_SA.po,
+	  simplecal/po/de.po, simplecal/po/de_AT.po, simplecal/po/fr.po,
+	  simplecal/po/ga.po, simplecal/po/it.po, simplecal/po/nl.po,
+	  simplecal/po/org.imperia.simplecal.pot, simplecal/po/pt.po,
+	  simplecal/po/pt_BR.po, simplecal/po/ru.po: added directory sample
+	  with a self-containing example
+
+2003-07-28 15:16  Guido Flohr <guido@imperia.net>
+
+	* README: updated
+
+2003-07-28 15:15  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/: RecodeData/ASMO_449.pm, RecodeData/ATARI_ST.pm,
+	  RecodeData/ATARI_ST_EURO.pm, RecodeData/CP10007.pm,
+	  RecodeData/CP1250.pm, RecodeData/CP1251.pm, RecodeData/CP1252.pm,
+	  RecodeData/CP1253.pm, RecodeData/CP1254.pm, RecodeData/CP1256.pm,
+	  RecodeData/CP1257.pm, RecodeData/CSN_369103.pm,
+	  RecodeData/CWI.pm, RecodeData/DEC_MCS.pm,
+	  RecodeData/EBCDIC_AT_DE.pm, RecodeData/EBCDIC_AT_DE_A.pm,
+	  RecodeData/EBCDIC_CA_FR.pm, RecodeData/EBCDIC_DK_NO.pm,
+	  RecodeData/EBCDIC_DK_NO_A.pm, RecodeData/EBCDIC_ES.pm,
+	  RecodeData/EBCDIC_ES_A.pm, RecodeData/EBCDIC_ES_S.pm,
+	  RecodeData/EBCDIC_FI_SE.pm, RecodeData/EBCDIC_FI_SE_A.pm,
+	  RecodeData/EBCDIC_FR.pm, RecodeData/EBCDIC_IS_FRISS.pm,
+	  RecodeData/EBCDIC_IT.pm, RecodeData/EBCDIC_PT.pm,
+	  RecodeData/EBCDIC_UK.pm, RecodeData/EBCDIC_US.pm,
+	  RecodeData/ECMA_CYRILLIC.pm, RecodeData/GEORGIAN_ACADEMY.pm,
+	  RecodeData/GEORGIAN_PS.pm, RecodeData/GOST_19768_74.pm,
+	  RecodeData/GREEK7.pm, RecodeData/GREEK7_OLD.pm,
+	  RecodeData/GREEK_CCITT.pm, RecodeData/HP_ROMAN8.pm,
+	  RecodeData/IBM037.pm, RecodeData/IBM038.pm,
+	  RecodeData/IBM1004.pm, RecodeData/IBM1026.pm,
+	  RecodeData/IBM1047.pm, RecodeData/IBM256.pm,
+	  RecodeData/IBM273.pm, RecodeData/IBM274.pm, RecodeData/IBM275.pm,
+	  RecodeData/IBM277.pm, RecodeData/IBM278.pm, RecodeData/IBM280.pm,
+	  RecodeData/IBM281.pm, RecodeData/IBM284.pm, RecodeData/IBM285.pm,
+	  RecodeData/IBM290.pm, RecodeData/IBM297.pm, RecodeData/IBM420.pm,
+	  RecodeData/IBM423.pm, RecodeData/IBM424.pm, RecodeData/IBM437.pm,
+	  RecodeData/IBM500.pm, RecodeData/IBM850.pm, RecodeData/IBM851.pm,
+	  RecodeData/IBM852.pm, RecodeData/IBM855.pm, RecodeData/IBM857.pm,
+	  RecodeData/IBM860.pm, RecodeData/IBM861.pm, RecodeData/IBM862.pm,
+	  RecodeData/IBM863.pm, RecodeData/IBM864.pm, RecodeData/IBM865.pm,
+	  RecodeData/IBM866.pm, RecodeData/IBM868.pm, RecodeData/IBM869.pm,
+	  RecodeData/IBM870.pm, RecodeData/IBM871.pm, RecodeData/IBM874.pm,
+	  RecodeData/IBM875.pm, RecodeData/IBM880.pm, RecodeData/IBM891.pm,
+	  RecodeData/IBM903.pm, RecodeData/IBM904.pm, RecodeData/IBM905.pm,
+	  RecodeData/IBM918.pm, RecodeData/IEC_P27_1.pm,
+	  RecodeData/INIS.pm, RecodeData/INIS_8.pm,
+	  RecodeData/INIS_CYRILLIC.pm, RecodeData/ISO_10367_BOX.pm,
+	  RecodeData/ISO_2033_1983.pm, RecodeData/ISO_5427.pm,
+	  RecodeData/ISO_5427_EXT.pm, RecodeData/ISO_5428.pm,
+	  RecodeData/ISO_8859_1.pm, RecodeData/ISO_8859_10.pm,
+	  RecodeData/ISO_8859_11.pm, RecodeData/ISO_8859_13.pm,
+	  RecodeData/ISO_8859_14.pm, RecodeData/ISO_8859_15.pm,
+	  RecodeData/ISO_8859_16.pm, RecodeData/ISO_8859_2.pm,
+	  RecodeData/ISO_8859_3.pm, RecodeData/ISO_8859_4.pm,
+	  RecodeData/ISO_8859_5.pm, RecodeData/ISO_8859_6.pm,
+	  RecodeData/ISO_8859_7.pm, RecodeData/ISO_8859_8.pm,
+	  RecodeData/ISO_8859_9.pm, RecodeData/KOI8_R.pm,
+	  RecodeData/KOI8_RU.pm, RecodeData/KOI8_T.pm,
+	  RecodeData/KOI8_U.pm, RecodeData/KOI_8.pm,
+	  RecodeData/LATIN_GREEK.pm, RecodeData/LATIN_GREEK_1.pm,
+	  RecodeData/MACARABIC.pm, RecodeData/MACCROATIAN.pm,
+	  RecodeData/MACCYRILLIC.pm, RecodeData/MACGREEK.pm,
+	  RecodeData/MACHEBREW.pm, RecodeData/MACICELAND.pm,
+	  RecodeData/MACINTOSH.pm, RecodeData/MACROMANIA.pm,
+	  RecodeData/MACTHAI.pm, RecodeData/MACTURKISH.pm,
+	  RecodeData/MACUKRAINE.pm, RecodeData/MAC_IS.pm,
+	  RecodeData/MAC_SAMI.pm, RecodeData/MAC_UK.pm,
+	  RecodeData/NATS_DANO.pm, RecodeData/NATS_SEFI.pm,
+	  RecodeData/NEXTSTEP.pm, RecodeData/SAMI_WS2.pm,
+	  RecodeData/TIS_620.pm, RecodeData/US_ASCII.pm,
+	  RecodeData/UTF_8.pm, RecodeData/VISCII.pm, RecodeData/_Encode.pm,
+	  Messages.pm, Recode.pm, RecodeData.pm, TextDomain.pm,
+	  gettext_pp.pm, Recode/_Aliases.pm, Recode/_Conversions.pm: #
+	  fixed Emacs variables
+
+2003-07-15 15:09  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # re-generated
+
+2003-07-15 15:07  Guido Flohr <guido@imperia.net>
+
+	* BUGS, MANIFEST, README, TODO: updated
+
+2003-07-15 15:02  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm:
+	  - changed placeholder format to {curlies}
+	  - bumped version number to 0.13
+
+2003-07-14 18:46  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # updated
+
+2003-07-14 18:36  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: early exit if no directories for
+	  catalogs exist
+
+2003-07-14 18:11  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated
+
+2003-07-14 18:11  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: return converted string in utf8_off
+
+2003-07-14 17:20  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: syntax errors
+
+2003-07-14 15:24  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/: Messages.pm, gettext_pp.pm: performance tweaks
+
+2003-07-14 14:02  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: fixed fatal typo
+
+2003-07-14 13:46  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm:
+	  - use nl_langinfo() if available to determine output charset
+	  - variable names
+
+2003-06-30 22:12  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode.pm: compatibility tweak, (SuSE rpm
+	  perl-5.8.0-104!)
+
+2003-06-27 13:25  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/Messages.pm: fixed pod error
+
+2003-06-27 13:24  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: fixed pod errors
+
+2003-06-27 13:19  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode.pm: fixed for new conversion interface
+
+2003-06-23 18:24  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: ChangeLog
+
+2003-06-23 17:48  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: # updated
+
+2003-06-23 17:32  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm:
+	  - avoid intermediate function calls
+	  - renamed internal functions to initial values in order
+	    to avoid unintended similarities to GNU implementation
+
+2003-06-23 14:34  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated
+
+2003-06-23 14:30  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/RecodeData/: ASMO_449.pm, ATARI_ST.pm,
+	  ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
+	  CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm,
+	  CWI.pm, DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm,
+	  EBCDIC_CA_FR.pm, EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm,
+	  EBCDIC_ES.pm, EBCDIC_ES_A.pm, EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm,
+	  EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm, EBCDIC_IS_FRISS.pm,
+	  EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm, EBCDIC_US.pm,
+	  ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm, GEORGIAN_PS.pm,
+	  GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm, GREEK_CCITT.pm,
+	  HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm, IBM1026.pm,
+	  IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
+	  IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
+	  IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
+	  IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
+	  IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
+	  IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
+	  IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
+	  IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
+	  ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
+	  ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_11.pm,
+	  ISO_8859_13.pm, ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm,
+	  ISO_8859_2.pm, ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm,
+	  ISO_8859_6.pm, ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm,
+	  KOI8_R.pm, KOI8_RU.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
+	  LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACARABIC.pm, MACCROATIAN.pm,
+	  MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
+	  MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
+	  MACUKRAINE.pm, MAC_IS.pm, MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm,
+	  NATS_SEFI.pm, NEXTSTEP.pm, SAMI_WS2.pm, TIS_620.pm, US_ASCII.pm,
+	  UTF_8.pm, VISCII.pm:
+	  - use strict;  moved up
+	  - no bare words after 'use base'
+
+2003-06-23 14:11  Ingrid Graefen <ingrid.graefen@imperia.net>
+
+	* lib/Locale/TextDomain.pm: fixed typo in pod
+
+2003-06-23 13:14  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: leave undefined placeholders untouched
+
+2003-06-20 18:06  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated
+
+2003-06-20 18:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: bumped version number to 0.11
+
+2003-06-20 18:04  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: new
+
+2003-06-20 18:03  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST:
+	  - added ChangeLog
+	  - added KOI8-RU files
+
+2003-06-20 18:03  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST.SKIP: also exclude x-shell scripts from distcheck
+
+2003-06-20 17:58  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: always turn utf-8 flag off for messages
+
+2003-06-20 15:06  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: untaint the plural header code
+
+2003-06-20 13:29  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: avoid re-loading of message catalogs
+
+2003-06-16 15:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode/_Conversions.pm: $optional_conversion may
+	  *only* contain the preferred MIME names!
+
+2003-06-16 14:53  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/ISO_8859_1.pm: bugfix for Perl without
+	  Encode
+
+2003-06-16 14:44  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/US_ASCII.pm:
+	  - now replaces with Unicode replacement char 0xfffd
+	  - fixed test
+
+2003-06-16 14:16  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, MANIFEST.SKIP, Makefile.PL, lib/Locale/Messages.pm,
+	  lib/Locale/Recode.pm, lib/Locale/TextDomain.pm,
+	  lib/Locale/gettext_pp.pm, lib/Locale/Recode/_Conversions.pm:
+	  - general clean-up
+	  - added and fixed documentation
+	  - added MANIFEST.SKIP
+
+2003-06-16 14:16  Guido Flohr <guido@imperia.net>
+
+	* test-benchmark: removed unmaintained benchmark test
+
+2003-06-16 14:15  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Recode/_Aliases.pm: general clean-up
+
+2003-06-16 14:14  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/: ISO_IR_197.pm, ISO_IR_209.pm: removed
+	  iso-ir-{197,209}
+
+2003-06-16 14:10  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/KOI8_RU.pm: added KOI8-RU
+
+2003-06-16 14:10  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/NEXTSTEP.pm: NextStep encoding added
+
+2003-06-16 14:08  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/: MACARABIC.pm, MACCROATIAN.pm,
+	  MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
+	  MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
+	  MACUKRAINE.pm: Macintosh encodings added
+
+2003-06-16 14:07  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/RecodeData/: ASCII.pm, US_ASCII.pm: renamed ASCII to
+	  US-ASCII
 
 2003-06-16 14:05  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/Recode/_Conversions.pm: $optional_conversion may
-	*only* contain the preferred MIME names! 
-
-2003-06-16 13:53  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/ISO_8859_1.pm: bugfix for Perl without
-	Encode 
-
-2003-06-16 13:44  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/US_ASCII.pm: 
-	- now replaces with Unicode replacement char 0xfffd 
-	- fixed test 
-
-2003-06-16 13:16  Guido Flohr <guido@imperia.net>
-
-	* MANIFEST, MANIFEST.SKIP, Makefile.PL, lib/Locale/Messages.pm,
-	lib/Locale/Recode.pm, lib/Locale/TextDomain.pm,
-	lib/Locale/gettext_pp.pm, lib/Locale/Recode/_Conversions.pm: 
-	- general clean-up 
-	- added and fixed documentation 
-	- added MANIFEST.SKIP 
-
-2003-06-16 13:16  Guido Flohr <guido@imperia.net>
-
-	* test-benchmark: removed unmaintained benchmark test 
-
-2003-06-16 13:15  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/Recode/_Aliases.pm: general clean-up 
-
-2003-06-16 13:14  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/: ISO_IR_197.pm, ISO_IR_209.pm: removed
-	iso-ir-{197,209} 
-
-2003-06-16 13:10  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/KOI8_RU.pm: added KOI8-RU 
-
-2003-06-16 13:10  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/NEXTSTEP.pm: NextStep encoding added 
-
-2003-06-16 13:08  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/: MACARABIC.pm, MACCROATIAN.pm,
-	MACCYRILLIC.pm, MACGREEK.pm, MACHEBREW.pm, MACICELAND.pm,
-	MACINTOSH.pm, MACROMANIA.pm, MACTHAI.pm, MACTURKISH.pm,
-	MACUKRAINE.pm: Macintosh encodings added 
-
-2003-06-16 13:07  Guido Flohr <guido@imperia.net>
-
-	* lib/Locale/RecodeData/: ASCII.pm, US_ASCII.pm: renamed ASCII to
-	US-ASCII 
-
-2003-06-16 13:05  Guido Flohr <guido@imperia.net>
-
 	* lib/Locale/RecodeData/_Encode.pm: wrapper around converters
-	realized with Encode(3pm) 
+	  realized with Encode(3pm)
 
-2003-06-15 16:50  Guido Flohr <guido@imperia.net>
+2003-06-15 17:50  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, THANKS, lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
-	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm: 
-	renamed X-ATARI-ST and X-ATARI-ST-EURO to ATARI-ST and ATARI-ST-EURO 
+	  lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	  lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm:
+	  renamed X-ATARI-ST and X-ATARI-ST-EURO to ATARI-ST and ATARI-ST-EURO
 
-2003-06-15 16:35  Guido Flohr <guido@imperia.net>
+2003-06-15 17:35  Guido Flohr <guido@imperia.net>
 
 	* BUGS, MANIFEST, lib/Locale/Messages.pm, lib/Locale/Recode.pm,
-	lib/Locale/RecodeData.pm, lib/Locale/TextDomain.pm,
-	lib/Locale/gettext_pp.pm, lib/Locale/Recode/_Aliases.pm,
-	lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ASMO_449.pm,
-	lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
-	lib/Locale/RecodeData/BIG5_HKSCS.pm,
-	lib/Locale/RecodeData/BIG5_HKSCS.pod,
-	lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
-	lib/Locale/RecodeData/CP10007.pm, lib/Locale/RecodeData/CP1250.pm,
-	lib/Locale/RecodeData/CP1251.pm, lib/Locale/RecodeData/CP1252.pm,
-	lib/Locale/RecodeData/CP1253.pm, lib/Locale/RecodeData/CP1254.pm,
-	lib/Locale/RecodeData/CP1256.pm, lib/Locale/RecodeData/CP1257.pm,
-	lib/Locale/RecodeData/CP1361.pm, lib/Locale/RecodeData/CP1361.pod,
-	lib/Locale/RecodeData/CP949.pm, lib/Locale/RecodeData/CP949.pod,
-	lib/Locale/RecodeData/CSN_369103.pm, lib/Locale/RecodeData/CWI.pm,
-	lib/Locale/RecodeData/DEC_MCS.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_S.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
-	lib/Locale/RecodeData/EBCDIC_IT.pm,
-	lib/Locale/RecodeData/EBCDIC_PT.pm,
-	lib/Locale/RecodeData/EBCDIC_UK.pm,
-	lib/Locale/RecodeData/EBCDIC_US.pm,
-	lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
-	lib/Locale/RecodeData/EUC_JP.pm, lib/Locale/RecodeData/EUC_JP.pod,
-	lib/Locale/RecodeData/EUC_KR.pm, lib/Locale/RecodeData/EUC_KR.pod,
-	lib/Locale/RecodeData/EUC_TW.pm, lib/Locale/RecodeData/EUC_TW.pod,
-	lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
-	lib/Locale/RecodeData/GEORGIAN_PS.pm,
-	lib/Locale/RecodeData/GOST_19768_74.pm,
-	lib/Locale/RecodeData/GREEK7.pm,
-	lib/Locale/RecodeData/GREEK7_OLD.pm,
-	lib/Locale/RecodeData/GREEK_CCITT.pm,
-	lib/Locale/RecodeData/HP_ROMAN8.pm,
-	lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
-	lib/Locale/RecodeData/IBM1004.pm, lib/Locale/RecodeData/IBM1026.pm,
-	lib/Locale/RecodeData/IBM1047.pm, lib/Locale/RecodeData/IBM256.pm,
-	lib/Locale/RecodeData/IBM273.pm, lib/Locale/RecodeData/IBM274.pm,
-	lib/Locale/RecodeData/IBM275.pm, lib/Locale/RecodeData/IBM277.pm,
-	lib/Locale/RecodeData/IBM278.pm, lib/Locale/RecodeData/IBM280.pm,
-	lib/Locale/RecodeData/IBM281.pm, lib/Locale/RecodeData/IBM284.pm,
-	lib/Locale/RecodeData/IBM285.pm, lib/Locale/RecodeData/IBM290.pm,
-	lib/Locale/RecodeData/IBM297.pm, lib/Locale/RecodeData/IBM420.pm,
-	lib/Locale/RecodeData/IBM423.pm, lib/Locale/RecodeData/IBM424.pm,
-	lib/Locale/RecodeData/IBM437.pm, lib/Locale/RecodeData/IBM500.pm,
-	lib/Locale/RecodeData/IBM850.pm, lib/Locale/RecodeData/IBM851.pm,
-	lib/Locale/RecodeData/IBM852.pm, lib/Locale/RecodeData/IBM855.pm,
-	lib/Locale/RecodeData/IBM857.pm, lib/Locale/RecodeData/IBM860.pm,
-	lib/Locale/RecodeData/IBM861.pm, lib/Locale/RecodeData/IBM862.pm,
-	lib/Locale/RecodeData/IBM863.pm, lib/Locale/RecodeData/IBM864.pm,
-	lib/Locale/RecodeData/IBM865.pm, lib/Locale/RecodeData/IBM866.pm,
-	lib/Locale/RecodeData/IBM868.pm, lib/Locale/RecodeData/IBM869.pm,
-	lib/Locale/RecodeData/IBM870.pm, lib/Locale/RecodeData/IBM871.pm,
-	lib/Locale/RecodeData/IBM874.pm, lib/Locale/RecodeData/IBM875.pm,
-	lib/Locale/RecodeData/IBM880.pm, lib/Locale/RecodeData/IBM891.pm,
-	lib/Locale/RecodeData/IBM903.pm, lib/Locale/RecodeData/IBM904.pm,
-	lib/Locale/RecodeData/IBM905.pm, lib/Locale/RecodeData/IBM918.pm,
-	lib/Locale/RecodeData/IEC_P27_1.pm, lib/Locale/RecodeData/INIS.pm,
-	lib/Locale/RecodeData/INIS_8.pm,
-	lib/Locale/RecodeData/INIS_CYRILLIC.pm,
-	lib/Locale/RecodeData/ISO_10367_BOX.pm,
-	lib/Locale/RecodeData/ISO_2033_1983.pm,
-	lib/Locale/RecodeData/ISO_5427.pm,
-	lib/Locale/RecodeData/ISO_5427_EXT.pm,
-	lib/Locale/RecodeData/ISO_5428.pm,
-	lib/Locale/RecodeData/ISO_8859_1.pm,
-	lib/Locale/RecodeData/ISO_8859_10.pm,
-	lib/Locale/RecodeData/ISO_8859_11.pm,
-	lib/Locale/RecodeData/ISO_8859_13.pm,
-	lib/Locale/RecodeData/ISO_8859_14.pm,
-	lib/Locale/RecodeData/ISO_8859_15.pm,
-	lib/Locale/RecodeData/ISO_8859_16.pm,
-	lib/Locale/RecodeData/ISO_8859_2.pm,
-	lib/Locale/RecodeData/ISO_8859_3.pm,
-	lib/Locale/RecodeData/ISO_8859_4.pm,
-	lib/Locale/RecodeData/ISO_8859_5.pm,
-	lib/Locale/RecodeData/ISO_8859_6.pm,
-	lib/Locale/RecodeData/ISO_8859_7.pm,
-	lib/Locale/RecodeData/ISO_8859_8.pm,
-	lib/Locale/RecodeData/ISO_8859_9.pm,
-	lib/Locale/RecodeData/ISO_IR_197.pm,
-	lib/Locale/RecodeData/ISO_IR_209.pm,
-	lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_T.pm,
-	lib/Locale/RecodeData/KOI8_U.pm, lib/Locale/RecodeData/KOI_8.pm,
-	lib/Locale/RecodeData/LATIN_GREEK.pm,
-	lib/Locale/RecodeData/LATIN_GREEK_1.pm,
-	lib/Locale/RecodeData/MACINTOSH.pm,
-	lib/Locale/RecodeData/MAC_IS.pm, lib/Locale/RecodeData/MAC_SAMI.pm,
-	lib/Locale/RecodeData/MAC_UK.pm, lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod,
-	lib/Locale/RecodeData/NATS_DANO.pm,
-	lib/Locale/RecodeData/NATS_SEFI.pm,
-	lib/Locale/RecodeData/SAMI_WS2.pm,
-	lib/Locale/RecodeData/TIS_620.pm,
-	lib/Locale/RecodeData/UTF_8_Encode.pm,
-	lib/Locale/RecodeData/VISCII.pm: 
-	- added and updated lots of documentation 
-	- use Encode if possible 
-	- added prototypes to procedural interfaces 
-	- regenerated conversion tables 
-	- removed multi-byte encodings 
+	  lib/Locale/RecodeData.pm, lib/Locale/TextDomain.pm,
+	  lib/Locale/gettext_pp.pm, lib/Locale/Recode/_Aliases.pm,
+	  lib/Locale/Recode/_Conversions.pm,
+	  lib/Locale/RecodeData/ASMO_449.pm,
+	  lib/Locale/RecodeData/ATARI_ST.pm,
+	  lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	  lib/Locale/RecodeData/BIG5_HKSCS.pm,
+	  lib/Locale/RecodeData/BIG5_HKSCS.pod,
+	  lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
+	  lib/Locale/RecodeData/CP10007.pm,
+	  lib/Locale/RecodeData/CP1250.pm, lib/Locale/RecodeData/CP1251.pm,
+	  lib/Locale/RecodeData/CP1252.pm, lib/Locale/RecodeData/CP1253.pm,
+	  lib/Locale/RecodeData/CP1254.pm, lib/Locale/RecodeData/CP1256.pm,
+	  lib/Locale/RecodeData/CP1257.pm, lib/Locale/RecodeData/CP1361.pm,
+	  lib/Locale/RecodeData/CP1361.pod, lib/Locale/RecodeData/CP949.pm,
+	  lib/Locale/RecodeData/CP949.pod,
+	  lib/Locale/RecodeData/CSN_369103.pm,
+	  lib/Locale/RecodeData/CWI.pm, lib/Locale/RecodeData/DEC_MCS.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_S.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
+	  lib/Locale/RecodeData/EBCDIC_IT.pm,
+	  lib/Locale/RecodeData/EBCDIC_PT.pm,
+	  lib/Locale/RecodeData/EBCDIC_UK.pm,
+	  lib/Locale/RecodeData/EBCDIC_US.pm,
+	  lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
+	  lib/Locale/RecodeData/EUC_JP.pm,
+	  lib/Locale/RecodeData/EUC_JP.pod,
+	  lib/Locale/RecodeData/EUC_KR.pm,
+	  lib/Locale/RecodeData/EUC_KR.pod,
+	  lib/Locale/RecodeData/EUC_TW.pm,
+	  lib/Locale/RecodeData/EUC_TW.pod,
+	  lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
+	  lib/Locale/RecodeData/GEORGIAN_PS.pm,
+	  lib/Locale/RecodeData/GOST_19768_74.pm,
+	  lib/Locale/RecodeData/GREEK7.pm,
+	  lib/Locale/RecodeData/GREEK7_OLD.pm,
+	  lib/Locale/RecodeData/GREEK_CCITT.pm,
+	  lib/Locale/RecodeData/HP_ROMAN8.pm,
+	  lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
+	  lib/Locale/RecodeData/IBM1004.pm,
+	  lib/Locale/RecodeData/IBM1026.pm,
+	  lib/Locale/RecodeData/IBM1047.pm,
+	  lib/Locale/RecodeData/IBM256.pm, lib/Locale/RecodeData/IBM273.pm,
+	  lib/Locale/RecodeData/IBM274.pm, lib/Locale/RecodeData/IBM275.pm,
+	  lib/Locale/RecodeData/IBM277.pm, lib/Locale/RecodeData/IBM278.pm,
+	  lib/Locale/RecodeData/IBM280.pm, lib/Locale/RecodeData/IBM281.pm,
+	  lib/Locale/RecodeData/IBM284.pm, lib/Locale/RecodeData/IBM285.pm,
+	  lib/Locale/RecodeData/IBM290.pm, lib/Locale/RecodeData/IBM297.pm,
+	  lib/Locale/RecodeData/IBM420.pm, lib/Locale/RecodeData/IBM423.pm,
+	  lib/Locale/RecodeData/IBM424.pm, lib/Locale/RecodeData/IBM437.pm,
+	  lib/Locale/RecodeData/IBM500.pm, lib/Locale/RecodeData/IBM850.pm,
+	  lib/Locale/RecodeData/IBM851.pm, lib/Locale/RecodeData/IBM852.pm,
+	  lib/Locale/RecodeData/IBM855.pm, lib/Locale/RecodeData/IBM857.pm,
+	  lib/Locale/RecodeData/IBM860.pm, lib/Locale/RecodeData/IBM861.pm,
+	  lib/Locale/RecodeData/IBM862.pm, lib/Locale/RecodeData/IBM863.pm,
+	  lib/Locale/RecodeData/IBM864.pm, lib/Locale/RecodeData/IBM865.pm,
+	  lib/Locale/RecodeData/IBM866.pm, lib/Locale/RecodeData/IBM868.pm,
+	  lib/Locale/RecodeData/IBM869.pm, lib/Locale/RecodeData/IBM870.pm,
+	  lib/Locale/RecodeData/IBM871.pm, lib/Locale/RecodeData/IBM874.pm,
+	  lib/Locale/RecodeData/IBM875.pm, lib/Locale/RecodeData/IBM880.pm,
+	  lib/Locale/RecodeData/IBM891.pm, lib/Locale/RecodeData/IBM903.pm,
+	  lib/Locale/RecodeData/IBM904.pm, lib/Locale/RecodeData/IBM905.pm,
+	  lib/Locale/RecodeData/IBM918.pm,
+	  lib/Locale/RecodeData/IEC_P27_1.pm,
+	  lib/Locale/RecodeData/INIS.pm, lib/Locale/RecodeData/INIS_8.pm,
+	  lib/Locale/RecodeData/INIS_CYRILLIC.pm,
+	  lib/Locale/RecodeData/ISO_10367_BOX.pm,
+	  lib/Locale/RecodeData/ISO_2033_1983.pm,
+	  lib/Locale/RecodeData/ISO_5427.pm,
+	  lib/Locale/RecodeData/ISO_5427_EXT.pm,
+	  lib/Locale/RecodeData/ISO_5428.pm,
+	  lib/Locale/RecodeData/ISO_8859_1.pm,
+	  lib/Locale/RecodeData/ISO_8859_10.pm,
+	  lib/Locale/RecodeData/ISO_8859_11.pm,
+	  lib/Locale/RecodeData/ISO_8859_13.pm,
+	  lib/Locale/RecodeData/ISO_8859_14.pm,
+	  lib/Locale/RecodeData/ISO_8859_15.pm,
+	  lib/Locale/RecodeData/ISO_8859_16.pm,
+	  lib/Locale/RecodeData/ISO_8859_2.pm,
+	  lib/Locale/RecodeData/ISO_8859_3.pm,
+	  lib/Locale/RecodeData/ISO_8859_4.pm,
+	  lib/Locale/RecodeData/ISO_8859_5.pm,
+	  lib/Locale/RecodeData/ISO_8859_6.pm,
+	  lib/Locale/RecodeData/ISO_8859_7.pm,
+	  lib/Locale/RecodeData/ISO_8859_8.pm,
+	  lib/Locale/RecodeData/ISO_8859_9.pm,
+	  lib/Locale/RecodeData/ISO_IR_197.pm,
+	  lib/Locale/RecodeData/ISO_IR_209.pm,
+	  lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_T.pm,
+	  lib/Locale/RecodeData/KOI8_U.pm, lib/Locale/RecodeData/KOI_8.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK_1.pm,
+	  lib/Locale/RecodeData/MACINTOSH.pm,
+	  lib/Locale/RecodeData/MAC_IS.pm,
+	  lib/Locale/RecodeData/MAC_SAMI.pm,
+	  lib/Locale/RecodeData/MAC_UK.pm,
+	  lib/Locale/RecodeData/MS_KANJI.pm,
+	  lib/Locale/RecodeData/MS_KANJI.pod,
+	  lib/Locale/RecodeData/NATS_DANO.pm,
+	  lib/Locale/RecodeData/NATS_SEFI.pm,
+	  lib/Locale/RecodeData/SAMI_WS2.pm,
+	  lib/Locale/RecodeData/TIS_620.pm,
+	  lib/Locale/RecodeData/UTF_8_Encode.pm,
+	  lib/Locale/RecodeData/VISCII.pm:
+	  - added and updated lots of documentation
+	  - use Encode if possible
+	  - added prototypes to procedural interfaces
+	  - regenerated conversion tables
+	  - removed multi-byte encodings
 
-2003-06-13 13:40  Guido Flohr <guido@imperia.net>
+2003-06-13 14:40  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/: UTF_8_Encode.pm, UTF_8.pm: vim line 
+	* lib/Locale/RecodeData/: UTF_8_Encode.pm, UTF_8.pm: vim line
 
-2003-06-10 18:31  Guido Flohr <guido@imperia.net>
+2003-06-10 19:31  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: added README-MSDOS 
+	* MANIFEST: added README-MSDOS
 
-2003-06-10 18:06  Guido Flohr <guido@imperia.net>
+2003-06-10 19:06  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/gettext_pp.pm: moved version information to
-	Locale::TextDomain 
+	  Locale::TextDomain
 
-2003-06-10 18:06  Guido Flohr <guido@imperia.net>
+2003-06-10 19:06  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/Messages.pm: truth value 
+	* lib/Locale/Messages.pm: truth value
 
-2003-06-10 18:05  Guido Flohr <guido@imperia.net>
+2003-06-10 19:05  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/TextDomain.pm: new 
+	* lib/Locale/TextDomain.pm: new
 
-2003-06-10 18:05  Guido Flohr <guido@imperia.net>
+2003-06-10 19:05  Guido Flohr <guido@imperia.net>
 
-	* Makefile.PL: get version from Locale::TextDomain 
+	* Makefile.PL: get version from Locale::TextDomain
 
-2003-06-10 18:04  Guido Flohr <guido@imperia.net>
+2003-06-10 19:04  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: 
-	- added Locale/TextDomain.pm 
-	- t/02ms_kanji.t was forgotten 
+	* MANIFEST:
+	  - added Locale/TextDomain.pm
+	  - t/02ms_kanji.t was forgotten
 
-2003-06-06 15:16  Guido Flohr <guido@imperia.net>
+2003-06-06 16:16  Guido Flohr <guido@imperia.net>
 
-	* README-MSDOS: special notes for MS-DOS 
+	* README-MSDOS: special notes for MS-DOS
 
-2003-06-06 13:38  Guido Flohr <guido@imperia.net>
+2003-06-06 14:38  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/BIG5_HKSCS.pm,
-	lib/Locale/RecodeData/BIG5_HKSCS.pod,
-	lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/CP1361.pm,
-	lib/Locale/RecodeData/CP1361.pod, lib/Locale/RecodeData/CP949.pm,
-	lib/Locale/RecodeData/CP949.pod, lib/Locale/RecodeData/EUC_JP.pm,
-	lib/Locale/RecodeData/EUC_JP.pod, lib/Locale/RecodeData/EUC_TW.pm,
-	lib/Locale/RecodeData/EUC_TW.pod,
-	lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod: 
-	- optimized CJK multi-byte encodings 
+	  lib/Locale/RecodeData/BIG5_HKSCS.pm,
+	  lib/Locale/RecodeData/BIG5_HKSCS.pod,
+	  lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/CP1361.pm,
+	  lib/Locale/RecodeData/CP1361.pod, lib/Locale/RecodeData/CP949.pm,
+	  lib/Locale/RecodeData/CP949.pod, lib/Locale/RecodeData/EUC_JP.pm,
+	  lib/Locale/RecodeData/EUC_JP.pod,
+	  lib/Locale/RecodeData/EUC_TW.pm,
+	  lib/Locale/RecodeData/EUC_TW.pod,
+	  lib/Locale/RecodeData/MS_KANJI.pm,
+	  lib/Locale/RecodeData/MS_KANJI.pod:
+	  - optimized CJK multi-byte encodings
 
-2003-06-05 22:08  Guido Flohr <guido@imperia.net>
+2003-06-05 23:08  Guido Flohr <guido@imperia.net>
 
 	* BUGS, MANIFEST, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/EUC_TW.pm: fixed EUC-TW and optimized it,
-	attention: U+5344 has three representations 
+	  lib/Locale/RecodeData/EUC_TW.pm: fixed EUC-TW and optimized it,
+	  attention: U+5344 has three representations
 
-2003-06-05 20:28  Guido Flohr <guido@imperia.net>
+2003-06-05 21:28  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/RecodeData/BIG_5.pm: removed superfluous inner
-	parentheses in conversion re 
+	  parentheses in conversion re
 
-2003-06-05 20:28  Guido Flohr <guido@imperia.net>
+2003-06-05 21:28  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/RecodeData/: EUC_JP.pm, EUC_KR.pm: optimized
-	conversion 
+	  conversion
 
-2003-06-05 20:14  Guido Flohr <guido@imperia.net>
+2003-06-05 21:14  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/BIG_5.pm: optimized conversion 
+	* lib/Locale/RecodeData/BIG_5.pm: optimized conversion
 
-2003-06-05 20:13  Guido Flohr <guido@imperia.net>
+2003-06-05 21:13  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/MS_KANJI.pm: more optimizations 
+	* lib/Locale/RecodeData/MS_KANJI.pm: more optimizations
 
-2003-06-05 20:10  Guido Flohr <guido@imperia.net>
+2003-06-05 21:10  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/RecodeData/MS_KANJI.pm: compiled regular expression
-	with modifier s 
+	  with modifier s
 
-2003-06-05 20:02  Guido Flohr <guido@imperia.net>
+2003-06-05 21:02  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/MS_KANJI.pm: removed debugging code 
+	* lib/Locale/RecodeData/MS_KANJI.pm: removed debugging code
 
-2003-06-05 20:02  Guido Flohr <guido@imperia.net>
+2003-06-05 21:02  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/RecodeData/MS_KANJI.pm: optimized conversion 
+	* lib/Locale/RecodeData/MS_KANJI.pm: optimized conversion
 
-2003-06-05 19:32  Guido Flohr <guido@imperia.net>
+2003-06-05 20:32  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, TODO, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
-	lib/Locale/RecodeData/CP1361.pm, lib/Locale/RecodeData/CP1361.pod,
-	lib/Locale/RecodeData/CP949.pm, lib/Locale/RecodeData/CP949.pod,
-	lib/Locale/RecodeData/EUC_JP.pm, lib/Locale/RecodeData/EUC_JP.pod,
-	lib/Locale/RecodeData/EUC_KR.pm, lib/Locale/RecodeData/EUC_KR.pod,
-	lib/Locale/RecodeData/EUC_TW.pm, lib/Locale/RecodeData/EUC_TW.pod,
-	lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod: 
-	- insert empty lines in contiguous areas of large PODs 
-	- support for Korean CP1361 (JOHAB) 
-	- support for Korean CP949 (UHC) 
-	- support for EUC (JP, KR, and TW) 
+	  lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
+	  lib/Locale/RecodeData/CP1361.pm,
+	  lib/Locale/RecodeData/CP1361.pod, lib/Locale/RecodeData/CP949.pm,
+	  lib/Locale/RecodeData/CP949.pod, lib/Locale/RecodeData/EUC_JP.pm,
+	  lib/Locale/RecodeData/EUC_JP.pod,
+	  lib/Locale/RecodeData/EUC_KR.pm,
+	  lib/Locale/RecodeData/EUC_KR.pod,
+	  lib/Locale/RecodeData/EUC_TW.pm,
+	  lib/Locale/RecodeData/EUC_TW.pod,
+	  lib/Locale/RecodeData/MS_KANJI.pm,
+	  lib/Locale/RecodeData/MS_KANJI.pod:
+	  - insert empty lines in contiguous areas of large PODs
+	  - support for Korean CP1361 (JOHAB)
+	  - support for Korean CP949 (UHC)
+	  - support for EUC (JP, KR, and TW)
 
-2003-06-05 13:39  Ingrid Graefen <ingrid.graefen@imperia.net>
+2003-06-05 14:39  Ingrid Graefen <ingrid.graefen@imperia.net>
 
 	* lib/Locale/RecodeData/: BIG_5.pm, MS_KANJI.pm: Perl 5.005 issue
-	(base.pm Bug) 
+	  (base.pm Bug)
 
-2003-06-05 12:40  Guido Flohr <guido@imperia.net>
+2003-06-05 13:40  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, TODO, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
-	lib/Locale/RecodeData/MS_KANJI.pm,
-	lib/Locale/RecodeData/MS_KANJI.pod: 
-	- support for MS_Kanji (Shift-JIS) 
-	- support for Big-5 (traditional Chinese) 
+	  lib/Locale/RecodeData/BIG_5.pm, lib/Locale/RecodeData/BIG_5.pod,
+	  lib/Locale/RecodeData/MS_KANJI.pm,
+	  lib/Locale/RecodeData/MS_KANJI.pod:
+	  - support for MS_Kanji (Shift-JIS)
+	  - support for Big-5 (traditional Chinese)
 
-2003-06-04 14:20  Guido Flohr <guido@imperia.net>
+2003-06-04 15:20  Guido Flohr <guido@imperia.net>
 
 	* lib/Locale/RecodeData/ISO_8859_11.pm: updated origin information
-	for ISO-8859-11 
+	  for ISO-8859-11
 
-2003-06-04 14:16  Guido Flohr <guido@imperia.net>
+2003-06-04 15:16  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, lib/Locale/Recode.pm, lib/Locale/gettext_pp.pm,
-	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ISO_8859_11.pm: support for ISO-8859-11 
+	  lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
+	  lib/Locale/RecodeData/ISO_8859_11.pm: support for ISO-8859-11
 
-2003-06-04 14:16  Guido Flohr <guido@imperia.net>
+2003-06-04 15:16  Guido Flohr <guido@imperia.net>
 
-	* Makefile.PL: extract version from gettext_pp, not Recode 
+	* Makefile.PL: extract version from gettext_pp, not Recode
 
-2003-06-02 13:16  Guido Flohr <guido@imperia.net>
+2003-06-02 14:16  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, Makefile.PL, README, THANKS, test-benchmark,
-	lib/Locale/Messages.pm, lib/Locale/Recode.pm,
-	lib/Locale/RecodeData.pm, lib/Locale/gettext_pp.pm,
-	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ASCII.pm, lib/Locale/RecodeData/ASMO_449.pm,
-	lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
-	lib/Locale/RecodeData/CP10007.pm, lib/Locale/RecodeData/CP1250.pm,
-	lib/Locale/RecodeData/CP1251.pm, lib/Locale/RecodeData/CP1252.pm,
-	lib/Locale/RecodeData/CP1253.pm, lib/Locale/RecodeData/CP1254.pm,
-	lib/Locale/RecodeData/CP1256.pm, lib/Locale/RecodeData/CP1257.pm,
-	lib/Locale/RecodeData/CSN_369103.pm, lib/Locale/RecodeData/CWI.pm,
-	lib/Locale/RecodeData/DEC_MCS.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_S.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
-	lib/Locale/RecodeData/EBCDIC_IT.pm,
-	lib/Locale/RecodeData/EBCDIC_PT.pm,
-	lib/Locale/RecodeData/EBCDIC_UK.pm,
-	lib/Locale/RecodeData/EBCDIC_US.pm,
-	lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
-	lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
-	lib/Locale/RecodeData/GEORGIAN_PS.pm,
-	lib/Locale/RecodeData/GOST_19768_74.pm,
-	lib/Locale/RecodeData/GREEK7.pm,
-	lib/Locale/RecodeData/GREEK7_OLD.pm,
-	lib/Locale/RecodeData/GREEK_CCITT.pm,
-	lib/Locale/RecodeData/HP_ROMAN8.pm,
-	lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
-	lib/Locale/RecodeData/IBM1004.pm, lib/Locale/RecodeData/IBM1026.pm,
-	lib/Locale/RecodeData/IBM1047.pm, lib/Locale/RecodeData/IBM256.pm,
-	lib/Locale/RecodeData/IBM273.pm, lib/Locale/RecodeData/IBM274.pm,
-	lib/Locale/RecodeData/IBM275.pm, lib/Locale/RecodeData/IBM277.pm,
-	lib/Locale/RecodeData/IBM278.pm, lib/Locale/RecodeData/IBM280.pm,
-	lib/Locale/RecodeData/IBM281.pm, lib/Locale/RecodeData/IBM284.pm,
-	lib/Locale/RecodeData/IBM285.pm, lib/Locale/RecodeData/IBM290.pm,
-	lib/Locale/RecodeData/IBM297.pm, lib/Locale/RecodeData/IBM420.pm,
-	lib/Locale/RecodeData/IBM423.pm, lib/Locale/RecodeData/IBM424.pm,
-	lib/Locale/RecodeData/IBM437.pm, lib/Locale/RecodeData/IBM500.pm,
-	lib/Locale/RecodeData/IBM850.pm, lib/Locale/RecodeData/IBM851.pm,
-	lib/Locale/RecodeData/IBM852.pm, lib/Locale/RecodeData/IBM855.pm,
-	lib/Locale/RecodeData/IBM857.pm, lib/Locale/RecodeData/IBM860.pm,
-	lib/Locale/RecodeData/IBM861.pm, lib/Locale/RecodeData/IBM862.pm,
-	lib/Locale/RecodeData/IBM863.pm, lib/Locale/RecodeData/IBM864.pm,
-	lib/Locale/RecodeData/IBM865.pm, lib/Locale/RecodeData/IBM866.pm,
-	lib/Locale/RecodeData/IBM868.pm, lib/Locale/RecodeData/IBM869.pm,
-	lib/Locale/RecodeData/IBM870.pm, lib/Locale/RecodeData/IBM871.pm,
-	lib/Locale/RecodeData/IBM874.pm, lib/Locale/RecodeData/IBM875.pm,
-	lib/Locale/RecodeData/IBM880.pm, lib/Locale/RecodeData/IBM891.pm,
-	lib/Locale/RecodeData/IBM903.pm, lib/Locale/RecodeData/IBM904.pm,
-	lib/Locale/RecodeData/IBM905.pm, lib/Locale/RecodeData/IBM918.pm,
-	lib/Locale/RecodeData/IEC_P27_1.pm, lib/Locale/RecodeData/INIS.pm,
-	lib/Locale/RecodeData/INIS_8.pm,
-	lib/Locale/RecodeData/INIS_CYRILLIC.pm,
-	lib/Locale/RecodeData/ISO_10367_BOX.pm,
-	lib/Locale/RecodeData/ISO_2033_1983.pm,
-	lib/Locale/RecodeData/ISO_5427.pm,
-	lib/Locale/RecodeData/ISO_5427_EXT.pm,
-	lib/Locale/RecodeData/ISO_5428.pm,
-	lib/Locale/RecodeData/ISO_8859_1.pm,
-	lib/Locale/RecodeData/ISO_8859_10.pm,
-	lib/Locale/RecodeData/ISO_8859_13.pm,
-	lib/Locale/RecodeData/ISO_8859_14.pm,
-	lib/Locale/RecodeData/ISO_8859_15.pm,
-	lib/Locale/RecodeData/ISO_8859_16.pm,
-	lib/Locale/RecodeData/ISO_8859_2.pm,
-	lib/Locale/RecodeData/ISO_8859_3.pm,
-	lib/Locale/RecodeData/ISO_8859_4.pm,
-	lib/Locale/RecodeData/ISO_8859_5.pm,
-	lib/Locale/RecodeData/ISO_8859_6.pm,
-	lib/Locale/RecodeData/ISO_8859_7.pm,
-	lib/Locale/RecodeData/ISO_8859_8.pm,
-	lib/Locale/RecodeData/ISO_8859_9.pm,
-	lib/Locale/RecodeData/ISO_IR_197.pm,
-	lib/Locale/RecodeData/ISO_IR_209.pm,
-	lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_T.pm,
-	lib/Locale/RecodeData/KOI8_U.pm, lib/Locale/RecodeData/KOI_8.pm,
-	lib/Locale/RecodeData/LATIN_GREEK.pm,
-	lib/Locale/RecodeData/LATIN_GREEK_1.pm,
-	lib/Locale/RecodeData/MACINTOSH.pm,
-	lib/Locale/RecodeData/MAC_IS.pm, lib/Locale/RecodeData/MAC_SAMI.pm,
-	lib/Locale/RecodeData/MAC_UK.pm,
-	lib/Locale/RecodeData/NATS_DANO.pm,
-	lib/Locale/RecodeData/NATS_SEFI.pm,
-	lib/Locale/RecodeData/SAMI_WS2.pm,
-	lib/Locale/RecodeData/TIS_620.pm, lib/Locale/RecodeData/UTF_8.pm,
-	lib/Locale/RecodeData/UTF_8_Encode.pm,
-	lib/Locale/RecodeData/VISCII.pm: 
-	- support for Perl 5.8 
-	- vim lines 
-	- emacs variables 
-	- changed copyright statements 
-	- general update 
+	  lib/Locale/Messages.pm, lib/Locale/Recode.pm,
+	  lib/Locale/RecodeData.pm, lib/Locale/gettext_pp.pm,
+	  lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
+	  lib/Locale/RecodeData/ASCII.pm,
+	  lib/Locale/RecodeData/ASMO_449.pm,
+	  lib/Locale/RecodeData/ATARI_ST.pm,
+	  lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	  lib/Locale/RecodeData/CP10007.pm,
+	  lib/Locale/RecodeData/CP1250.pm, lib/Locale/RecodeData/CP1251.pm,
+	  lib/Locale/RecodeData/CP1252.pm, lib/Locale/RecodeData/CP1253.pm,
+	  lib/Locale/RecodeData/CP1254.pm, lib/Locale/RecodeData/CP1256.pm,
+	  lib/Locale/RecodeData/CP1257.pm,
+	  lib/Locale/RecodeData/CSN_369103.pm,
+	  lib/Locale/RecodeData/CWI.pm, lib/Locale/RecodeData/DEC_MCS.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_S.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
+	  lib/Locale/RecodeData/EBCDIC_IT.pm,
+	  lib/Locale/RecodeData/EBCDIC_PT.pm,
+	  lib/Locale/RecodeData/EBCDIC_UK.pm,
+	  lib/Locale/RecodeData/EBCDIC_US.pm,
+	  lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
+	  lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
+	  lib/Locale/RecodeData/GEORGIAN_PS.pm,
+	  lib/Locale/RecodeData/GOST_19768_74.pm,
+	  lib/Locale/RecodeData/GREEK7.pm,
+	  lib/Locale/RecodeData/GREEK7_OLD.pm,
+	  lib/Locale/RecodeData/GREEK_CCITT.pm,
+	  lib/Locale/RecodeData/HP_ROMAN8.pm,
+	  lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
+	  lib/Locale/RecodeData/IBM1004.pm,
+	  lib/Locale/RecodeData/IBM1026.pm,
+	  lib/Locale/RecodeData/IBM1047.pm,
+	  lib/Locale/RecodeData/IBM256.pm, lib/Locale/RecodeData/IBM273.pm,
+	  lib/Locale/RecodeData/IBM274.pm, lib/Locale/RecodeData/IBM275.pm,
+	  lib/Locale/RecodeData/IBM277.pm, lib/Locale/RecodeData/IBM278.pm,
+	  lib/Locale/RecodeData/IBM280.pm, lib/Locale/RecodeData/IBM281.pm,
+	  lib/Locale/RecodeData/IBM284.pm, lib/Locale/RecodeData/IBM285.pm,
+	  lib/Locale/RecodeData/IBM290.pm, lib/Locale/RecodeData/IBM297.pm,
+	  lib/Locale/RecodeData/IBM420.pm, lib/Locale/RecodeData/IBM423.pm,
+	  lib/Locale/RecodeData/IBM424.pm, lib/Locale/RecodeData/IBM437.pm,
+	  lib/Locale/RecodeData/IBM500.pm, lib/Locale/RecodeData/IBM850.pm,
+	  lib/Locale/RecodeData/IBM851.pm, lib/Locale/RecodeData/IBM852.pm,
+	  lib/Locale/RecodeData/IBM855.pm, lib/Locale/RecodeData/IBM857.pm,
+	  lib/Locale/RecodeData/IBM860.pm, lib/Locale/RecodeData/IBM861.pm,
+	  lib/Locale/RecodeData/IBM862.pm, lib/Locale/RecodeData/IBM863.pm,
+	  lib/Locale/RecodeData/IBM864.pm, lib/Locale/RecodeData/IBM865.pm,
+	  lib/Locale/RecodeData/IBM866.pm, lib/Locale/RecodeData/IBM868.pm,
+	  lib/Locale/RecodeData/IBM869.pm, lib/Locale/RecodeData/IBM870.pm,
+	  lib/Locale/RecodeData/IBM871.pm, lib/Locale/RecodeData/IBM874.pm,
+	  lib/Locale/RecodeData/IBM875.pm, lib/Locale/RecodeData/IBM880.pm,
+	  lib/Locale/RecodeData/IBM891.pm, lib/Locale/RecodeData/IBM903.pm,
+	  lib/Locale/RecodeData/IBM904.pm, lib/Locale/RecodeData/IBM905.pm,
+	  lib/Locale/RecodeData/IBM918.pm,
+	  lib/Locale/RecodeData/IEC_P27_1.pm,
+	  lib/Locale/RecodeData/INIS.pm, lib/Locale/RecodeData/INIS_8.pm,
+	  lib/Locale/RecodeData/INIS_CYRILLIC.pm,
+	  lib/Locale/RecodeData/ISO_10367_BOX.pm,
+	  lib/Locale/RecodeData/ISO_2033_1983.pm,
+	  lib/Locale/RecodeData/ISO_5427.pm,
+	  lib/Locale/RecodeData/ISO_5427_EXT.pm,
+	  lib/Locale/RecodeData/ISO_5428.pm,
+	  lib/Locale/RecodeData/ISO_8859_1.pm,
+	  lib/Locale/RecodeData/ISO_8859_10.pm,
+	  lib/Locale/RecodeData/ISO_8859_13.pm,
+	  lib/Locale/RecodeData/ISO_8859_14.pm,
+	  lib/Locale/RecodeData/ISO_8859_15.pm,
+	  lib/Locale/RecodeData/ISO_8859_16.pm,
+	  lib/Locale/RecodeData/ISO_8859_2.pm,
+	  lib/Locale/RecodeData/ISO_8859_3.pm,
+	  lib/Locale/RecodeData/ISO_8859_4.pm,
+	  lib/Locale/RecodeData/ISO_8859_5.pm,
+	  lib/Locale/RecodeData/ISO_8859_6.pm,
+	  lib/Locale/RecodeData/ISO_8859_7.pm,
+	  lib/Locale/RecodeData/ISO_8859_8.pm,
+	  lib/Locale/RecodeData/ISO_8859_9.pm,
+	  lib/Locale/RecodeData/ISO_IR_197.pm,
+	  lib/Locale/RecodeData/ISO_IR_209.pm,
+	  lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_T.pm,
+	  lib/Locale/RecodeData/KOI8_U.pm, lib/Locale/RecodeData/KOI_8.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK_1.pm,
+	  lib/Locale/RecodeData/MACINTOSH.pm,
+	  lib/Locale/RecodeData/MAC_IS.pm,
+	  lib/Locale/RecodeData/MAC_SAMI.pm,
+	  lib/Locale/RecodeData/MAC_UK.pm,
+	  lib/Locale/RecodeData/NATS_DANO.pm,
+	  lib/Locale/RecodeData/NATS_SEFI.pm,
+	  lib/Locale/RecodeData/SAMI_WS2.pm,
+	  lib/Locale/RecodeData/TIS_620.pm, lib/Locale/RecodeData/UTF_8.pm,
+	  lib/Locale/RecodeData/UTF_8_Encode.pm,
+	  lib/Locale/RecodeData/VISCII.pm:
+	  - support for Perl 5.8
+	  - vim lines
+	  - emacs variables
+	  - changed copyright statements
+	  - general update
 
-2003-01-20 15:10  Ingrid Graefen <ingrid.graefen@imperia.net>
+2003-01-20 16:10  Ingrid Graefen <ingrid.graefen@imperia.net>
 
 	* lib/Locale/gettext_pp.pm: eval '&POSIX::LC_MESSAGES' only if
-	$POSIX::{LC_MESSAGES} exists (avoiding calls to Carp and avoiding
-	problems with ptkdb step over) 
+	  $POSIX::{LC_MESSAGES} exists (avoiding calls to Carp and avoiding
+	  problems with ptkdb step over)
 
-2003-01-10 16:55  Oliver Hoos <oliver.hoos@imperia.net>
+2003-01-10 17:55  Oliver Hoos <oliver.hoos@imperia.net>
 
-	* MANIFEST, Makefile.PL: fixed for new directory structure 
+	* MANIFEST, Makefile.PL: fixed for new directory structure
 
-2002-10-22 13:20  Ingrid Graefen <ingrid.graefen@imperia.net>
+2002-10-22 14:20  Ingrid Graefen <ingrid.graefen@imperia.net>
 
 	* lib/Locale/RecodeData/: ASCII.pm, ASMO_449.pm, ATARI_ST.pm,
-	ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
-	CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm, CWI.pm,
-	DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm, EBCDIC_CA_FR.pm,
-	EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm, EBCDIC_ES.pm, EBCDIC_ES_A.pm,
-	EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm, EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm,
-	EBCDIC_IS_FRISS.pm, EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm,
-	EBCDIC_US.pm, ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm,
-	GEORGIAN_PS.pm, GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm,
-	GREEK_CCITT.pm, HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm,
-	IBM1026.pm, IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
-	IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
-	IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
-	IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
-	IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
-	IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
-	IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
-	IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
-	ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
-	ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_13.pm,
-	ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm, ISO_8859_2.pm,
-	ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm, ISO_8859_6.pm,
-	ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm, ISO_IR_197.pm,
-	ISO_IR_209.pm, KOI8_R.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
-	LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACINTOSH.pm, MAC_IS.pm,
-	MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm, NATS_SEFI.pm, SAMI_WS2.pm,
-	TIS_620.pm, UTF_8.pm, VISCII.pm: no BAREWORD after use base 
+	  ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
+	  CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm,
+	  CWI.pm, DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm,
+	  EBCDIC_CA_FR.pm, EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm,
+	  EBCDIC_ES.pm, EBCDIC_ES_A.pm, EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm,
+	  EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm, EBCDIC_IS_FRISS.pm,
+	  EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm, EBCDIC_US.pm,
+	  ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm, GEORGIAN_PS.pm,
+	  GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm, GREEK_CCITT.pm,
+	  HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm, IBM1026.pm,
+	  IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
+	  IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
+	  IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
+	  IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
+	  IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
+	  IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
+	  IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
+	  IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
+	  ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
+	  ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_13.pm,
+	  ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm, ISO_8859_2.pm,
+	  ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm, ISO_8859_6.pm,
+	  ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm, ISO_IR_197.pm,
+	  ISO_IR_209.pm, KOI8_R.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
+	  LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACINTOSH.pm, MAC_IS.pm,
+	  MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm, NATS_SEFI.pm, SAMI_WS2.pm,
+	  TIS_620.pm, UTF_8.pm, VISCII.pm: no BAREWORD after use base
 
-2002-08-16 12:49  Guido Flohr <guido@imperia.net>
+2002-08-16 13:49  Guido Flohr <guido@imperia.net>
 
 	* Artistic, COPYING, MANIFEST, Makefile.PL, README, THANKS,
-	_Aliases.pm, _Conversions.pm, gettext_pp.pm, test-benchmark,
-	lib/Locale/Messages.pm, lib/Locale/Recode.pm,
-	lib/Locale/RecodeData.pm, lib/Locale/gettext_pp.pm,
-	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
-	lib/Locale/RecodeData/ASCII.pm, lib/Locale/RecodeData/ASMO_449.pm,
-	lib/Locale/RecodeData/ATARI_ST.pm,
-	lib/Locale/RecodeData/ATARI_ST_EURO.pm,
-	lib/Locale/RecodeData/CP10007.pm, lib/Locale/RecodeData/CP1250.pm,
-	lib/Locale/RecodeData/CP1251.pm, lib/Locale/RecodeData/CP1252.pm,
-	lib/Locale/RecodeData/CP1253.pm, lib/Locale/RecodeData/CP1254.pm,
-	lib/Locale/RecodeData/CP1256.pm, lib/Locale/RecodeData/CP1257.pm,
-	lib/Locale/RecodeData/CSN_369103.pm, lib/Locale/RecodeData/CWI.pm,
-	lib/Locale/RecodeData/DEC_MCS.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
-	lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
-	lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_A.pm,
-	lib/Locale/RecodeData/EBCDIC_ES_S.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
-	lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
-	lib/Locale/RecodeData/EBCDIC_FR.pm,
-	lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
-	lib/Locale/RecodeData/EBCDIC_IT.pm,
-	lib/Locale/RecodeData/EBCDIC_PT.pm,
-	lib/Locale/RecodeData/EBCDIC_UK.pm,
-	lib/Locale/RecodeData/EBCDIC_US.pm,
-	lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
-	lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
-	lib/Locale/RecodeData/GEORGIAN_PS.pm,
-	lib/Locale/RecodeData/GOST_19768_74.pm,
-	lib/Locale/RecodeData/GREEK7.pm,
-	lib/Locale/RecodeData/GREEK7_OLD.pm,
-	lib/Locale/RecodeData/GREEK_CCITT.pm,
-	lib/Locale/RecodeData/HP_ROMAN8.pm,
-	lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
-	lib/Locale/RecodeData/IBM1004.pm, lib/Locale/RecodeData/IBM1026.pm,
-	lib/Locale/RecodeData/IBM1047.pm, lib/Locale/RecodeData/IBM256.pm,
-	lib/Locale/RecodeData/IBM273.pm, lib/Locale/RecodeData/IBM274.pm,
-	lib/Locale/RecodeData/IBM275.pm, lib/Locale/RecodeData/IBM277.pm,
-	lib/Locale/RecodeData/IBM278.pm, lib/Locale/RecodeData/IBM280.pm,
-	lib/Locale/RecodeData/IBM281.pm, lib/Locale/RecodeData/IBM284.pm,
-	lib/Locale/RecodeData/IBM285.pm, lib/Locale/RecodeData/IBM290.pm,
-	lib/Locale/RecodeData/IBM297.pm, lib/Locale/RecodeData/IBM420.pm,
-	lib/Locale/RecodeData/IBM423.pm, lib/Locale/RecodeData/IBM424.pm,
-	lib/Locale/RecodeData/IBM437.pm, lib/Locale/RecodeData/IBM500.pm,
-	lib/Locale/RecodeData/IBM850.pm, lib/Locale/RecodeData/IBM851.pm,
-	lib/Locale/RecodeData/IBM852.pm, lib/Locale/RecodeData/IBM855.pm,
-	lib/Locale/RecodeData/IBM857.pm, lib/Locale/RecodeData/IBM860.pm,
-	lib/Locale/RecodeData/IBM861.pm, lib/Locale/RecodeData/IBM862.pm,
-	lib/Locale/RecodeData/IBM863.pm, lib/Locale/RecodeData/IBM864.pm,
-	lib/Locale/RecodeData/IBM865.pm, lib/Locale/RecodeData/IBM866.pm,
-	lib/Locale/RecodeData/IBM868.pm, lib/Locale/RecodeData/IBM869.pm,
-	lib/Locale/RecodeData/IBM870.pm, lib/Locale/RecodeData/IBM871.pm,
-	lib/Locale/RecodeData/IBM874.pm, lib/Locale/RecodeData/IBM875.pm,
-	lib/Locale/RecodeData/IBM880.pm, lib/Locale/RecodeData/IBM891.pm,
-	lib/Locale/RecodeData/IBM903.pm, lib/Locale/RecodeData/IBM904.pm,
-	lib/Locale/RecodeData/IBM905.pm, lib/Locale/RecodeData/IBM918.pm,
-	lib/Locale/RecodeData/IEC_P27_1.pm, lib/Locale/RecodeData/INIS.pm,
-	lib/Locale/RecodeData/INIS_8.pm,
-	lib/Locale/RecodeData/INIS_CYRILLIC.pm,
-	lib/Locale/RecodeData/ISO_10367_BOX.pm,
-	lib/Locale/RecodeData/ISO_2033_1983.pm,
-	lib/Locale/RecodeData/ISO_5427.pm,
-	lib/Locale/RecodeData/ISO_5427_EXT.pm,
-	lib/Locale/RecodeData/ISO_5428.pm,
-	lib/Locale/RecodeData/ISO_8859_1.pm,
-	lib/Locale/RecodeData/ISO_8859_10.pm,
-	lib/Locale/RecodeData/ISO_8859_13.pm,
-	lib/Locale/RecodeData/ISO_8859_14.pm,
-	lib/Locale/RecodeData/ISO_8859_15.pm,
-	lib/Locale/RecodeData/ISO_8859_16.pm,
-	lib/Locale/RecodeData/ISO_8859_2.pm,
-	lib/Locale/RecodeData/ISO_8859_3.pm,
-	lib/Locale/RecodeData/ISO_8859_4.pm,
-	lib/Locale/RecodeData/ISO_8859_5.pm,
-	lib/Locale/RecodeData/ISO_8859_6.pm,
-	lib/Locale/RecodeData/ISO_8859_7.pm,
-	lib/Locale/RecodeData/ISO_8859_8.pm,
-	lib/Locale/RecodeData/ISO_8859_9.pm,
-	lib/Locale/RecodeData/ISO_IR_197.pm,
-	lib/Locale/RecodeData/ISO_IR_209.pm,
-	lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_T.pm,
-	lib/Locale/RecodeData/KOI8_U.pm, lib/Locale/RecodeData/KOI_8.pm,
-	lib/Locale/RecodeData/LATIN_GREEK.pm,
-	lib/Locale/RecodeData/LATIN_GREEK_1.pm,
-	lib/Locale/RecodeData/MACINTOSH.pm,
-	lib/Locale/RecodeData/MAC_IS.pm, lib/Locale/RecodeData/MAC_SAMI.pm,
-	lib/Locale/RecodeData/MAC_UK.pm,
-	lib/Locale/RecodeData/NATS_DANO.pm,
-	lib/Locale/RecodeData/NATS_SEFI.pm,
-	lib/Locale/RecodeData/SAMI_WS2.pm,
-	lib/Locale/RecodeData/TIS_620.pm, lib/Locale/RecodeData/UTF_8.pm,
-	lib/Locale/RecodeData/VISCII.pm: unchaos 
+	  _Aliases.pm, _Conversions.pm, gettext_pp.pm, test-benchmark,
+	  lib/Locale/Messages.pm, lib/Locale/Recode.pm,
+	  lib/Locale/RecodeData.pm, lib/Locale/gettext_pp.pm,
+	  lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
+	  lib/Locale/RecodeData/ASCII.pm,
+	  lib/Locale/RecodeData/ASMO_449.pm,
+	  lib/Locale/RecodeData/ATARI_ST.pm,
+	  lib/Locale/RecodeData/ATARI_ST_EURO.pm,
+	  lib/Locale/RecodeData/CP10007.pm,
+	  lib/Locale/RecodeData/CP1250.pm, lib/Locale/RecodeData/CP1251.pm,
+	  lib/Locale/RecodeData/CP1252.pm, lib/Locale/RecodeData/CP1253.pm,
+	  lib/Locale/RecodeData/CP1254.pm, lib/Locale/RecodeData/CP1256.pm,
+	  lib/Locale/RecodeData/CP1257.pm,
+	  lib/Locale/RecodeData/CSN_369103.pm,
+	  lib/Locale/RecodeData/CWI.pm, lib/Locale/RecodeData/DEC_MCS.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE.pm,
+	  lib/Locale/RecodeData/EBCDIC_AT_DE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_CA_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO.pm,
+	  lib/Locale/RecodeData/EBCDIC_DK_NO_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_ES_S.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE.pm,
+	  lib/Locale/RecodeData/EBCDIC_FI_SE_A.pm,
+	  lib/Locale/RecodeData/EBCDIC_FR.pm,
+	  lib/Locale/RecodeData/EBCDIC_IS_FRISS.pm,
+	  lib/Locale/RecodeData/EBCDIC_IT.pm,
+	  lib/Locale/RecodeData/EBCDIC_PT.pm,
+	  lib/Locale/RecodeData/EBCDIC_UK.pm,
+	  lib/Locale/RecodeData/EBCDIC_US.pm,
+	  lib/Locale/RecodeData/ECMA_CYRILLIC.pm,
+	  lib/Locale/RecodeData/GEORGIAN_ACADEMY.pm,
+	  lib/Locale/RecodeData/GEORGIAN_PS.pm,
+	  lib/Locale/RecodeData/GOST_19768_74.pm,
+	  lib/Locale/RecodeData/GREEK7.pm,
+	  lib/Locale/RecodeData/GREEK7_OLD.pm,
+	  lib/Locale/RecodeData/GREEK_CCITT.pm,
+	  lib/Locale/RecodeData/HP_ROMAN8.pm,
+	  lib/Locale/RecodeData/IBM037.pm, lib/Locale/RecodeData/IBM038.pm,
+	  lib/Locale/RecodeData/IBM1004.pm,
+	  lib/Locale/RecodeData/IBM1026.pm,
+	  lib/Locale/RecodeData/IBM1047.pm,
+	  lib/Locale/RecodeData/IBM256.pm, lib/Locale/RecodeData/IBM273.pm,
+	  lib/Locale/RecodeData/IBM274.pm, lib/Locale/RecodeData/IBM275.pm,
+	  lib/Locale/RecodeData/IBM277.pm, lib/Locale/RecodeData/IBM278.pm,
+	  lib/Locale/RecodeData/IBM280.pm, lib/Locale/RecodeData/IBM281.pm,
+	  lib/Locale/RecodeData/IBM284.pm, lib/Locale/RecodeData/IBM285.pm,
+	  lib/Locale/RecodeData/IBM290.pm, lib/Locale/RecodeData/IBM297.pm,
+	  lib/Locale/RecodeData/IBM420.pm, lib/Locale/RecodeData/IBM423.pm,
+	  lib/Locale/RecodeData/IBM424.pm, lib/Locale/RecodeData/IBM437.pm,
+	  lib/Locale/RecodeData/IBM500.pm, lib/Locale/RecodeData/IBM850.pm,
+	  lib/Locale/RecodeData/IBM851.pm, lib/Locale/RecodeData/IBM852.pm,
+	  lib/Locale/RecodeData/IBM855.pm, lib/Locale/RecodeData/IBM857.pm,
+	  lib/Locale/RecodeData/IBM860.pm, lib/Locale/RecodeData/IBM861.pm,
+	  lib/Locale/RecodeData/IBM862.pm, lib/Locale/RecodeData/IBM863.pm,
+	  lib/Locale/RecodeData/IBM864.pm, lib/Locale/RecodeData/IBM865.pm,
+	  lib/Locale/RecodeData/IBM866.pm, lib/Locale/RecodeData/IBM868.pm,
+	  lib/Locale/RecodeData/IBM869.pm, lib/Locale/RecodeData/IBM870.pm,
+	  lib/Locale/RecodeData/IBM871.pm, lib/Locale/RecodeData/IBM874.pm,
+	  lib/Locale/RecodeData/IBM875.pm, lib/Locale/RecodeData/IBM880.pm,
+	  lib/Locale/RecodeData/IBM891.pm, lib/Locale/RecodeData/IBM903.pm,
+	  lib/Locale/RecodeData/IBM904.pm, lib/Locale/RecodeData/IBM905.pm,
+	  lib/Locale/RecodeData/IBM918.pm,
+	  lib/Locale/RecodeData/IEC_P27_1.pm,
+	  lib/Locale/RecodeData/INIS.pm, lib/Locale/RecodeData/INIS_8.pm,
+	  lib/Locale/RecodeData/INIS_CYRILLIC.pm,
+	  lib/Locale/RecodeData/ISO_10367_BOX.pm,
+	  lib/Locale/RecodeData/ISO_2033_1983.pm,
+	  lib/Locale/RecodeData/ISO_5427.pm,
+	  lib/Locale/RecodeData/ISO_5427_EXT.pm,
+	  lib/Locale/RecodeData/ISO_5428.pm,
+	  lib/Locale/RecodeData/ISO_8859_1.pm,
+	  lib/Locale/RecodeData/ISO_8859_10.pm,
+	  lib/Locale/RecodeData/ISO_8859_13.pm,
+	  lib/Locale/RecodeData/ISO_8859_14.pm,
+	  lib/Locale/RecodeData/ISO_8859_15.pm,
+	  lib/Locale/RecodeData/ISO_8859_16.pm,
+	  lib/Locale/RecodeData/ISO_8859_2.pm,
+	  lib/Locale/RecodeData/ISO_8859_3.pm,
+	  lib/Locale/RecodeData/ISO_8859_4.pm,
+	  lib/Locale/RecodeData/ISO_8859_5.pm,
+	  lib/Locale/RecodeData/ISO_8859_6.pm,
+	  lib/Locale/RecodeData/ISO_8859_7.pm,
+	  lib/Locale/RecodeData/ISO_8859_8.pm,
+	  lib/Locale/RecodeData/ISO_8859_9.pm,
+	  lib/Locale/RecodeData/ISO_IR_197.pm,
+	  lib/Locale/RecodeData/ISO_IR_209.pm,
+	  lib/Locale/RecodeData/KOI8_R.pm, lib/Locale/RecodeData/KOI8_T.pm,
+	  lib/Locale/RecodeData/KOI8_U.pm, lib/Locale/RecodeData/KOI_8.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK.pm,
+	  lib/Locale/RecodeData/LATIN_GREEK_1.pm,
+	  lib/Locale/RecodeData/MACINTOSH.pm,
+	  lib/Locale/RecodeData/MAC_IS.pm,
+	  lib/Locale/RecodeData/MAC_SAMI.pm,
+	  lib/Locale/RecodeData/MAC_UK.pm,
+	  lib/Locale/RecodeData/NATS_DANO.pm,
+	  lib/Locale/RecodeData/NATS_SEFI.pm,
+	  lib/Locale/RecodeData/SAMI_WS2.pm,
+	  lib/Locale/RecodeData/TIS_620.pm, lib/Locale/RecodeData/UTF_8.pm,
+	  lib/Locale/RecodeData/VISCII.pm: unchaos
 
-2002-08-16 12:12  Guido Flohr <guido@imperia.net>
+2002-08-16 13:12  Guido Flohr <guido@imperia.net>
 
 	* ASCII.pm, ASMO_449.pm, ATARI_ST.pm, ATARI_ST_EURO.pm, CP10007.pm,
-	CP1250.pm, CP1251.pm, CP1252.pm, CP1253.pm, CP1254.pm, CP1256.pm,
-	CP1257.pm, CSN_369103.pm, CWI.pm, DEC_MCS.pm, EBCDIC_AT_DE.pm,
-	EBCDIC_AT_DE_A.pm, EBCDIC_CA_FR.pm, EBCDIC_DK_NO.pm,
-	EBCDIC_DK_NO_A.pm, EBCDIC_ES.pm, EBCDIC_ES_A.pm, EBCDIC_ES_S.pm,
-	EBCDIC_FI_SE.pm, EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm,
-	EBCDIC_IS_FRISS.pm, EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm,
-	EBCDIC_US.pm, ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm,
-	GEORGIAN_PS.pm, GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm,
-	GREEK_CCITT.pm, HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm,
-	IBM1026.pm, IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
-	IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
-	IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
-	IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
-	IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
-	IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm, IBM874.pm,
-	IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm, IBM905.pm,
-	IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm,
-	ISO_10367_BOX.pm, ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm,
-	ISO_5428.pm, ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_13.pm,
-	ISO_8859_14.pm, ISO_8859_15.pm, ISO_8859_16.pm, ISO_8859_2.pm,
-	ISO_8859_3.pm, ISO_8859_4.pm, ISO_8859_5.pm, ISO_8859_6.pm,
-	ISO_8859_7.pm, ISO_8859_8.pm, ISO_8859_9.pm, ISO_IR_197.pm,
-	ISO_IR_209.pm, KOI8_R.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm,
-	LATIN_GREEK.pm, LATIN_GREEK_1.pm, MACINTOSH.pm, MAC_IS.pm,
-	MAC_SAMI.pm, MAC_UK.pm, Messages.pm, NATS_DANO.pm, NATS_SEFI.pm,
-	Recode.pm, RecodeData.pm, SAMI_WS2.pm, TIS_620.pm, UTF_8.pm,
-	VISCII.pm, Artistic, COPYING, MANIFEST, Makefile.PL, README,
-	THANKS, test-benchmark: unchaos 
+	  CP1250.pm, CP1251.pm, CP1252.pm, CP1253.pm, CP1254.pm, CP1256.pm,
+	  CP1257.pm, CSN_369103.pm, CWI.pm, DEC_MCS.pm, EBCDIC_AT_DE.pm,
+	  EBCDIC_AT_DE_A.pm, EBCDIC_CA_FR.pm, EBCDIC_DK_NO.pm,
+	  EBCDIC_DK_NO_A.pm, EBCDIC_ES.pm, EBCDIC_ES_A.pm, EBCDIC_ES_S.pm,
+	  EBCDIC_FI_SE.pm, EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm,
+	  EBCDIC_IS_FRISS.pm, EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm,
+	  EBCDIC_US.pm, ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm,
+	  GEORGIAN_PS.pm, GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm,
+	  GREEK_CCITT.pm, HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm,
+	  IBM1026.pm, IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm,
+	  IBM275.pm, IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm,
+	  IBM285.pm, IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm,
+	  IBM437.pm, IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm,
+	  IBM857.pm, IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm,
+	  IBM865.pm, IBM866.pm, IBM868.pm, IBM869.pm, IBM870.pm, IBM871.pm,
+	  IBM874.pm, IBM875.pm, IBM880.pm, IBM891.pm, IBM903.pm, IBM904.pm,
+	  IBM905.pm, IBM918.pm, IEC_P27_1.pm, INIS.pm, INIS_8.pm,
+	  INIS_CYRILLIC.pm, ISO_10367_BOX.pm, ISO_2033_1983.pm,
+	  ISO_5427.pm, ISO_5427_EXT.pm, ISO_5428.pm, ISO_8859_1.pm,
+	  ISO_8859_10.pm, ISO_8859_13.pm, ISO_8859_14.pm, ISO_8859_15.pm,
+	  ISO_8859_16.pm, ISO_8859_2.pm, ISO_8859_3.pm, ISO_8859_4.pm,
+	  ISO_8859_5.pm, ISO_8859_6.pm, ISO_8859_7.pm, ISO_8859_8.pm,
+	  ISO_8859_9.pm, ISO_IR_197.pm, ISO_IR_209.pm, KOI8_R.pm,
+	  KOI8_T.pm, KOI8_U.pm, KOI_8.pm, LATIN_GREEK.pm, LATIN_GREEK_1.pm,
+	  MACINTOSH.pm, MAC_IS.pm, MAC_SAMI.pm, MAC_UK.pm, Messages.pm,
+	  NATS_DANO.pm, NATS_SEFI.pm, Recode.pm, RecodeData.pm,
+	  SAMI_WS2.pm, TIS_620.pm, UTF_8.pm, VISCII.pm, Artistic, COPYING,
+	  MANIFEST, Makefile.PL, README, THANKS, test-benchmark: unchaos
 
-2002-08-16 12:09  Guido Flohr <guido@imperia.net>
+2002-08-16 13:09  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST, Makefile.PL, Messages.pm, Recode.pm, RecodeData.pm,
-	gettext_pp.pm, ASCII.pm, ASMO_449.pm, ATARI_ST.pm,
-	ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
-	CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm, CWI.pm,
-	DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm, EBCDIC_CA_FR.pm,
-	EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm, EBCDIC_ES.pm, EBCDIC_ES_A.pm,
-	EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm, EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm,
-	EBCDIC_IS_FRISS.pm, EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm,
-	EBCDIC_US.pm, ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm,
-	GEORGIAN_PS.pm, GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm,
-	GREEK_CCITT.pm, HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm,
-	IBM1026.pm, IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
-	IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
-	IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
-	IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
-	IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
-	IBM866.pm, IBM868.pm, _Aliases.pm, _Conversions.pm, IBM869.pm,
-	IBM870.pm, IBM871.pm, IBM874.pm, IBM875.pm, IBM880.pm, IBM891.pm,
-	IBM903.pm, IBM904.pm, IBM905.pm, IBM918.pm, IEC_P27_1.pm, INIS.pm,
-	INIS_8.pm, INIS_CYRILLIC.pm, ISO_10367_BOX.pm, ISO_2033_1983.pm,
-	ISO_5427.pm, ISO_5427_EXT.pm, ISO_5428.pm, ISO_8859_1.pm,
-	ISO_8859_10.pm, ISO_8859_13.pm, ISO_8859_14.pm, ISO_8859_15.pm,
-	ISO_8859_16.pm, ISO_8859_2.pm, ISO_8859_3.pm, ISO_8859_4.pm,
-	ISO_8859_5.pm, ISO_8859_6.pm, ISO_8859_7.pm, ISO_8859_8.pm,
-	ISO_8859_9.pm, ISO_IR_197.pm, ISO_IR_209.pm, KOI8_R.pm, KOI8_T.pm,
-	KOI8_U.pm, KOI_8.pm, LATIN_GREEK.pm, LATIN_GREEK_1.pm,
-	MACINTOSH.pm, MAC_IS.pm, MAC_SAMI.pm, MAC_UK.pm, NATS_DANO.pm,
-	NATS_SEFI.pm, SAMI_WS2.pm, TIS_620.pm, UTF_8.pm, VISCII.pm: moved
-	modules to subdirectory lib 
+	  gettext_pp.pm, ASCII.pm, ASMO_449.pm, ATARI_ST.pm,
+	  ATARI_ST_EURO.pm, CP10007.pm, CP1250.pm, CP1251.pm, CP1252.pm,
+	  CP1253.pm, CP1254.pm, CP1256.pm, CP1257.pm, CSN_369103.pm,
+	  CWI.pm, DEC_MCS.pm, EBCDIC_AT_DE.pm, EBCDIC_AT_DE_A.pm,
+	  EBCDIC_CA_FR.pm, EBCDIC_DK_NO.pm, EBCDIC_DK_NO_A.pm,
+	  EBCDIC_ES.pm, EBCDIC_ES_A.pm, EBCDIC_ES_S.pm, EBCDIC_FI_SE.pm,
+	  EBCDIC_FI_SE_A.pm, EBCDIC_FR.pm, EBCDIC_IS_FRISS.pm,
+	  EBCDIC_IT.pm, EBCDIC_PT.pm, EBCDIC_UK.pm, EBCDIC_US.pm,
+	  ECMA_CYRILLIC.pm, GEORGIAN_ACADEMY.pm, GEORGIAN_PS.pm,
+	  GOST_19768_74.pm, GREEK7.pm, GREEK7_OLD.pm, GREEK_CCITT.pm,
+	  HP_ROMAN8.pm, IBM037.pm, IBM038.pm, IBM1004.pm, IBM1026.pm,
+	  IBM1047.pm, IBM256.pm, IBM273.pm, IBM274.pm, IBM275.pm,
+	  IBM277.pm, IBM278.pm, IBM280.pm, IBM281.pm, IBM284.pm, IBM285.pm,
+	  IBM290.pm, IBM297.pm, IBM420.pm, IBM423.pm, IBM424.pm, IBM437.pm,
+	  IBM500.pm, IBM850.pm, IBM851.pm, IBM852.pm, IBM855.pm, IBM857.pm,
+	  IBM860.pm, IBM861.pm, IBM862.pm, IBM863.pm, IBM864.pm, IBM865.pm,
+	  IBM866.pm, IBM868.pm, _Aliases.pm, _Conversions.pm, IBM869.pm,
+	  IBM870.pm, IBM871.pm, IBM874.pm, IBM875.pm, IBM880.pm, IBM891.pm,
+	  IBM903.pm, IBM904.pm, IBM905.pm, IBM918.pm, IEC_P27_1.pm,
+	  INIS.pm, INIS_8.pm, INIS_CYRILLIC.pm, ISO_10367_BOX.pm,
+	  ISO_2033_1983.pm, ISO_5427.pm, ISO_5427_EXT.pm, ISO_5428.pm,
+	  ISO_8859_1.pm, ISO_8859_10.pm, ISO_8859_13.pm, ISO_8859_14.pm,
+	  ISO_8859_15.pm, ISO_8859_16.pm, ISO_8859_2.pm, ISO_8859_3.pm,
+	  ISO_8859_4.pm, ISO_8859_5.pm, ISO_8859_6.pm, ISO_8859_7.pm,
+	  ISO_8859_8.pm, ISO_8859_9.pm, ISO_IR_197.pm, ISO_IR_209.pm,
+	  KOI8_R.pm, KOI8_T.pm, KOI8_U.pm, KOI_8.pm, LATIN_GREEK.pm,
+	  LATIN_GREEK_1.pm, MACINTOSH.pm, MAC_IS.pm, MAC_SAMI.pm,
+	  MAC_UK.pm, NATS_DANO.pm, NATS_SEFI.pm, SAMI_WS2.pm, TIS_620.pm,
+	  UTF_8.pm, VISCII.pm: moved modules to subdirectory lib
 
-2002-08-01 15:57  Guido Flohr <guido@imperia.net>
+2002-08-01 16:57  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: updated 
+	* MANIFEST: updated
 
-2002-07-15 13:00  Guido Flohr <guido@imperia.net>
+2002-07-15 14:00  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: updated 
+	* MANIFEST: updated
 
-2002-07-15 12:56  Guido Flohr <guido@imperia.net>
+2002-07-15 13:56  Guido Flohr <guido@imperia.net>
 
-	* Makefile.PL: renamed Iconv to Recode 
+	* Makefile.PL: renamed Iconv to Recode
 
-2002-07-10 21:25  Guido Flohr <guido@imperia.net>
+2002-07-10 22:25  Guido Flohr <guido@imperia.net>
 
-	* test-benchmark: run also against Encode(3pm) in perl 5.8.0 
+	* test-benchmark: run also against Encode(3pm) in perl 5.8.0
 
-2002-07-09 21:13  Guido Flohr <guido@imperia.net>
+2002-07-09 22:13  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: now really removed CVS from MANIFEST 
+	* MANIFEST: now really removed CVS from MANIFEST
 
-2002-07-09 21:07  Guido Flohr <guido@imperia.net>
+2002-07-09 22:07  Guido Flohr <guido@imperia.net>
 
-	* THANKS: new file 
+	* THANKS: new file
 
-2002-07-09 21:04  Guido Flohr <guido@imperia.net>
+2002-07-09 22:04  Guido Flohr <guido@imperia.net>
 
-	* test-benchmark: new files 
+	* test-benchmark: new files
 
-2002-07-09 21:01  Guido Flohr <guido@imperia.net>
+2002-07-09 22:01  Guido Flohr <guido@imperia.net>
 
-	* MANIFEST: 
-	- removed CVS from manifest 
-	- added Locale/Messages.pm and Locale/gettext_pp.pm 
-	- added test-benchmark 
+	* MANIFEST:
+	  - removed CVS from manifest
+	  - added Locale/Messages.pm and Locale/gettext_pp.pm
+	  - added test-benchmark
 
-2002-07-08 21:19  Guido Flohr <guido@imperia.net>
+2002-07-08 22:19  Guido Flohr <guido@imperia.net>
 
 	* Artistic, COPYING, MANIFEST, Makefile.PL, README: Initial
-	revision 
+	  revision
 
