@@ -123,11 +123,11 @@ A Dutch Calendar
 ----------------
 
 We want to see the calendar in Dutch now.  All you have to do is to
-set the environment variable LANG to the value "nl".  If you don't
+set the environment variable LANGUAGE to the value "nl".  If you don't
 know how to do this, add the following line somewhere at the top of
 "bin/simplecal.pl":
 
-     $ENV{LANG} = "nl";
+     $ENV{LANGUAGE} = "nl";
 
 Now run the script again:
 
@@ -136,6 +136,9 @@ Now run the script again:
 It should print out the calendar in Dutch.  Look at the *.po files in
 the subdirectory "po" for a list of other translations I have
 prepared.  You can try them out in a similar manner.
+
+Please see the file "README-NLS" in subdirectory "sample/simplecal"
+for details on how to set the language via environment variables.
 
 The Subdirectory "po"
 ---------------------
