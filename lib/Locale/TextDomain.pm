@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.29 2004/07/20 14:31:07 guido Exp $
+# $Id: TextDomain.pm,v 1.30 2005/08/10 17:50:41 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -239,21 +239,32 @@ sub __find_domain ($)
 	my $try_dirs = $bound_dirs{$domain};
 	
 	if (defined $try_dirs) {
-		my $empty = '';
-		my $msgstr = '';
-		foreach my $dir (@$try_dirs) {
-			bindtextdomain $domain => $dir;
-			
-			# Try to read the PO-header as a check.  If you can think
-			# of something less dirty, let me know ...
-			$msgstr = dgettext $domain => $empty;
-			
-			last if length $msgstr;
+		my $found_dir = '';
+		
+		TRYDIR: foreach my $dir (@$try_dirs) {
+			# Is there a message catalog?  We have to search recursively
+			# for it.  Since globbing is reported to be buggy under
+			# MS-DOS, we roll our own version.
+			local *DIR;
+			if (opendir DIR, $dir) {
+				my @files = map { "$dir/$_/LC_MESSAGES/$domain.mo" } 
+					grep { ! /^\.\.?$/ } readdir DIR;
+
+				foreach my $file (@files) {
+					if (-f $file || -l $file) {
+						# If we find a non-readable file on our way,
+						# we access has been disabled on purpose.
+						# Therefore no -r check here.
+						$found_dir = $dir;
+						last TRYDIR;
+					}
+				}
+			}
 		}
 		
-		# If there was no success, fall back to the default search
+		# If there was no success, this will fall back to the default search
 		# directories.
-		bindtextdomain $domain => '' unless length $msgstr;
+		bindtextdomain $domain => $found_dir;
     }
     
     # The search has completed.
