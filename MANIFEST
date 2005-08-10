@@ -353,6 +353,7 @@ tests/03ngettext_pp.t
 tests/03ngettext_xs.t
 tests/03textdomain_pp.t
 tests/03textdomain_xs.t
+tests/04find_domain_bug.t
 tests/LocaleData/de/LC_MESSAGES/additional.mo
 tests/LocaleData/de/LC_MESSAGES/existing.mo
 tests/LocaleData/de_AT/LC_MESSAGES/additional.mo

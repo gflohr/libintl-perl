@@ -1,4 +1,4 @@
-$Id: THANKS,v 1.6 2005/08/10 17:47:00 guido Exp $
+$Id: THANKS,v 1.7 2005/08/10 21:00:48 guido Exp $
 
 These people have helped in the development of libintl-perl:
 
@@ -26,8 +26,11 @@ bug reports:
 - DH <crazyinsomniac@yahoo.com>
 - Jo-Even Skarstein <joska@nvg.org>
 - Gerhard Stoll <gerhard_stoll@gmx.de>
+- Marc Brockschmidt <marc@marcbrockschmidt.de>
+- Laurent Bonnaud <Laurent.Bonnaud@inpg.fr>
 - Jan Kratochvil <lace@jankratochvil.net>
 - Светослав Агафонкин <slavi.agafonkin@imperia.net>
+- Michael Bell <michael.bell@cms.hu-berlin.de>
 
 Please inform me if I have forgotten your contribution.
 
