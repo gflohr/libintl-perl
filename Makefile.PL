@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.20 2004/01/08 19:11:44 guido Exp $
+# $Id: Makefile.PL,v 1.21 2005/08/11 08:57:05 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
@@ -91,6 +91,7 @@ close HANDLE or die "cannot close file 'gettest.c': $!\n";
 
 my @cmd = $cc;
 push @cmd, $Config{ccflags};
+push @cmd, $Config{ldflags};
 push @cmd, $Config{libs};
 push @cmd, "-o", "gettest.exe", "gettest.c";
 
