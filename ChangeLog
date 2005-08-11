@@ -1,3 +1,20 @@
+2005-08-11 15:27  Guido Flohr <guido@imperia.net>
+
+	* META.yml: regenerated
+
+2005-08-11 15:25  Guido Flohr <guido@imperia.net>
+
+	* NEWS, lib/Locale/Messages.pm, lib/Locale/TextDomain.pm: bumped
+	  version number to 1.14
+
+2005-08-11 11:57  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: use correct linker flags
+
+2005-08-11 11:43  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: updated
+
 2005-08-11 00:08  Guido Flohr <guido@imperia.net>
 
 	* META.yml, lib/Locale/TextDomain.pm: bumped version number to 1.12
