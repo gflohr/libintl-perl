@@ -1,3 +1,15 @@
+2005-08-11 00:08  Guido Flohr <guido@imperia.net>
+
+	* META.yml, lib/Locale/TextDomain.pm: bumped version number to 1.12
+
+2005-08-11 00:01  Guido Flohr <guido@imperia.net>
+
+	* README: added feedback section
+
+2005-08-11 00:00  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST, THANKS, TODO, ChangeLog, NEWS: updated
+
 2005-08-10 23:20  Guido Flohr <guido@imperia.net>
 
 	* tests/: 03bind_textdomain_codeset_pp.t,
