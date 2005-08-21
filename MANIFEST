@@ -179,7 +179,6 @@ sample/simplecal/lib/SimpleCal.pm
 sample/simplecal/po/Makefile
 sample/simplecal/po/PACKAGE
 sample/simplecal/po/POTFILES.in
-sample/simplecal/po/all.pot
 sample/simplecal/po/ar.po
 sample/simplecal/po/ar_SA.po
 sample/simplecal/po/de.po
