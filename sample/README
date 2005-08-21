@@ -17,28 +17,9 @@ Requirements
 
 The only requirement is a Perl aware version of GNU gettext.  Perl
 support was introduced only recently in GNU gettext, and you will have
-to check whether your copy of GNU gettext already supports Perl.  Type
-the following into a command line shell:
-
-     xgettext --language=perl
-
-If the command xgettext is not available, or if xgettext says that the
-option "--language" is invalid, you either have no GNU gettext at all
-or a very old version.  You will have to install a recent version
-then.
-
-If, however, xgettext lies "language 'perl' unknown" then you have to
-update your installation.  The future version 0.12.2 of GNU gettext or newer
-are probably okay, if this is not yet available you will have to check
-out a CVS snapshot.  Instructions for all of that are available at
-http://savannah.gnu.org/projects/gettext/.  If you are not able to get 
-or build a sufficient version of GNU gettext, ask at the mailing list for
-libintl-perl (subscription at 
-http://ml.imperia.org/mailman/listinfo/libintl-perl) for help.
-Somebody may have precompiled binaries for your system.
-
-If xgettext simply complains "no input files given", you are done.
-Your version already supports Perl and you can proceed.
+to check whether your copy of GNU gettext already supports Perl.  
+Support for Perl was introduced in version 0.12.2 of GNU gettext.  If 
+your version is older, you have to update GNU gettext.
 
 First test
 ----------
