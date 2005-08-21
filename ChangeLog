@@ -1,3 +1,47 @@
+2005-08-21 18:35  Guido Flohr <guido@imperia.net>
+
+	* TODO: updated
+
+2005-08-21 17:57  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/org.imperia.simplecal.pot: re-generated
+
+2005-08-21 17:55  Guido Flohr <guido@imperia.net>
+
+	* sample/README:
+	  - updated, Perl support for gettext should now be standard
+
+2005-08-21 17:55  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm: added comment abouut 8 bit message ids
+
+2005-08-16 18:44  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/all.pot: not needed
+
+2005-08-16 18:44  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/de.po: msgid strings now come from
+	  libintl-perl, not from Crypt::Twofish_PP
+
+2005-08-16 18:38  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/de.mo: should not be included in CVS
+
+2005-08-16 18:35  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/POTFILES.in: Reference the files from the
+	  correct package.
+
+2005-08-16 18:34  Guido Flohr <guido@imperia.net>
+
+	* sample/simplecal/po/PACKAGE: new command line parameters for
+	  xgettext
+
+2005-08-11 18:27  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: re-generated
+
 2005-08-11 15:27  Guido Flohr <guido@imperia.net>
 
 	* META.yml: regenerated

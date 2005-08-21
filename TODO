@@ -6,13 +6,6 @@
 
 - Check whether other locale categories than LC_MESSAGES work.
 
-- Cache all LC_* constants in Locale::gettext_pp
-
-- Cache recoder objects in Locale::gettext_pp
-
-- Only instantiate a Locale::Recode object if it is really necessary
-  (and turn off the UTF-8 flag manually in that case)
-
 - Avoid call to __load_domain in Locale::gettext_pp, use a cache table
   first
 
