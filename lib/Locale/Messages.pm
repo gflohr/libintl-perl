@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.25 2005/08/11 12:25:57 guido Exp $
+# $Id: Messages.pm,v 1.26 2005/08/21 14:55:02 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -362,6 +362,36 @@ opinion).
 
 See the description of the function C<__x()> in Locale::TextDomain(3)
 for a much better way to get around this problem.
+
+You should note that the function (and all other similar functions
+in this module) do a bytewise comparison of the B<MSGID> for the
+lookup in the translation catalog, no matter whether obscure utf-8
+flags are set on it, whether the string looks like utf-8, whether
+the utf8(3pm) pragma is used, or whatever other weird method past
+or future perl(1) versions invent for guessing character sets of
+strings.
+
+Using other than us-ascii characters in Perl source code is a call
+for trouble, a compatibility nightmare.  Furthermore, GNU gettext
+only lately introduced support for non-ascii character sets in sources,
+and support for this feature may not be available everywhere.  If
+you absolutely want to use B<MSGID>s in non-ascii character sets,
+it is wise to choose utf-8.  This will minimize the risk that perl(1)
+itself will mess with the strings, and it will also be a guaranty
+that you can later translate your project into arbitrary target
+languages.
+
+Other character sets should theoretically work.  Using another
+character set in the Perl source code than the one used in your
+message catalogs will B<never> work, since the lookup is done bytewise,
+and all strings with non-ascii characters will not be found.
+
+Again, I strongly recommend against using non-ascii character sets
+for the B<MSGID>s.  Even if things work perfectly alright on your
+machine, any user can mess things terribly up in completely 
+unpredictable ways, simply by changing or even not changing some
+locale settings.  This is not a flaw in libintl-perl or GNU gettext
+but in Perl, in the way it deals with Unicode.
 
 =item B<dgettext TEXTDOMAIN, MSGID>
 
