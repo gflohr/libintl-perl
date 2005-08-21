@@ -1,3 +1,9 @@
+Version 1.15 - 21 Aug 2005
+
+* Fixed the completely broken simplecal example
+
+* Added section about non-ascii msgids to the POD of Locale::Messages
+
 Version 1.14 - 11 Aug 2005
 
 * Oops: forgot to update the version check in Locale::Messages
