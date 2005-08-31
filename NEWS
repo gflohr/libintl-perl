@@ -1,4 +1,6 @@
-Version 1.15 - 21 Aug 2005
+Version 1.15 - 1 Sep 2005
+
+* Workarounds and bugfixes for misconfigured Solaris systems
 
 * Fixed the completely broken simplecal example
 
