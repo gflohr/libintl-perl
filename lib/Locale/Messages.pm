@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.27 2005/08/21 15:38:30 guido Exp $
+# $Id: Messages.pm,v 1.28 2005/08/31 22:47:57 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -29,6 +29,7 @@ use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA);
 
 # Try to load the C version first.
 $package = 'gettext_xs';
+my $can_xs = 1;
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
@@ -36,6 +37,7 @@ die "Version: $version mismatch (1.15 vs. $version)" unless $version eq '1.15';
 EOF
 if ($@) {
     $package = 'gettext_pp';
+	undef $can_xs;
     require Locale::gettext_pp;
 }
 
@@ -127,7 +129,7 @@ sub select_package
 {
 	my ($class, $pkg) = @_;
 
-	if (defined $pkg && 'gettext_pp' eq $pkg) {
+	if (!$can_xs || (defined $pkg && 'gettext_pp' eq $pkg)) {
 		require Locale::gettext_pp;
 		$package = 'gettext_pp';
 	} else {
@@ -363,8 +365,10 @@ opinion).
 See the description of the function C<__x()> in Locale::TextDomain(3)
 for a much better way to get around this problem.
 
+Non-ASCII message ids ...
+
 You should note that the function (and all other similar functions
-in this module) do a bytewise comparison of the B<MSGID> for the
+in this module) does a bytewise comparison of the B<MSGID> for the
 lookup in the translation catalog, no matter whether obscure utf-8
 flags are set on it, whether the string looks like utf-8, whether
 the utf8(3pm) pragma is used, or whatever other weird method past
@@ -381,17 +385,25 @@ itself will mess with the strings, and it will also be a guaranty
 that you can later translate your project into arbitrary target
 languages.
 
-Other character sets should theoretically work.  Using another
+Other character sets can theoretically work.  Yet, using another
 character set in the Perl source code than the one used in your
 message catalogs will B<never> work, since the lookup is done bytewise,
 and all strings with non-ascii characters will not be found.
 
-Again, I strongly recommend against using non-ascii character sets
-for the B<MSGID>s.  Even if things work perfectly alright on your
-machine, any user can mess things terribly up in completely 
-unpredictable ways, simply by changing or even not changing some
-locale settings.  This is not a flaw in libintl-perl or GNU gettext
-but in Perl, in the way it deals with Unicode.
+Even if you have solved all these problems, there is still one show
+stopper left: The gettext runtime API lacks a possibility to specify 
+the character set of the source code (including the original strings).
+Consequently - in absence of a hint for the input encoding - strings 
+without a translation are not subject to output character set conversion.
+In other words: If the (non-determinable) output character set differs
+from the character set used in the source code, output can be a
+mixture of two character sets.  There is no point in trying to address
+this problem in the pure Perl version of the gettext functions.  because
+breaking compatibilty between the Perl and the C version is a price too
+high to pay.
+
+This all boils down to: Only use ASCII characters in your translatable
+strings!
 
 =item B<dgettext TEXTDOMAIN, MSGID>
 
