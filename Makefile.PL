@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.23 2005/08/31 22:45:16 guido Exp $
+# $Id: Makefile.PL,v 1.24 2005/08/31 23:23:24 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
@@ -189,6 +189,13 @@ sub tools_other
 }
 
 package main;
+
+my $name = $0;
+$name =~ s,Makefile\.PL$,xs_disabled,;
+local *HANDLE;
+open HANDLE, ">$name" or die "cannot open '$name' for writing: $!";
+print HANDLE $result;
+close HANDLE or die "cannot close '$name': $!";
 
 WriteMakefile (
     NAME		    => 'libintl-perl',

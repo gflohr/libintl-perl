@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: test.pl,v 1.4 2004/01/08 17:25:57 guido Exp $
+# $Id: test.pl,v 1.5 2005/08/31 23:23:24 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -42,16 +42,23 @@ closedir DIR;
 
 test_harness ($ENV{TEST_HARNESS} || 0, @lib_dirs);
 
-# This function is stolen from ExtUtils::Command::MM.  I did not want
-# libintl-perl depend on ExtUtils::Command::MM because this drags in
-# a long dependency chain when installing via CPAN.pm.
 sub test_harness
 {
     $Test::Harness::verbose = shift;
 	
     local @INC = @INC;
     unshift @INC, map { File::Spec->rel2abs($_) } @_;
-    Test::Harness::runtests(sort { lc $a cmp lc $b } @ARGV);
+	my $name = $0;
+	$0 =~ s,test\.pl$,xs_disabled,;
+	local *HANDLE;
+	open HANDLE, "<$name" or die "cannot open '$name': $!";
+	my $xs_disabled = <HANDLE>;
+	if ($xs_disabled) {
+		Test::Harness::runtests (grep { ! /_xs.t$/ } sort 
+			{lc $a cmp lc $b } @ARGV);
+	} else {
+		Test::Harness::runtests (sort {lc $a cmp lc $b } @ARGV);
+	}
 }
 
 __END__
