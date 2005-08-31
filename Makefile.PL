@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.21 2005/08/11 08:57:05 guido Exp $
+# $Id: Makefile.PL,v 1.22 2005/08/31 21:21:30 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
@@ -42,6 +42,12 @@ my $c_code = <<'EOF';
    complete.  */
 
 #include <libintl.h>
+/* Handle the case that we link against GNU libintl but include a non
+ * GNU libintl.h.  */
+#ifndef __USE_GNU_GETTEXT
+# error "<libintl.h> is not GNU gettext.  Maybe you have to adjust your include path."
+#endif
+
 #include <locale.h>
 
 int
@@ -50,10 +56,10 @@ main (argc, argv)
     char* argv[];
 {
 	/* FIXME: The gettext runtime libraries provided by Solaris 8 and 9
-           are not sufficient.  Those of Solaris 10 *may* work.  To play
-           safe, we currently only compile the XS version for GNU gettext
-           and use some undocumented features, to test for that.  Thanks
-           to Bruno Haible for the hint.  */
+       are not sufficient.  Those of Solaris 10 *may* work.  To play
+       safe, we currently only compile the XS version for GNU gettext
+       and use some undocumented features, to test for that.  Thanks
+       to Bruno Haible for the hint.  */
 	extern int _nl_msg_cat_cntr;
 #if 0
         /* This seems to be defined in the GNU libc only, not in standalone

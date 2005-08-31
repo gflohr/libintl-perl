@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.7 2004/01/12 11:15:43 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.8 2005/08/31 21:21:30 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -26,6 +26,11 @@
 #include <string.h>
 #include <locale.h>
 #include <libintl.h>
+/* Handle the case that we link against GNU libintl but include a non
+ * GNU libintl.h.  */
+#ifndef __USE_GNU_GETTEXT
+# error "<libintl.h> is not GNU gettext.  Maybe you have to adjust your include path."
+#endif
 
 MODULE = Locale::gettext_xs	PACKAGE = Locale::gettext_xs
 
