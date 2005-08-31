@@ -1,6 +1,52 @@
+2005-09-01 01:50  Guido Flohr <guido@imperia.net>
+
+	* NEWS: updated
+
+2005-09-01 01:48  Guido Flohr <guido@imperia.net>
+
+	* META.yml: bumped version number to 1.15
+
+2005-09-01 01:47  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Messages.pm:
+	  - bug fix: Prevent users (for example the test suite) from loading
+	    an obsolete XS version, although a version mismatch was detected
+	  earlier
+	  - warnings about non-ascii message ids
+
+2005-09-01 01:45  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL: hint for the courageous Solaris user
+
+2005-09-01 01:44  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: Solaris ...
+
+2005-09-01 01:41  Guido Flohr <guido@imperia.net>
+
+	* README.solaris: Life is complicated under the sun, ain't it?
+
+2005-09-01 00:21  Guido Flohr <guido@imperia.net>
+
+	* Makefile.PL, gettext_xs/gettext_xs.xs: workaround for
+	  misconfigured (Solaris) systems
+
+2005-09-01 00:20  Guido Flohr <guido@imperia.net>
+
+	* THANKS: updated
+
+2005-08-21 18:39  Guido Flohr <guido@imperia.net>
+
+	* MANIFEST: removed all.pot from sample directory
+
+2005-08-21 18:38  Guido Flohr <guido@imperia.net>
+
+	* NEWS, lib/Locale/Messages.pm, lib/Locale/TextDomain.pm: bumped
+	  version number to 1.15
+
 2005-08-21 18:35  Guido Flohr <guido@imperia.net>
 
-	* TODO: updated
+	* TODO, ChangeLog: updated
 
 2005-08-21 17:57  Guido Flohr <guido@imperia.net>
 
