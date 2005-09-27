@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: test.pl,v 1.5 2005/08/31 23:23:24 guido Exp $
+# $Id: test.pl,v 1.6 2005/09/27 23:16:23 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -49,7 +49,7 @@ sub test_harness
     local @INC = @INC;
     unshift @INC, map { File::Spec->rel2abs($_) } @_;
 	my $name = $0;
-	$0 =~ s,test\.pl$,xs_disabled,;
+	$name =~ s,test\.pl$,xs_disabled,;
 	local *HANDLE;
 	open HANDLE, "<$name" or die "cannot open '$name': $!";
 	my $xs_disabled = <HANDLE>;
