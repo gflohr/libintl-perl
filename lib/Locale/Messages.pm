@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.29 2005/09/27 18:53:34 guido Exp $
+# $Id: Messages.pm,v 1.30 2005/09/27 21:40:37 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -106,6 +106,12 @@ BEGIN {
 	# Turn the UTF-8 flag off unconditionally.
 	if ($has_encode) {
 		eval <<'EOF';
+sub turn_utf_8_on($)
+{
+	Encode::_utf8_on ($_[0]);
+	return $_[0];
+}
+
 sub turn_utf_8_off($)
 {
 	Encode::_utf8_off ($_[0]);
@@ -120,6 +126,11 @@ sub __turn_utf_8_off($)
 EOF
 	} elsif ($has_bytes) {
 		eval <<'EOF';
+sub turn_utf_8_on($)
+{
+	$_[0] = pack "U0C*", unpack "C*", $_[0];
+}
+
 sub turn_utf_8_off($)
 {
 	use bytes;
@@ -134,6 +145,11 @@ sub __turn_utf_8_off($)
 EOF
 	} else {
 		eval <<'EOF';
+sub turn_utf_8_on($)
+{
+	return $_[0];
+}
+
 sub turn_utf_8_off($)
 {
 	return $_[0];
@@ -563,6 +579,13 @@ The callback will be executed by Locale::Messages like this:
 
 The function cannot fail and always returns a true value.
 
+B<Attention:> If you use the function for setting the utf-8 flag,
+it is B<your> responsability to ensure that the output is really
+utf-8.  You should only use it, if you have set the environment
+variable B<OUTPUT_CHARSET> to "utf-8".  Additionally you should
+call bind_textdomain_codeset() with "utf-8" as the second
+argument.
+
 This function has been introduced in libintl-perl 1.16 and it is
 B<not> part of the standard gettext API.
 
@@ -571,6 +594,8 @@ B<not> part of the standard gettext API.
 Returns VARIABLE but with the UTF-8 flag (only known in Perl >=5.6)
 guaranteed to be turned on.  This function does not really fit into
 the module, but it is often handy nevertheless.
+
+The flag does B<not> mean that the string is in fact valid utf-8!
 
 The function was introduced with libintl-perl version 1.16.
 
