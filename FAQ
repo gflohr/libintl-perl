@@ -43,15 +43,6 @@ make the function automatically global in Perl.  Besides, in Perl
 dot.
 
 
-Q: I have heard that gettext is broken by design.
-
-A: You have read the article "Localization and Perl: gettext breaks,
-maketext fixes" and taken it too seriously.  Try out libintl-perl
-for localization and you will see that you the horror scenario
-laid out in that article is scaremongering only, and furthermore
-obsoleted today.
-
-
 Q: What is the advantage of libintl-perl over Locale::Maketext?
 
 A: Of course, I can only give my personal opinion as an answer.
@@ -59,7 +50,7 @@ A: Of course, I can only give my personal opinion as an answer.
 Locale::Maketext claims to fix design flaws in gettext.  These alleged
 design flaws, however, boil down to one pathological case which always
 has a workaround.  But both programmers and translators pay this
-fix with an unnecessarily complicated and sometimes awkward interface.
+fix with an unnecessarily complicated interface.
 
 The paramount advantage of libintl-perl is that it uses an approved
 technology and concept.  Except for Java(tm) programs, this is the
