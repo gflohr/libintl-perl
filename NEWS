@@ -1,3 +1,14 @@
+Version 1.16 - 28 Sep 2005
+
+* New function Locale::Messages::bind_textdomain_filter() allows you 
+  to register an output filter as a callback.  You can use this
+  feature for example to set the utf-8 flag on translated string when
+  you are sure that the output is actually utf-8.
+
+* New function Locale::Messages::turn_utf_8_on().
+
+* various minor bug fixes.
+
 Version 1.15 - 1 Sep 2005
 
 * Workarounds and bugfixes for misconfigured Solaris systems
