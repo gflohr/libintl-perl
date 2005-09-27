@@ -1,7 +1,30 @@
+2005-09-28 01:33  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog, NEWS: updated
+
+2005-09-28 01:33  Guido Flohr <guido@imperia.net>
+
+	* FAQ: minor revision
+
+2005-09-28 01:29  Guido Flohr <guido@imperia.net>
+
+	* META.yml, lib/Locale/Messages.pm, lib/Locale/TextDomain.pm:
+	  bumped version number to 1.16
+
+2005-09-28 01:25  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/: gettext_xs.pm, gettext_xs.xs: allow call to
+	  textdomain without argument
+
+2005-09-28 01:16  Guido Flohr <guido@imperia.net>
+
+	* test.pl: fixed typo that prevented xs tests from being run
+
 2005-09-28 01:11  Guido Flohr <guido@imperia.net>
 
-	* lib/Locale/Messages.pm: refactoring: change argument order for
-	  callback
+	* lib/Locale/Messages.pm, tests/03bind_textdomain_filter_pp.t,
+	  tests/03bind_textdomain_filter_xs.t: refactoring: change argument
+	  order for callback
 
 2005-09-27 23:40  Guido Flohr <guido@imperia.net>
 
