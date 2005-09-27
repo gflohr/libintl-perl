@@ -1,4 +1,4 @@
-$Id: THANKS,v 1.8 2005/08/31 21:20:13 guido Exp $
+$Id: THANKS,v 1.9 2005/09/27 17:13:34 guido Exp $
 
 These people have helped in the development of libintl-perl:
 
@@ -14,8 +14,7 @@ These people have helped in the development of libintl-perl:
   tested the Perl backend for GNU xgettext under cygwin 
 
 - Norma Karl <bcrazy@gmx.de> has thoroughly revised the documentation for
-  the Perl backend to GNU xgettext, and because she deserves a credit
-  anyway
+  the Perl backend to GNU xgettext, and she deserves a credit anyway
 
 - Bruno Haible for libiconv which was the base for many conversions and
   for integrating my Perl backend into GNU gettext
