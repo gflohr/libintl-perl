@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: tabstop=4
-# $Id: gettext_xs.pm,v 1.5 2004/01/08 19:12:10 guido Exp $
+# $Id: gettext_xs.pm,v 1.6 2005/09/27 23:25:40 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -77,9 +77,8 @@ bootstrap Locale::gettext_xs;
 
 require File::Spec;
 
-# Wrapper function that converts Perl paths to 
-sub bindtextdomain ($;$)
-{
+# Wrapper function that converts Perl paths to OS paths.
+sub bindtextdomain ($;$) {
 	my ($domain, $directory) = @_;
 
 	if (defined $domain && length $domain && 
@@ -91,8 +90,18 @@ sub bindtextdomain ($;$)
 	}
 }
 
-sub nl_putenv ($)
-{
+# In the XS version, making the prototype optional, does not work.
+sub textdomain (;$) {
+	my $domain = shift;
+
+	if (defined $domain) {
+		return Locale::gettext_xs::_textdomain ($domain);
+	} else {
+		return Locale::gettext_xs::_textdomain ("");
+	}
+}
+
+sub nl_putenv ($) {
     my ($envspec) = @_;
     
     return unless defined $envspec;

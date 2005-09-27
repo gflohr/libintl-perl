@@ -1,5 +1,5 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.8 2005/08/31 21:21:30 guido Exp $ */
+/* $Id: gettext_xs.xs,v 1.9 2005/09/27 23:25:40 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
@@ -158,10 +158,12 @@ dcngettext (domainname, msgid1, msgid2, n, category)
     OUTPUT:
 	RETVAL
 
+# FIXME: The prototype should actually be ';$' but it doesn't work
+# as expected.  Passing no argument results in an error. 
 char*
-textdomain (domain)
+_textdomain (domain)
 	char* domain
-    PROTOTYPE: ;$
+    PROTOTYPE: $
     CODE:
 	/* Treat empty or undefined strings as NULL.  */
 	if (!domain || domain[0] == '\000')
