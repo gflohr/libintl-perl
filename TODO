@@ -13,3 +13,7 @@
   in /usr/share/locale/{LANGUAGE}/LC_MESSAGES after the directory
   specified by bindtextdomain().  This can lead to undesired results.
   But I think the C version from libintl does the same, correct?
+
+- Allow to dynamically expand the list of supported conversions
+
+- Allow to dynamically restrict the list of suppported conversions

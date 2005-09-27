@@ -1,20 +1,22 @@
-COPYING.LESSER
-ChangeLog
+COPYING.LESSER			Lesser GNU Public License
+ChangeLog			Detailed list of changes
+FAQ				Frequently asked questions
 MANIFEST			This list of files
-META.yml
-Makefile.PL
-MyInstall.pm
-NEWS
-README
-README.solaris
-README.win32
-THANKS
-TODO
-gettext_xs/Makefile.PL
-gettext_xs/gettext_xs.pm
-gettext_xs/gettext_xs.xs
-lib/Locale/Messages.pm
-lib/Locale/Recode.pm
+META.yml			Generated
+Makefile.PL			Makefile generator
+MyInstall.pm			Workaround file
+NEWS				Latest Changes
+README				Read it
+README-oldversions		Where are old versions of this module?
+README.solaris			Build libintl-perl on Solaris platforms
+README.win32			Build libintl-perl on MS-DOS platforms
+THANKS				Contributors
+TODO				Missing
+gettext_xs/Makefile.PL		Makefile generator
+gettext_xs/gettext_xs.pm	XS loader
+gettext_xs/gettext_xs.xs	XS binding
+lib/Locale/Messages.pm		Gettext Like Message Retrieval
+lib/Locale/Recode.pm		Object−Oriented Portable Charset Conversion
 lib/Locale/Recode/_Aliases.pm
 lib/Locale/Recode/_Conversions.pm
 lib/Locale/RecodeData.pm
