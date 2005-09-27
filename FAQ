@@ -1,0 +1,96 @@
+Q: Why is libintl-perl so big?  Why don't you use Encode(3pm) for character
+set conversion instead of rolling your own version?
+
+A: Encode(3pm) requires at least Perl 5.7.x, whereas libintl-perl needs
+to be operational on Perl 5.004.  Internally, libintl-perl uses Encode(3pm)
+if it is available.
+
+
+Q: Why do the gettext functions always unset the utf-8 flag on the strings 
+it returns?
+
+A: Because the gettext functions do not know whether the string is encoded 
+in utf-8 or not.  Instead of taking guesses, it rather unsets the flag.
+
+
+Q: Can I set the utf-8 flag on strings returned by the gettext family of
+functions?
+
+A: Yes, but it is not recommended.  If you absolutely want to do it,
+use the function bind_textdomain_filter in Locale::Messages for it.
+
+The strings returned by gettext and friends are by default encoded in
+the preferred charset for the user's locale, but there is no portable
+way to find out, whether this is utf-8 or not.  That means, you either
+have to enforce utf-8 as the output character set (by means of 
+bind_textdomain_codeset() and/or the environment variable
+OUTPUT_CHARSET) and override the user preference, or you run the risk
+of marking strings as utf-8 which really aren't utf-8.
+
+The whole concept behind that utf-8 flag introduced in Perl 5.6 is
+seriously broken, and the above described dilemma is a proof for that.
+The best thing you can do with that flag is get rid of it, and turn
+it off.  Your code will benefit from it and become less error prone,
+more portable and faster.
+
+
+Q: Why does Locale::TextDomain use a double underscore?  I am used
+to a single underscore from C or otherlanguages. 
+
+A: Function names that consist of exactly one non-alphanumerical character
+make the function automatically global in Perl.  Besides, in Perl
+6 the concatenation operator will be the underscore instead of the
+dot.
+
+
+Q: I have heard that gettext is broken by design.
+
+A: You have read the article "Localization and Perl: gettext breaks,
+maketext fixes" and taken it too seriously.  Try out libintl-perl
+for localization and you will see that you the horror scenario
+laid out in that article is scaremongering only, and furthermore
+obsoleted.
+
+
+Q: What is the advantage of libintl-perl over Locale::Maketext?
+
+A: Of course, I can only give my personal opinion as an answer.
+
+Locale::Maketext claims to fix design flaws in gettext.  These alleged
+design flaws, however, boil down to one pathological case which always
+offers a workaround.  But both programmers and translators pay this
+so-called fix with a complicated and awkward interface.
+
+The paramount advantage of libintl-perl is that it uses an approved
+technology and concept.  Except for Java(tm) programs, this is the
+state-of-the-art concept for localizing Un*x software.  Programmers
+that have already localized software in C, C++, C#, Python, PHP,
+or a number of other languages will feel instantly at home, when
+localizing software written in Perl with libintl-perl.  The same
+holds true for the translators, because the files they deal with
+have exactly the same format as those for other programming languages.
+They can use the same set of tools, and even the commands they have
+to execute are the same.
+
+With libintl-perl refactoring of the software is painless, even if
+you modify, add or delete translatable strings.  The gettext tools
+are powerful enough to reduce the effort of the translators to a
+bare minimum.  Maintaining the message catalogs of Locale::Maketext
+in larger scale projects, is IMHO unfeasible.
+
+Editing the message catalogs of Locale::Maketext - they are really
+Perl modules - will be asking too much from most translators, unless
+they are programmers.  The portable object (po) files used by
+libintl-perl have a simple syntax, and there are a bunch of specialized
+GUI editors for these files, that facilitate the translation process
+and hide most complexity from the user.
+
+Furthermore, libintl-perl makes it possible to mix programming
+languages without a paradigm shift in localization.  Without any special
+efforts, you can write a localized software that has modules written
+in C, modules in Perl, and builds a Gtk user interface with Glade.
+All translatable strings end up in one single message catalog.
+
+Last but not least, the interface used by libintl-perl is plain
+simple:  Prepend translatable strings with a double underscore,
+and you are done in most cases.
