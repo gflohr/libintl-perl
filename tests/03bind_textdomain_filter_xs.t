@@ -1,0 +1,74 @@
+#! /usr/local/bin/perl -w
+
+# vim: syntax=perl
+# vim: tabstop=4
+
+use strict;
+
+use Test;
+
+use constant NUM_TESTS => 7;
+
+use Locale::Messages qw (LC_MESSAGES textdomain bind_textdomain_filter
+                          gettext  dgettext  dcgettext
+                         ngettext dngettext dcngettext);
+
+BEGIN {
+	my $package;
+	if ($0 =~ /_pp\.t$/) {
+		$package = 'gettext_pp';
+	} else {
+		$package = 'gettext_xs';
+	}
+		
+	my $selected = Locale::Messages->select_package ($package);
+	if ($selected ne $package && 'gettext_xs' eq $package) {
+		print "1..0 # Skip: Locale::$package not available here.\n";
+		exit 0;
+	}
+	plan tests => NUM_TESTS;
+}
+
+textdomain 'bogus';
+
+my $gettext = gettext ('foobar');
+my $dgettext = dgettext (bogus => 'foobar');
+my $dcgettext = dcgettext (bogus => 'foobar', LC_MESSAGES);
+my $ngettext = ngettext ('foobar', 'barbaz', 1);
+my $dngettext = dngettext (bogus => 'foobar', 'barbaz', 1);
+my $dcngettext = dcngettext (bogus => 'foobar', 'barbaz', 1, LC_MESSAGES); 
+
+my $coderef = sub {
+	my ($data, $string) = @_;
+
+	# Dunno why Test::_to_value executes our callback ...
+	return unless $string;
+
+	return $data . $string;
+};
+
+my $prefix = 'prefix - ';
+ok (bind_textdomain_filter ('bogus', $coderef, $prefix));
+
+ok "$prefix$gettext" eq gettext ('foobar');
+ok "$prefix$dgettext" eq dgettext (bogus => 'foobar');
+ok "$prefix$dcgettext" eq dcgettext (bogus => 'foobar', LC_MESSAGES);
+ok "$prefix$ngettext" eq ngettext ('foobar', 'barbaz', 1);
+ok "$prefix$dngettext" eq dngettext (bogus => 'foobar', 'barbaz', 1);
+ok "$prefix$dcngettext" eq 
+	dcngettext (bogus => 'foobar', 'barbaz', 1, LC_MESSAGES); 
+
+__END__
+
+Local Variables:
+mode: perl
+perl-indent-level: 4
+perl-continued-statement-offset: 4
+perl-continued-brace-offset: 0
+perl-brace-offset: -4
+perl-brace-imaginary-offset: 0
+perl-label-offset: -4
+cperl-indent-level: 4
+cperl-continued-statement-offset: 2
+tab-width: 4
+End:
