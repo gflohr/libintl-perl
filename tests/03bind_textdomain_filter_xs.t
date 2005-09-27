@@ -38,18 +38,32 @@ my $ngettext = ngettext ('foobar', 'barbaz', 1);
 my $dngettext = dngettext (bogus => 'foobar', 'barbaz', 1);
 my $dcngettext = dcngettext (bogus => 'foobar', 'barbaz', 1, LC_MESSAGES); 
 
-my $coderef = sub {
-	my ($data, $string) = @_;
+package MyPackage;
 
-	# Dunno why Test::_to_value executes our callback ...
-	return unless $string;
+use strict;
 
-	return $data . $string;
+sub new {
+	bless {}, shift;
+}
+
+sub filterMethod {
+	my ($self, $string) = @_;
+	
+	return 'prefix - ' . $string;
 };
 
-my $prefix = 'prefix - ';
-ok (bind_textdomain_filter ('bogus', $coderef, $prefix));
+package main;
 
+sub wrapper {
+	my ($string, $obj) = @_;
+
+	$obj->filterMethod ($string);
+}
+
+my $obj = MyPackage->new;
+ok (bind_textdomain_filter ('bogus', \&wrapper, $obj));
+
+my $prefix = 'prefix - ';
 ok "$prefix$gettext" eq gettext ('foobar');
 ok "$prefix$dgettext" eq dgettext (bogus => 'foobar');
 ok "$prefix$dcgettext" eq dcgettext (bogus => 'foobar', LC_MESSAGES);

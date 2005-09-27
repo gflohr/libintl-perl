@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.30 2005/09/27 21:40:37 guido Exp $
+# $Id: Messages.pm,v 1.31 2005/09/27 23:11:23 guido Exp $
 
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -103,62 +103,50 @@ BEGIN {
 		}
 	}
 
-	# Turn the UTF-8 flag off unconditionally.
+	# Turn the UTF-8 flag on or off unconditionally.  The prototypes
+	# allow an optional second parameter, so that you can use the
+	# functions as callbacks to bind_textdomain_filter.
 	if ($has_encode) {
 		eval <<'EOF';
-sub turn_utf_8_on($)
+sub turn_utf_8_on($;$)
 {
 	Encode::_utf8_on ($_[0]);
 	return $_[0];
 }
 
-sub turn_utf_8_off($)
+sub turn_utf_8_off($;$)
 {
 	Encode::_utf8_off ($_[0]);
 	return $_[0];
 }
 
-sub __turn_utf_8_off($)
-{
-	Encode::_utf8_off ($_[1]);
-	return $_[1];
-}
 EOF
 	} elsif ($has_bytes) {
 		eval <<'EOF';
-sub turn_utf_8_on($)
+sub turn_utf_8_on($;$)
 {
 	$_[0] = pack "U0C*", unpack "C*", $_[0];
 }
 
-sub turn_utf_8_off($)
+sub turn_utf_8_off($;$)
 {
 	use bytes;
 	$_[0] = join "", split //, $_[0];
 }
 
-sub __turn_utf_8_off($)
-{
-	use bytes;
-	$_[1] = join "", split //, $_[1];
-}
 EOF
 	} else {
 		eval <<'EOF';
-sub turn_utf_8_on($)
+sub turn_utf_8_on($;$)
 {
 	return $_[0];
 }
 
-sub turn_utf_8_off($)
+sub turn_utf_8_off($;$)
 {
 	return $_[0];
 }
 
-sub __turn_utf_8_off($)
-{
-	return $_[1];
-}
 EOF
 	}
 }
@@ -211,59 +199,59 @@ sub bind_textdomain_codeset($;$)
 sub gettext($)
 {
 	my $textdomain = textdomain;
-	$filters{$textdomain} ||= [ \&__turn_utf_8_off ];
+	$filters{$textdomain} ||= [ \&turn_utf_8_off ];
 	my $cb = $filters{$textdomain};
 
-    $cb->[0] ($cb->[1], 'gettext_xs' eq $package ?
+    $cb->[0] ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::gettext :
-		     &Locale::gettext_pp::gettext);
+		     &Locale::gettext_pp::gettext, $cb->[1]);
 }
 
 sub dgettext($$)
 {
-	my $cb = $filters{$_[0]} ||= [ \&__turn_utf_8_off ];
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
 
-    $cb->[0] ($cb->[1], 'gettext_xs' eq $package ?
+    $cb->[0] ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dgettext :
-		     &Locale::gettext_pp::dgettext);
+		     &Locale::gettext_pp::dgettext, $cb->[1]);
 }
 
 sub dcgettext($$$)
 {
-	my $cb = $filters{$_[0]} ||= [ \&__turn_utf_8_off ];
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
 
-    $cb->[0] ($cb->[1], 'gettext_xs' eq $package ?
+    $cb->[0] ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dcgettext :
-		     &Locale::gettext_pp::dcgettext);
+		     &Locale::gettext_pp::dcgettext, $cb->[1]);
 }
 
 sub ngettext($$$)
 {
 	my $textdomain = textdomain;
-	$filters{$textdomain} ||= [ \&__turn_utf_8_off ];
+	$filters{$textdomain} ||= [ \&turn_utf_8_off ];
 	my $cb = $filters{$textdomain};
 
-    $cb->[0] ($cb->[1], 'gettext_xs' eq $package ?
+    $cb->[0] ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::ngettext :
-		     &Locale::gettext_pp::ngettext);
+		     &Locale::gettext_pp::ngettext, $cb->[1]);
 }
 
 sub dngettext($$$$)
 {
-	my $cb = $filters{$_[0]} ||= [ \&__turn_utf_8_off ];
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
 
-    $cb->[0] ($cb->[1], 'gettext_xs' eq $package ?
+    $cb->[0] ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dngettext :
-		     &Locale::gettext_pp::dngettext);
+		     &Locale::gettext_pp::dngettext, $cb->[1]);
 }
 
 sub dcngettext($$$$$)
 {
-	my $cb = $filters{$_[0]} ||= [ \&__turn_utf_8_off ];
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
 
-    $cb->[0] ($cb->[1], 'gettext_xs' eq $package ?
+    $cb->[0] ('gettext_xs' eq $package ?
 		     &Locale::gettext_xs::dcngettext :
-		     &Locale::gettext_pp::dcngettext);
+		     &Locale::gettext_pp::dcngettext, $cb->[1]);
 }
 
 sub nl_putenv($)
@@ -568,14 +556,16 @@ translated string as the second argument.  It should return the
 possibly modified string.
 
 If you want an object method to be called, pass the object itself
-in the data parameter.  Example:
+in the data parameter and write a wrapper function.  Example:
 
+    sub wrapper { 
+        my ($string, $obj) = @_;
+ 
+        $obj->filterMethod ($string);
+    }
     my $obj = MyPackage->new;
-    bind_textdomain_filter ('mydomain', \&MyPackage::filter, $obj);
 
-The callback will be executed by Locale::Messages like this:
-
-    $obj->filter ($translated_string);
+    bind_textdomain_filter ('mydomain', \&wrapper, $obj);
 
 The function cannot fail and always returns a true value.
 
