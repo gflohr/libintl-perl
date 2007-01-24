@@ -49,7 +49,7 @@ $(TEXTDOMAIN).pot: $(POTFILES)
 		--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 		--keyword --keyword='$$__' --keyword=__ --keyword=__x \
 		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn:1,2 \
-		--keyword=N__ --language=perl && \
+		--keyword=N__ --keyword=%__ --language=perl && \
 	rm -f $@ && mv $(TEXTDOMAIN).pox $@
 
 install: $(MO_FILES)
