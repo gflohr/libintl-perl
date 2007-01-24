@@ -1,3 +1,5 @@
+* Minor bugfixes
+
 Version 1.16 - 28 Sep 2005
 
 * New function Locale::Messages::bind_textdomain_filter() allows you 
