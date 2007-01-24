@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.35 2007/01/24 11:10:24 guido Exp $
+# $Id: TextDomain.pm,v 1.36 2007/01/24 13:45:44 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -223,7 +223,7 @@ sub import
     unless (exists $bound_dirs{$textdomain}) {
 		@search_dirs = map $_ . '/LocaleData', @INC, @default_dirs
 			unless @search_dirs;
-		$bound_dirs{$textdomain} = \@search_dirs;
+		$bound_dirs{$textdomain} = [@search_dirs];
     }
 	
     Locale::TextDomain->export_to_level (1, $package, @EXPORT);
