@@ -52,9 +52,12 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
+my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+    '' : 'locale de_AT missing';
+
 my $locale = POSIX::setlocale (POSIX::LC_ALL() => '');
 my $translation = Locale::TextDomain::__("February");
-ok "Feber" eq $translation;
+skip $missing_locale, "Feber" eq $translation;
 
 __END__
 
