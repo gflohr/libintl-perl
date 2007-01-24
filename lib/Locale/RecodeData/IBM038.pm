@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: IBM038.pm,v 1.10 2004/06/11 11:06:09 guido Exp $
+# $Id: IBM038.pm,v 1.11 2007/01/24 11:10:24 guido Exp $
 
 # Conversion routines for IBM038.
-# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, all
+# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
 
@@ -929,7 +929,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

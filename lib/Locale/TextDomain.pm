@@ -1,10 +1,10 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.34 2005/09/27 23:29:38 guido Exp $
+# $Id: TextDomain.pm,v 1.35 2007/01/24 11:10:24 guido Exp $
 
 # High-level interface to Perl i18n.
-# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -838,7 +838,7 @@ overhead for the function calls.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2004, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 
