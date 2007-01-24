@@ -1,0 +1,146 @@
+#! /bin/false
+
+# vim: set autoindent shiftwidth=4 tabstop=4:
+# $Id: libintlFAQ.pod,v 1.1 2007/01/24 11:51:41 guido Exp $
+
+# High-level interface to Perl i18n.
+# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Library General Public License as published
+# by the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+ 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+
+# You should have received a copy of the GNU Library General Public 
+# License along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
+# USA.
+
+=head1 NAME
+
+Locale::TextDomain::FAQ - Frequently asked questions for libintl-perl
+
+=head1 DESCRIPTION
+
+This FAQ 
+
+=head1 QUESTIONS AND ANSWERS
+
+=head2 Why is libintl-perl so big?  Why don't you use Encode(3pm) for character
+set conversion instead of rolling your own version?
+
+Encode(3pm) requires at least Perl 5.7.x, whereas libintl-perl needs
+to be operational on Perl 5.004.  Internally, libintl-perl uses Encode(3pm)
+if it is available.
+
+
+=head2 Why do the gettext functions always unset the utf-8 flag on the strings 
+it returns?
+
+Because the gettext functions do not know whether the string is encoded 
+in utf-8 or not.  Instead of taking guesses, it rather unsets the flag.
+
+
+=head2 Can I set the utf-8 flag on strings returned by the gettext family of
+functions?
+
+Yes, but it is not recommended.  If you absolutely want to do it,
+use the function bind_textdomain_filter in Locale::Messages for it.
+
+The strings returned by gettext and friends are by default encoded in
+the preferred charset for the user's locale, but there is no portable
+way to find out, whether this is utf-8 or not.  That means, you either
+have to enforce utf-8 as the output character set (by means of 
+bind_textdomain_codeset() and/or the environment variable
+OUTPUT_CHARSET) and override the user preference, or you run the risk
+of marking strings as utf-8 which really aren't utf-8.
+
+The whole concept behind that utf-8 flag introduced in Perl 5.6 is
+seriously broken, and the above described dilemma is a proof for that.
+The best thing you can do with that flag is get rid of it, and turn
+it off.  Your code will benefit from it and become less error prone,
+more portable and faster.
+
+
+=head2 Why do non-ASCII characters in my Gtk2 application look messed up?
+
+The Perl binding of Gtk2 has a design flaw.  It expects all UI messages
+to be in UTF-8 and it also expects messages to be flagged as utf-8.  The
+only solution for you is to enforce all your po files to be encoded
+in utf-8 (convert them manually, if you need to), and also enforce that
+charset in your application, regardless of the user's locale settings.
+Assumed that your textdomain is "org.bar.foo", you have to code the
+following into your main module or script:
+
+  BEGIN {
+      bind_textdomain_filter 'org.bar.foo', \&turn_utf_8_on;
+      bind_textdomain_codeset 'org.bar.foo', 'utf-8';
+  }
+
+See the File GTestRunner.pm of Test::Unit::GTestRunner(3pm) for details.
+
+
+=head2 How do I interface Glade2 UI definitions with libintl-perl?
+
+Gtk2::GladeXML(3pm) seems to ignore calls to bind_textdomain().
+See the File GTestRunner.pm of Test::Unit::GTestRunner(3pm) for a
+possible solution.
+
+
+=head2 Why does Locale::TextDomain use a double underscore?  I am used
+to a single underscore from C or other languages. 
+
+Function names that consist of exactly one non-alphanumerical character
+make the function automatically global in Perl.  Besides, in Perl
+6 the concatenation operator will be the underscore instead of the
+dot.
+
+
+=head2 What is the advantage of libintl-perl over Locale::Maketext?
+
+Of course, I can only give my personal opinion as an answer.
+
+Locale::Maketext claims to fix design flaws in gettext.  These alleged
+design flaws, however, boil down to one pathological case which always
+has a workaround.  But both programmers and translators pay this
+fix with an unnecessarily complicated interface.
+
+The paramount advantage of libintl-perl is that it uses an approved
+technology and concept.  Except for Java(tm) programs, this is the
+state-of-the-art concept for localizing Un*x software.  Programmers
+that have already localized software in C, C++, C#, Python, PHP,
+or a number of other languages will feel instantly at home, when
+localizing software written in Perl with libintl-perl.  The same
+holds true for the translators, because the files they deal with
+have exactly the same format as those for other programming languages.
+They can use the same set of tools, and even the commands they have
+to execute are the same.
+
+With libintl-perl refactoring of the software is painless, even if
+you modify, add or delete translatable strings.  The gettext tools
+are powerful enough to reduce the effort of the translators to the
+bare minimum.  Maintaining the message catalogs of Locale::Maketext
+in larger scale projects, is IMHO unfeasible.
+
+Editing the message catalogs of Locale::Maketext - they are really
+Perl modules - asks too much from most translators, unless
+they are programmers.  The portable object (po) files used by
+libintl-perl have a simple syntax, and there are a bunch of specialized
+GUI editors for these files, that facilitate the translation process
+and hide most complexity from the user.
+
+Furthermore, libintl-perl makes it possible to mix programming
+languages without a paradigm shift in localization.  Without any special
+efforts, you can write a localized software that has modules written
+in C, modules in Perl, and builds a Gtk user interface with Glade.
+All translatable strings end up in one single message catalog.
+
+Last but not least, the interface used by libintl-perl is plain
+simple:  Prepend translatable strings with a double underscore,
+and you are done in most cases.

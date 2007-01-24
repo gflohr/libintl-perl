@@ -161,6 +161,7 @@ lib/Locale/RecodeData/_Encode.pm
 lib/Locale/TextDomain.pm
 lib/Locale/gettext_pp.pm
 lib/Locale/gettext_xs.pod
+lib/Locale/libintlFAQ.pod
 sample/README
 sample/simplecal/MANIFEST
 sample/simplecal/Makefile.PL
