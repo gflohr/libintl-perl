@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.33 2007/01/24 11:10:24 guido Exp $
+# $Id: Messages.pm,v 1.34 2007/02/02 15:13:07 guido Exp $
 
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -41,8 +41,6 @@ if ($@) {
     require Locale::gettext_pp;
 }
 		
-my %filters = ();
-
 require Exporter;
 @ISA = qw (Exporter);
 %EXPORT_TAGS = ( locale_h => [ qw (gettext
@@ -150,6 +148,12 @@ sub turn_utf_8_off($;$)
 EOF
 	}
 }
+
+# The textdomain could be undef.  We avoid a warning by specifying
+# a filter for the undefined textdomain.
+my %filters = (
+			   undef => \&turn_utf_8_off,
+			   );
 
 sub select_package
 {

@@ -158,6 +158,7 @@ lib/Locale/RecodeData/US_ASCII.pm
 lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/VISCII.pm
 lib/Locale/RecodeData/_Encode.pm
+lib/Locale/Template/Gettext.pm
 lib/Locale/TextDomain.pm
 lib/Locale/gettext_pp.pm
 lib/Locale/gettext_xs.pod
