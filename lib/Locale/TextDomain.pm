@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.36 2007/01/24 13:45:44 guido Exp $
+# $Id: TextDomain.pm,v 1.37 2007/02/02 15:12:28 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -65,6 +65,7 @@ package Locale::TextDomain;
 use strict;
 
 use Locale::Messages qw (textdomain bindtextdomain dgettext dngettext);
+use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
@@ -124,7 +125,14 @@ sub __tied_gettext ($$)
     my ($package) = caller (1);
     
     my $textdomain = $textdomains{$package};
-    
+    unless (defined $textdomain) {
+		my ($maybe_package, $filename, $line) = caller (2);
+		if (exists $textdomains{$maybe_package}) {
+			warn <<'EOF';
+Probable use of $__ or %__ where __() should be used at $filename:$line.
+EOF
+		}
+	}
     __find_domain $textdomain if
 		defined $textdomain && defined $bound_dirs{$textdomain};
     
@@ -241,7 +249,7 @@ sub __find_domain ($)
 	if (defined $try_dirs) {
 		my $found_dir = '';
 		
-		TRYDIR: foreach my $dir (@$try_dirs) {
+		TRYDIR: foreach my $dir (map { abs_path $_ } grep { -d $_ } @$try_dirs) {
 			# Is there a message catalog?  We have to search recursively
 			# for it.  Since globbing is reported to be buggy under
 			# MS-DOS, we roll our own version.
@@ -751,6 +759,21 @@ This is much better for your translation team than
 In the second case the HTML code will make it into the translation
 database and your translators have to be aware of HTML syntax when
 translating strings.
+
+B<Warning:> Do I<not> use this hash outside of double-quoted strings!
+The code in the tied hash object relies on the correct working of
+the function caller() (see "perldoc -f caller"), and this function
+will report incorrect results if the tied hash value is the argument
+to a function from another package, for example:
+
+  my $result = Other::Package::do_it ($__{'Some string'});
+
+The tied hash code will see "Other::Package" as the calling package,
+instead of your own package.  Consequently it will look up the message
+in the wrong text domain.  There is no workaround for this bug.
+Therefore:
+
+Never use the tied hash interpolated strings!
 
 =item B<$__>
 
