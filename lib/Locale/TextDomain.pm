@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.37 2007/02/02 15:12:28 guido Exp $
+# $Id: TextDomain.pm,v 1.38 2007/02/05 09:45:51 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -128,8 +128,8 @@ sub __tied_gettext ($$)
     unless (defined $textdomain) {
 		my ($maybe_package, $filename, $line) = caller (2);
 		if (exists $textdomains{$maybe_package}) {
-			warn <<'EOF';
-Probable use of $__ or %__ where __() should be used at $filename:$line.
+			warn <<EOF;
+Probable use of \$__ or \%__ where __() should be used at $filename:$line.
 EOF
 		}
 	}
