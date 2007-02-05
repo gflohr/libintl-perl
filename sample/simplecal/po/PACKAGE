@@ -14,8 +14,8 @@ LINGUAS = de \
 	  pt_BR \
 	  nl \
 
-# Textdomain for our package.
-
+# Textdomain for our package.  Make sure that there is no trailing space
+# after the name.  Otherwise the make will fail!
 TEXTDOMAIN = org.imperia.simplecal
 
 # Initial copyright holder added to pot and po files.
