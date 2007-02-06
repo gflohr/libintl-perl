@@ -1,6 +1,7 @@
 ~$
 x-.*$
 \bCVS\b
+^ChangeLog\.bak$
 ^MANIFEST\.
 ^Makefile$
 ^blib/
@@ -14,3 +15,5 @@ x-.*$
 ^gettext_xs/Makefile
 ^gettext_xs/.*\.(bs|c|o)$
 ^gettext_xs/pm_to_blib$
+^build_xs$
+^xs_disabled$
