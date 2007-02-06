@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.4 2007/02/06 16:14:45 guido Exp $
+# $Id: Util.pm,v 1.5 2007/02/06 16:44:43 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -821,6 +821,19 @@ sub __set_locale_windows {
 	return $set_locale;
 }
 
+sub get_locale_cache {
+	$locale_cache;
+}
+
+sub set_locale_cache {
+	if (ref $_[0] && 'HASH' eq ref $_[0]) {
+		$locale_cache = $_[0];
+    } else {
+		my %locale_cache = @_;
+		$locale_cache = \%locale_cache;
+	}
+}
+
 1;
 
 __END__
@@ -833,7 +846,12 @@ Locale::Util - Portable l10n and i10n functions
 
   use Locale::Util;
 
-  my @linguas = parse_http_accept ($ENV{HTTP_ACCEPT_LANGUAGE});
+  my @linguas = parse_http_accept_language $ENV{HTTP_ACCEPT_LANGUAGE};
+
+  my @charsets = parse_http_accept_charset $ENV{HTTP_ACCEPT_CHARSET};
+
+  # Trie to set the locale to Brasilian Portuguese in UTF-8.
+  my $set_locale = set_locale LC_ALL, 'pt', 'BR', 'utf-8';
 
 =head1 DESCRIPTION
 
@@ -875,6 +893,90 @@ for details.
 
 The special character set "*" (means all character sets) will be
 translated to the undefined value.
+
+=item B<set_locale CATEGORY, LANGUAGE[, COUNTRY, CHARSET]>
+
+Tries to set the user locale by means of POSIX::setlocale().  The latter
+function has the disadvantage, that its second argument (the locale
+description string) is completely non-standard and system-dependent.
+This function tries its best at guessing the system's notion of a locale
+dientifier, with the arguments supplied:
+
+=over8
+
+=item B<CATEGORY>
+
+An integer argument for a valid locale category.  These are the
+LC_* constants (LC_ALL, LC_CTIME, LC_COLLATE, ...) defined in both
+Locale::Messages(3pm) and POSIX(3pm).
+
+=item B<LANGUAGE>
+
+A 2-letter language identifier as per ISO 639.  Case doesn't matter,
+but an unchanged version (ie. not lower-cased) of the language you
+provided will always be tried to.
+
+=item B<COUNTRY>
+
+A 2-letter language identifier as per ISO 639.  Case doesn't matter,
+but an unchanged version (ie. not lower-cased) of the language you
+provided will always be tried to.
+
+This parameter is optional.  If it is not defined, the function will
+try to guess an appropriate country, otherwise leave it to the 
+operating system.
+
+=item B<CHARSET>
+
+A valid charset name.  Valid means valid!  The charset "utf8" is not
+valid (it is "utf-8").  Charset names that are accepted by the
+guessing algorithms in Encode(3pm) are also not necessarily valid.
+
+If you parameter is undefined, it is ignored.  It is always ignored
+under Windows.
+
+=back
+
+The function tries to approach the desired locale in loops, refining
+it on every success.  It will first try to set the language (for 
+any country), then try to select the correct language, and finally
+try to select the correct charset.
+
+The return value is false in case of failure, or the return value
+of the underlying POSIX::setlocale() call in case of success.
+
+Please note that this function is intended for server processes 
+(especially web applications) that need to switch in a portable
+way to a certain locale.  It is B<not> the recommended way to set 
+the program locale for a regular application.  In a regular application
+you should do the following:
+
+    use POSIX qw (setlocale LC_ALL);
+    setlocale LC_ALL, '';
+
+The empty string as the second argument means, that the system
+should switch to the user's default locale.
+
+=item B<get_locale_cache>
+
+The function set_locale() is potentially expansive, especially when
+it fails, because it can try a lot of different combinations, and 
+the system may have to load a lot of locale definitions from its
+internal database.
+
+In order to speed up things, results are internally cached in a 
+hash, keys are the languages, subkeys countries, subsubkeys the
+charsets.  You can get a reference to this hash with get_locale_cache().
+
+The function cannot fail.
+
+=item B<set_locale_cache HASH>
+
+Sets the internal cache.  You can either pass a hash or a hash reference.
+The function will use this as its cache, discarding its old cache.
+This allows you to keep the hash persistent.
+
+The function cannot fail.
 
 =back
 
