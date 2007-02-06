@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.25 2005/11/18 10:34:26 guido Exp $
+# $Id: Makefile.PL,v 1.26 2007/02/06 21:35:29 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
@@ -208,7 +208,7 @@ WriteMakefile (
 	PREREQ_PM		=> { File::Spec => 0 },
 	PL_FILES        => {},
 	DIR		=> [$result == 0 ? ('gettext_xs') : ()],
-	clean			=> { FILES => 'xs_disabled' }
+	clean			=> { FILES => 'xs_disabled build_xs' }
 	# If you want to build the XS version although the automatic detection
 	# suggests not to build it, uncomment the following line.
 	#DIR => [ ('gettext_xs') ],,
