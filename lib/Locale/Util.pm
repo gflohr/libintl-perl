@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.5 2007/02/06 16:44:43 guido Exp $
+# $Id: Util.pm,v 1.6 2007/02/06 16:46:17 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -982,9 +982,12 @@ The function cannot fail.
 
 =head1 BUGS
 
-If you think you have spotted a new bug, you can share it with others in
-the bug tracking system at
-http://rt.cpan.org/NoAuth/Bugs.html?Dist=Template-Plugin-Gettext.
+The function set_locale() probably fails to guess the correct locale
+identifier on a lot of systems.  If you have found such a case,
+please submit it as a bug report.
+
+The bug tracking system for this packags is at
+http://rt.cpan.org/NoAuth/Bugs.html?libintl-perl
 
 =head1 AUTHOR
 
