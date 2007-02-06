@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.6 2007/02/06 16:46:17 guido Exp $
+# $Id: Util.pm,v 1.7 2007/02/06 18:43:39 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -26,7 +26,7 @@ package Locale::Util;
 
 use strict;
 
-use constant DEBUG => 1;
+use constant DEBUG => 0;
 
 use base qw (Exporter);
 
@@ -684,14 +684,22 @@ sub set_locale {
 	require POSIX;
 
 	my $set_locale;
-	if (exists $locale_cache->{$language}->{$country}->{$charset}) {
-		my $retval = $locale_cache->{$language}->{$country}->{$charset};
+	# Look up the cache first.  The strange handling of
+    # undefined values shuts up a warning in Perl.
+	if (exists ($locale_cache->{$language}
+				->{$country || undef}->{$charset || undef})) {
+		my $retval = $locale_cache->{$language}
+		->{$country || undef}->{$charset || undef};
+
 		return unless defined $retval;
 		return;
 	}
+
 	# Initialize the cache with the undefined value so that we can do
-	# error returns without setting it.
-	$locale_cache->{$language}->{$country}->{$charset} = undef;
+	# error returns without setting it.  The strange handling of
+    # undefined values shuts up a warning in Perl.
+	$locale_cache->{$language}->{$country || undef}->{$charset || undef} = 
+		undef;
 
 	my $windows = ($^O !~ /darwin/i && $^O =~ /win/i) ? 1 : 0;
 	if ($windows) {
@@ -699,7 +707,7 @@ sub set_locale {
 	}
 	
 	my $set_language;
-	
+
 	# First we try to only use the language.
 	my @languages = ($language);
 	my @lc_languages = map { lc $_ } @languages;
@@ -715,7 +723,7 @@ sub set_locale {
 			last;
 		}
 	}
-	
+
 	# Now try it with the country appended.
  COMBI: foreach my $language (@languages, @lc_languages, @uc_languages) {
 		my @countries = defined $country && length $country ? ($country) : ();
@@ -773,7 +781,6 @@ sub __set_locale_windows {
 	my ($category, $language, $country, $charset) = @_;
 
     my $set_locale;
-	my $set_language;
 	
 	# First we try to only use the language.
 	my $long_language = WIN32LANGUAGE->{lc $language};
@@ -784,7 +791,7 @@ sub __set_locale_windows {
 		warn "Trying lingua only setlocale '$language'.\n" if DEBUG;
 		my $result = POSIX::setlocale ($category, $language);
 		if ($result) {
-			$set_locale = $set_language = $result if $result;
+			$set_locale = $result if $result;
 			last;
 		}
 	}
