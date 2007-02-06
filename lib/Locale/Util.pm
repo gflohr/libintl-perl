@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.2 2007/02/06 13:21:44 guido Exp $
+# $Id: Util.pm,v 1.3 2007/02/06 13:41:26 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -280,6 +280,7 @@ sub set_locale {
 	$locale_cache->{$language}->{$country}->{$charset} = undef;
 
 	my $windows = ($^O !~ /darwin/i && $^O =~ /win/i) ? 1 : 0;
+$windows = 1;
 	if ($windows) {
 		return &__set_locale_windows;
 	}
@@ -307,7 +308,8 @@ sub set_locale {
 		my @countries = defined $country && length $country ? ($country) : ();
 		my @uc_countries = map { uc $_ } @countries;
 		my @lc_countries = map { uc $_ } @countries;
-		foreach my $country (@countries, @uc_countries, @lc_countries,							 LANG2COUNTRY->{lc $language},
+		foreach my $country (@countries, @uc_countries, @lc_countries,
+							 LANG2COUNTRY->{lc $language},
 							 lc LANG2COUNTRY->{lc $language}) {
 			next unless defined $country && length $country;
 			my $try = $language . '_' . $country;
@@ -333,6 +335,7 @@ sub set_locale {
 	my @charsets = ($charset);
 	my $cleaned = $charset;
 	push @charsets, $cleaned if $cleaned =~ s/-//g;
+
 	my @lc_charsets = map { lc $charset } @charsets;
 	my @uc_charsets = map { uc $charset } @charsets;
 	%seen = ();
@@ -355,7 +358,46 @@ sub set_locale {
 
 sub __set_locale_windows {
 	my ($category, $language, $country, $charset) = @_;
+
+	require Locale::Language;
+	require Locale::Country;
+
+	my $set_language;
 	
+	# First we try to only use the language.
+	my $long_language = Locale::Language::code2language (lc $language);
+	my @languages = ($long_language, $language);
+	my %seen = ();
+	foreach my $language (@languages) {
+		next if $seen{$language}++;
+		warn "Trying lingua only setlocale '$language'.\n" if DEBUG;
+		my $result = POSIX::setlocale ($category, $language);
+		if ($result) {
+			$set_locale = $set_language = $result if $result;
+			last;
+		}
+	}
+	
+	# Now try it with the country appended.
+ COMBI: foreach my $language (@languages) {
+	    my @short_countries = ($country, LANG2COUNTRY->{lc $language});
+		my @countries = map { 
+			Locale::Country::code2country ($_ } 
+			} grep { defined $_ } @short_countries;
+		foreach my $country (@countries) {
+			next unless defined $country && length $country;
+			my $try = $language . '_' . $country;
+			next if $seen{$try}++;
+			warn "Trying setlocale '$try'.\n" if DEBUG;
+			my $result = POSIX::setlocale ($category, $try);
+			if ($result) {
+				$set_locale = $result;
+				last COMBI;
+			}
+		}
+	}
+
+
 	die;
 }
 
