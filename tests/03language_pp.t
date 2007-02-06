@@ -38,7 +38,9 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 # Actually both de_AT and de are required.  We assume here that
-# de will be installed, too, if de_AT is.
+# de will be installed, too, if de_AT is.  This test does not
+# use Locale::Util::set_locale() for setting the locale, and 
+# that is on purpose.
 my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
     '' : 'locale de_AT missing';
 POSIX::setlocale (POSIX::LC_ALL() => 'C');

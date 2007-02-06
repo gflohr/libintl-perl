@@ -41,8 +41,19 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET");
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
-	'' : 'locale de_AT missing';
+
+my $missing_locale = 'locale de_AT missing';
+my $setlocale = POSIX::setlocale (POSIX::LC_ALL() => '');
+if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+	$missing_locale = '';
+} else {
+	require Locale::Util;
+	
+	$setlocale = Locale::Util::set_locale (POSIX::LC_ALL(), 'de', 'AT');
+	if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+		$missing_locale = '';
+	}
+}
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
@@ -57,8 +68,8 @@ my $bound_codeset = bind_textdomain_codeset $textdomain => 'ISO-8859-1';
 
 ok defined $bound_codeset && 'ISO-8859-1' eq uc $bound_codeset;
 
-skip $missing_locale, 'Jänner' eq gettext ('January');
-skip $missing_locale, 'März' eq gettext ('March');
+skip $missing_locale, gettext ('January'), 'Jänner';
+skip $missing_locale, gettext ('March'), 'März';
 
 # This will cause GNU gettext to re-load our catalog.
 $bound_dir = bindtextdomain $textdomain => $locale_dir . '/../LocaleData';
@@ -71,8 +82,8 @@ $bound_codeset = bind_textdomain_codeset $textdomain => 'UTF-8';
 
 ok defined $bound_codeset && 'UTF-8' eq uc $bound_codeset;
 
-skip $missing_locale, 'JÃ¤nner' eq gettext ('January');
-skip $missing_locale, 'MÃ¤rz' eq gettext ('March');
+skip $missing_locale, gettext ('January'), 'JÃ¤nner';
+skip $missing_locale, gettext ('March'), 'MÃ¤rz';
 
 __END__
 

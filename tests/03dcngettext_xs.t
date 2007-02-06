@@ -45,7 +45,7 @@ bindtextdomain not_here => $locale_dir;
 my @strings = qw (Singular Plural);
 for (0 .. 9) {
 	my $translation = dcngettext (not_here => $strings[0], $strings[1], $_, LC_MESSAGES);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	ok $translation, $_ == 1 ? 'Singular' : 'Plural';
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=C");
@@ -62,7 +62,7 @@ ok defined $bound_dir &&
 
 for (0 .. 9) {
 	my $translation = dcngettext (existing => $strings[0], $strings[1], $_, LC_MESSAGES);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	ok $translation, $_ == 1 ? 'Singular' : 'Plural';
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -70,13 +70,22 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
-    '' : 'locale de_AT missing';
+my $missing_locale = 'locale de_AT missing';
+my $setlocale = POSIX::setlocale (POSIX::LC_ALL() => '');
+if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+	$missing_locale = '';
+} else {
+	require Locale::Util;
+	
+	$setlocale = Locale::Util::set_locale (POSIX::LC_ALL(), 'de', 'AT');
+	if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+		$missing_locale = '';
+	}
+}
 
 for (0 .. 9) {
 	my $translation = dcngettext (existing => $strings[0], $strings[1], $_, LC_MESSAGES);
-	skip $missing_locale,
-		 $_ == 1 ? 'Einzahl' eq $translation : 'Mehrzahl' eq $translation;
+	skip $missing_locale, $translation, $_ == 1 ? 'Einzahl' : 'Mehrzahl';
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=C");
@@ -93,7 +102,7 @@ ok defined $bound_dir &&
 
 for (0 .. 9) {
 	my $translation = dcngettext (additional => $strings[0], $strings[1], $_, LC_MESSAGES);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	ok $translation, $_ == 1 ? 'Singular' : 'Plural';
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -101,14 +110,14 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+POSIX::setlocale (POSIX::LC_ALL() => $setlocale);
 
 for (0 .. 40) {
 	my $translation = dcngettext (additional => $strings[0], $strings[1], $_, LC_MESSAGES);
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	skip $missing_locale, "Numerus $plural" eq $translation;
+	skip $missing_locale, $translation, "Numerus $plural";
 }
 
 __END__
