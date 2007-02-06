@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.7 2007/02/06 18:43:39 guido Exp $
+# $Id: Util.pm,v 1.8 2007/02/06 21:33:27 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -34,7 +34,8 @@ use vars qw (@EXPORT_OK);
 
 @EXPORT_OK = qw (parse_http_accept_language
 				 parse_http_accept_charset
-				 set_locale);
+				 set_locale set_locale_cache get_locale_cache
+				 set_web_locale);
 
 # The following list maps languages to a rough guess of the country that
 # is most likely to be meant if no locale info for the country alone is
@@ -692,7 +693,7 @@ sub set_locale {
 		->{$country || undef}->{$charset || undef};
 
 		return unless defined $retval;
-		return;
+		return @$retval;
 	}
 
 	# Initialize the cache with the undefined value so that we can do
@@ -707,6 +708,7 @@ sub set_locale {
 	}
 	
 	my $set_language;
+	my $set_country;
 
 	# First we try to only use the language.
 	my @languages = ($language);
@@ -729,16 +731,24 @@ sub set_locale {
 		my @countries = defined $country && length $country ? ($country) : ();
 		my @uc_countries = map { uc $_ } @countries;
 		my @lc_countries = map { uc $_ } @countries;
-		foreach my $country (@countries, @uc_countries, @lc_countries,
+		my $count = 0;
+		foreach my $c (@countries, @uc_countries, @lc_countries,
 							 LANG2COUNTRY->{lc $language},
 							 lc LANG2COUNTRY->{lc $language}) {
-			next unless defined $country && length $country;
-			my $try = $language . '_' . $country;
+			++$count;
+			next unless defined $c && length $c;
+			my $try = $language . '_' . $c;
 			next if $seen{$try}++;
 			warn "Trying setlocale '$try'.\n" if DEBUG;
 			my $result = POSIX::setlocale ($category, $try);
 			if ($result) {
 				$set_locale = $result;
+				if ($count >= @countries + @uc_countries + @lc_countries) {
+					$set_country = $c; 
+				} else {
+					$set_country = $country;
+				}
+
 				last COMBI;
 			}
 		}
@@ -749,8 +759,9 @@ sub set_locale {
 	return unless defined $set_locale && length $set_locale;
 
 	unless (defined $charset && length $charset) {
-		$locale_cache->{$language}->{$country}->{$charset} = $set_locale;
-		return $set_locale;
+		$locale_cache->{$language}->{$country}->{$charset} = 
+			[$set_locale, $set_country];
+		return wantarray ? ($set_locale, $set_country) : $set_locale;
 	}
 	
 	my @charsets = ($charset);
@@ -773,8 +784,10 @@ sub set_locale {
 
 	return unless defined $set_locale && length $set_locale;
 
-	$locale_cache->{$language}->{$country}->{$charset} = $set_locale;
-	return $set_locale;
+	$locale_cache->{$language}->{$country}->{$charset} = 
+		[$set_locale, $set_country];
+
+	return wantarray ? ($set_locale, $set_country) : $set_locale;
 }
 
 sub __set_locale_windows {
@@ -797,6 +810,7 @@ sub __set_locale_windows {
 	}
 	
 	# Now try it with the country appended.
+	my $set_country;
 	if (defined $country) {
         COMBI: foreach my $language (@languages) {
             # We do not need a fallback country here, because the "system" already
@@ -805,14 +819,15 @@ sub __set_locale_windows {
 		    my @countries = map { 
 			    WIN32COUNTRY->{lc $_} 
 			    } grep { defined $_ } @short_countries;
-		    foreach my $country (@countries) {
-			    next unless defined $country && length $country;
-			    my $try = $language . '_' . $country;
+		    foreach my $c (@countries) {
+			    next unless defined $c && length $c;
+			    my $try = $language . '_' . $c;
 			    next if $seen{$try}++;
 			    warn "Trying setlocale '$try'.\n" if DEBUG;
 			    my $result = POSIX::setlocale ($category, $try);
 			    if ($result) {
 				    $set_locale = $result;
+					$set_country = $c;
 				    last COMBI;
 			    }
 		    }
@@ -824,8 +839,9 @@ sub __set_locale_windows {
     # Apparently, there is no point in setting a charset.  Even the new
     # MS-DOS versions like 2000 or XP still have the concept of more or
     # less fixed codepages.  Switching to UTF-8 does not work.
-	$locale_cache->{$language}->{$country}->{$charset} = $set_locale;
-	return $set_locale;
+	$locale_cache->{$language}->{$country}->{$charset} = 
+		[$set_locale, $set_country];
+	return wantarray ? ($set_locale, $set_country) : $set_locale;
 }
 
 sub get_locale_cache {
@@ -839,6 +855,48 @@ sub set_locale_cache {
 		my %locale_cache = @_;
 		$locale_cache = \%locale_cache;
 	}
+}
+
+sub set_web_locale {
+	my ($accept_language, $accept_charset, $category) = @_;
+
+	my @languages;
+	if (ref $accept_language && 'ARRAY' eq ref $accept_language) {
+		@languages = @$accept_language;
+	} else {
+		@languages = parse_http_accept_language $accept_language;
+	}
+
+	my @charsets;
+	if (defined $accept_charset) {
+		if (ref $accept_charset && 'ARRAY' eq ref $accept_charset) {
+			@charsets = @$accept_charset;
+		} else {
+			@charsets = parse_http_accept_charset $accept_charset;
+		}
+	}
+
+	unless (defined $category) {
+		require POSIX;
+		$category = POSIX::LC_ALL();
+	}
+	foreach my $lang (@languages) {
+		my ($language, $country) = split /-/, $lang, 2;
+
+		my ($locale, $country_used) = 
+			set_locale ($category, $language, $country, $charsets[0]);
+		
+		# If a country was specified, we have to check whether it
+		# was actually selected.
+		if (defined $country) {
+			next unless defined $country_used;
+			next if $country_used ne $country;
+		}
+
+		return $locale if defined $locale;
+	}
+	
+	return;
 }
 
 1;
@@ -860,11 +918,23 @@ Locale::Util - Portable l10n and i10n functions
   # Trie to set the locale to Brasilian Portuguese in UTF-8.
   my $set_locale = set_locale LC_ALL, 'pt', 'BR', 'utf-8';
 
+  set_locale_cache $last_cache;
+  
+  my $cache = get_locale_cache;
+
+  set_web_locale ($ENV{HTTP_ACCEPT_LANGUAGE}, $ENV_ACCEPT_CHARSET);
+
+  set_web_locale (['fr-BE', 'fr', 'it'], ['cp1252', 'utf-8']);
+
 =head1 DESCRIPTION
 
 This module provides portable functions dealing with localization
 (l10n) and internationalization(i10n).  It doesn't export anything
-by default.  
+by default, you have to specify each function you need in the import
+list, or use the fully qualified name.
+
+The functions here have a focus on web development, although they 
+are general enough to have them in the Locale:: namespace.
 
 =head1 FUNCTIONS
 
@@ -952,6 +1022,16 @@ try to select the correct charset.
 The return value is false in case of failure, or the return value
 of the underlying POSIX::setlocale() call in case of success.
 
+In array context the country name that was passed in the successful
+call to POSIX::setlocale().  If this string is equal to the country
+name you passed as an argument, you can be reasonably sure that
+the settings for this country are really used.  If it is not
+equal, the function has taken a guess at the country (it has a list
+of "default" countries for each language).  It seems that under
+Windows, POSIX::setlocale() also succeeds, if you pass a country
+name that is actually not supported.  Therefore, the information
+is not completely reliable.
+
 Please note that this function is intended for server processes 
 (especially web applications) that need to switch in a portable
 way to a certain locale.  It is B<not> the recommended way to set 
@@ -984,6 +1064,20 @@ The function will use this as its cache, discarding its old cache.
 This allows you to keep the hash persistent.
 
 The function cannot fail.
+
+=item B<set_web_locale ACCEPT_LANGUAGE, ACCEPT_CHARSET>
+
+Try to change the locale to the settings described by ACCEPT_LANGUAGE
+and ACCEPT_CHARSET.  For each argument you can either pass a string
+as in the corresponding http header, or a reference to an array
+of language resp. charset identifiers.
+
+Currently only the first charset passed is used as an argument.
+You are strongly encouraged to pass a hard-coded value here, so
+that you have control about your output.
+
+The function returns the return value of the underlying set_locale()
+call, or false on failure.
 
 =back
 
