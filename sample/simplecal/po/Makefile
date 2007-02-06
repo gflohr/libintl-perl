@@ -3,8 +3,6 @@
 srcdir = .
 libdir = ../lib
 
-include PACKAGE
-
 #CATALOGS = $(addsuffix .po, LINGUAS)
 CATALOGS = $(LINGUAS)
 MO_FILES = $(addsuffix .mo, $(LINGUAS))
@@ -14,9 +12,13 @@ MSGFMT   = msgfmt
 XGETTEXT = xgettext
 CATOBJEXT = .po
 
+include PACKAGE
+
+TD = $(strip $(TEXTDOMAIN))
+
 default: help
 
-all: $(TEXTDOMAIN).pot update-po update-mo install
+all: $(TD).pot update-po update-mo install
 
 help:
 	@echo "Available targets:"
@@ -29,7 +31,7 @@ help:
 POTFILES = $(srcdir)/POTFILES.in \
 	$(shell cat $(srcdir)/POTFILES.in) 
 
-pot: $(TEXTDOMAIN).pot 
+pot: $(TD).pot 
 
 clean:
 	rm -f *~ *.bak *.mo
@@ -42,15 +44,15 @@ clean:
 # source language of all our files will be auto-detected by xgettext
 # by their filename extension.  You should even avoid this parameter
 # if you want to extract strings from multiple source languages.
-$(TEXTDOMAIN).pot: $(POTFILES)
-	$(XGETTEXT) --output=$(srcdir)/$(TEXTDOMAIN).pox --from-code=utf-8 \
+$(TD).pot: $(POTFILES)
+	$(XGETTEXT) --output=$(srcdir)/$(TD).pox --from-code=utf-8 \
 		--add-comments=TRANSLATORS: --files-from=$(srcdir)/POTFILES.in \
 		--copyright-holder="$(COPYRIGHT_HOLDER)" \
 		--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 		--keyword --keyword='$$__' --keyword=__ --keyword=__x \
 		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn:1,2 \
 		--keyword=N__ --keyword=%__ --language=perl && \
-	rm -f $@ && mv $(TEXTDOMAIN).pox $@
+	rm -f $@ && mv $(TD).pox $@
 
 install: $(MO_FILES)
 	cd $(srcdir); \
@@ -58,7 +60,7 @@ install: $(MO_FILES)
 	languages='$(LINGUAS)'; \
 	for lang in $$languages; do \
 		mkdir -p "$$targetdir/$$lang/LC_MESSAGES" || exit 1; \
-		dest="$$targetdir/$$lang/LC_MESSAGES/$(TEXTDOMAIN).mo"; \
+		dest="$$targetdir/$$lang/LC_MESSAGES/$(TD).mo"; \
 		cat="$$lang.mo"; \
 		echo "installing $$cat as $$dest"; \
 		cp -f $$cat $$dest && chmod 644 $$dest || exit 1; \
@@ -67,7 +69,7 @@ install: $(MO_FILES)
 update-mo: $(MO_FILES)
 
 update-po:
-	$(MAKE) $(TEXTDOMAIN).pot
+	$(MAKE) $(TD).pot
 	cd $(srcdir); \
         catalogs='$(CATALOGS)'; \
         for cat in $$catalogs; do \
@@ -75,7 +77,7 @@ update-po:
           lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
           mv $$lang.po $$lang.old.po; \
           echo "$$lang:"; \
-          if $(MSGMERGE) $$lang.old.po $(TEXTDOMAIN).pot -o $$lang.po; then \
+          if $(MSGMERGE) $$lang.old.po $(TD).pot -o $$lang.po; then \
             rm -f $$lang.old.po; \
           else \
             echo "msgmerge for $$cat failed!"; \
