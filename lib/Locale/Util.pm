@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.10 2007/02/07 15:26:28 guido Exp $
+# $Id: Util.pm,v 1.11 2007/02/07 15:40:41 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -731,12 +731,13 @@ sub set_locale {
 	my @uc_countries = map { uc $_ } @countries;
 	my @lc_countries = map { uc $_ } @countries;
 	push @countries, @uc_countries, @lc_countries;
-
+ 
  LINGUA: foreach my $language (@languages, @lc_languages, @uc_languages) {
 		my $count = 0;
-		foreach my $c (@countries, 
-					   LANG2COUNTRY->{lc $language},
-					   lc LANG2COUNTRY->{lc $language}) {
+		my @guessed_countries = (LANG2COUNTRY->{lc $language},
+								 lc LANG2COUNTRY->{lc $language},
+								 uc LANG2COUNTRY->{lc $language});
+		foreach my $c (@countries, @guessed_countries) {
 			++$count;
 			next unless defined $c && length $c;
 			my $try = $language . '_' . $c;
@@ -774,10 +775,11 @@ sub set_locale {
 	%seen = ();
  LINGUA2: foreach my $language (@languages, 
 								@lc_languages, @uc_languages) {
+	     my @guessed_countries = (LANG2COUNTRY->{lc $language},
+								 lc LANG2COUNTRY->{lc $language},
+								 uc LANG2COUNTRY->{lc $language});
 	     my $count = 0;
-		 foreach my $c (@countries,
-						LANG2COUNTRY->{lc $language},
-						lc LANG2COUNTRY->{lc $language}, '') {
+		 foreach my $c (@countries, @guessed_countries) {
 			 ++$count;
 			 $c = '' unless defined $c && length $c;
 			 my $country_try = $language;
