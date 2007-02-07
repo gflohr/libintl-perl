@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.8 2007/02/06 21:33:27 guido Exp $
+# $Id: Util.pm,v 1.9 2007/02/07 09:48:41 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -880,22 +880,43 @@ sub set_web_locale {
 		require POSIX;
 		$category = POSIX::LC_ALL();
 	}
+
+	my ($set_locale, $set_language, $set_country, $set_charset);
 	foreach my $lang (@languages) {
 		my ($language, $country) = split /-/, $lang, 2;
 
 		my ($locale, $country_used) = 
 			set_locale ($category, $language, $country, $charsets[0]);
 		
-		# If a country was specified, we have to check whether it
-		# was actually selected.
-		if (defined $country) {
-			next unless defined $country_used;
-			next if $country_used ne $country;
-		}
+		if (defined $locale) {
+			# If a country was specified, we have to check whether it
+			# was actually selected.
+			if (defined $country) {
+				if (!defined $country
+					|| ($country ne $country_used)) {
+					$set_language = $language;
+					$set_locale = $locale;
+					$set_country = $country_used;
+					$set_charset = $charsets[0];
+				}
+			}
 
-		return $locale if defined $locale;
+			if (wantarray) {
+				return $locale, $lang, $country_used, $charsets[0];
+			} else {
+				return $locale;
+			}
+		}
 	}
 	
+	if (defined $set_locale) {
+		if (wantarray) {
+			return $set_locale, $set_language, $set_country, $set_charset;
+		} else {
+			return $set_locale;
+		}
+	}
+
 	return;
 }
 
@@ -1078,6 +1099,12 @@ that you have control about your output.
 
 The function returns the return value of the underlying set_locale()
 call, or false on failure.
+
+The function returns false on failure.  On success it returns the 
+return value of the underlying set_locale() call.  This value can
+be used directly in subsequent calls to POSIX::setlocale().  In 
+array context, it additionally returns the identifiers for the language, 
+the country, and the charset actually used.
 
 =back
 
