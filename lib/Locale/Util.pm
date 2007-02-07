@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.9 2007/02/07 09:48:41 guido Exp $
+# $Id: Util.pm,v 1.10 2007/02/07 15:26:28 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -727,14 +727,16 @@ sub set_locale {
 	}
 
 	# Now try it with the country appended.
- COMBI: foreach my $language (@languages, @lc_languages, @uc_languages) {
-		my @countries = defined $country && length $country ? ($country) : ();
-		my @uc_countries = map { uc $_ } @countries;
-		my @lc_countries = map { uc $_ } @countries;
+	my @countries = defined $country && length $country ? ($country) : ();
+	my @uc_countries = map { uc $_ } @countries;
+	my @lc_countries = map { uc $_ } @countries;
+	push @countries, @uc_countries, @lc_countries;
+
+ LINGUA: foreach my $language (@languages, @lc_languages, @uc_languages) {
 		my $count = 0;
-		foreach my $c (@countries, @uc_countries, @lc_countries,
-							 LANG2COUNTRY->{lc $language},
-							 lc LANG2COUNTRY->{lc $language}) {
+		foreach my $c (@countries, 
+					   LANG2COUNTRY->{lc $language},
+					   lc LANG2COUNTRY->{lc $language}) {
 			++$count;
 			next unless defined $c && length $c;
 			my $try = $language . '_' . $c;
@@ -743,22 +745,20 @@ sub set_locale {
 			my $result = POSIX::setlocale ($category, $try);
 			if ($result) {
 				$set_locale = $result;
-				if ($count >= @countries + @uc_countries + @lc_countries) {
+				if ($count >= @countries) {
 					$set_country = $c; 
 				} else {
 					$set_country = $country;
 				}
 
-				last COMBI;
+				last LINGUA;
 			}
 		}
 	}
-
-	# The trickiest part is the character set.  We give up our search
-	# if we weren't successful so far.
-	return unless defined $set_locale && length $set_locale;
-
+	
 	unless (defined $charset && length $charset) {
+		return unless defined $set_locale && length $set_locale;
+		
 		$locale_cache->{$language}->{$country}->{$charset} = 
 			[$set_locale, $set_country];
 		return wantarray ? ($set_locale, $set_country) : $set_locale;
@@ -767,20 +767,41 @@ sub set_locale {
 	my @charsets = ($charset);
 	my $cleaned = $charset;
 	push @charsets, $cleaned if $cleaned =~ s/-//g;
-
 	my @lc_charsets = map { lc $charset } @charsets;
 	my @uc_charsets = map { uc $charset } @charsets;
+	push @charsets, @lc_charsets, @uc_charsets;
+	
 	%seen = ();
-	foreach my $charset (@charsets, @lc_charsets, @uc_charsets) {
-		my $try = $set_locale . '.' . $charset;
-		next if $seen{$try}++;
-		warn "Trying setlocale '$try'.\n" if DEBUG;
-		my $result = POSIX::setlocale ($category, $try);
-		if ($result) {
-			$set_locale = $result;
-			last;
-		}
-	}
+ LINGUA2: foreach my $language (@languages, 
+								@lc_languages, @uc_languages) {
+	     my $count = 0;
+		 foreach my $c (@countries,
+						LANG2COUNTRY->{lc $language},
+						lc LANG2COUNTRY->{lc $language}, '') {
+			 ++$count;
+			 $c = '' unless defined $c && length $c;
+			 my $country_try = $language;
+			 $country_try .= (length $c) ? "_$c" : '';
+			 
+			 foreach my $ch (@charsets, @lc_charsets, @uc_charsets) {
+				 my $try = $country_try . '.' . $ch;
+				 next if $seen{$try}++;
+				 warn "Trying setlocale '$try'.\n" if DEBUG;
+				 
+				 my $result = POSIX::setlocale ($category, $try);
+				 if ($result) {
+					 $set_locale = $result;
+					 if ($count >= @countries) {
+						 $set_country = $c; 
+					 } else {
+						 $set_country = $country;
+					 }
+					 
+					 last LINGUA2;
+				 }
+			 }
+		 } 
+	 }
 
 	return unless defined $set_locale && length $set_locale;
 
