@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.11 2007/02/07 15:40:41 guido Exp $
+# $Id: Util.pm,v 1.12 2007/02/08 09:07:00 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -684,23 +684,18 @@ sub set_locale {
 	
 	require POSIX;
 
+    $country = '' unless defined $country;
+    $charset = '' unless defined $charset;
+    
 	my $set_locale;
-	# Look up the cache first.  The strange handling of
-    # undefined values shuts up a warning in Perl.
-	if (exists ($locale_cache->{$language}
-				->{$country || undef}->{$charset || undef})) {
-		my $retval = $locale_cache->{$language}
-		->{$country || undef}->{$charset || undef};
-
-		return unless defined $retval;
-		return @$retval;
-	}
+	# Look up the cache first.
+    if (my $retval = $locale_cache->{$language}->{$country}->{$charset}) {
+        return @$retval;
+    }
 
 	# Initialize the cache with the undefined value so that we can do
-	# error returns without setting it.  The strange handling of
-    # undefined values shuts up a warning in Perl.
-	$locale_cache->{$language}->{$country || undef}->{$charset || undef} = 
-		undef;
+	# error returns without setting it.
+	$locale_cache->{$language}->{$country}->{$charset} = undef;
 
 	my $windows = ($^O !~ /darwin/i && $^O =~ /win/i) ? 1 : 0;
 	if ($windows) {
@@ -727,7 +722,7 @@ sub set_locale {
 	}
 
 	# Now try it with the country appended.
-	my @countries = defined $country && length $country ? ($country) : ();
+	my @countries = length $country ? ($country) : ();
 	my @uc_countries = map { uc $_ } @countries;
 	my @lc_countries = map { uc $_ } @countries;
 	push @countries, @uc_countries, @lc_countries;
@@ -757,7 +752,7 @@ sub set_locale {
 		}
 	}
 	
-	unless (defined $charset && length $charset) {
+	unless (length $charset) {
 		return unless defined $set_locale && length $set_locale;
 		
 		$locale_cache->{$language}->{$country}->{$charset} = 
@@ -817,7 +812,10 @@ sub __set_locale_windows {
 	my ($category, $language, $country, $charset) = @_;
 
     my $set_locale;
-	
+
+    $country = '' unless defined $country;
+    $charset = '' unless defined $charset;
+    	
 	# First we try to only use the language.
 	my $long_language = WIN32LANGUAGE->{lc $language};
 	my @languages = ($long_language, $language);
@@ -834,14 +832,14 @@ sub __set_locale_windows {
 	
 	# Now try it with the country appended.
 	my $set_country;
-	if (defined $country) {
+	if (length $country) {
         COMBI: foreach my $language (@languages) {
             # We do not need a fallback country here, because the "system" already
             # provides the information.
 	        my @short_countries = ($country);
 		    my @countries = map { 
 			    WIN32COUNTRY->{lc $_} 
-			    } grep { defined $_ } @short_countries;
+			    } grep { length $_ } @short_countries;
 		    foreach my $c (@countries) {
 			    next unless defined $c && length $c;
 			    my $try = $language . '_' . $c;
