@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.13 2007/02/11 11:17:43 guido Exp $
+# $Id: Util.pm,v 1.14 2007/02/11 11:18:24 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -209,7 +209,6 @@ use constant LANG2COUNTRY => {
     zu => 'ZA', # Zulu => South Africa
 };
 
-# Source: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vclib/html/_crt_language_strings.asp
 use constant WIN32LANGUAGE => {
     aa => "Afar",
     ab => "Abkhazian",
@@ -378,7 +377,6 @@ use constant WIN32LANGUAGE => {
     zu => "Zulu",
 };
 
-# Source: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vclib/html/_crt_country_strings.asp
 use constant WIN32COUNTRY => {
     ad => "Andorra",
     ae => "United Arab Emirates",
