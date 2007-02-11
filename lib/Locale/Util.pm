@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.16 2007/02/11 16:05:25 guido Exp $
+# $Id: Util.pm,v 1.17 2007/02/11 16:49:45 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -35,7 +35,7 @@ use vars qw (@EXPORT_OK);
 @EXPORT_OK = qw (parse_http_accept_language
 				 parse_http_accept_charset
 				 set_locale set_locale_cache get_locale_cache
-				 set_web_locale);
+				 web_set_locale);
 
 # The following list maps languages to a rough guess of the country that
 # is most likely to be meant if no locale info for the country alone is
@@ -877,7 +877,7 @@ sub set_locale_cache {
 	}
 }
 
-sub set_web_locale {
+sub web_set_locale {
 	my ($accept_language, $accept_charset, $category, $available) = @_;
 
 	my %available;
@@ -894,14 +894,15 @@ sub set_web_locale {
 		@languages = @$accept_language;
 	} else {
 		@languages = parse_http_accept_language $accept_language;
-		if ($available) {
-			my @all = @languages;
-			@languages = ();
-			foreach my $locale (@all) {
-				my $language = lc $locale;
-				$language =~ s/[_\@\.].*//;
-				push @languages, $locale if $available{$language};
-			}
+	}
+
+	if ($available) {
+		my @all = @languages;
+		@languages = ();
+		foreach my $locale (@all) {
+			my $language = lc $locale;
+			$language =~ s/[_\@\.].*//;
+			push @languages, $locale if $available{$language};
 		}
 	}
 
@@ -981,9 +982,9 @@ Locale::Util - Portable l10n and i10n functions
   
   my $cache = get_locale_cache;
 
-  set_web_locale ($ENV{HTTP_ACCEPT_LANGUAGE}, $ENV_ACCEPT_CHARSET);
+  web_set_locale ($ENV{HTTP_ACCEPT_LANGUAGE}, $ENV_ACCEPT_CHARSET);
 
-  set_web_locale (['fr-BE', 'fr', 'it'], ['cp1252', 'utf-8']);
+  web_set_locale (['fr-BE', 'fr', 'it'], ['cp1252', 'utf-8']);
 
 =head1 DESCRIPTION
 
@@ -1124,7 +1125,7 @@ This allows you to keep the hash persistent.
 
 The function cannot fail.
 
-=item B<set_web_locale (ACCEPT_LANGUAGE, ACCEPT_CHARSET, CATEGORY,
+=item B<web_set_locale (ACCEPT_LANGUAGE, ACCEPT_CHARSET, CATEGORY,
                         AVAILABLE)>
 
 Try to change the locale to the settings described by ACCEPT_LANGUAGE
