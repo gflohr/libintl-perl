@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.12 2007/02/08 09:07:00 guido Exp $
+# $Id: Util.pm,v 1.13 2007/02/11 11:17:43 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -46,33 +46,33 @@ use vars qw (@EXPORT_OK);
 use constant LANG2COUNTRY => {
     aa => 'ET', # Afar => Ethiopia
     ab => 'AB', # Abkhazian => Georgia
-    # ae => '??', # Avestan => ??
+    # ae => '??', # Avestan => ??, Iran?
     af => 'za',  # Afrikaans => South Africa
     am => 'ET', # Amharic => Ethiopia
     ar => 'EG', # Arabic => Egypt
     as => 'IN', # Assamese => India
-    # ay => '??', # Aymara => ??
+    ay => 'BO', # Aymara => Bolivia
     az => 'AZ', # Azerbaijani => Azerbaijan
     ba => 'RU', # Bashkir => Russia
     be => 'BY', # Belarusian => Belarus
     bg => 'BG', # Bulgarian => Bulgaria
     bh => 'IN', # Bihari => India
-    # bi => '??', # Bislama => ??
+    bi => 'VU', # Bislama => Vanuatu
     bn => 'BD', # Bengali => Bangladesh
     bo => 'CN', # Tibetan => China
     br => 'FR', # Breton => France
     bs => 'BA', # Bosnian => Bosnia and Herzegovina
     ca => 'ES', # Catalan => Spain
     ce => 'RU', # Chechen => Russia
-    # ch => '??', # Chamorro => ??
+    ch => '??', # Chamorro => Guam (or mp?)
     co => 'FR', # Corsican => France
     cs => 'CZ', # Czech => Czech Republic
-    # cu => '??', # Church Slavic
-    # cv => '??', # Chuvash => ???
+    cu => 'BG', # Church Slavic => Bulgaria
+    cv => 'RU', # Chuvash => Russia
     cy => 'GB', # Welsh => United Kingdom
     da => 'DK', # Danish => Denmark
     de => 'DE', # German => Germany
-    # dz => '??', # Dzongkha => ???
+    dz => 'BT', # Dzongkha => Bhutan
     en => 'US', # English => United States
     fa => 'IR', # Iran, Islamic Republic of
     fi => 'FI', # Finnish => Finland
@@ -83,31 +83,30 @@ use constant LANG2COUNTRY => {
     ga => 'IE', # Irish => Ireland
     gd => 'GB', # Gaelic (Scots) => United Kingdom
     gl => 'ES', # Gallegan => Spain
-    # Where is volume 9 of my lexicon? A lot missing here ...
-    # gn => '??', # Guarani => ??
+    gn => 'PY', # Guarani => Paraguay
     gu => 'IN', # Gujarati => IN
     gv => 'GB', # Manx => United Kingdom
-    # ha => '??', # Hausa => ??
+    ha => 'NE', # Hausa => Niger (ng?)
     he => 'IL', # Hebrew => Israel
     hi => 'IN', # Hindi => India
-    # ho => '??', # Hiri Motu => ??
+    ho => 'PG', # Hiri Motu => Papua New Guinea
     hr => 'HR', # Croatian
     hu => 'HU', # Hungarian => Hungary
     hy => 'AM', # Armenian => Armenia
-    # hz => '??', # Herero => ??
+    hz => 'NA', # Herero => Namibia
     # ia => '??', # Interlingua (aka "latino sine flexione") => ??
     id => 'ID', # Indonesian => Indonesia
     # ie => '??', # Interlingue => ???
     ik => 'US', # Inupiaq => United States
     is => 'IS', # Icelandic => Iceland
     it => 'IT', # Italian => Italy
-    # iu => 'CA', # Inuktitut => Canada ???
+    iu => 'CA', # Inuktitut => Canada
     iw => 'IL', # Hebrew => Israel
     ja => 'JP', # Japanese => Japan
     jw => 'ID', # Javanese => Indonesia
     ka => 'GE', # Georgian => Georgia
     ki => 'KE', # Kikuyu => Kenya
-    # kj => '??', # Kuanyama => ??
+    kj => 'AO', # Kuanyama => Angola (na?)
     kk => 'KZ', # Kazakh => Kazakhstan
     kl => 'GL', # Kalaallisut => Greenland
     km => 'KH', # Khmer => Cambodia
@@ -117,10 +116,10 @@ use constant LANG2COUNTRY => {
     ku => 'TR', # Kurdish => Turkey
     kv => 'RU', # Komi => Russia
     kw => 'GB', # Cornish => United Kingdom
-    # ky => '??', # Kirghyz => What's the country code?
+    ky => 'KG', # Kirghyz => Kyrgyzstan
     la => 'VA', # Latin => Holy See (Vatican City State)
     lb => 'LU', # Letzeburgesch => Luxembourg
-    # ln => '??', # Lingala => ??
+    ln => 'CG', # Lingala => Republic of the Congo (cd?)
     lo => 'LA', # Lao => Lao People's Democratic Republic
     lt => 'LT', # Lithuanian => Lithuania
     lv => 'LV', # Latvian => Latvia
@@ -138,13 +137,13 @@ use constant LANG2COUNTRY => {
     nb => 'NO', # Norwegian Bokmål => Norway
     nd => 'ZA', # Ndebele, North => South Africa
     ne => 'NP', # Nepali => Nepal
-    # ng => '??', # Ndonga => ??
+    ng => 'NA', # Ndonga => Namibia
     nl => 'NL', # Dutch => Netherlands
     nn => 'NO', # Norwegian Nynorsk => Norway
     no => 'NO', # Norwegian => Norway
     nr => 'ZA', # Ndebele, South => South Africa
     nv => 'US', # Navajo => United States
-    # ny => '??', # Chichewa; Nyanja => ??
+    ny => 'MW', # Chichewa; Nyanja => Malawi
     oc => 'FR', # Occitan (post 1500) => France
     om => 'ET', # Oromo => Ethiopia
     or => 'IN', # Oriya => India
@@ -153,7 +152,7 @@ use constant LANG2COUNTRY => {
     pi => 'IN', # Pali => India (FIXME: Or Thailand, Sri Lanka, Myanmar,
                 # Cambodia)
     pl => 'PL', # Polish => Poland
-    # ps => '??', # Pushto => ??
+    ps => 'PK', # Pushto => Pakistan
     pt => 'PT', # Portuguese => Portugal (following our rules this should
                 # actually be Brazil but that would be to unrealistic,
                 # people from Brazil set their locale to pt_BR).
@@ -162,12 +161,14 @@ use constant LANG2COUNTRY => {
     rn => 'RW', # Rundi => Rwanda
     ro => 'RO', # Romanian => Romania
     ru => 'RU', # Russian => Russia
-    # rw => '??', # Kinyarwanda => ??
+    rw => 'RW', # Kinyarwanda => Rwanda
     sa => 'IN', # Sanskrit => India
     sc => 'IT', # Sardinian => Italy
     sd => 'IN', # Sindhi => India
-    # se => '??', # Sami => ??
-    # sg => '??', # Sango => ??
+    se => 'SE', # Sami => Sweden (Totally unsure here.  The Sami languages 
+	            # are also spoken in Norway, Finland and Russia, but the 
+                # largest part of the area seems to be in Sweden. 
+    sg => '??', # Sango => Central African Republic
     si => 'LK', # Sinhalese => Sri Lanka
     sk => 'SK', # Slovakian => Slovakia
     sl => 'SL', # Slovenian => Slovenia
@@ -176,7 +177,7 @@ use constant LANG2COUNTRY => {
     so => 'SO', # Somali => Somalia
     sq => 'AL', # Albanian => Albania
     sr => 'YU', # Serbian => Yugoslavia
-    # ss => '??', # Swati => ?? (Swaziland?)
+    ss => '??', # Swati => Swaziland (za?)
     st => 'LS', # Sotho => Lesotho
     su => 'IN', # Sundanese => Indonesia
     sv => 'SE', # Swedish => Sweden
@@ -192,18 +193,18 @@ use constant LANG2COUNTRY => {
     to => 'TO', # Tonga => Tonga
     tr => 'TR', # Turkish => Turkish
     tt => 'RU', # Tatar => Russia
-    ## tw => '??', # Twi => ??
+    tw => 'GH', # Twi => Ghana
     ug => 'CN', # Uighur => China
     uk => 'UA', # Ukrainian => Ukraine
     ur => 'PK', # Urdu => Pakistan
     uz => 'UZ', # Uzbek => Uzbekistan
     vi => 'VN', # Vietnamese => Vietnam
-    # vo => '??', # Volapük => Nowhere
-    # wo => '??', # Wolof => ??
+    # vo => '??', # Volapuk => Nowhere
+    wo => 'SN', # Wolof => Senegal
     xh => 'ZA', # Xhosa => South Africa
     yi => 'IL', # Yiddish => Israel (FIXME: Rather United States?)
     yo => 'NG', # Yoruba => Nigeria
-    # za => '??', # Zhuang => ??
+    za => 'CN', # Zhuang => China
     zh => 'CN', # Chinese => China
     zu => 'ZA', # Zulu => South Africa
 };
