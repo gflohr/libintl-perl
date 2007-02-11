@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.14 2007/02/11 11:18:24 guido Exp $
+# $Id: Util.pm,v 1.15 2007/02/11 11:53:59 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -878,13 +878,31 @@ sub set_locale_cache {
 }
 
 sub set_web_locale {
-	my ($accept_language, $accept_charset, $category) = @_;
+	my ($accept_language, $accept_charset, $category, $available) = @_;
+
+	my %available;
+	if ($available) {
+		foreach (@$available) {
+			my $locale = $_;
+			$locale =~ s/[_\@\.].*//;
+			$available{lc $locale} = 1;
+		}
+	}
 
 	my @languages;
 	if (ref $accept_language && 'ARRAY' eq ref $accept_language) {
 		@languages = @$accept_language;
 	} else {
 		@languages = parse_http_accept_language $accept_language;
+		if ($available) {
+			my @all = @languages;
+			@languages = ();
+			foreach my $locale (@all) {
+				my $language = lc $locale;
+				$language =~ s/[_\@\.].*//;
+				push @languages, $locale if $available{$language};
+			}
+		}
 	}
 
 	my @charsets;
@@ -1106,7 +1124,8 @@ This allows you to keep the hash persistent.
 
 The function cannot fail.
 
-=item B<set_web_locale ACCEPT_LANGUAGE, ACCEPT_CHARSET>
+=item B<set_web_locale (ACCEPT_LANGUAGE, ACCEPT_CHARSET, CATEGORY,
+                        AVAILABLE)>
 
 Try to change the locale to the settings described by ACCEPT_LANGUAGE
 and ACCEPT_CHARSET.  For each argument you can either pass a string
@@ -1116,6 +1135,17 @@ of language resp. charset identifiers.
 Currently only the first charset passed is used as an argument.
 You are strongly encouraged to pass a hard-coded value here, so
 that you have control about your output.
+
+The argument B<CATEGORY> specifies the category (one of the LC_*
+constants as defined in Locale::Messages(3pm) or in POSIX(3pm)).
+The category defaults to LC_ALL.
+
+You can pass an optional reference to a list of locales in 
+XPG4 format that are available in your application.  This is
+useful if you know which languages are supported by your application.
+In fact, only the language part of the values in the list are
+considered (for example for "en_US", only "en" is used).  The
+country or other parts are ignored.
 
 The function returns the return value of the underlying set_locale()
 call, or false on failure.
