@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.15 2007/02/11 11:53:59 guido Exp $
+# $Id: Util.pm,v 1.16 2007/02/11 16:05:25 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -1038,7 +1038,7 @@ description string) is completely non-standard and system-dependent.
 This function tries its best at guessing the system's notion of a locale
 dientifier, with the arguments supplied:
 
-=over8
+=over 8
 
 =item B<CATEGORY>
 
