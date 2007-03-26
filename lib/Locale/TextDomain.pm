@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.38 2007/02/05 09:45:51 guido Exp $
+# $Id: TextDomain.pm,v 1.39 2007/03/26 17:18:29 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -69,7 +69,7 @@ use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
-$VERSION = '1.16';
+$VERSION = $Locale::Messages::VERSION;
 
 require Exporter;
 

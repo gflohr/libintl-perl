@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.17 2007/02/11 16:49:45 guido Exp $
+# $Id: Util.pm,v 1.18 2007/03/26 17:18:29 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -689,6 +689,8 @@ sub set_locale {
 	my $set_locale;
 	# Look up the cache first.
     if (my $retval = $locale_cache->{$language}->{$country}->{$charset}) {
+    	my ($locale, $country) = @$retval;
+	POSIX::setlocale ($category, $locale);
         return @$retval;
     }
 

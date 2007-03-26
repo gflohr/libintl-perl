@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.26 2007/02/06 21:35:29 guido Exp $
+# $Id: Makefile.PL,v 1.27 2007/03/26 17:18:29 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
@@ -199,7 +199,7 @@ close HANDLE or die "cannot close '$name': $!";
 
 WriteMakefile (
     NAME		    => 'libintl-perl',
-	VERSION_FROM	=> 'lib/Locale/TextDomain.pm',
+	VERSION_FROM	=> 'lib/Locale/Messages.pm',
     ($] >= 5.005 ?
 		(ABSTRACT	=> 'High-Level Interface to Uniforum Message Translation',
 	 	 AUTHOR		=> 'Guido Flohr <guido@imperia.net>',

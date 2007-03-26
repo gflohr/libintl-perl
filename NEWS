@@ -1,3 +1,11 @@
+Version 1.17 - 
+
+* New module Locale::Util with some utility functions, especially for
+  web development.
+
+* Try to warn about wrong usage of the tied hashes in
+  Locale::TextDomain.
+
 * Minor bugfixes
 
 Version 1.16 - 28 Sep 2005

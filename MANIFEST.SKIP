@@ -17,3 +17,4 @@ x-.*$
 ^gettext_xs/pm_to_blib$
 ^build_xs$
 ^xs_disabled$
+^config\.log$

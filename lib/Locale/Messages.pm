@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.34 2007/02/02 15:13:07 guido Exp $
+# $Id: Messages.pm,v 1.35 2007/03/26 17:18:29 guido Exp $
 
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -25,7 +25,9 @@ package Locale::Messages;
 
 use strict;
 
-use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA);
+use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
+
+$VERSION = '1.17';
 
 # Try to load the C version first.
 $package = 'gettext_xs';
@@ -33,7 +35,7 @@ my $can_xs = 1;
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
-die "Version: $version mismatch (1.16 vs. $version)" unless $version eq '1.16';
+die "Version: $version mismatch (1.17 vs. $version)" unless $version eq '1.17';
 EOF
 if ($@) {
     $package = 'gettext_pp';
