@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.39 2007/03/26 17:18:29 guido Exp $
+# $Id: TextDomain.pm,v 1.40 2007/07/03 08:15:45 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -334,7 +334,7 @@ to Perl message translation.
 
 =head2 Textdomains
 
-When your request a translation for a given string, the system used
+When you request a translation for a given string, the system used
 in libintl-perl follows a standard strategy to find a suitable message
 catalog containing the translation: Unless you explicitely define
 a name for the message catalog, libintl-perl will assume that your
@@ -372,7 +372,7 @@ up file names, you should avoid potential conflicts here.
 =item Textdomain Should Match CPAN Name
 
 If your software is listed as a module on CPAN, you should simply 
-choose the name on CPANS as your textdomain.  The textdomain for 
+choose the name on CPAN as your textdomain.  The textdomain for 
 libintl-perl is hence 'libintl-perl'.  But please replace all 
 periods ('.') in your package name with an underscore because ...
 
@@ -602,14 +602,14 @@ format for interpolatable strings:
     "This is the {color} {thing}.\n";
 
 Instead of Perl variables you use place-holders (legal Perl variables
-are also legal place-holders) in angle brackets, and then you call
+are also legal place-holders) in curly braces, and then you call
 
     print __x ("This is the {color} {thing}.\n", 
                thing => $thang,
                color => $color);
 
 The function __x() will take the additional hash and replace all
-occurencies of the hash keys in angle brackets with the corresponding
+occurencies of the hash keys in curly braces with the corresponding
 values.  Simple, readable, understandable to translators, what else
 would you want?  And if the translator forgets, misspells or otherwise
 messes up some "variables", the msgfmt(1) program, that is used to
@@ -730,7 +730,8 @@ Now all the strings in C<@options> will be left alone, since N__()
 returns its arguments (one ore more) unmodified.  Nevertheless, the
 string extractor will be able to recognize the strings as being 
 translatable.  And you can still get the translation later by passing
-the variable instead of the string.
+the variable instead of the string to one of the above translation
+functions.
 
 =item B<N__n (ARG1, ...)>
 
@@ -795,7 +796,7 @@ example:
     5: print __"Hello world!\n";
 
 This will usually be quite fast, but in pathological cases it may
-run for several seconds.  A worst-case scenario would look be a
+run for several seconds.  A worst-case scenario would be a
 Chinese user at a terminal that understands the codeset Big5-HKSCS.
 Your translator for Chinese has however chosen to encode the translations
 in the codeset EUC-TW.
