@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w # -*- perl -*-
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.4 2007/03/26 17:18:29 guido Exp $
+# $Id: Makefile.PL,v 1.5 2008/05/28 12:41:17 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
@@ -38,7 +38,7 @@ WriteMakefile (
     ),
     PREREQ_PM => { File::Spec => 0 },
 	PL_FILES        => {},
-	LIBS => ['-lintl', '-liconv'],
+	LIBS => ['-lintl -liconv'],
 );
 
 __END__
