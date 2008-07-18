@@ -1,3 +1,6 @@
+- web_set_locale returns the language and the country for lang/country
+  combinations (eg. de-AT) in the language field.  Correct?
+
 - add conversion modules for other Unicode encodings than UTF-8 
   (UTF-16, UCS-*)
 

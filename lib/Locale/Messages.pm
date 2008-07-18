@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.35 2007/03/26 17:18:29 guido Exp $
+# $Id: Messages.pm,v 1.36 2008/07/18 13:03:37 guido Exp $
 
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -159,7 +159,12 @@ my %filters = (
 
 sub select_package
 {
-	my ($class, $pkg) = @_;
+	my ($pkg, $compatibility) = @_;
+
+	# Compatibility quirk for a bug pre 1.17:
+	if (__PACKAGE__ eq $pkg && defined $compatibility) {
+		$pkg = $compatibility;
+	}
 
 	if (!$can_xs || (defined $pkg && 'gettext_pp' eq $pkg)) {
 		require Locale::gettext_pp;
@@ -616,7 +621,7 @@ You will normally want to use that in a BEGIN block of your main
 script.
 
 The function was introduced with libintl-perl version 1.03 and is not
-part of the standard gettex API.
+part of the standard gettext API.
 
 =item B<nl_putenv ENVSPEC>
 
