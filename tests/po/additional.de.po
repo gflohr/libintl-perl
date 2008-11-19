@@ -50,10 +50,9 @@ msgstr "Freitag"
 msgid "Saturday"
 msgstr "Samstag"
 
-# another view without context
 msgid "Another View"
-msgstr "Einer anderen Ansicht Kontext ohne"
+msgstr "Eine andere Ansicht ohne Kontext"
 
 msgctxt "Context"
 msgid "Another View"
-msgstr "Ein weiterer Blick"
+msgstr "Eine andere Ansicht mit Kontext"
