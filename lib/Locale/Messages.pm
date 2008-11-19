@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.36 2008/07/18 13:03:37 guido Exp $
+# $Id: Messages.pm,v 1.37 2008/11/19 18:55:51 unrtst Exp $
 
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -51,6 +51,12 @@ require Exporter;
 				   ngettext
 				   dngettext
 				   dcngettext
+				   pgettext
+				   dpgettext
+				   dcpgettext
+				   npgettext
+				   dnpgettext
+				   dcnpgettext
 				   textdomain
 				   bindtextdomain
 				   bind_textdomain_codeset
@@ -75,6 +81,12 @@ require Exporter;
 				 ngettext
 				 dngettext
 				 dcngettext
+				 pgettext
+				 dpgettext
+				 dcpgettext
+				 npgettext
+				 dnpgettext
+				 dcnpgettext
 				 textdomain
 				 bindtextdomain
 				 bind_textdomain_codeset
@@ -265,6 +277,65 @@ sub dcngettext($$$$$)
 		     &Locale::gettext_pp::dcngettext, $cb->[1]);
 }
 
+###
+sub pgettext($$)
+{
+	my $textdomain = textdomain;
+	$filters{$textdomain} ||= [ \&turn_utf_8_off ];
+	my $cb = $filters{$textdomain};
+
+    $cb->[0] ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::pgettext :
+		     &Locale::gettext_pp::pgettext, $cb->[1]);
+}
+
+sub dpgettext($$$)
+{
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
+
+    $cb->[0] ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dpgettext :
+		     &Locale::gettext_pp::dpgettext, $cb->[1]);
+}
+
+sub dcpgettext($$$$)
+{
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
+
+    $cb->[0] ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dcpgettext :
+		     &Locale::gettext_pp::dcpgettext, $cb->[1]);
+}
+
+sub npgettext($$$$)
+{
+	my $textdomain = textdomain;
+	$filters{$textdomain} ||= [ \&turn_utf_8_off ];
+	my $cb = $filters{$textdomain};
+
+    $cb->[0] ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::npgettext :
+		     &Locale::gettext_pp::npgettext, $cb->[1]);
+}
+
+sub dnpgettext($$$$$)
+{
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
+
+    $cb->[0] ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dnpgettext :
+		     &Locale::gettext_pp::dnpgettext, $cb->[1]);
+}
+
+sub dcnpgettext($$$$$$)
+{
+	my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
+
+    $cb->[0] ('gettext_xs' eq $package ?
+		     &Locale::gettext_xs::dcnpgettext :
+		     &Locale::gettext_pp::dcnpgettext, $cb->[1]);
+}
+
 sub nl_putenv($)
 {
     'gettext_xs' eq $package ?
@@ -339,6 +410,12 @@ Locale::Messages - Gettext Like Message Retrieval
  ngettext $msgid, $msgid_plural, $count;
  dngettext $textdomain, $msgid, $msgid_plural, $count;
  dcngettext $textdomain, $msgid, $msgid_plural, $count, LC_MESSAGES;
+ pgettext $msgctxt, $msgid;
+ dpgettext $textdomain, $msgctxt, $msgid;
+ dcpgettext $textdomain, $msgctxt, $msgid, LC_MESSAGES;
+ npgettext $msgctxt, $msgid, $msgid_plural, $count;
+ dnpgettext $textdomain, $msgctxt, $msgid, $msgid_plural, $count;
+ dcnpgettext $textdomain, $msgctxt, $msgid, $msgid_plural, $count, LC_MESSAGES;
  textdomain $textdomain;
  bindtextdomain $textdomain, $directory;
  bind_textdomain_codeset $textdomain, $encoding;
@@ -535,6 +612,64 @@ textdomain instead of the default domain.
 
 Like dngettext() but retrieves the translation from the specified
 category, instead of the default category C<LC_MESSAGES>.
+
+=item B<pgettext MSGCTXT, MSGID>
+
+Returns the translation of MSGID, given the context of MSGCTXT.
+
+Both items are used as a unique key into the message catalog.
+
+This allows the translator to have two entries for words that may
+translate to different foreign words based on their context. For
+example, the word "View" may be a noun or a verb, which may be
+used in a menu as File->View or View->Source.
+
+    print pgettext( "Verb: To View", "View" )."\n";
+    print pgettext( "Noun: A View", "View" )."\n";
+
+The above will both lookup different entries in the message catalog.
+
+In English, or if no translation can be found, the second argument
+(MSGID) is returned.
+
+The function was introduced with libintl-perl version 1.17.
+
+=item B<dpgettext TEXTDOMAIN, MSGCTXT, MSGID>
+
+Like pgettext(), but retrieves the message for the specified 
+B<TEXTDOMAIN> instead of the default domain.
+
+The function was introduced with libintl-perl version 1.17.
+
+=item B<dcpgettext TEXTDOMAIN, MSGCTXT, MSGID, CATEGORY>
+
+Like dpgettext() but retrieves the message from the specified B<CATEGORY>
+instead of the default category C<LC_MESSAGES>.
+
+The function was introduced with libintl-perl version 1.17.
+
+=item B<npgettext MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
+
+Like ngettext() with the addition of context as in pgettext().
+
+In English, or if no translation can be found, the second argument
+(MSGID) is picked if $count is one, the third one otherwise.
+
+The function was introduced with libintl-perl version 1.17.
+
+=item B<dnpgettext TEXTDOMAIN, MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
+
+Like npgettext() but retrieves the translation from the specified
+textdomain instead of the default domain.
+
+The function was introduced with libintl-perl version 1.17.
+
+=item B<dcnpgettext TEXTDOMAIN, MSGCTXT, MSGID, MSGID_PLURAL, COUNT, CATEGORY>
+
+Like dnpgettext() but retrieves the translation from the specified
+category, instead of the default category C<LC_MESSAGES>.
+
+The function was introduced with libintl-perl version 1.17.
 
 =item B<textdomain TEXTDOMAIN>
 
@@ -748,6 +883,18 @@ file F<locale.h>:
 =item B<dngettext()>
 
 =item B<dcngettext()>
+
+=item B<pgettext()>
+
+=item B<dpgettext()>
+
+=item B<dcpgettext()>
+
+=item B<npgettext()>
+
+=item B<dnpgettext()>
+
+=item B<dcnpgettext()>
 
 =item B<textdomain()>
 

@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.40 2007/07/03 08:15:45 guido Exp $
+# $Id: TextDomain.pm,v 1.41 2008/11/19 18:55:51 unrtst Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -64,7 +64,7 @@ package Locale::TextDomain;
 
 use strict;
 
-use Locale::Messages qw (textdomain bindtextdomain dgettext dngettext);
+use Locale::Messages qw (textdomain bindtextdomain dgettext dngettext dpgettext dnpgettext);
 use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
@@ -76,7 +76,7 @@ require Exporter;
 use vars qw (@ISA @EXPORT %__ $__);
 
 @ISA = ('Exporter');
-@EXPORT = qw (__ __x __n __nx __xn $__ %__ N__ N__n);
+@EXPORT = qw (__ __x __n __nx __xn __p __px __np __npx __xnp $__ %__ N__ N__n);
 
 my %textdomains = ();
 my %bound_dirs = ();
@@ -198,6 +198,84 @@ sub __xn ($@)
 		defined $textdomain && defined $bound_dirs{$textdomain};
     
     return __expand ((dngettext $textdomain, $msgid, $msgid_plural, $count),
+					 %args);
+}
+
+# Context. (p is for particular or special)
+sub __p ($$)
+{
+    my $msgctxt = shift;
+    my $msgid = shift;
+	
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if 
+		defined $textdomain && defined $bound_dirs{$textdomain};
+    
+    return dpgettext $textdomain => $msgctxt, $msgid;
+}
+
+# With interpolation.
+sub __px ($$@)
+{
+    my ($msgctxt, $msgid, %vars) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
+    
+    return __expand ((dpgettext $textdomain => $msgctxt, $msgid), %vars);
+}
+
+# Context + Plural.
+sub __np ($$@)
+{
+    my ($msgctxt, $msgid, $msgid_plural, $count) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
+    
+    return dnpgettext $textdomain, $msgctxt, $msgid, $msgid_plural, $count;
+}
+
+# Plural with interpolation.
+sub __npx ($$@)
+{
+    my ($msgctxt, $msgid, $msgid_plural, $count, %args) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
+    
+    return __expand ((dnpgettext $textdomain, $msgctxt, $msgid, $msgid_plural, $count),
+					 %args);
+}
+
+# Plural with interpolation.
+sub __xnp ($$@)
+{
+    my ($msgctxt, $msgid, $msgid_plural, $count, %args) = @_;
+    
+    my $package = caller;
+    
+    my $textdomain = $textdomains{$package};
+    
+    __find_domain $textdomain if
+		defined $textdomain && defined $bound_dirs{$textdomain};
+    
+    return __expand ((dnpgettext $textdomain, $msgctxt, $msgid, $msgid_plural, $count),
 					 %args);
 }
 
@@ -326,6 +404,21 @@ Locale::TextDomain - Perl Interface to Uniforum Message Translation
 
  print __nx ("one file read", "{num} files read", $num_files,
              num => $num_files);
+
+ my $translated_context = __p ("Verb, to view", "View");
+
+ printf (__np ("Files read from filesystems",
+               "one file read", 
+               "%d files read", 
+               $num_files),
+         $num_files);
+
+ print __npx ("Files read from filesystems",
+              "one file read", 
+              "{num} files read", 
+              $num_files,
+              num => $num_files);
+
 
 =head1 DESCRIPTION
 
@@ -679,6 +772,59 @@ hash.
 
 Does exactly the same thing as __nx().  In fact it is a common typo
 promoted to a feature.
+
+=item B<__p MSGCTXT, MSGID>
+
+This is much like __. The "p" stands for "particular", and the MSGCTXT 
+is used to provide context to the translator. This may be neccessary
+when your string is short, and could stand for multiple things. For example:
+
+    print __p("Verb, to view", "View");
+    print __p("Noun, a view", "View");
+
+The above may be "View" entries in a menu, where View->Source and File->View 
+are different forms of "View", and likely need to be translated differently.
+
+=item B<__px MSGCTXT, MSGID, VAR1 =E<gt> VAL1, VAR2 =E<gt> VAL2, ...>
+
+Like __p(), but supports variable substitution in the string, like __x().
+
+    print __px("Verb, to view", "View {file}", file => $filename);
+
+See __p() and __x() for more details.
+
+=item B<__np MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
+
+This adds context to plural calls. It shouldn't be needed very often,
+if at all, due to the __nx() function. The type of variable substitution
+used in other gettext libraries (using sprintf-like sybols, like %s or %1)
+sometimes required context. For a (bad) example of this:
+
+    printf (__np("[count] files have been deleted",
+                "One file has been deleted.\n",
+                "%s files have been deleted.\n",
+                $num_files),
+            $num_files);
+
+NOTE: The above usage is discouraged. Just use the __nx() call, which 
+provides inline context via the key names.
+
+=item B<__npx MSGCTXT, MSGID, MSGID_PLURAL, COUNT, VAR1 =E<gt> VAL1, VAR2 =E<gt> VAL2, ...>
+
+This is provided for comleteness. It adds the variable interpolation
+into the string to the previous method, __np().
+
+It's usage would be like so:
+
+    print __nx ("Files being permenantly removed",
+                "One file has been deleted.\n",
+                "{count} files have been deleted.\n",
+                $num_files,
+                count => $num_files);
+
+I can't think of any situations requiring this, but we can easily 
+support it, so here it is.
+
 
 =item B<N__ (ARG1, ARG2, ...)>
 

@@ -50,3 +50,27 @@ msgstr "November"
 
 msgid "December"
 msgstr "Dezember"
+
+msgid "View"
+msgstr "Anzeigen"
+
+msgctxt "Which folder would you like to view?"
+msgid "View"
+msgstr "Ansicht"
+
+msgctxt "Which folder would you like to view? (2)"
+msgid "View"
+msgstr "View 2"
+
+msgctxt "Context here (2)"
+msgid "Singular"
+msgid_plural "Plural"
+msgstr[0] "Einzahl 2"
+msgstr[1] "Mehrzahl 2"
+
+msgctxt "Context here (3)"
+msgid "Singular 3"
+msgid_plural "Plural 3"
+msgstr[0] "Einzahl 3"
+msgstr[1] "Mehrzahl 3"
+
