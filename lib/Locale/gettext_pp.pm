@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: gettext_pp.pm,v 1.34 2007/01/24 11:10:24 guido Exp $
+# $Id: gettext_pp.pm,v 1.35 2008/11/19 18:55:21 unrtst Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -36,7 +36,8 @@ use vars qw ($__gettext_pp_default_dir
 			 $__gettext_pp_recoders
 			 $__gettext_pp_unavailable_dirs
 			 $__gettext_pp_domain_cache
-			 $__gettext_pp_alias_cache);
+			 $__gettext_pp_alias_cache
+			 $__gettext_pp_context_glue);
 
 use locale;
 
@@ -49,6 +50,8 @@ BEGIN {
 	$__gettext_pp_unavailable_dirs = {};
 	$__gettext_pp_domain_cache = {};
 	$__gettext_pp_alias_cache = {};
+	# The separator between msgctxt and msgid in a .mo file.  */
+	$__gettext_pp_context_glue = "\004";
 	
 	$__gettext_pp_default_dir = '';
 	
@@ -127,6 +130,12 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 								  ngettext
 								  dngettext
 								  dcngettext
+								  pgettext
+								  dpgettext
+								  dcpgettext
+								  npgettext
+								  dnpgettext
+								  dcnpgettext
 								  textdomain
 								  bindtextdomain
 								  bind_textdomain_codeset
@@ -148,6 +157,12 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 				 ngettext
 				 dngettext
 				 dcngettext
+				 pgettext
+				 dpgettext
+				 dcpgettext
+				 npgettext
+				 dnpgettext
+				 dcnpgettext
 				 textdomain
 				 bindtextdomain
 				 bind_textdomain_codeset
@@ -248,44 +263,88 @@ sub gettext($)
 {
 	my ($msgid) = @_;
 
-	return dcngettext ('', $msgid, undef, undef, undef);
+	return dcnpgettext ('', undef, $msgid, undef, undef, undef);
 }
 
 sub dgettext($$)
 {
 	my ($domainname, $msgid) = @_;
 
-	return dcngettext ($domainname, $msgid, undef, undef, undef);
+	return dcnpgettext ($domainname, undef, $msgid, undef, undef, undef);
 }
 
 sub dcgettext($$$)
 {
 	my ($domainname, $msgid, $category) = @_;
 
-	return dcngettext ($domainname, $msgid, undef, undef, undef);
+	return dcnpgettext ($domainname, undef, $msgid, undef, undef, undef);
 }
 
 sub ngettext($$$)
 {
 	my ($msgid, $msgid_plural, $n) = @_;
 
-	return dcngettext ('', $msgid, $msgid_plural, $n, undef);
+	return dcnpgettext ('', undef, $msgid, $msgid_plural, $n, undef);
 }
 
 sub dngettext($$$$)
 {
 	my ($domainname, $msgid, $msgid_plural, $n) = @_;
 
-	return dcngettext ($domainname, $msgid, $msgid_plural, $n, undef);
+	return dcnpgettext ($domainname, undef, $msgid, $msgid_plural, $n, undef);
 }
 
 sub dcngettext($$$$$)
 {
 	my ($domainname, $msgid, $msgid_plural, $n, $category) = @_;
 
+	return dcnpgettext ($domainname, undef, $msgid, $msgid_plural, $n, , $category);
+}
+
+
+sub pgettext($$)
+{
+	my ($msgctxt, $msgid) = @_;
+
+	return dcnpgettext ('', $msgctxt, $msgid, undef, undef, undef);
+}
+
+sub dpgettext($$$)
+{
+	my ($domainname, $msgctxt, $msgid) = @_;
+
+	return dcnpgettext ($domainname, $msgctxt, $msgid, undef, undef, undef);
+}
+
+sub dcpgettext($$$$)
+{
+	my ($domainname, $msgctxt, $msgid, $category) = @_;
+
+	return dcnpgettext ($domainname, $msgctxt, $msgid, undef, undef, undef);
+}
+
+sub npgettext($$$$)
+{
+	my ($msgctxt, $msgid, $msgid_plural, $n) = @_;
+
+	return dcnpgettext ('', $msgctxt, $msgid, $msgid_plural, $n, undef);
+}
+
+sub dnpgettext($$$$$)
+{
+	my ($domainname, $msgctxt, $msgid, $msgid_plural, $n) = @_;
+
+	return dcnpgettext ($domainname, $msgctxt, $msgid, $msgid_plural, $n, undef);
+}
+
+sub dcnpgettext($$$$$$)
+{
+	my ($domainname, $msgctxt, $msgid, $msgid_plural, $n, $category) = @_;
+
 	return unless defined $msgid;
 
 	my $plural = defined $msgid_plural;
+	my $msg_ctxt_id = defined $msgctxt ? join($__gettext_pp_context_glue, ($msgctxt, $msgid)) : $msgid;
 	
 	local $!; # Do not clobber errno!
 	
@@ -303,8 +362,8 @@ sub dcngettext($$$$$)
 	my $domain;
 	my $found;
 	foreach my $this_domain (@$domains) {
-		if ($this_domain && defined $this_domain->{messages}->{$msgid}) {
-			@trans = @{$this_domain->{messages}->{$msgid}};
+		if ($this_domain && defined $this_domain->{messages}->{$msg_ctxt_id}) {
+			@trans = @{$this_domain->{messages}->{$msg_ctxt_id}};
 			shift @trans;
 			$domain = $this_domain;
 			$found = 1;
@@ -735,6 +794,12 @@ Locale::gettext_pp - Pure Perl Implementation of Uniforum Message Translation
  ngettext $msgid, $msgid_plural, $count;
  dngettext $domainname, $msgid, $msgid_plural, $count;
  dcngettext $domainname, $msgid, $msgid_plural, $count, LC_MESSAGES;
+ pgettext $msgctxt, $msgid;
+ dpgettext $domainname, $msgctxt, $msgid;
+ dcpgettext $domainname, $msgctxt, $msgid, LC_MESSAGES;
+ npgettext $msgctxt, $msgid, $msgid_plural, $count;
+ dnpgettext $domainname, $msgctxt, $msgid, $msgid_plural, $count;
+ dcnpgettext $domainname, $msgctxt, $msgid, $msgid_plural, $count, LC_MESSAGES;
  textdomain $domainname;
  bindtextdomain $domainname, $directory;
  bind_textdomain_codeset $domainname, $encoding;
@@ -787,6 +852,30 @@ See L<Locale::Messages/FUNCTIONS>.
 See L<Locale::Messages/FUNCTIONS>.
 
 =item B<dcngettext TEXTDOMAIN, MSGID, MSGID_PLURAL, COUNT, CATEGORY>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<pgettext MSGCTXT, MSGID>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<dpgettext TEXTDOMAIN, MSGCTXT, MSGID>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<dcpgettext TEXTDOMAIN, MSGCTXT, MSGID, CATEGORY>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<npgettext MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<dnpgettext TEXTDOMAIN, MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<dcnpgettext TEXTDOMAIN, MSGCTXT, MSGID, MSGID_PLURAL, COUNT, CATEGORY>
 
 See L<Locale::Messages/FUNCTIONS>.
 
@@ -856,6 +945,18 @@ file F<locale.h>:
 =item B<dngettext()>
 
 =item B<dcngettext()>
+
+=item B<pgettext()>
+
+=item B<dpgettext()>
+
+=item B<dcpgettext()>
+
+=item B<npgettext()>
+
+=item B<dnpgettext()>
+
+=item B<dcnpgettext()>
 
 =item B<textdomain()>
 
