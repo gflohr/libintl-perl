@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: gettext_pp.pm,v 1.36 2009/05/25 13:21:27 guido Exp $
+# $Id: gettext_pp.pm,v 1.37 2009/05/25 14:12:09 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -948,15 +948,27 @@ file F<locale.h>:
 
 =item B<pgettext()>
 
+Introduced with libintl-perl 1.17.
+
 =item B<dpgettext()>
+
+Introduced with libintl-perl 1.17.
 
 =item B<dcpgettext()>
 
+Introduced with libintl-perl 1.17.
+
 =item B<npgettext()>
+
+Introduced with libintl-perl 1.17.
 
 =item B<dnpgettext()>
 
+Introduced with libintl-perl 1.17.
+
 =item B<dcnpgettext()>
+
+Introduced with libintl-perl 1.17.
 
 =item B<textdomain()>
 
