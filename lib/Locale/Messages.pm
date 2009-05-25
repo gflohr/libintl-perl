@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.37 2008/11/19 18:55:51 unrtst Exp $
+# $Id: Messages.pm,v 1.38 2009/05/25 13:46:04 guido Exp $
 
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -45,22 +45,22 @@ if ($@) {
 		
 require Exporter;
 @ISA = qw (Exporter);
-%EXPORT_TAGS = ( locale_h => [ qw (gettext
-				   dgettext
-				   dcgettext
-				   ngettext
-				   dngettext
-				   dcngettext
-				   pgettext
-				   dpgettext
-				   dcpgettext
-				   npgettext
-				   dnpgettext
-				   dcnpgettext
-				   textdomain
-				   bindtextdomain
-				   bind_textdomain_codeset
-				   )
+%EXPORT_TAGS = (locale_h => [ qw (gettext
+				  dgettext
+				  dcgettext
+				  ngettext
+				  dngettext
+				  dcngettext
+				  pgettext
+				  dpgettext
+				  dcpgettext
+				  npgettext
+				  dnpgettext
+				  dcnpgettext
+				  textdomain
+				  bindtextdomain
+				  bind_textdomain_codeset
+				  )
 			       ],
 		 libintl_h => [ qw (LC_CTYPE
 				    LC_NUMERIC
@@ -624,10 +624,21 @@ translate to different foreign words based on their context. For
 example, the word "View" may be a noun or a verb, which may be
 used in a menu as File->View or View->Source.
 
-    print pgettext( "Verb: To View", "View" )."\n";
-    print pgettext( "Noun: A View", "View" )."\n";
+    pgettext "Verb: To View", "View\n";
+    pgettext "Noun: A View", "View\n";
 
 The above will both lookup different entries in the message catalog.
+
+A typical usage are GUI programs.  Imagine a program with a main
+menu and the notorious "Open" entry in the "File" menu.  Now imagine,
+there is another menu entry Preferences->Advanced->Policy where you have 
+a choice between the alternatives "Open" and "Closed".  In English, "Open"
+is the adequate text at both places.  In other languages, it is very
+likely that you need two different translations.  Therefore, you would
+now write:
+
+    pgettext "File|", "Open";
+    pgettext "Preferences|Advanced|Policy", "Open";
 
 In English, or if no translation can be found, the second argument
 (MSGID) is returned.
