@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: gettext_pp.pm,v 1.35 2008/11/19 18:55:21 unrtst Exp $
+# $Id: gettext_pp.pm,v 1.36 2009/05/25 13:21:27 guido Exp $
 
 # Pure Perl implementation of Uniforum message translation.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -693,7 +693,7 @@ sub __load_catalog
 	if ($domain->{po_header}->{plural_forms}) {
 		my $code = ' ' . $domain->{po_header}->{plural_forms} . ' ';
 		$code =~ 
-			s/([^_a-zA-Z0-9])([_a-z][_A-Za-z0-9]*)([^_a-zA-Z0-9])/$1\$$2$3/g;
+			s/([^_a-zA-Z0-9]|\A)([_a-z][_A-Za-z0-9]*)([^_a-zA-Z0-9])/$1\$$2$3/g;
 		
 		$code = "sub { my \$n = shift; 
 				   my (\$plural, \$nplurals); 
