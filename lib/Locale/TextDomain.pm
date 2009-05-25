@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.43 2009/05/25 13:48:41 guido Exp $
+# $Id: TextDomain.pm,v 1.44 2009/05/25 14:09:17 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -76,7 +76,8 @@ require Exporter;
 use vars qw (@ISA @EXPORT %__ $__);
 
 @ISA = ('Exporter');
-@EXPORT = qw (__ __x __n __nx __xn __p __px __np __npx __xnp $__ %__ N__ N__n);
+@EXPORT = qw (__ __x __n __nx __xn __p __px __np __npx __xnp $__ %__ 
+              N__ N__n N__p);
 
 my %textdomains = ();
 my %bound_dirs = ();
@@ -287,6 +288,10 @@ sub N__
 
 sub N__n
 {
+    return @_;
+}
+
+sub N__p {
     return @_;
 }
 
@@ -799,6 +804,8 @@ now write:
 In English, or if no translation can be found, the second argument
 (MSGID) is returned.
 
+This function was introduced in libintl-perl 1.17.
+
 =item B<__px MSGCTXT, MSGID, VAR1 =E<gt> VAL1, VAR2 =E<gt> VAL2, ...>
 
 Like __p(), but supports variable substitution in the string, like __x().
@@ -806,6 +813,8 @@ Like __p(), but supports variable substitution in the string, like __x().
     print __px("Verb, to view", "View {file}", file => $filename);
 
 See __p() and __x() for more details.
+
+This function was introduced in libintl-perl 1.17.
 
 =item B<__np MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
 
@@ -823,6 +832,8 @@ sometimes required context. For a (bad) example of this:
 NOTE: The above usage is discouraged. Just use the __nx() call, which 
 provides inline context via the key names.
 
+This function was introduced in libintl-perl 1.17.
+
 =item B<__npx MSGCTXT, MSGID, MSGID_PLURAL, COUNT, VAR1 =E<gt> VAL1, VAR2 =E<gt> VAL2, ...>
 
 This is provided for comleteness. It adds the variable interpolation
@@ -838,6 +849,8 @@ It's usage would be like so:
 
 I cannot think of any situations requiring this, but we can easily 
 support it, so here it is.
+
+This function was introduced in libintl-perl 1.17.
 
 =item B<N__ (ARG1, ARG2, ...)>
 
@@ -896,6 +909,10 @@ functions.
 
 Does exactly the same as N__().  You will use this form if you have 
 to mark the strings as having plural forms.
+
+=item B<N__p (MSGCTXT, MSGID)
+
+Marks B<MSGID> as N__() does, but in the context B<MSGCTXT>.
 
 =back
 
