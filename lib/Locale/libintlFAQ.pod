@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: libintlFAQ.pod,v 1.1 2007/01/24 11:51:41 guido Exp $
+# $Id: libintlFAQ.pod,v 1.2 2009/05/25 13:22:31 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -101,6 +101,90 @@ make the function automatically global in Perl.  Besides, in Perl
 6 the concatenation operator will be the underscore instead of the
 dot.
 
+=head2 How do I switch languages or force a certain language independently
+from user settings read from the environment?
+
+The simple answer is:
+
+    use POSIX qw (setlocale LC_ALL);
+    
+    my $language = 'fr';
+    my $country = 'FR';
+    my $charset = 'iso-8859-1';
+
+    setlocale LC_ALL, "${language}_$country.$charset";
+
+Sadly enough, this will fail in many cases.  The problem is that locale
+identifiers are not standardized and are completely system-dependent.  Not
+only their overall format, but also other details like case-sensitivity.
+Some systems are very forgiving about the system - for example normalizing
+charset descriptions - others very strict.  In order to be reasonably
+platform independent, you should try a list of possible locale identifiers
+for your desired settings.  This is about what I would try for achieving the
+above:
+
+   my @tries = qw (
+   	fr_FR.iso-8859-1 fr_FR.iso8859-1 fr_FR.iso88591
+	fr_FR.ISO-8859-1 fr_FR.ISO8859-1 fr_FR.ISO88591
+   	fr.iso-8859-1 fr.iso8859-1 fr.iso88591
+	fr.ISO-8859-1 fr.ISO8859-1 fr.ISO88591
+	fr_FR
+   	French_France.iso-8859-1 French_France.iso8859-1 French_France.iso88591
+	French_France.ISO-8859-1 French_France.ISO8859-1 French_France.ISO88591
+   	French.iso-8859-1 French.iso8859-1 French.iso88591
+	French.ISO-8859-1 French.ISO8859-1 French.ISO88591
+   );
+   foreach my $try (@tries) {
+   	last if setlocale LC_ALL, $try;
+   }
+
+Set Locale::Util(3pm) for functions that help you with this.
+
+Alternatively, you can force a certain language by setting the environment
+variables LANGUAGE, LANG and OUTPUT_CHARSET, but this is only guaranteed
+to work, if you use the pure Perl implementation of gettext (see the
+documentation for select_package() in Locale::Messages(3pm)). You would
+do the above like this:
+
+    use Locale::Messages qw (nl_putenv);
+
+    # LANGUAGE is a colon separated list of languages.
+    nl_putenv("LANGUAGE=fr_FR");
+
+    # If LANGUAGE is set, LANG should be set to the primary language.
+    # This is not needed for gettext, but for other parts of the system
+    # it is.
+    nl_putenv("LANG=fr_FR");
+
+    # Force an output charset like this:
+    nl_putenv("OUTPUT_CHARSET=iso-8859-1");
+
+    setlocale (LC_MESSAGES, 'C');
+
+These environment variables are GNU extensions, and they are also
+honored by libintl-perl.  Still, you should always try to set the
+locale with setlocale for the catch-all category LC_ALL.  If you miss
+to do so, your program's output maybe cluttered, mixing languages
+and charsets, if the system runs in a locale that is not compatible
+with your own language settings.
+
+Remember that these environment variables are not guaranteed to
+work, if you use an XS version of gettext.  In order to force usage
+of the pure Perl implementation, do the following:
+
+    Locale::Messages->select_package ('gettext_pp');
+
+If you think, this is brain-damaged, you are right, but I cannot help
+you.  Actually there should be a more flexible API than setlocale,
+but at the time of this writing there isn't.  Until then, the recommentation
+goes like this:
+
+	1) Try setting LC_ALL with Locale::Util.
+	2) If that does not succeed, either give up or ...
+	3) Reset LC_MESSAGES to C/POSIX.
+	4) Switch to pure Perl for gettext.
+        5) Set the environment variables LANGUAGE, LANG,
+	   and OUTPUT_CHARSET to your desired values.
 
 =head2 What is the advantage of libintl-perl over Locale::Maketext?
 
