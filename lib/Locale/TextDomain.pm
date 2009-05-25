@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.42 2009/05/25 13:36:30 guido Exp $
+# $Id: TextDomain.pm,v 1.43 2009/05/25 13:48:41 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -779,11 +779,25 @@ This is much like __. The "p" stands for "particular", and the MSGCTXT
 is used to provide context to the translator. This may be neccessary
 when your string is short, and could stand for multiple things. For example:
 
-    print __p("Verb, to view", "View");
-    print __p("Noun, a view", "View");
+    print __p"Verb, to view", "View";
+    print __p"Noun, a view", "View";
 
 The above may be "View" entries in a menu, where View->Source and File->View 
 are different forms of "View", and likely need to be translated differently.
+
+A typical usage are GUI programs.  Imagine a program with a main
+menu and the notorious "Open" entry in the "File" menu.  Now imagine,
+there is another menu entry Preferences->Advanced->Policy where you have 
+a choice between the alternatives "Open" and "Closed".  In English, "Open"
+is the adequate text at both places.  In other languages, it is very
+likely that you need two different translations.  Therefore, you would
+now write:
+
+    __p"File|", "Open";
+    __p"Preferences|Advanced|Policy", "Open";
+
+In English, or if no translation can be found, the second argument
+(MSGID) is returned.
 
 =item B<__px MSGCTXT, MSGID, VAR1 =E<gt> VAL1, VAR2 =E<gt> VAL2, ...>
 
@@ -824,7 +838,6 @@ It's usage would be like so:
 
 I cannot think of any situations requiring this, but we can easily 
 support it, so here it is.
-
 
 =item B<N__ (ARG1, ARG2, ...)>
 
