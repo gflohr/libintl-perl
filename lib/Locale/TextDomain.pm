@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.44 2009/05/25 14:09:17 guido Exp $
+# $Id: TextDomain.pm,v 1.45 2009/05/25 14:28:19 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -76,8 +76,8 @@ require Exporter;
 use vars qw (@ISA @EXPORT %__ $__);
 
 @ISA = ('Exporter');
-@EXPORT = qw (__ __x __n __nx __xn __p __px __np __npx __xnp $__ %__ 
-              N__ N__n N__p);
+@EXPORT = qw (__ __x __n __nx __xn __p __px __np __npx $__ %__ 
+              N__ N__n N__p N__np);
 
 my %textdomains = ();
 my %bound_dirs = ();
@@ -264,22 +264,6 @@ sub __npx ($$@)
 					 %args);
 }
 
-# Plural with interpolation.
-sub __xnp ($$@)
-{
-    my ($msgctxt, $msgid, $msgid_plural, $count, %args) = @_;
-    
-    my $package = caller;
-    
-    my $textdomain = $textdomains{$package};
-    
-    __find_domain $textdomain if
-		defined $textdomain && defined $bound_dirs{$textdomain};
-    
-    return __expand ((dnpgettext $textdomain, $msgctxt, $msgid, $msgid_plural, $count),
-					 %args);
-}
-
 # Dummy functions for string marking.
 sub N__
 {
@@ -292,6 +276,10 @@ sub N__n
 }
 
 sub N__p {
+    return @_;
+}
+
+sub N__np {
     return @_;
 }
 
@@ -905,7 +893,7 @@ translatable.  And you can still get the translation later by passing
 the variable instead of the string to one of the above translation
 functions.
 
-=item B<N__n (ARG1, ...)>
+=item B<N__n (MSGID, MSGID_PLURAL, COUNT)>
 
 Does exactly the same as N__().  You will use this form if you have 
 to mark the strings as having plural forms.
@@ -914,6 +902,9 @@ to mark the strings as having plural forms.
 
 Marks B<MSGID> as N__() does, but in the context B<MSGCTXT>.
 
+=item B<N__np (MSGCTXT, MSGID, MSGID_PLURAL, COUNT)
+
+Marks B<MSGID> as N__n() does, but in the context B<MSGCTXT>.
 =back
 
 =head1 EXPORTED VARIABLES
