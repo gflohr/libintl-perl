@@ -1,4 +1,4 @@
-Version 1.17 - 
+Version 1.17 - 25 May 2009
 
 * New context support, supporting .po files with msgctxt, and 
   appropriate supporting calls (*pgettext calls) under both
