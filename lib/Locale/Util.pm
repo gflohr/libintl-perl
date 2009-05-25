@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.18 2007/03/26 17:18:29 guido Exp $
+# $Id: Util.pm,v 1.19 2009/05/25 14:07:41 guido Exp $
 
 # Portable methods for locale handling.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -998,6 +998,11 @@ list, or use the fully qualified name.
 The functions here have a focus on web development, although they 
 are general enough to have them in the Locale:: namespace.
 
+This module is considered alpha code.  The interface is not stable.
+Please contact the author if you want to use it in production code.
+
+This module was introduced in libintl-perl 1.17.
+
 =head1 FUNCTIONS
 
 =over 4
@@ -1071,7 +1076,7 @@ A valid charset name.  Valid means valid!  The charset "utf8" is not
 valid (it is "utf-8").  Charset names that are accepted by the
 guessing algorithms in Encode(3pm) are also not necessarily valid.
 
-If you parameter is undefined, it is ignored.  It is always ignored
+If the parameter is undefined, it is ignored.  It is always ignored
 under Windows.
 
 =back
@@ -1084,7 +1089,8 @@ try to select the correct charset.
 The return value is false in case of failure, or the return value
 of the underlying POSIX::setlocale() call in case of success.
 
-In array context the country name that was passed in the successful
+In array context, the function returns the country name 
+that was passed in the successful
 call to POSIX::setlocale().  If this string is equal to the country
 name you passed as an argument, you can be reasonably sure that
 the settings for this country are really used.  If it is not
@@ -1169,6 +1175,10 @@ please submit it as a bug report.
 
 The bug tracking system for this packags is at
 http://rt.cpan.org/NoAuth/Bugs.html?libintl-perl
+
+Please note that this module is considered alpha code, and the interface
+is not stable.  Please contact the author, if you want to use it in
+production code.
 
 =head1 AUTHOR
 
