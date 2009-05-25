@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.41 2008/11/19 18:55:51 unrtst Exp $
+# $Id: TextDomain.pm,v 1.42 2009/05/25 13:36:30 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
@@ -795,7 +795,7 @@ See __p() and __x() for more details.
 
 =item B<__np MSGCTXT, MSGID, MSGID_PLURAL, COUNT>
 
-This adds context to plural calls. It shouldn't be needed very often,
+This adds context to plural calls. It should not be needed very often,
 if at all, due to the __nx() function. The type of variable substitution
 used in other gettext libraries (using sprintf-like sybols, like %s or %1)
 sometimes required context. For a (bad) example of this:
@@ -822,7 +822,7 @@ It's usage would be like so:
                 $num_files,
                 count => $num_files);
 
-I can't think of any situations requiring this, but we can easily 
+I cannot think of any situations requiring this, but we can easily 
 support it, so here it is.
 
 
