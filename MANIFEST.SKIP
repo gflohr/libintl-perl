@@ -18,3 +18,4 @@ x-.*$
 ^build_xs$
 ^xs_disabled$
 ^config\.log$
+^cover_db$
