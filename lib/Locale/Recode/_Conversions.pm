@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: _Conversions.pm,v 1.18 2009/05/25 14:29:08 guido Exp $
+# $Id: _Conversions.pm,v 1.19 2009/05/25 14:51:32 guido Exp $
 
 # List of internally known conversions.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
@@ -241,7 +241,8 @@ $optional_conversions = {
 	'KOI8-R' => undef,
     # 0x95 is BULLET, not BULLET OPERATOR.
 	# 'KOI8-U' => undef,
-	'MACINTOSH' => undef,
+    # Seems to be messed up in certain Encode versions.
+	# 'MACINTOSH' => undef,
 	# TODO: Check other Mac encodings for correctness.
 	# Nextstep is completely broken in my version of Encode.
 	# 'NEXTSTEP' => undef,
