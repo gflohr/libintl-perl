@@ -6,12 +6,14 @@ META.yml			Generated
 Makefile.PL			Makefile generator
 MyInstall.pm			Workaround file
 NEWS				Latest Changes
+ReleaseNotes			Same as NEWS
 README				Read it
 README-oldversions		Where are old versions of this module?
 README.solaris			Build libintl-perl on Solaris platforms
 README.win32			Build libintl-perl on MS-DOS platforms
 REFERENCES			Who uses libintl-perl?
 THANKS				Contributors
+Credits				Same as THANKS
 TODO				Missing
 gettext_xs/Makefile.PL		Makefile generator
 gettext_xs/gettext_xs.pm	XS loader
