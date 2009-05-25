@@ -1,9 +1,9 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.38 2009/05/25 13:46:04 guido Exp $
+# $Id: Messages.pm,v 1.39 2009/05/25 14:29:08 guido Exp $
 
-# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -998,7 +998,7 @@ See Locale::TextDomain(3) for much simpler ways.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2009, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

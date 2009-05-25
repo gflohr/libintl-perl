@@ -1,10 +1,10 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Util.pm,v 1.20 2009/05/25 14:08:20 guido Exp $
+# $Id: Util.pm,v 1.21 2009/05/25 14:29:08 guido Exp $
 
 # Portable methods for locale handling.
-# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -1182,7 +1182,7 @@ production code.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2009, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

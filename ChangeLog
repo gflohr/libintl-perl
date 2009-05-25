@@ -1,25 +1,96 @@
-2008-11-05 13:33  Joshua Miller <unrtst@cpan.com>
+2009-05-25 16:22  Guido Flohr <guido@imperia.net>
 
-	* ChangeLog, lib/Locale/gettext_xs.pod, lib/Locale/Messages.pm,
-	  lib/Locale/TextDomain.pm, MANIFEST, NEWS, 
-	  tests/po/additional.de.po, tests/po/existing.de.po,
+	* lib/Locale/libintlFAQ.pod: Switch language for server
+	  applications.
+
+2009-05-25 16:21  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/gettext_pp.pm: Made code parsing the plural formula
+	  more robust.
+
+2008-11-19 21:25  Guido Flohr <guido@imperia.net>
+
+	* tests/po/additional.de.po: Fixed German translations.
+
+2008-11-19 20:55  Joshua Miller <unrtst@cpan.com>
+
+	* ChangeLog, MANIFEST, NEWS, lib/Locale/Messages.pm,
+	  lib/Locale/TextDomain.pm, tests/03dcnpgettext_pp.t,
+	  tests/03dcnpgettext_xs.t, tests/03dcpgettext_pp.t,
+	  tests/03dcpgettext_xs.t, tests/03dnpgettext_pp.t,
+	  tests/03dnpgettext_xs.t, tests/03dpgettext_pp.t,
+	  tests/03dpgettext_xs.t, tests/03npgettext_pp.t,
+	  tests/03npgettext_xs.t, tests/03pgettext_pp.t,
+	  tests/03pgettext_xs.t,
 	  tests/LocaleData/de/LC_MESSAGES/additional.mo,
-	  tests/LocaleData/de/LC_MESSAGES/existing.po,
-	  tests/03dcnpgettext_pp.t, tests/03dcnpgettext_xs.t,
-	  tests/03dcpgettext_pp.t, tests/03dcpgettext_xs.t,
-	  tests/03dnpgettext_pp.t, tests/03dnpgettext_xs.t,
-	  tests/03dpgettext_pp.t, tests/03dpgettext_xs.t,
-	  tests/03npgettext_pp.t, tests/03npgettext_xs.t,
-	  tests/03pgettext_pp.t, tests/03pgettext_xs.t :
-	  Completed support for contextual gettext calls.
+	  tests/LocaleData/de/LC_MESSAGES/existing.mo,
+	  tests/po/additional.de.po, tests/po/existing.de.po: Completed
+	  support for contextual gettext calls.
 
-2008-11-05 13:33  Joshua Miller <unrtst@cpan.com>
+2008-11-19 20:55  Joshua Miller <unrtst@cpan.com>
 
 	* gettext_xs/gettext_xs.pm, gettext_xs/gettext_xs.xs,
-	  lib/Locale/gettext_pp.pm, lib/Locale/gettext_xs.pod :
-	  Added contextual calls:
-	  pgettext, dpgettext, dcpgettext, npgettext,
-	  dnpgettext, dcnpgettext,
+	  lib/Locale/gettext_pp.pm, lib/Locale/gettext_xs.pod: pgettext,
+	  dpgettext, dcpgettext, npgettext, dnpgettext, dcnpgettext,
+
+2008-11-19 20:15  Joshua Miller <unrtst@cpan.com>
+
+	* USERS: Updated with info for unrtst/Joshua Miller
+
+2008-07-18 16:03  Guido Flohr <guido@imperia.net>
+
+	* TODO, lib/Locale/Messages.pm: select_package() is not a class
+	  method (reported by Sergei Vishenski).
+
+2008-05-28 15:41  Guido Flohr <guido@imperia.net>
+
+	* gettext_xs/Makefile.PL: We need both libraries, not just one of
+	  them.
+
+2007-07-03 11:15  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: Corrected POD.
+
+2007-03-26 20:18  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog, MANIFEST.SKIP, META.yml, Makefile.PL, NEWS,
+	  gettext_xs/Makefile.PL, lib/Locale/Messages.pm,
+	  lib/Locale/TextDomain.pm, lib/Locale/Util.pm: Don't forget to
+	  actually set the cached locale.
+
+2007-02-11 18:49  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Filter out un-available languages.
+
+2007-02-11 18:05  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Fixed POD error.
+
+2007-02-11 13:53  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Restrict set of acceptable languages.
+
+2007-02-11 13:18  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Removed erroneous source.
+
+2007-02-11 13:17  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Updated default countries for languages.
+
+2007-02-08 11:07  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Fixed warnings about undefined values.
+
+2007-02-07 17:40  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Aliased loop variable was constant and
+	  read-online.
+
+2007-02-07 17:26  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/Util.pm: Extended search for correct locale required
+	  by FreeBSD.
 
 2007-02-07 11:48  Guido Flohr <guido@imperia.net>
 

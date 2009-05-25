@@ -1,10 +1,10 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: UTF_8.pm,v 1.11 2007/01/24 11:10:24 guido Exp $
+# $Id: UTF_8.pm,v 1.12 2009/05/25 14:29:08 guido Exp $
 
 # Conversion routines for UTF-8 (perl < 5.8.0).
-# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 # This file is generated, do not edit!
 
@@ -170,7 +170,7 @@ See http://www.unicode.org/.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2009, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

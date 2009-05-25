@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: MACTURKISH.pm,v 1.8 2007/01/24 11:10:24 guido Exp $
+# $Id: MACTURKISH.pm,v 1.9 2009/05/25 14:29:08 guido Exp $
 
 # Conversion routines for MACTURKISH.
-# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>, all
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>, all
 # rights reserved.
 # This file is generated, do not edit!
 
@@ -1116,7 +1116,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2009, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

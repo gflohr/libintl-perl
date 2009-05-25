@@ -1,8 +1,8 @@
 /* -*- C -*- */
-/* $Id: gettext_xs.xs,v 1.10 2008/11/19 18:55:21 unrtst Exp $ */
+/* $Id: gettext_xs.xs,v 1.11 2009/05/25 14:29:08 guido Exp $ */
 /*
 # Perl binding for Uniforum message translation.
-# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it

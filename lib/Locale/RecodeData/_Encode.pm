@@ -1,9 +1,9 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: _Encode.pm,v 1.10 2007/01/24 11:10:24 guido Exp $
+# $Id: _Encode.pm,v 1.11 2009/05/25 14:29:08 guido Exp $
 
 # Interface to Encode.
-# Copyright (C) 2002-2007 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -74,7 +74,7 @@ of Encode.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2007, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2009, Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

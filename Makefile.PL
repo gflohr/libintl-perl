@@ -1,10 +1,10 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.27 2007/03/26 17:18:29 guido Exp $
+# $Id: Makefile.PL,v 1.28 2009/05/25 14:29:08 guido Exp $
 
 # Makefile generator for libintl-perl.
-# Copyright (C) 2002-2004 Guido Flohr <guido@imperia.net>, 
+# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>, 
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
