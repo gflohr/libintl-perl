@@ -2,7 +2,7 @@ Version 1.17 -
 
 * New context support, supporting .po files with msgctxt, and 
   appropriate supporting calls (*pgettext calls) under both
-  gettext_pp and gettext_xs. TextDomain.pm recieved coorosponding
+  gettext_pp and gettext_xs. TextDomain.pm received corresponding
   calls: __p __px __np __npx __xnp.
 
 * New module Locale::Util with some utility functions, especially for
