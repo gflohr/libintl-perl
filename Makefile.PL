@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: Makefile.PL,v 1.28 2009/05/25 14:29:08 guido Exp $
+# $Id: Makefile.PL,v 1.29 2009/05/25 15:02:23 guido Exp $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>, 
@@ -213,6 +213,20 @@ WriteMakefile (
 	# suggests not to build it, uncomment the following line.
 	#DIR => [ ('gettext_xs') ],,
 );
+
+sub MY::postamble {
+        '
+all :: Credits ReleaseNotes
+
+# Make search.cpan.org happy but still follow GNU standards:
+# # (Thanks to Graham Barr for the hint)
+Credits: THANKS
+	cat THANKS >$@
+
+ReleaseNotes: NEWS
+	cat NEWS >$@
+'
+}
 
 __END__
 
