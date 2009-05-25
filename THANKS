@@ -1,10 +1,13 @@
-$Id: THANKS,v 1.9 2005/09/27 17:13:34 guido Exp $
+$Id: THANKS,v 1.10 2009/05/25 13:50:37 guido Exp $
 
 These people have helped in the development of libintl-perl:
 
 - Imperia (http://www.imperia.net/) has contributed this part of the 
   Enterprise Content Management System Imperia to the Perl community
   as free software. 
+
+- Joshua Miller <unrtst@cpan.com> has extended libintl-perl to provide
+  the important context-sensitive functions (pgettext() and friends).
 
 - Christian Lackas <delta@lackas.net> has given various hints on 
   performance optimizations
@@ -30,7 +33,6 @@ bug reports:
 - Jan Kratochvil <lace@jankratochvil.net>
 - Светослав Агафонкин <slavi.agafonkin@imperia.net>
 - Michael Bell <michael.bell@cms.hu-berlin.de>
-- Navina Sehgal <navina.sehgal@dlh.de>
 
 Please inform me if I have forgotten your contribution.
 
