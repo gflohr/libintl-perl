@@ -160,7 +160,7 @@ lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/VISCII.pm
 lib/Locale/RecodeData/_Encode.pm
 lib/Locale/TextDomain.pm
-lib/Locale/Util.pm
+lib/Locale/Util.pm                       Attention! Alpha code!
 lib/Locale/gettext_pp.pm
 lib/Locale/gettext_xs.pod
 lib/Locale/libintlFAQ.pod
