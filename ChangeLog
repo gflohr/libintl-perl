@@ -1,3 +1,16 @@
+2009-05-26 12:37  Guido Flohr <guido@imperia.net>
+
+	* NEWS, ReleaseNotes: Updated.
+
+2009-05-26 12:37  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/: Messages.pm, TextDomain.pm: Bumped version number to
+	  1.18.
+
+2009-05-26 12:20  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: Re-generated.
+
 2009-05-26 12:20  Guido Flohr <guido@imperia.net>
 
 	* NEWS, ReleaseNotes: Updated.
