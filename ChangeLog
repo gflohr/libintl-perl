@@ -1,3 +1,16 @@
+2009-05-26 12:20  Guido Flohr <guido@imperia.net>
+
+	* NEWS, ReleaseNotes: Updated.
+
+2009-05-26 12:16  Guido Flohr <guido@imperia.net>
+
+	* lib/Locale/TextDomain.pm: Make PAUSE happy and leave the version
+	  number here.
+
+2009-05-25 18:03  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: Re-generated.
+
 2009-05-25 18:03  Guido Flohr <guido@imperia.net>
 
 	* MANIFEST: Added search.cpan.org aliases for well-known GNU
