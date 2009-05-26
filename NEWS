@@ -6,7 +6,7 @@ Version 1.17 - 25 May 2009
   calls: __p __px __np __npx __xnp.
 
 * New module Locale::Util with some utility functions, especially for
-  web development.
+  web development.  Attention, this is still alpha code!
 
 * Try to warn about wrong usage of the tied hashes in
   Locale::TextDomain.
