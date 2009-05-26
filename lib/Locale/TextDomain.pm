@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.46 2009/05/25 14:29:08 guido Exp $
+# $Id: TextDomain.pm,v 1.47 2009/05/26 09:16:02 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
@@ -69,7 +69,7 @@ use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
-$VERSION = $Locale::Messages::VERSION;
+$VERSION = '1.17';
 
 require Exporter;
 
@@ -898,11 +898,11 @@ functions.
 Does exactly the same as N__().  You will use this form if you have 
 to mark the strings as having plural forms.
 
-=item B<N__p (MSGCTXT, MSGID)
+=item B<N__p (MSGCTXT, MSGID)>
 
 Marks B<MSGID> as N__() does, but in the context B<MSGCTXT>.
 
-=item B<N__np (MSGCTXT, MSGID, MSGID_PLURAL, COUNT)
+=item B<N__np (MSGCTXT, MSGID, MSGID_PLURAL, COUNT)>
 
 Marks B<MSGID> as N__n() does, but in the context B<MSGCTXT>.
 =back
