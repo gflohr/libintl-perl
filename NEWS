@@ -1,3 +1,9 @@
+Version 1.18 - 26 May 2009
+
+* Cosmetic change: The version number is now both in Locale::Messages
+  and in Locale::TextDomain to work around a shortcoming of the
+  PAUSE indexer.
+
 Version 1.17 - 25 May 2009
 
 * New context support, supporting .po files with msgctxt, and 
