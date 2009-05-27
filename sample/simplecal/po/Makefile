@@ -51,9 +51,10 @@ $(TD).pot: $(POTFILES)
 		--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 		--keyword --keyword='$$__' --keyword=__ --keyword=__x \
 		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn:1,2 \
-		--keyword=__p:2 --keyword=__np:2,3 --keyword=__npx:2,3 \
-		--keyword=N__ --keyword=N__n:1,2 --keyword=N__p:2 \
-		--keyword=N__np:2,3 --keyword=%__ --language=perl && \
+		--keyword=__p:1c,2 --keyword=__np:1c,2,3 \
+		--keyword=__npx:1c,2,3 --keyword=N__ --keyword=N__n:1,2 \
+		--keyword=N__p:1c,2 --keyword=N__np:1c,2,3 --keyword=%__ \
+		--language=perl && \
 	rm -f $@ && mv $(TD).pox $@
 
 install: $(MO_FILES)
