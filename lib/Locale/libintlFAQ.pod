@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: libintlFAQ.pod,v 1.3 2009/05/25 14:29:08 guido Exp $
+# $Id: libintlFAQ.pod,v 1.4 2009/05/29 08:44:08 guido Exp $
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
@@ -228,3 +228,31 @@ All translatable strings end up in one single message catalog.
 Last but not least, the interface used by libintl-perl is plain
 simple:  Prepend translatable strings with a double underscore,
 and you are done in most cases.
+
+=head2 Why do single-quoted strings not work?
+
+You probably write something like this:
+
+    print __'Hello';
+
+And you get an error message like "Can't find string terminator "'" anywhere
+before EOF at ...", or even "Bareword found where operator expected at
+... Might be a runaway multi-line '' string starting on".  The above line
+is (really!) essentially the same as writing:
+
+    print __::Hello';
+
+A lesser know feature of Perl is that you can use a single quote ("'") as 
+the separator in packages instead of the double colon (":").  What the
+Perl parser sees in the first example is a valid package name ("__")
+followed by the separator ("'"), then another valid package name ("Hello")
+followed by a lone single quote.  It is therefore not a problem in 
+libintl-perl but simple wrong Perl syntax.  You have to correct alternatives:
+
+    print __ 'Hello';   # Insert a space to disambiguate.
+
+Or use double-quotes:
+
+    print __"Hello";
+
+Thanks to Slavi Agafonkin for pointing me to the solution of this mystery.
