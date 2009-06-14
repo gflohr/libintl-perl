@@ -5,3 +5,4 @@ xs_disabled
 config.log
 imperia_dir.mk
 pofile.output
+*.old
