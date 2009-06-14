@@ -17,11 +17,13 @@ pure_all :: lib/Locale/POFile/Parser.pm lib/Locale/POFile/Lexer.pm
 
 lib/Locale/POFile/Parser.pm: pofile.y
 	${wisent} --package=Locale::POFile::Parser --output=$@.tmp $< && \
-	    perl -e 'undef ${/};$_ = <>; s/__END__.*//s; print $_' \
-		${sitedir}/modules/core/Imperia/Wisent/Parser.pm >$@ && \
-	    cat $@.tmp >>$@ && \
+	${PERL} ./module_cat ${sitedir}/modules/core/Imperia/Wisent/Parser.pm \
+	                     $@.tmp >$@ && \
 	    rm $@.tmp
 
 lib/Locale/POFile/Lexer.pm: pofile.l
-	${ilex} --package=Locale::POFile::Lexer --output=$@ $<
+	${ilex} --package=Locale::POFile::Lexer --output=$@.tmp $< && \
+	${PERL} ./module_cat ${sitedir}/modules/core/Imperia/ILex/Lexer.pm \
+	                     $@.tmp >$@ && \
+	    rm $@.tmp
 
