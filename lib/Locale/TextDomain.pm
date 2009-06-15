@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.49 2009/05/27 05:13:28 guido Exp $
+# $Id$
 
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
@@ -156,7 +156,7 @@ sub __x ($@)
 }
 
 # Plural.
-sub __n ($@)
+sub __n ($$$)
 {
     my ($msgid, $msgid_plural, $count) = @_;
     
@@ -171,7 +171,7 @@ sub __n ($@)
 }
 
 # Plural with interpolation.
-sub __nx ($@)
+sub __nx ($$$@)
 {
     my ($msgid, $msgid_plural, $count, %args) = @_;
     
@@ -187,7 +187,7 @@ sub __nx ($@)
 }
 
 # Plural with interpolation.
-sub __xn ($@)
+sub __xn ($$$@)
 {
     my ($msgid, $msgid_plural, $count, %args) = @_;
     
@@ -234,7 +234,7 @@ sub __px ($$@)
 }
 
 # Context + Plural.
-sub __np ($$@)
+sub __np ($$$$)
 {
     my ($msgctxt, $msgid, $msgid_plural, $count) = @_;
     
@@ -249,7 +249,7 @@ sub __np ($$@)
 }
 
 # Plural with interpolation.
-sub __npx ($$@)
+sub __npx ($$$$@)
 {
     my ($msgctxt, $msgid, $msgid_plural, $count, %args) = @_;
     
@@ -265,21 +265,21 @@ sub __npx ($$@)
 }
 
 # Dummy functions for string marking.
-sub N__
+sub N__($)
+{
+    return shift;
+}
+
+sub N__n($$$)
 {
     return @_;
 }
 
-sub N__n
-{
+sub N__p($$) {
     return @_;
 }
 
-sub N__p {
-    return @_;
-}
-
-sub N__np {
+sub N__np($$$$) {
     return @_;
 }
 
@@ -382,14 +382,9 @@ Locale::TextDomain - Perl Interface to Uniforum Message Translation
  
  my $alt2 = $__->{"Hello World!\n"};
 
- my @list = (N__"Hello",	N__"World");
+ my @list = (N__"Hello",
+             N__"World");
  
- my @plurals = (N__ ("One world", "{num} worlds"), 
-                N__ ("1 file", "%d files"));
-
- my $question = __x ("Error reading file '{file}': {err}", 
-                     file => $file, err => $!);
-    
  printf (__n ("one file read", 
               "%d files read", 
               $num_files),
