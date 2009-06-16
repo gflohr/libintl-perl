@@ -1,5 +1,5 @@
 #! /bin/false
-# $Id: Lexer.pm,v 1.31 2008/12/09 15:00:51 guido Exp $ 
+# $Id: Lexer.pm,v 1.32 2009/06/14 20:29:13 guido Exp $ 
 # vim: set autoindent shiftwidth=4 tabstop=8:
 
 # Imperia AG is the sole owner and producer of its software "Imperia". For
@@ -307,79 +307,6 @@ sub yywrap {
     return $self;  # Default is to indicate end of input.
 }
 
-
-=head1 NAME
-
-Imperia::ILex::Lexer - Abstract base class for Imperia Wisent scanners
-
-=head1 SYNOPSIS
-
-    # Always use the derived class, since the base class 
-    # Imperia::ILex::Lexer is abstract.
-    use MyLexer;
-
-    my $lexer = MyScanner->new;
-    $lexer->yylex();
-    
-=head1 DESCRIPTION
-
-The B<Imperia::ILex::Lexer> class is an abstract base class for Imperia
-Wisent scanners.  Derived classes are normally generated using 
-site_ilex.pl(1pl).
-
-=head1 CONSTRUCTORS
-
-=over 4 
-
-=item B<new ARGS>
-
-The constructor takes a number of named arguments:
-
-=over 8 
-
-=item B<yyin FILEHANDLE>
-
-The file handle to read the input stream from.
-
-=back
-
-=back
-
-=head1 PUBLIC METHODS
-
-=over 4
-
-=item B<yylex>
-
-The lexer function.
-
-=back
-
-=head1 PROTECTED METHODS
-
-A number of methods are protected.  You can implement your own version in order
-to change the behavior of the scanner:
-
-=over 4
-
-=item B<_yyin>
-
-This function is called in order to fetch new data from the import stream.  It
-must return data from the input stream, or an undefined value at end of file.
-
-=back
-
-=head1 COPYRIGHT
-
-Imperia AG is the sole owner and producer of its software "Imperia". For
-our software license and copyright information please refer to: License.txt
-Copyright (C) 1995-2008 Imperia AG.  All rights reserved.
-
-=head1 SEE ALSO
-
-perl(1), site_ilex.pl(1pl)
-
-=cut
 #! /bin/false
 package Locale::POFile::Lexer;
 
@@ -389,6 +316,10 @@ package Locale::POFile::Lexer;
 ##########################################################################
 
 
+use strict;
+
+use Locale::POFile::Parser qw (:yyterminals);
+    
 
 package Locale::POFile::Lexer;
 
@@ -400,19 +331,66 @@ sub _yymatch {
     my ($self) = @_;
     use re qw (eval);
     return {
-        INITIAL => qr /(((?s:.))(?{$yyrule = 1}))/o,
+        INITIAL => qr /(#.*(?{$yyrule = 0})|msgid_plural(?=[ \t\r\n\"]|\z)(?{$yyrule = 1})|msgid(?=[ \t\r\n\"]|\z)(?{$yyrule = 2})|msgstr(?=[\[ \t\r\n\"]|\z)(?{$yyrule = 3})|domain(?=[ \t\r\n\"]|\z)(?{$yyrule = 4})|msgctxt(?=[ \t\r\n\"]|\z)(?{$yyrule = 5})|"([^\\"]*(?:(?:\\"|\\)[^\\"]*)*)"(?{$yyrule = 6})|[^ \t\r\n]+(?{$yyrule = 7})|[ \t\r\n]+(?{$yyrule = 8})|(.|\n)(?{$yyrule = 9})|((?s:.))(?{$yyrule = 10}))/o,
     };
 
 }
 
 sub _yyparens {
-    return [0];
+    return [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0];
 }
 
 sub _yycode {
     return     [
+#line 26 "pofile.l"
 sub {
-    print $^N, return
+    return $^N, COMMENT
+
+},
+#line 26 "pofile.l"
+sub {
+    return $^N, MSGID_PLURAL
+
+},
+#line 26 "pofile.l"
+sub {
+    return $^N, MSGID
+
+},
+#line 26 "pofile.l"
+sub {
+    return $^N, MSGSTR
+
+},
+#line 26 "pofile.l"
+sub {
+    return $^N, DOMAIN
+
+},
+#line 26 "pofile.l"
+sub {
+    return $^N, MSGCTXT
+
+},
+#line 26 "pofile.l"
+sub {
+    return $_[1], DQSTRING
+
+},
+#line 26 "pofile.l"
+sub {
+    return $^N
+
+},
+undef,
+#line 27 "pofile.l"
+sub {
+    return $^N
+
+},
+sub {
+    print $^N;
+    return;
 },
     ];
 
@@ -420,7 +398,7 @@ sub {
 
 sub _yystates {
     return {
-        INITIAL => [],
+        INITIAL => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
 
     };
 }

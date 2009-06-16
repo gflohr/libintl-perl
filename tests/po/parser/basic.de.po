@@ -1,0 +1,3 @@
+# Test po file for the po parser.  Do not maintain or translate this file.
+msgid "foobar"
+msgstr "FooBar"

@@ -376,6 +376,7 @@ tests/03textdomain_pp.t
 tests/03textdomain_xs.t
 tests/04find_domain_bug.t
 tests/05parse_accept.t
+tests/06parse_po.t
 tests/LocaleData/de/LC_MESSAGES/additional.mo
 tests/LocaleData/de/LC_MESSAGES/existing.mo
 tests/LocaleData/de_AT/LC_MESSAGES/additional.mo
@@ -385,4 +386,5 @@ tests/po/additional.de.po
 tests/po/additional.de_AT.po
 tests/po/existing.de.po
 tests/po/existing.de_AT.po
+tests/po/parser/basic.de.po
 META.yml                                Module meta-data (added by MakeMaker)

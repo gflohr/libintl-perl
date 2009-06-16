@@ -1,5 +1,5 @@
 #! /bin/false
-# $Id: Parser.pm,v 1.25 2009/04/27 10:29:14 guido Exp $ 
+# $Id: Parser.pm,v 1.26 2009/06/14 20:29:13 guido Exp $ 
 # vim: set autoindent shiftwidth=4 tabstop=8:
 
 # Imperia AG is the sole owner and producer of its software "Imperia". For
@@ -614,30 +614,73 @@ use base qw (Imperia::Wisent::Parser Exporter);
 use vars qw (@EXPORT_OK %EXPORT_TAGS);
 
 %EXPORT_TAGS = (yyterminals => [
+	'COMMENT',
+	'DOMAIN',
+	'DQSTRING',
+	'MSGCTXT',
+	'MSGID',
+	'MSGID_PLURAL',
+	'MSGSTR',
 	'error',
 ]);
 
 @EXPORT_OK = (
+	'COMMENT',
+	'DOMAIN',
+	'DQSTRING',
+	'MSGCTXT',
+	'MSGID',
+	'MSGID_PLURAL',
+	'MSGSTR',
 	'error',
 );
+use constant COMMENT => 2;
+use constant DOMAIN => 7;
+use constant DQSTRING => 8;
+use constant MSGCTXT => 6;
+use constant MSGID => 3;
+use constant MSGID_PLURAL => 4;
+use constant MSGSTR => 5;
 use constant error => 1;
 
 
 
 use constant _yyautomaton =>  {
           'non_terminals' => {
-                               '3' => 1,
-                               '2' => 1
+                               '11' => 1,
+                               '10' => 1,
+                               '9' => 1,
+                               '13' => 1,
+                               '12' => 1,
+                               '14' => 1
                              },
           'names' => [
                        '$end',
                        'error',
+                       'COMMENT',
+                       'MSGID',
+                       'MSGID_PLURAL',
+                       'MSGSTR',
+                       'MSGCTXT',
+                       'DOMAIN',
+                       'DQSTRING',
                        '$accept',
-                       'pofile'
+                       'pofile',
+                       'chunks',
+                       'comments',
+                       'domainspec',
+                       'message'
                      ],
           'terminals' => {
+                           '6' => 1,
+                           '3' => 1,
+                           '7' => 1,
+                           '2' => 1,
+                           '8' => 1,
                            '1' => 1,
-                           '0' => 1
+                           '4' => 1,
+                           '0' => 1,
+                           '5' => 1
                          },
           'states' => [
                         {
@@ -650,10 +693,11 @@ use constant _yyautomaton =>  {
                                       ],
                           'default' => [
                                          'r',
-                                         1
+                                         6
                                        ],
                           'goto' => {
-                                      '3' => 1
+                                      '11' => 2,
+                                      '10' => 1
                                     },
                           'items' => [
                                        [
@@ -663,6 +707,26 @@ use constant _yyautomaton =>  {
                                        [
                                          1,
                                          0
+                                       ],
+                                       [
+                                         2,
+                                         0
+                                       ],
+                                       [
+                                         3,
+                                         0
+                                       ],
+                                       [
+                                         4,
+                                         0
+                                       ],
+                                       [
+                                         5,
+                                         0
+                                       ],
+                                       [
+                                         6,
+                                         0
                                        ]
                                      ]
                         },
@@ -670,7 +734,7 @@ use constant _yyautomaton =>  {
                           'actions' => {
                                          '0' => [
                                                   's',
-                                                  2
+                                                  3
                                                 ]
                                        },
                           'kernel' => [
@@ -683,6 +747,95 @@ use constant _yyautomaton =>  {
                                        [
                                          0,
                                          1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '1' => [
+                                                  's',
+                                                  4
+                                                ],
+                                         '3' => [
+                                                  's',
+                                                  7
+                                                ],
+                                         '7' => [
+                                                  's',
+                                                  6
+                                                ],
+                                         '2' => [
+                                                  's',
+                                                  5
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          1,
+                                          1
+                                        ],
+                                        [
+                                          2,
+                                          1
+                                        ],
+                                        [
+                                          3,
+                                          1
+                                        ],
+                                        [
+                                          4,
+                                          1
+                                        ],
+                                        [
+                                          5,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         1
+                                       ],
+                          'goto' => {
+                                      '13' => 9,
+                                      '12' => 8,
+                                      '14' => 10
+                                    },
+                          'items' => [
+                                       [
+                                         1,
+                                         1
+                                       ],
+                                       [
+                                         2,
+                                         1
+                                       ],
+                                       [
+                                         3,
+                                         1
+                                       ],
+                                       [
+                                         4,
+                                         1
+                                       ],
+                                       [
+                                         5,
+                                         1
+                                       ],
+                                       [
+                                         7,
+                                         0
+                                       ],
+                                       [
+                                         8,
+                                         0
+                                       ],
+                                       [
+                                         9,
+                                         0
+                                       ],
+                                       [
+                                         10,
+                                         0
                                        ]
                                      ]
                         },
@@ -704,23 +857,324 @@ use constant _yyautomaton =>  {
                                          2
                                        ]
                                      ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          5,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         5
+                                       ],
+                          'items' => [
+                                       [
+                                         5,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          7,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         7
+                                       ],
+                          'items' => [
+                                       [
+                                         7,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  11
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          9,
+                                          1
+                                        ]
+                                      ],
+                          'items' => [
+                                       [
+                                         9,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  12
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          10,
+                                          1
+                                        ]
+                                      ],
+                          'items' => [
+                                       [
+                                         10,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '2' => [
+                                                  's',
+                                                  13
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          2,
+                                          2
+                                        ],
+                                        [
+                                          8,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         2
+                                       ],
+                          'items' => [
+                                       [
+                                         2,
+                                         2
+                                       ],
+                                       [
+                                         8,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          3,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         3
+                                       ],
+                          'items' => [
+                                       [
+                                         3,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          4,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         4
+                                       ],
+                          'items' => [
+                                       [
+                                         4,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          9,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         9
+                                       ],
+                          'items' => [
+                                       [
+                                         9,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '5' => [
+                                                  's',
+                                                  14
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          10,
+                                          2
+                                        ]
+                                      ],
+                          'items' => [
+                                       [
+                                         10,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          8,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         8
+                                       ],
+                          'items' => [
+                                       [
+                                         8,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  15
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          10,
+                                          3
+                                        ]
+                                      ],
+                          'items' => [
+                                       [
+                                         10,
+                                         3
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          10,
+                                          4
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         10
+                                       ],
+                          'items' => [
+                                       [
+                                         10,
+                                         4
+                                       ]
+                                     ]
                         }
                       ],
           'symbols' => {
+                         'MSGID' => 3,
+                         'domainspec' => 13,
+                         'COMMENT' => 2,
+                         'MSGID_PLURAL' => 4,
+                         'DQSTRING' => 8,
+                         '$end' => 0,
+                         'comments' => 12,
+                         'MSGCTXT' => 6,
+                         'message' => 14,
+                         'chunks' => 11,
+                         'MSGSTR' => 5,
                          'error' => 1,
-                         '$accept' => 2,
-                         'pofile' => 3,
-                         '$end' => 0
+                         '$accept' => 9,
+                         'DOMAIN' => 7,
+                         'pofile' => 10
                        },
           'literals' => undef,
           'rules' => [
                        [
-                         2,
-                         3,
+                         9,
+                         10,
                          0
                        ],
                        [
-                         3
+                         10,
+                         11
+                       ],
+                       [
+                         11,
+                         11,
+                         12
+                       ],
+                       [
+                         11,
+                         11,
+                         13
+                       ],
+                       [
+                         11,
+                         11,
+                         14
+                       ],
+                       [
+                         11,
+                         11,
+                         1
+                       ],
+                       [
+                         11
+                       ],
+                       [
+                         12,
+                         2
+                       ],
+                       [
+                         12,
+                         12,
+                         2
+                       ],
+                       [
+                         13,
+                         7,
+                         8
+                       ],
+                       [
+                         14,
+                         3,
+                         8,
+                         5,
+                         8
                        ]
                      ]
         };
@@ -728,11 +1182,16 @@ use constant _yyautomaton =>  {
 
 sub _yysemantics {
     return {
+        '1' => {
+            '1' => sub 
+#line 30 "pofile.y"
+{ return 1 },
+},
     };
 }
 
 
 1;
-#line 25 "pofile.y"
+#line 49 "pofile.y"
 
 

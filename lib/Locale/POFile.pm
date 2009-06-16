@@ -11,20 +11,101 @@
 # under the terms of the GNU Library General Public License as published
 # by the Free Software Foundation; either version 2, or (at your option)
 # any later version.
-                                                                                
+
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Library General Public License for more details.
-                                                                                
-# You should have received a copy of the GNU Library General Public 
+
+# You should have received a copy of the GNU Library General Public
 # License along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 # USA.
 
 package Locale::POFile;
 
 use strict;
+
+use Locale::TextDomain qw (libintl-perl);
+
+use Locale::POFile::Parser;
+use Locale::POFile::Lexer;
+
+sub new {
+    my ($class, @args) = @_;
+
+    my $self = {};
+
+    $self->{__errors} ||= [];
+
+    bless $self, $class;
+}
+
+sub parse {
+    my ($self, $what, $filename) = @_;
+
+    my %args;
+    
+    my $content;
+    if (ref $what && 'SCALAR' eq ref $what) {
+        $content = $$what;
+        $args{yyin_name} = $filename if defined $filename && length $filename;
+    } elsif (ref $what) {
+        $args{yyin} = $what;
+        $args{yyin_name} = $filename if defined $filename && length $filename;
+    } elsif (defined $what) {
+        local *HANDLE;
+        $args{yyin_name} = $filename = $what;
+        unless (open HANDLE, "<$filename") {
+            return $self->__pushErrors(
+                __x(
+                    "Cannot open '{filename}' for reading:" . " {error}.\n",
+                    filename => $filename,
+                    error    => $!
+                )
+            );
+        }
+
+        local $/;
+        $content = <HANDLE>;
+        unless (defined $content) {
+            return $self->__pushErrors(
+                __x(
+                    "Error reading '{filename}: {error}.\n",
+                    filename => $filename,
+                    error    => $!
+                )
+            );
+            return $self;
+        }
+        close HANDLE;
+    }
+
+    my $lexer = Locale::POFile::Lexer->new(%args);
+    $lexer->yyinput($content) if defined $content;
+
+    my $parser = Locale::POFile::Parser->new;
+    return unless $parser->yyparse($lexer, yydebug => $ENV{POFILE_DEBUG});
+    
+    return $self;
+}
+
+sub errors {
+    my ($self) = @_;
+
+    my @errors = @{$self->{__errors}};
+
+    return @errors;
+}
+
+sub __pushErrors {
+    my ($self, @errors) = @_;
+
+    push @{$self->{__errors}}, @errors;
+
+    # Convenience:  Return false, so that you can propagate the return value.
+    return;
+}
 
 1;
 
@@ -37,6 +118,8 @@ Locale::POFile - Manage Portable Object (PO) Files
 =head1 SYNOPSIS
 
  use Locale::POFile;
+ 
+ my $po = Locale::PO->new;
 
 =head1 DESCRIPTION
 
