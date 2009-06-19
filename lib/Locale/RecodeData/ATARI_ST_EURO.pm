@@ -1,6 +1,6 @@
 #! /bin/false
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: ATARI_ST_EURO.pm,v 1.14 2009/05/25 14:29:08 guido Exp $
+# $Id$
 
 # Conversion routines for ATARI-ST-EURO.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>, all
