@@ -1,7 +1,7 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: TextDomain.pm,v 1.49 2009/05/27 05:13:28 guido Exp $
+# $Id$
 
 # This file is part of libintl-perl.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
