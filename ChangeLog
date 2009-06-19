@@ -1,5 +1,13 @@
 2009-06-19  Guido Flohr <guido@imperia.net>
 
+	* META.yml: Version number 1.19.
+
+2009-06-19  Guido Flohr <guido@imperia.net>
+
+	* ChangeLog: Re-generated.
+
+2009-06-19  Guido Flohr <guido@imperia.net>
+
 	* Credits, FAQ, ReleaseNotes, THANKS,
 	lib/Locale/Recode/_Aliases.pm, lib/Locale/Recode/_Conversions.pm,
 	lib/Locale/gettext_xs.pod, lib/Locale/libintlFAQ.pod,
