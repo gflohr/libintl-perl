@@ -601,7 +601,14 @@ sub __yyquote {
 
 
 #! /bin/false
+#line 27 "pofile.y"
 
+package Locale::POFile::Parser;
+
+use strict;
+
+use Locale::POFile::Message;
+    
 ###########################################################################
 # This file is generated, do not edit!
 # Edit 'pofile.y' instead!!
@@ -648,11 +655,14 @@ use constant error => 1;
 use constant _yyautomaton =>  {
           'non_terminals' => {
                                '11' => 1,
-                               '10' => 1,
                                '9' => 1,
-                               '13' => 1,
                                '12' => 1,
-                               '14' => 1
+                               '17' => 1,
+                               '15' => 1,
+                               '14' => 1,
+                               '13' => 1,
+                               '16' => 1,
+                               '10' => 1
                              },
           'names' => [
                        '$end',
@@ -667,9 +677,12 @@ use constant _yyautomaton =>  {
                        '$accept',
                        'pofile',
                        'chunks',
-                       'comments',
+                       'messagespec',
                        'domainspec',
-                       'message'
+                       'comments',
+                       'message',
+                       'domain',
+                       'dqstrings'
                      ],
           'terminals' => {
                            '6' => 1,
@@ -693,7 +706,7 @@ use constant _yyautomaton =>  {
                                       ],
                           'default' => [
                                          'r',
-                                         6
+                                         5
                                        ],
                           'goto' => {
                                       '11' => 2,
@@ -722,10 +735,6 @@ use constant _yyautomaton =>  {
                                        ],
                                        [
                                          5,
-                                         0
-                                       ],
-                                       [
-                                         6,
                                          0
                                        ]
                                      ]
@@ -758,11 +767,11 @@ use constant _yyautomaton =>  {
                                                 ],
                                          '3' => [
                                                   's',
-                                                  7
+                                                  6
                                                 ],
                                          '7' => [
                                                   's',
-                                                  6
+                                                  7
                                                 ],
                                          '2' => [
                                                   's',
@@ -785,10 +794,6 @@ use constant _yyautomaton =>  {
                                         [
                                           4,
                                           1
-                                        ],
-                                        [
-                                          5,
-                                          1
                                         ]
                                       ],
                           'default' => [
@@ -797,8 +802,10 @@ use constant _yyautomaton =>  {
                                        ],
                           'goto' => {
                                       '13' => 9,
+                                      '16' => 12,
                                       '12' => 8,
-                                      '14' => 10
+                                      '14' => 10,
+                                      '15' => 11
                                     },
                           'items' => [
                                        [
@@ -818,8 +825,8 @@ use constant _yyautomaton =>  {
                                          1
                                        ],
                                        [
-                                         5,
-                                         1
+                                         6,
+                                         0
                                        ],
                                        [
                                          7,
@@ -835,6 +842,18 @@ use constant _yyautomaton =>  {
                                        ],
                                        [
                                          10,
+                                         0
+                                       ],
+                                       [
+                                         11,
+                                         0
+                                       ],
+                                       [
+                                         12,
+                                         0
+                                       ],
+                                       [
+                                         13,
                                          0
                                        ]
                                      ]
@@ -862,17 +881,17 @@ use constant _yyautomaton =>  {
                           'actions' => {},
                           'kernel' => [
                                         [
-                                          5,
+                                          4,
                                           2
                                         ]
                                       ],
                           'default' => [
                                          'r',
-                                         5
+                                         4
                                        ],
                           'items' => [
                                        [
-                                         5,
+                                         4,
                                          2
                                        ]
                                      ]
@@ -881,54 +900,14 @@ use constant _yyautomaton =>  {
                           'actions' => {},
                           'kernel' => [
                                         [
-                                          7,
+                                          10,
                                           1
                                         ]
                                       ],
                           'default' => [
                                          'r',
-                                         7
+                                         10
                                        ],
-                          'items' => [
-                                       [
-                                         7,
-                                         1
-                                       ]
-                                     ]
-                        },
-                        {
-                          'actions' => {
-                                         '8' => [
-                                                  's',
-                                                  11
-                                                ]
-                                       },
-                          'kernel' => [
-                                        [
-                                          9,
-                                          1
-                                        ]
-                                      ],
-                          'items' => [
-                                       [
-                                         9,
-                                         1
-                                       ]
-                                     ]
-                        },
-                        {
-                          'actions' => {
-                                         '8' => [
-                                                  's',
-                                                  12
-                                                ]
-                                       },
-                          'kernel' => [
-                                        [
-                                          10,
-                                          1
-                                        ]
-                                      ],
                           'items' => [
                                        [
                                          10,
@@ -938,19 +917,61 @@ use constant _yyautomaton =>  {
                         },
                         {
                           'actions' => {
-                                         '2' => [
+                                         '8' => [
                                                   's',
                                                   13
                                                 ]
                                        },
                           'kernel' => [
                                         [
+                                          12,
+                                          1
+                                        ]
+                                      ],
+                          'goto' => {
+                                      '17' => 14
+                                    },
+                          'items' => [
+                                       [
+                                         12,
+                                         1
+                                       ],
+                                       [
+                                         14,
+                                         0
+                                       ],
+                                       [
+                                         15,
+                                         0
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  15
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          13,
+                                          1
+                                        ]
+                                      ],
+                          'items' => [
+                                       [
+                                         13,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
                                           2,
                                           2
-                                        ],
-                                        [
-                                          8,
-                                          1
                                         ]
                                       ],
                           'default' => [
@@ -961,10 +982,6 @@ use constant _yyautomaton =>  {
                                        [
                                          2,
                                          2
-                                       ],
-                                       [
-                                         8,
-                                         1
                                        ]
                                      ]
                         },
@@ -988,21 +1005,77 @@ use constant _yyautomaton =>  {
                                      ]
                         },
                         {
+                          'actions' => {
+                                         '3' => [
+                                                  's',
+                                                  6
+                                                ],
+                                         '7' => [
+                                                  's',
+                                                  7
+                                                ],
+                                         '2' => [
+                                                  's',
+                                                  16
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          6,
+                                          1
+                                        ],
+                                        [
+                                          8,
+                                          1
+                                        ],
+                                        [
+                                          11,
+                                          1
+                                        ]
+                                      ],
+                          'goto' => {
+                                      '16' => 18,
+                                      '15' => 17
+                                    },
+                          'items' => [
+                                       [
+                                         6,
+                                         1
+                                       ],
+                                       [
+                                         8,
+                                         1
+                                       ],
+                                       [
+                                         11,
+                                         1
+                                       ],
+                                       [
+                                         12,
+                                         0
+                                       ],
+                                       [
+                                         13,
+                                         0
+                                       ]
+                                     ]
+                        },
+                        {
                           'actions' => {},
                           'kernel' => [
                                         [
-                                          4,
-                                          2
+                                          7,
+                                          1
                                         ]
                                       ],
                           'default' => [
                                          'r',
-                                         4
+                                         7
                                        ],
                           'items' => [
                                        [
-                                         4,
-                                         2
+                                         7,
+                                         1
                                        ]
                                      ]
                         },
@@ -1011,7 +1084,7 @@ use constant _yyautomaton =>  {
                           'kernel' => [
                                         [
                                           9,
-                                          2
+                                          1
                                         ]
                                       ],
                           'default' => [
@@ -1021,26 +1094,114 @@ use constant _yyautomaton =>  {
                           'items' => [
                                        [
                                          9,
-                                         2
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          14,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         14
+                                       ],
+                          'items' => [
+                                       [
+                                         14,
+                                         1
                                        ]
                                      ]
                         },
                         {
                           'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  20
+                                                ],
                                          '5' => [
                                                   's',
-                                                  14
+                                                  19
                                                 ]
                                        },
                           'kernel' => [
                                         [
-                                          10,
+                                          12,
                                           2
+                                        ],
+                                        [
+                                          15,
+                                          1
                                         ]
                                       ],
                           'items' => [
                                        [
-                                         10,
+                                         12,
+                                         2
+                                       ],
+                                       [
+                                         15,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          13,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         13
+                                       ],
+                          'items' => [
+                                       [
+                                         13,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          11,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         11
+                                       ],
+                          'items' => [
+                                       [
+                                         11,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          6,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         6
+                                       ],
+                          'items' => [
+                                       [
+                                         6,
                                          2
                                        ]
                                      ]
@@ -1068,19 +1229,30 @@ use constant _yyautomaton =>  {
                           'actions' => {
                                          '8' => [
                                                   's',
-                                                  15
+                                                  13
                                                 ]
                                        },
                           'kernel' => [
                                         [
-                                          10,
+                                          12,
                                           3
                                         ]
                                       ],
+                          'goto' => {
+                                      '17' => 21
+                                    },
                           'items' => [
                                        [
-                                         10,
+                                         12,
                                          3
+                                       ],
+                                       [
+                                         14,
+                                         0
+                                       ],
+                                       [
+                                         15,
+                                         0
                                        ]
                                      ]
                         },
@@ -1088,18 +1260,50 @@ use constant _yyautomaton =>  {
                           'actions' => {},
                           'kernel' => [
                                         [
-                                          10,
-                                          4
+                                          15,
+                                          2
                                         ]
                                       ],
                           'default' => [
                                          'r',
-                                         10
+                                         15
                                        ],
                           'items' => [
                                        [
-                                         10,
+                                         15,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  20
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          12,
+                                          4
+                                        ],
+                                        [
+                                          15,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         12
+                                       ],
+                          'items' => [
+                                       [
+                                         12,
                                          4
+                                       ],
+                                       [
+                                         15,
+                                         1
                                        ]
                                      ]
                         }
@@ -1108,18 +1312,21 @@ use constant _yyautomaton =>  {
                          'MSGID' => 3,
                          'domainspec' => 13,
                          'COMMENT' => 2,
-                         'MSGID_PLURAL' => 4,
                          'DQSTRING' => 8,
-                         '$end' => 0,
-                         'comments' => 12,
-                         'MSGCTXT' => 6,
-                         'message' => 14,
-                         'chunks' => 11,
-                         'MSGSTR' => 5,
+                         'comments' => 14,
+                         'domain' => 16,
                          'error' => 1,
+                         'MSGSTR' => 5,
+                         'pofile' => 10,
+                         'dqstrings' => 17,
+                         'MSGID_PLURAL' => 4,
+                         '$end' => 0,
+                         'MSGCTXT' => 6,
+                         'messagespec' => 12,
+                         'message' => 15,
+                         'chunks' => 11,
                          '$accept' => 9,
-                         'DOMAIN' => 7,
-                         'pofile' => 10
+                         'DOMAIN' => 7
                        },
           'literals' => undef,
           'rules' => [
@@ -1145,11 +1352,6 @@ use constant _yyautomaton =>  {
                        [
                          11,
                          11,
-                         14
-                       ],
-                       [
-                         11,
-                         11,
                          1
                        ],
                        [
@@ -1157,23 +1359,50 @@ use constant _yyautomaton =>  {
                        ],
                        [
                          12,
-                         2
+                         14,
+                         15
                        ],
                        [
                          12,
-                         12,
-                         2
+                         15
                        ],
                        [
                          13,
+                         14,
+                         16
+                       ],
+                       [
+                         13,
+                         16
+                       ],
+                       [
+                         14,
+                         2
+                       ],
+                       [
+                         14,
+                         14,
+                         2
+                       ],
+                       [
+                         15,
+                         3,
+                         17,
+                         5,
+                         17
+                       ],
+                       [
+                         16,
                          7,
                          8
                        ],
                        [
-                         14,
-                         3,
-                         8,
-                         5,
+                         17,
+                         8
+                       ],
+                       [
+                         17,
+                         17,
                          8
                        ]
                      ]
@@ -1184,14 +1413,65 @@ sub _yysemantics {
     return {
         '1' => {
             '1' => sub 
-#line 30 "pofile.y"
+#line 37 "pofile.y"
 { return 1 },
+},
+        '6' => {
+            '2' => sub 
+#line 46 "pofile.y"
+{ $_[0]->__addMessage(@{$_[2]}, 
+                                                                $_[1]) },
+},
+        '7' => {
+            '1' => sub 
+#line 48 "pofile.y"
+{ $_[0]->__addMessage(@{$_[1]}) },
+},
+        '10' => {
+            '1' => sub 
+#line 55 "pofile.y"
+{ [$_[1]] },
+},
+        '11' => {
+            '2' => sub 
+#line 56 "pofile.y"
+{ push @{$_[1]}, $_[2]; return $_[1] },
+},
+        '12' => {
+            '4' => sub 
+#line 59 "pofile.y"
+{ return [join('', @{$_[2]}), 
+                                                    join('', @{$_[4]})] },
+},
+        '14' => {
+            '1' => sub 
+#line 66 "pofile.y"
+{ [$_[1]] },
+},
+        '15' => {
+            '2' => sub 
+#line 67 "pofile.y"
+{ push @{$_[1]}, $_[2]; return $_[1] },
 },
     };
 }
 
 
 1;
-#line 49 "pofile.y"
+#line 69 "pofile.y"
 
+sub __addMessage {
+    my ($self, $msgid, $msgstr) = @_;
+    
+    my $msg = Locale::POFile::Message->new(msgid => $msgid,
+                                           msgstr => $msgstr);
+    
+    $self->{__messages} ||= [];
+    push @{$self->{__messages}}, $msg;
+    
+    return $self;
+}
 
+sub messages {
+    shift->{__messages} || [];
+}

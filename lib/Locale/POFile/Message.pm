@@ -30,8 +30,36 @@ sub new {
     my ($class, %args) = @_;
     
     my $self = bless {}, $class;
+
+    my %setters = map { $_ => 1 } qw (msgid msgstr msgctxt domain comment);
+    
+    while (my ($param, $value) = each %args) {
+        $self->$param($value) if exists $setters{$param};
+    }
     
     return $self;
+}
+
+sub msgid {
+    my ($self, $msgid) = @_;
+    
+    if (defined $msgid) {
+        $msgid = [$msgid] unless ref $msgid;
+        $self->{__msgid} = $msgid;
+    }
+    
+    return wantarray ? @{$self->{__msgid}} : $self->{__msgid};
+}
+
+sub msgstr {
+    my ($self, $msgstr) = @_;
+    
+    if (defined $msgstr) {
+        $msgstr = [$msgstr] unless ref $msgstr;
+        $self->{__msgstr} = $msgstr;
+    }
+    
+    return wantarray ? @{$self->{__msgstr}} : $self->{__msgstr};
 }
 
 1;
@@ -89,12 +117,33 @@ Sets the domain of the message.
 
 =item B<comment COMMENT>
 
-Adds a regular comment to the message.  If B<COMMENT> is an array reference,
+Adds a comment to the message.  If B<COMMENT> is an array reference,
 all elements of the array are taken.
 
-=item B<sourceref FILE, LINENO>
-
 =back
+
+=item B<msgid MSGID>
+
+Sets the message id to B<MSGID>.  If B<MSGID> is an array reference, the first
+two elements of that array are taken as the singular and plural id.
+
+=item B<msgstr MSGSTR>
+
+Sets the translation to B<MSGSTR>.  If B<MSGSTR> is an array reference, all
+elements of the array are taken as the various singular and plural forms.
+
+=item B<msgctxt MSGCTXT>
+
+Sets the message context to B<MSGCTXT>.
+
+=item B<domain DOMAIN>
+
+Sets the domain of the message.
+
+=item B<comment COMMENT>
+
+Adds a comment to the message.  If B<COMMENT> is an array reference,
+all elements of the array are taken.
 
 =back
 

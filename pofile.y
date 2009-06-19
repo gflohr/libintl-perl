@@ -24,26 +24,61 @@
 %token MSGID MSGID_PLURAL MSGSTR MSGCTXT DOMAIN
 %token DQSTRING
 
-%expect 1
+%{
+package Locale::POFile::Parser;
+
+use strict;
+
+use Locale::POFile::Message;
+%}
 
 %%
+
 pofile: chunks                           { return 1 }
       ;
-      
-chunks: chunks comments
+
+chunks: chunks messagespec
       | chunks domainspec
-      | chunks message
       | chunks error
       | /* empty */
       ;
 
-comments: COMMENT
-       | comments COMMENT
-       ;
+messagespec: comments message             { $_[0]->__addMessage(@{$_[2]}, 
+                                                                $_[1]) }
+           | message                      { $_[0]->__addMessage(@{$_[1]}) }
+           ;
 
-domainspec: DOMAIN DQSTRING
+domainspec: comments domain
+          | domain
           ;
 
-message: MSGID DQSTRING MSGSTR DQSTRING
+comments: COMMENT                         { [$_[1]] }
+        | comments COMMENT                { push @{$_[1]}, $_[2]; return $_[1] }
+        ;
+
+message: MSGID dqstrings MSGSTR dqstrings { return [join('', @{$_[2]}), 
+                                                    join('', @{$_[4]})] }
        ;
+
+domain: DOMAIN DQSTRING
+          ;
+
+dqstrings: DQSTRING                       { [$_[1]] }
+         | dqstrings DQSTRING             { push @{$_[1]}, $_[2]; return $_[1] }
+         ;
 %%
+sub __addMessage {
+    my ($self, $msgid, $msgstr) = @_;
+    
+    my $msg = Locale::POFile::Message->new(msgid => $msgid,
+                                           msgstr => $msgstr);
+    
+    $self->{__messages} ||= [];
+    push @{$self->{__messages}}, $msg;
+    
+    return $self;
+}
+
+sub messages {
+    shift->{__messages} || [];
+}

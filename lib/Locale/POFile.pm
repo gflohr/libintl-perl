@@ -34,9 +34,10 @@ use Locale::POFile::Lexer;
 sub new {
     my ($class, @args) = @_;
 
-    my $self = {};
-
-    $self->{__errors} ||= [];
+    my $self = {
+        __errors => [],
+        __messages => [],
+    };
 
     bless $self, $class;
 }
@@ -55,8 +56,8 @@ sub parse {
         $args{yyin_name} = $filename if defined $filename && length $filename;
     } elsif (defined $what) {
         local *HANDLE;
-        $args{yyin_name} = $filename = $what;
-        unless (open HANDLE, "<$filename") {
+        $args{yyin_name} = defined $filename ? $filename : $what;
+        unless (open HANDLE, "<$what") {
             return $self->__pushErrors(
                 __x(
                     "Cannot open '{filename}' for reading:" . " {error}.\n",
@@ -86,16 +87,31 @@ sub parse {
 
     my $parser = Locale::POFile::Parser->new;
     return unless $parser->yyparse($lexer, yydebug => $ENV{POFILE_DEBUG});
+
+    $self->{__messages} = $parser->messages;
     
     return $self;
+}
+
+sub messages {
+    @{shift->{__messages}};
+}
+
+sub numberOfMessages {
+    scalar @{shift->{__messages}};
 }
 
 sub errors {
     my ($self) = @_;
 
     my @errors = @{$self->{__errors}};
+    $self->{__errors} = [];
+    
+    return wantarray ? @errors : join '', @errors;
+}
 
-    return @errors;
+sub numberOfErrors {
+    scalar @{shift->{__errors}};
 }
 
 sub __pushErrors {
@@ -121,6 +137,14 @@ Locale::POFile - Manage Portable Object (PO) Files
  
  my $po = Locale::PO->new;
 
+ $po->parse('fr_CA.po') or die scalar $po->errors;
+ 
+ $po->numberOfErrors;
+ 
+ my @messages = $po->messages;
+ 
+ $po->numberOfMessages;
+ 
 =head1 DESCRIPTION
 
 The module Locale::POFile(3pm) provides an object-oriented interface
@@ -132,10 +156,67 @@ main differences between Locale::PO(3pm) and Locale::POFile(3pm) is
 that the latter is able to grok with new po features like plural forms,
 message contexts and extended comment syntax.
 
-=head1 CONSTRUCTORS
+This module was introduced in libintl-perl 2.0.
 
-You can choose one of the following constructors to create a 
-Locale::POFile(3pm) instance.
+=head1 PUBLIC METHODS
+
+If a method returns a true value on success, that true value is the object
+that the method was invoked on.
+
+=over 4
+
+=item B<new>
+
+The constructor takes no arguments and cannot fail.
+
+=item B<parse WHAT[, FILENAME]>
+
+Parses B<WHAT> as a PO file.  Returns true (itself) on success, false on 
+failure.  The B<WHAT> argument can be:
+
+=over 4
+
+=item a scalar variable
+
+The argument is interpreted as the name of a file to parse.
+
+=item a scalar reference
+
+The scalar that the reference points to is parsed.
+
+=item a reference to file handle (IO::Handle or GLOB)
+
+The file handle is read.
+
+=back
+
+You can optionally pass a filename as a second argument.  This filename is
+used in error messages.
+
+The method resets the interal error list.
+
+=item B<messages>
+
+Returns a list of Locale::POFile::Message(3pm) objects that has been
+successfully parsed.
+
+=item B<numberOfMessages>
+
+Returns the number of messages successfully parsed.
+
+=item B<errors>
+
+Returns a list of errors or the concatenation of that list in scalar context.
+
+You should invoke this method, if another method failed, and you want to
+know the reason for failure.  The list is automatically cleared, when
+the errors are retrieved.
+
+=item B<numberOfErrors>
+
+The number of error messages waiting in the internal error list.
+
+=back
 
 =head1 AUTHOR
 
@@ -147,7 +228,8 @@ This software is contributed to the Perl community by Imperia
 
 =head1 SEE ALSO
 
-xgettext(1), msgfmt(1), msgmerge(1), Locale::PO(3pm), perl(1)
+Locale::POFile::Messages(3pm), xgettext(1), msgfmt(1), msgmerge(1), 
+Locale::PO(3pm), perl(1)
 
 =cut
 Local Variables:
