@@ -1,4 +1,4 @@
-$Id: FAQ,v 1.5 2007/01/24 11:51:41 guido Exp $
+$Id$
 
 The FAQ has been podified, see "perldoc Locale::libintlFAQ".  If you
 haven't installed libintl-perl and read this file in the source distribution,
