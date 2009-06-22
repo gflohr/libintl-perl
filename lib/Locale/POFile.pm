@@ -45,6 +45,8 @@ sub new {
 sub parse {
     my ($self, $what, $filename) = @_;
 
+    $self->{__messages} = [];
+    
     my %args;
     
     my $content;
@@ -86,8 +88,13 @@ sub parse {
     $lexer->yyinput($content) if defined $content;
 
     my $parser = Locale::POFile::Parser->new;
-    return unless $parser->yyparse($lexer, yydebug => $ENV{POFILE_DEBUG});
-
+    
+    my $retval = $parser->yyparse($lexer, 
+                                  yydebug => $ENV{POFILE_DEBUG});
+    $self->__pushErrors($parser->errors);
+    
+    return unless $retval;
+    
     $self->{__messages} = $parser->messages;
     
     return $self;
@@ -193,7 +200,10 @@ The file handle is read.
 You can optionally pass a filename as a second argument.  This filename is
 used in error messages.
 
-The method resets the interal error list.
+The method resets the internal error list.
+
+Even if the method returns true for success, you can invoke the errors()
+method on the object, to check for warnings.
 
 =item B<messages>
 

@@ -608,6 +608,7 @@ package Locale::POFile::Parser;
 use strict;
 
 use Locale::POFile::Message;
+use Locale::TextDomain qw (libintl-perl);
     
 ###########################################################################
 # This file is generated, do not edit!
@@ -628,6 +629,7 @@ use vars qw (@EXPORT_OK %EXPORT_TAGS);
 	'MSGID',
 	'MSGID_PLURAL',
 	'MSGSTR',
+	'MSGSTR_INDEX',
 	'error',
 ]);
 
@@ -639,15 +641,17 @@ use vars qw (@EXPORT_OK %EXPORT_TAGS);
 	'MSGID',
 	'MSGID_PLURAL',
 	'MSGSTR',
+	'MSGSTR_INDEX',
 	'error',
 );
 use constant COMMENT => 2;
-use constant DOMAIN => 7;
-use constant DQSTRING => 8;
-use constant MSGCTXT => 6;
+use constant DOMAIN => 8;
+use constant DQSTRING => 9;
+use constant MSGCTXT => 7;
 use constant MSGID => 3;
 use constant MSGID_PLURAL => 4;
 use constant MSGSTR => 5;
+use constant MSGSTR_INDEX => 6;
 use constant error => 1;
 
 
@@ -655,14 +659,18 @@ use constant error => 1;
 use constant _yyautomaton =>  {
           'non_terminals' => {
                                '11' => 1,
-                               '9' => 1,
+                               '21' => 1,
                                '12' => 1,
                                '17' => 1,
+                               '20' => 1,
                                '15' => 1,
                                '14' => 1,
+                               '22' => 1,
+                               '18' => 1,
+                               '10' => 1,
                                '13' => 1,
                                '16' => 1,
-                               '10' => 1
+                               '19' => 1
                              },
           'names' => [
                        '$end',
@@ -671,6 +679,7 @@ use constant _yyautomaton =>  {
                        'MSGID',
                        'MSGID_PLURAL',
                        'MSGSTR',
+                       'MSGSTR_INDEX',
                        'MSGCTXT',
                        'DOMAIN',
                        'DQSTRING',
@@ -682,12 +691,17 @@ use constant _yyautomaton =>  {
                        'comments',
                        'message',
                        'domain',
-                       'dqstrings'
+                       'msgid',
+                       'msgstr',
+                       'dqstrings',
+                       'msgstr_indexed',
+                       'msgstr_plural'
                      ],
           'terminals' => {
                            '6' => 1,
                            '3' => 1,
                            '7' => 1,
+                           '9' => 1,
                            '2' => 1,
                            '8' => 1,
                            '1' => 1,
@@ -709,8 +723,8 @@ use constant _yyautomaton =>  {
                                          5
                                        ],
                           'goto' => {
-                                      '11' => 2,
-                                      '10' => 1
+                                      '11' => 1,
+                                      '12' => 2
                                     },
                           'items' => [
                                        [
@@ -761,15 +775,15 @@ use constant _yyautomaton =>  {
                         },
                         {
                           'actions' => {
+                                         '8' => [
+                                                  's',
+                                                  6
+                                                ],
                                          '1' => [
                                                   's',
                                                   4
                                                 ],
                                          '3' => [
-                                                  's',
-                                                  6
-                                                ],
-                                         '7' => [
                                                   's',
                                                   7
                                                 ],
@@ -801,11 +815,12 @@ use constant _yyautomaton =>  {
                                          1
                                        ],
                           'goto' => {
-                                      '13' => 9,
-                                      '16' => 12,
-                                      '12' => 8,
-                                      '14' => 10,
-                                      '15' => 11
+                                      '18' => 13,
+                                      '13' => 8,
+                                      '16' => 11,
+                                      '17' => 12,
+                                      '14' => 9,
+                                      '15' => 10
                                     },
                           'items' => [
                                        [
@@ -853,7 +868,15 @@ use constant _yyautomaton =>  {
                                          0
                                        ],
                                        [
+                                         20,
+                                         0
+                                       ],
+                                       [
                                          13,
+                                         0
+                                       ],
+                                       [
+                                         14,
                                          0
                                        ]
                                      ]
@@ -917,38 +940,27 @@ use constant _yyautomaton =>  {
                         },
                         {
                           'actions' => {
-                                         '8' => [
+                                         '9' => [
                                                   's',
-                                                  13
+                                                  14
                                                 ]
                                        },
                           'kernel' => [
                                         [
-                                          12,
+                                          20,
                                           1
                                         ]
                                       ],
-                          'goto' => {
-                                      '17' => 14
-                                    },
                           'items' => [
                                        [
-                                         12,
+                                         20,
                                          1
-                                       ],
-                                       [
-                                         14,
-                                         0
-                                       ],
-                                       [
-                                         15,
-                                         0
                                        ]
                                      ]
                         },
                         {
                           'actions' => {
-                                         '8' => [
+                                         '9' => [
                                                   's',
                                                   15
                                                 ]
@@ -957,12 +969,31 @@ use constant _yyautomaton =>  {
                                         [
                                           13,
                                           1
+                                        ],
+                                        [
+                                          14,
+                                          1
                                         ]
                                       ],
+                          'goto' => {
+                                      '20' => 16
+                                    },
                           'items' => [
                                        [
                                          13,
                                          1
+                                       ],
+                                       [
+                                         14,
+                                         1
+                                       ],
+                                       [
+                                         21,
+                                         0
+                                       ],
+                                       [
+                                         22,
+                                         0
                                        ]
                                      ]
                         },
@@ -1006,17 +1037,17 @@ use constant _yyautomaton =>  {
                         },
                         {
                           'actions' => {
-                                         '3' => [
+                                         '8' => [
                                                   's',
                                                   6
                                                 ],
-                                         '7' => [
+                                         '3' => [
                                                   's',
                                                   7
                                                 ],
                                          '2' => [
                                                   's',
-                                                  16
+                                                  17
                                                 ]
                                        },
                           'kernel' => [
@@ -1034,8 +1065,9 @@ use constant _yyautomaton =>  {
                                         ]
                                       ],
                           'goto' => {
+                                      '18' => 13,
                                       '16' => 18,
-                                      '15' => 17
+                                      '17' => 19
                                     },
                           'items' => [
                                        [
@@ -1055,7 +1087,15 @@ use constant _yyautomaton =>  {
                                          0
                                        ],
                                        [
+                                         20,
+                                         0
+                                       ],
+                                       [
                                          13,
+                                         0
+                                       ],
+                                       [
+                                         14,
                                          0
                                        ]
                                      ]
@@ -1099,62 +1139,115 @@ use constant _yyautomaton =>  {
                                      ]
                         },
                         {
+                          'actions' => {
+                                         '6' => [
+                                                  's',
+                                                  21
+                                                ],
+                                         '5' => [
+                                                  's',
+                                                  20
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          12,
+                                          1
+                                        ]
+                                      ],
+                          'goto' => {
+                                      '22' => 24,
+                                      '21' => 23,
+                                      '19' => 22
+                                    },
+                          'items' => [
+                                       [
+                                         12,
+                                         1
+                                       ],
+                                       [
+                                         15,
+                                         0
+                                       ],
+                                       [
+                                         16,
+                                         0
+                                       ],
+                                       [
+                                         17,
+                                         0
+                                       ],
+                                       [
+                                         18,
+                                         0
+                                       ],
+                                       [
+                                         19,
+                                         0
+                                       ]
+                                     ]
+                        },
+                        {
                           'actions' => {},
                           'kernel' => [
                                         [
-                                          14,
+                                          20,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         20
+                                       ],
+                          'items' => [
+                                       [
+                                         20,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          21,
                                           1
                                         ]
                                       ],
                           'default' => [
                                          'r',
-                                         14
+                                         21
                                        ],
                           'items' => [
                                        [
-                                         14,
+                                         21,
                                          1
                                        ]
                                      ]
                         },
                         {
                           'actions' => {
-                                         '8' => [
+                                         '4' => [
                                                   's',
-                                                  20
+                                                  25
                                                 ],
-                                         '5' => [
+                                         '9' => [
                                                   's',
-                                                  19
+                                                  26
                                                 ]
                                        },
                           'kernel' => [
                                         [
-                                          12,
+                                          13,
                                           2
                                         ],
                                         [
-                                          15,
-                                          1
-                                        ]
-                                      ],
-                          'items' => [
-                                       [
-                                         12,
-                                         2
-                                       ],
-                                       [
-                                         15,
-                                         1
-                                       ]
-                                     ]
-                        },
-                        {
-                          'actions' => {},
-                          'kernel' => [
-                                        [
-                                          13,
+                                          14,
                                           2
+                                        ],
+                                        [
+                                          22,
+                                          1
                                         ]
                                       ],
                           'default' => [
@@ -1165,6 +1258,14 @@ use constant _yyautomaton =>  {
                                        [
                                          13,
                                          2
+                                       ],
+                                       [
+                                         14,
+                                         2
+                                       ],
+                                       [
+                                         22,
+                                         1
                                        ]
                                      ]
                         },
@@ -1227,31 +1328,62 @@ use constant _yyautomaton =>  {
                         },
                         {
                           'actions' => {
-                                         '8' => [
+                                         '9' => [
                                                   's',
-                                                  13
+                                                  15
                                                 ]
                                        },
                           'kernel' => [
                                         [
-                                          12,
-                                          3
+                                          15,
+                                          1
                                         ]
                                       ],
                           'goto' => {
-                                      '17' => 21
+                                      '20' => 27
                                     },
                           'items' => [
                                        [
-                                         12,
-                                         3
+                                         15,
+                                         1
                                        ],
                                        [
-                                         14,
+                                         21,
                                          0
                                        ],
                                        [
-                                         15,
+                                         22,
+                                         0
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '9' => [
+                                                  's',
+                                                  15
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          19,
+                                          1
+                                        ]
+                                      ],
+                          'goto' => {
+                                      '20' => 28
+                                    },
+                          'items' => [
+                                       [
+                                         19,
+                                         1
+                                       ],
+                                       [
+                                         21,
+                                         0
+                                       ],
+                                       [
+                                         22,
                                          0
                                        ]
                                      ]
@@ -1260,8 +1392,144 @@ use constant _yyautomaton =>  {
                           'actions' => {},
                           'kernel' => [
                                         [
+                                          12,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         12
+                                       ],
+                          'items' => [
+                                       [
+                                         12,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '6' => [
+                                                  's',
+                                                  21
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          16,
+                                          1
+                                        ],
+                                        [
+                                          18,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         16
+                                       ],
+                          'goto' => {
+                                      '22' => 29
+                                    },
+                          'items' => [
+                                       [
+                                         16,
+                                         1
+                                       ],
+                                       [
+                                         18,
+                                         1
+                                       ],
+                                       [
+                                         19,
+                                         0
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          17,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         17
+                                       ],
+                          'items' => [
+                                       [
+                                         17,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '9' => [
+                                                  's',
+                                                  15
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          14,
+                                          3
+                                        ]
+                                      ],
+                          'goto' => {
+                                      '20' => 30
+                                    },
+                          'items' => [
+                                       [
+                                         14,
+                                         3
+                                       ],
+                                       [
+                                         21,
+                                         0
+                                       ],
+                                       [
+                                         22,
+                                         0
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          22,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         22
+                                       ],
+                          'items' => [
+                                       [
+                                         22,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '9' => [
+                                                  's',
+                                                  26
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
                                           15,
                                           2
+                                        ],
+                                        [
+                                          22,
+                                          1
                                         ]
                                       ],
                           'default' => [
@@ -1272,37 +1540,92 @@ use constant _yyautomaton =>  {
                                        [
                                          15,
                                          2
+                                       ],
+                                       [
+                                         22,
+                                         1
                                        ]
                                      ]
                         },
                         {
                           'actions' => {
-                                         '8' => [
+                                         '9' => [
                                                   's',
-                                                  20
+                                                  26
                                                 ]
                                        },
                           'kernel' => [
                                         [
-                                          12,
-                                          4
+                                          19,
+                                          2
                                         ],
                                         [
-                                          15,
+                                          22,
                                           1
                                         ]
                                       ],
                           'default' => [
                                          'r',
-                                         12
+                                         19
                                        ],
                           'items' => [
                                        [
-                                         12,
+                                         19,
+                                         2
+                                       ],
+                                       [
+                                         22,
+                                         1
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {},
+                          'kernel' => [
+                                        [
+                                          18,
+                                          2
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         18
+                                       ],
+                          'items' => [
+                                       [
+                                         18,
+                                         2
+                                       ]
+                                     ]
+                        },
+                        {
+                          'actions' => {
+                                         '9' => [
+                                                  's',
+                                                  26
+                                                ]
+                                       },
+                          'kernel' => [
+                                        [
+                                          14,
+                                          4
+                                        ],
+                                        [
+                                          22,
+                                          1
+                                        ]
+                                      ],
+                          'default' => [
+                                         'r',
+                                         14
+                                       ],
+                          'items' => [
+                                       [
+                                         14,
                                          4
                                        ],
                                        [
-                                         15,
+                                         22,
                                          1
                                        ]
                                      ]
@@ -1310,65 +1633,61 @@ use constant _yyautomaton =>  {
                       ],
           'symbols' => {
                          'MSGID' => 3,
-                         'domainspec' => 13,
+                         'msgstr_indexed' => 21,
+                         'domainspec' => 14,
                          'COMMENT' => 2,
-                         'DQSTRING' => 8,
-                         'comments' => 14,
-                         'domain' => 16,
-                         'error' => 1,
+                         'MSGSTR_INDEX' => 6,
+                         'DQSTRING' => 9,
+                         'comments' => 15,
+                         'domain' => 17,
+                         'msgid' => 18,
                          'MSGSTR' => 5,
-                         'pofile' => 10,
-                         'dqstrings' => 17,
+                         'error' => 1,
+                         'msgstr' => 19,
+                         'pofile' => 11,
+                         'dqstrings' => 20,
                          'MSGID_PLURAL' => 4,
                          '$end' => 0,
-                         'MSGCTXT' => 6,
-                         'messagespec' => 12,
-                         'message' => 15,
-                         'chunks' => 11,
-                         '$accept' => 9,
-                         'DOMAIN' => 7
+                         'messagespec' => 13,
+                         'MSGCTXT' => 7,
+                         'message' => 16,
+                         'chunks' => 12,
+                         '$accept' => 10,
+                         'DOMAIN' => 8,
+                         'msgstr_plural' => 22
                        },
           'literals' => undef,
           'rules' => [
                        [
-                         9,
                          10,
+                         11,
                          0
                        ],
                        [
-                         10,
-                         11
-                       ],
-                       [
-                         11,
                          11,
                          12
                        ],
                        [
-                         11,
-                         11,
+                         12,
+                         12,
                          13
                        ],
                        [
-                         11,
-                         11,
+                         12,
+                         12,
+                         14
+                       ],
+                       [
+                         12,
+                         12,
                          1
                        ],
                        [
-                         11
-                       ],
-                       [
-                         12,
-                         14,
-                         15
-                       ],
-                       [
-                         12,
-                         15
+                         12
                        ],
                        [
                          13,
-                         14,
+                         15,
                          16
                        ],
                        [
@@ -1377,33 +1696,75 @@ use constant _yyautomaton =>  {
                        ],
                        [
                          14,
-                         2
+                         15,
+                         17
                        ],
                        [
                          14,
-                         14,
+                         17
+                       ],
+                       [
+                         15,
                          2
                        ],
                        [
                          15,
-                         3,
-                         17,
-                         5,
-                         17
+                         15,
+                         2
                        ],
                        [
                          16,
-                         7,
-                         8
+                         18,
+                         19
+                       ],
+                       [
+                         18,
+                         3,
+                         20
+                       ],
+                       [
+                         18,
+                         3,
+                         20,
+                         4,
+                         20
+                       ],
+                       [
+                         19,
+                         5,
+                         20
+                       ],
+                       [
+                         19,
+                         21
+                       ],
+                       [
+                         21,
+                         22
+                       ],
+                       [
+                         21,
+                         21,
+                         22
+                       ],
+                       [
+                         22,
+                         6,
+                         20
                        ],
                        [
                          17,
-                         8
+                         8,
+                         9
                        ],
                        [
-                         17,
-                         17,
-                         8
+                         20,
+                         9
+                       ],
+                       [
+                         20,
+                         20,
+                         9
                        ]
                      ]
         };
@@ -1413,59 +1774,141 @@ sub _yysemantics {
     return {
         '1' => {
             '1' => sub 
-#line 37 "pofile.y"
-{ return 1 },
+#line 38 "pofile.y"
+{
+                                              my ($self) = @_;
+                                              
+                                              return if $self->{__has_errors};
+                                              return $self;
+                                          },
+},
+        '4' => {
+            '2' => sub 
+#line 48 "pofile.y"
+{ $_[0]->{__has_errors} = 1 },
 },
         '6' => {
             '2' => sub 
-#line 46 "pofile.y"
+#line 52 "pofile.y"
 { $_[0]->__addMessage(@{$_[2]}, 
                                                                 $_[1]) },
 },
         '7' => {
             '1' => sub 
-#line 48 "pofile.y"
+#line 54 "pofile.y"
 { $_[0]->__addMessage(@{$_[1]}) },
 },
         '10' => {
             '1' => sub 
-#line 55 "pofile.y"
+#line 61 "pofile.y"
 { [$_[1]] },
 },
         '11' => {
             '2' => sub 
-#line 56 "pofile.y"
+#line 62 "pofile.y"
 { push @{$_[1]}, $_[2]; return $_[1] },
 },
         '12' => {
-            '4' => sub 
-#line 59 "pofile.y"
-{ return [join('', @{$_[2]}), 
-                                                    join('', @{$_[4]})] },
+            '2' => sub 
+#line 65 "pofile.y"
+{ return [$_[1], $_[2]] },
+},
+        '13' => {
+            '2' => sub 
+#line 68 "pofile.y"
+{ return [$_[2]] },
 },
         '14' => {
-            '1' => sub 
-#line 66 "pofile.y"
-{ [$_[1]] },
+            '4' => sub 
+#line 69 "pofile.y"
+{ return [$_[2], $_[4]] },
 },
         '15' => {
             '2' => sub 
-#line 67 "pofile.y"
-{ push @{$_[1]}, $_[2]; return $_[1] },
+#line 72 "pofile.y"
+{ return [[0, $_[2]]] },
+},
+        '16' => {
+            '1' => sub 
+#line 73 "pofile.y"
+{ return $_[1] },
+},
+        '17' => {
+            '1' => sub 
+#line 76 "pofile.y"
+{ return [$_[1]] },
+},
+        '18' => {
+            '2' => sub 
+#line 77 "pofile.y"
+{ push @{$_[1]}, $_[2]; $_[1] },
+},
+        '19' => {
+            '2' => sub 
+#line 80 "pofile.y"
+{
+                                                  my ($self, $idx, $strings)
+                                                      = @_;
+                                                  my @loc = $self->yylocations;
+                                                  return [$_[1], $_[2], [@loc]] 
+                                              },
+},
+        '20' => {
+            '2' => sub 
+#line 88 "pofile.y"
+{ return $_[0]->__unquote($_[2]) },
+},
+        '21' => {
+            '1' => sub 
+#line 91 "pofile.y"
+{ 
+                                             my ($self, $string) = @_;
+                                             
+                                             return $self->__unquote($string);
+                                         },
+},
+        '22' => {
+            '2' => sub 
+#line 96 "pofile.y"
+{
+                                             my ($self, $head, $string) = @_;
+                                             
+                                             $head .= $self->__unquote($string);
+                                             return $head;
+                                         },
 },
     };
 }
 
 
 1;
-#line 69 "pofile.y"
+#line 103 "pofile.y"
 
 sub __addMessage {
-    my ($self, $msgid, $msgstr) = @_;
+    my ($self, $msgid, $msgstrs) = @_;
+
+    my $nplurals = $self->{__nplurals} || 1;
+    my @msgstr;
+    foreach my $msgstr (@$msgstrs) {
+        my ($index, $text, $locations) = @$msgstr;
+        if ($nplurals + 10 < $index) {
+            $self->__errorAt(__x("Plural index {index} out of range,"
+                                 . " ignored!",
+                                 index => $index),
+                             $locations->[0]);
+            next;
+        }
+        $msgstr[$index] = $text;
+        $self->{__nplurals} = $nplurals = $index if $index > $nplurals;
+    }
+    
+    for (my $i = 0; $i <= $#msgstr; ++$i) {
+        $msgstr[$i] = '' unless defined $msgstr[$i];
+    }
     
     my $msg = Locale::POFile::Message->new(msgid => $msgid,
-                                           msgstr => $msgstr);
-    
+                                           msgstr => \@msgstr);
+
     $self->{__messages} ||= [];
     push @{$self->{__messages}}, $msg;
     
@@ -1475,3 +1918,58 @@ sub __addMessage {
 sub messages {
     shift->{__messages} || [];
 }
+
+sub __formatLocation {
+    my (undef, $l) = @_;
+    
+    return "$l->[4]:$l->[0].$l->[1]-$l->[2].$l->[3]";
+}
+
+sub __errorAt {
+    my ($self, $message, $location) = @_;
+    
+    my $where = $self->__formatLocation($location);
+    
+    $self->yyerror("$where: $message");
+    
+    return;
+}
+
+sub __unquote {
+    my (undef, $string) = @_;
+
+    my $conversion = {
+        '\\' => '\\',
+        a => "\x07",
+        b => "\x08",
+        t => "\x09",
+        n => "\n",
+        v => "\x0b",
+        f => "\x0c",
+        r => "\x0d",
+        '"' => '"',
+    };
+    
+    $string =~ s/\\(.)/defined $conversion->{$1} ? 
+        $conversion->{$1} : "\\$1"/ge;
+    
+    return $string;
+}
+
+sub yyerror {
+    my ($self, $error) = @_;
+    
+    $self->{__errors} ||= [];
+    push @{$self->{__errors}}, $error;
+    
+    return $self;
+}
+
+sub errors {
+    my ($self) = @_;
+    
+    $self->{__errors} ||= [];
+    
+    return @{$self->{__errors}};
+}
+

@@ -1,5 +1,5 @@
 #! /bin/false
-# $Id: Lexer.pm,v 1.32 2009/06/14 20:29:13 guido Exp $ 
+# $Id: Lexer.pm,v 1.33 2009/06/19 18:02:14 guido Exp $ 
 # vim: set autoindent shiftwidth=4 tabstop=8:
 
 # Imperia AG is the sole owner and producer of its software "Imperia". For
@@ -224,7 +224,6 @@ sub yyless {
     return $self if $num_back <= 0;
 
     $self->{__yylloc} = $self->{__yyold_lloc};
-    $self->__yyupdatePosition ($num_keep);
     
     $self->{__yypos} -= $num_back;
     
@@ -331,61 +330,66 @@ sub _yymatch {
     my ($self) = @_;
     use re qw (eval);
     return {
-        INITIAL => qr /(#.*(?{$yyrule = 0})|msgid_plural(?=[ \t\r\n\"]|\z)(?{$yyrule = 1})|msgid(?=[ \t\r\n\"]|\z)(?{$yyrule = 2})|msgstr(?=[\[ \t\r\n\"]|\z)(?{$yyrule = 3})|domain(?=[ \t\r\n\"]|\z)(?{$yyrule = 4})|msgctxt(?=[ \t\r\n\"]|\z)(?{$yyrule = 5})|"([^\\"]*(?:(?:\\"|\\)[^\\"]*)*)"(?{$yyrule = 6})|[^ \t\r\n]+(?{$yyrule = 7})|[ \t\r\n]+(?{$yyrule = 8})|(.|\n)(?{$yyrule = 9})|((?s:.))(?{$yyrule = 10}))/o,
+        INITIAL => qr /(#.*(?{$yyrule = 0})|msgid_plural(?=[ \t\r\n\"]|\z)(?{$yyrule = 1})|msgid(?=[ \t\r\n\"]|\z)(?{$yyrule = 2})|msgstr\[([0-9]+)\](?=[\[ \t\r\n\"]|\z)(?{$yyrule = 3})|msgstr(?=[\[ \t\r\n\"]|\z)(?{$yyrule = 4})|domain(?=[ \t\r\n\"]|\z)(?{$yyrule = 5})|msgctxt(?=[ \t\r\n\"]|\z)(?{$yyrule = 6})|"([^\\"]*(?:(?:\\"|\\)[^\\"]*)*)"(?{$yyrule = 7})|[^ \t\r\n]+(?{$yyrule = 8})|[ \t\r\n]+(?{$yyrule = 9})|.|\n(?{$yyrule = 10})|((?s:.))(?{$yyrule = 11}))/o,
     };
 
 }
 
 sub _yyparens {
-    return [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0];
+    return [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0];
 }
 
 sub _yycode {
     return     [
-#line 26 "pofile.l"
+#line 27 "pofile.l"
 sub {
-    return $^N, COMMENT
+    	return $^N, COMMENT
 
 },
-#line 26 "pofile.l"
+#line 28 "pofile.l"
 sub {
-    return $^N, MSGID_PLURAL
+     return $^N, MSGID_PLURAL
 
 },
-#line 26 "pofile.l"
+#line 29 "pofile.l"
 sub {
-    return $^N, MSGID
+     return $^N, MSGID
 
 },
-#line 26 "pofile.l"
+#line 30 "pofile.l"
 sub {
-    return $^N, MSGSTR
+     return $_[1], MSGSTR_INDEX
 
 },
-#line 26 "pofile.l"
+#line 31 "pofile.l"
 sub {
-    return $^N, DOMAIN
+     return $^N, MSGSTR
 
 },
-#line 26 "pofile.l"
+#line 32 "pofile.l"
 sub {
-    return $^N, MSGCTXT
+     return $^N, DOMAIN
 
 },
-#line 26 "pofile.l"
+#line 33 "pofile.l"
 sub {
-    return $_[1], DQSTRING
+     return $^N, MSGCTXT
 
 },
-#line 26 "pofile.l"
+#line 34 "pofile.l"
 sub {
-    return $^N
+     return $_[1], DQSTRING
+
+},
+#line 35 "pofile.l"
+sub {
+     return $^N
 
 },
 undef,
-#line 27 "pofile.l"
+#line 37 "pofile.l"
 sub {
-    return $^N
+    	return $^N
 
 },
 sub {
@@ -398,7 +402,7 @@ sub {
 
 sub _yystates {
     return {
-        INITIAL => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        INITIAL => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 
     };
 }

@@ -28,11 +28,12 @@ use Locale::POFile::Parser qw (:yyterminals);
 #.*					return $^N, COMMENT
 msgid_plural(?=[ \t\r\n\"]|\z)          return $^N, MSGID_PLURAL
 msgid(?=[ \t\r\n\"]|\z)                 return $^N, MSGID
+msgstr\[([0-9]+)\](?=[\[ \t\r\n\"]|\z)  return $_[1], MSGSTR_INDEX
 msgstr(?=[\[ \t\r\n\"]|\z)              return $^N, MSGSTR
 domain(?=[ \t\r\n\"]|\z)                return $^N, DOMAIN
 msgctxt(?=[ \t\r\n\"]|\z)               return $^N, MSGCTXT
 "([^\\"]*(?:(?:\\"|\\)[^\\"]*)*)"       return $_[1], DQSTRING
 [^ \t\r\n]+                             return $^N
 [ \t\r\n]+
-(.|\n)					return $^N
+.|\n					return $^N
 %%

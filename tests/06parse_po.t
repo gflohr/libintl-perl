@@ -11,7 +11,7 @@ use Locale::TextDomain qw (libintl-perl);
 use Locale::POFile;
 
 use constant NUM_TESTS => 19;
-use constant NUM_MESSAGES => 3;
+use constant NUM_MESSAGES => 4;
 
 BEGIN {
 	plan tests => NUM_TESTS;
@@ -36,21 +36,24 @@ my $po = Locale::POFile->new;
 ok $po;
 ok $po->parse($po_file);
 ok 0 == $po->numberOfErrors;
-ok NUM_MESSAGES ==$po->numberOfMessages;
+ok NUM_MESSAGES == $po->numberOfMessages;
 ok $po->numberOfMessages == $po->messages;
 
 open POFILE, "<$po_file" or die "Cannot open '$po_file': $!";
-ok $po->parse(\*POFILE);
+ok $po->parse(\*POFILE, $po_file);
 ok 0 == $po->numberOfErrors;
-ok NUM_MESSAGES ==$po->numberOfMessages;
+ok NUM_MESSAGES == $po->numberOfMessages;
 ok $po->numberOfMessages == $po->messages;
 
 open POFILE, "<$po_file" or die "Cannot open '$po_file': $!";
 my $content = join '', <POFILE>;
-ok $po->parse(\$content);
+ok $po->parse(\$content, $po_file);
 ok 0 == $po->numberOfErrors;
-ok NUM_MESSAGES ==$po->numberOfMessages;
+ok NUM_MESSAGES == $po->numberOfMessages;
 ok $po->numberOfMessages == $po->messages;
+
+#use Data::Dumper;
+#warn Dumper [$po->messages];
 
 __END__
 
