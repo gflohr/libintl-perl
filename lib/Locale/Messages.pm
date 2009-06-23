@@ -27,7 +27,7 @@ use strict;
 
 use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
-$VERSION = '1.19';
+$VERSION = '1.20';
 
 # Try to load the C version first.
 $package = 'gettext_xs';
@@ -35,7 +35,7 @@ my $can_xs = 1;
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
-die "Version: $version mismatch (1.19 vs. $version)" unless $version eq '1.19';
+die "Version: $version mismatch (1.20 vs. $version)" unless $version eq '1.20';
 EOF
 if ($@) {
     $package = 'gettext_pp';

@@ -69,7 +69,7 @@ use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
-$VERSION = '1.19';
+$VERSION = '1.20';
 
 require Exporter;
 
