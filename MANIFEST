@@ -19,7 +19,6 @@ gettext_xs/Makefile.PL		Makefile generator
 gettext_xs/gettext_xs.pm	XS loader
 gettext_xs/gettext_xs.xs	XS binding
 lib/Locale/Messages.pm		Gettext Like Message Retrieval
-lib/Locale/POFile.pm            Managing Portable Object (PO) Files
 lib/Locale/Recode.pm		Object−Oriented Portable Charset Conversion
 lib/Locale/Recode/_Aliases.pm
 lib/Locale/Recode/_Conversions.pm
