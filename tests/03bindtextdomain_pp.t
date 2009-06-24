@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 6;
+use constant NUM_TESTS => 12;
 
 use Locale::Messages qw (bindtextdomain);
 
