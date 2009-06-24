@@ -28,22 +28,28 @@ BEGIN {
 }
 
 my $bound_domain = bindtextdomain 'existing';
-ok defined $bound_domain && length $bound_domain;
+ok defined $bound_domain;
+ok length $bound_domain;
 
 $bound_domain = bindtextdomain 'existing', '.';
-ok defined $bound_domain && '.' eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, '.';
 
 $bound_domain = bindtextdomain 'existing';
-ok defined $bound_domain && '.' eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, '.';
 
 $bound_domain = bindtextdomain 'not_existing';
-ok defined $bound_domain && length $bound_domain;
+ok defined $bound_domain;
+ok length $bound_domain;
 
 $bound_domain = bindtextdomain 'not_existing', '.';
-ok defined $bound_domain && '.' eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, '.';
 
 $bound_domain = bindtextdomain 'not_existing';
-ok defined $bound_domain && '.' eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, '.';
 
 __END__
 
