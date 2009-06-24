@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 6;
+use constant NUM_TESTS => 8;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext pgettext);
 require POSIX;
@@ -40,29 +40,27 @@ Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
-    '' : 'locale de_AT missing';
-
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
 my $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 # Default case.
-skip $missing_locale, 'Anzeigen' eq gettext ('View');
+ok gettext ('View'), 'Anzeigen';
 
 # Default context case.
-ok 'Ansicht' eq pgettext ('Which folder would you like to view?','View');
+ok pgettext ('Which folder would you like to view?','View'), 'Ansicht';
 
 # msgid eq msgstr.
-ok 'View 2' eq pgettext ('Which folder would you like to view? (2)','View');
+ok pgettext ('Which folder would you like to view? (2)','View'), 'View 2';
 
 # Unknown.
-ok 'Not translated' eq pgettext ('none', 'Not translated');
+ok pgettext ('none', 'Not translated'), 'Not translated';
 
 __END__
 

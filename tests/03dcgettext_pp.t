@@ -60,13 +60,13 @@ $bound_dir = bindtextdomain additional => $locale_dir;
 ok defined $bound_dir;
 ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
-ok dcgettext (existing => 'December', LC_MESSAGES), 'Dezember';
-ok dcgettext (existing => 'September', LC_MESSAGES), 'September';
-ok dcgettext (existing => 'Not translated', LC_MESSAGES), 'Not translated';
-skip $missing_locale, dcgettext (existing => 'January', LC_MESSAGES), 'Jänner';
+ok 'Dezember', dcgettext (existing => 'December', LC_MESSAGES);
+ok 'September', dcgettext (existing => 'September', LC_MESSAGES);
+ok 'Not translated', dcgettext (existing => 'Not translated', LC_MESSAGES);
+skip $missing_locale, 'Jänner', dcgettext (existing => 'January', LC_MESSAGES);
 
-ok dcgettext (additional => 'Monday', LC_MESSAGES), 'Montag';
-ok dcgettext (additional => 'Not translated', LC_MESSAGES), 'Not translated';
+ok 'Montag', dcgettext (additional => 'Monday', LC_MESSAGES);
+ok 'Not translated', dcgettext (additional => 'Not translated', LC_MESSAGES);
 skip $missing_locale, 
 	dcgettext (additional => 'Saturday', LC_MESSAGES), 'Sonnabend';
 

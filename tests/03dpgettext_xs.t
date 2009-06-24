@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 8;
+use constant NUM_TESTS => 9;
 
 use Locale::Messages qw (bindtextdomain gettext dgettext dpgettext);
 require POSIX;
@@ -39,25 +39,23 @@ Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
-    '' : 'locale de_AT missing';
+POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
 $bound_dir = bindtextdomain additional => $locale_dir;
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
 # make sure dgettext and dpgettext return diff values
-ok 'Anzeigen' eq dgettext (existing => 'View');
-ok 'Ansicht' eq dpgettext (existing => 'Which folder would you like to view?','View');
-ok 'Not translated' eq dpgettext (existing => 'none', 'Not translated');
+ok dgettext (existing => 'View'), 'Anzeigen';
+ok dpgettext (existing => 'Which folder would you like to view?', 'View'), 'Ansicht';
+ok dpgettext (existing => 'none', 'Not translated'), 'Not translated';
 
-skip $missing_locale, 'Ein weiterer Blick' eq dpgettext (additional => 'Context', 'Another View');
-ok 'Not translated' eq dpgettext (additional => 'none', 'Not translated');
-skip $missing_locale, 'Ein weiterer Blick' eq dpgettext (additional => 'Context', 'Another View');
+ok dpgettext (additional => 'Context', 'Another View'), 'Ein weiterer Blick';
+ok dpgettext (additional => 'none', 'Not translated'), 'Not translated';
 
 __END__
 

@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 2;
+use constant NUM_TESTS => 4;
 
 use Locale::Messages qw (textdomain);
 
@@ -29,11 +29,13 @@ BEGIN {
 
 my $textdomain = '';
 my $bound_domain = textdomain '';
-ok defined $bound_domain && 'messages' eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, 'messages';
 
 $textdomain = 'existing';
 $bound_domain = textdomain $textdomain;
-ok defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 __END__
 

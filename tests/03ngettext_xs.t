@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 85;
+use constant NUM_TESTS => 88;
 
 use Locale::Messages qw (bindtextdomain textdomain ngettext);
 require POSIX;
@@ -48,7 +48,8 @@ my @strings = qw (Singular Plural);
 for (0 .. 9) {
 	# Prototype checking fails here if you pass the list @strings.
 	my $translation = ngettext ($strings[0], $strings[1], $_);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 my $textdomain = 'existing';
@@ -61,8 +62,8 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
 my $bound_domain = textdomain $textdomain;
 
@@ -70,7 +71,8 @@ ok  defined $bound_domain && $textdomain eq $bound_domain;
 
 for (0 .. 9) {
 	my $translation = ngettext ($strings[0], $strings[1], $_);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -93,8 +95,8 @@ if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
 
 for (0 .. 9) {
 	my $translation = ngettext ($strings[0], $strings[1], $_);
-	skip $missing_locale,
-		$translation, $_ == 1 ? 'Einzahl' : 'Mehrzahl';
+	my $expected = $_ == 1 ? 'Einzahl' : 'Mehrzahl';
+	ok $translation, $expected;
 }
 
 $textdomain = 'additional';
@@ -107,16 +109,18 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
 $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 for (0 .. 9) {
 	my $translation = ngettext ($strings[0], $strings[1], $_);
-	ok $translation, $_ == 1 ? 'Singular' : 'Plural';
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -131,7 +135,7 @@ for (0 .. 40) {
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	skip $missing_locale, $translation, "Numerus $plural";
+	ok $translation, "Numerus $plural";
 }
 
 __END__

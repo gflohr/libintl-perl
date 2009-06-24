@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 9;
+use constant NUM_TESTS => 11;
 
 use Locale::Messages qw (bindtextdomain dgettext);
 require POSIX;
@@ -53,19 +53,19 @@ if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
 }
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
 $bound_dir = bindtextdomain additional => $locale_dir;
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
-skip $missing_locale, 'Dezember' eq dgettext (existing => 'December');
-ok dgettext (existing => 'September'), 'September';
-ok dgettext (existing => 'Not translated'), 'Not translated';
-skip $missing_locale, dgettext (existing => 'January'), 'Jänner';
+ok 'Dezember', dgettext (existing => 'December');
+ok 'September', dgettext (existing => 'September');
+ok 'Not translated', dgettext (existing => 'Not translated');
+skip $missing_locale, 'Jänner', dgettext (existing => 'January');
 
-skip $missing_locale, dgettext (additional => 'Monday'), 'Montag';
+ok 'Montag', dgettext (additional => 'Monday');
 ok dgettext (additional => 'Not translated'), 'Not translated';
 skip $missing_locale, dgettext (additional => 'Saturday'), 'Sonnabend';
 

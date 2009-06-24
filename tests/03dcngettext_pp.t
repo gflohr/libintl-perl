@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 83;
+use constant NUM_TESTS => 85;
 
 use Locale::Messages qw (bindtextdomain dcngettext LC_MESSAGES);
 require POSIX;
@@ -45,7 +45,8 @@ bindtextdomain not_here => $locale_dir;
 my @strings = qw (Singular Plural);
 for (0 .. 9) {
 	my $translation = dcngettext (not_here => $strings[0], $strings[1], $_, LC_MESSAGES);
-	ok $translation, $_ == 1 ? 'Singular' : 'Plural';
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=C");
@@ -57,12 +58,13 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
 for (0 .. 9) {
 	my $translation = dcngettext (existing => $strings[0], $strings[1], $_, LC_MESSAGES);
-	ok $translation, $_ == 1 ? 'Singular' : 'Plural';
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -97,8 +99,8 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 $bound_dir = bindtextdomain additional => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($locale_dir), File::Spec->catdir ($bound_dir));
 
 for (0 .. 9) {
 	my $translation = dcngettext (additional => $strings[0], $strings[1], $_, LC_MESSAGES);

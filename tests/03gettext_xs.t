@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 6;
+use constant NUM_TESTS => 8;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext);
 require POSIX;
@@ -55,15 +55,16 @@ if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
 my $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 # Default case.
-skip $missing_locale, gettext ('December'), 'Dezember';
+ok gettext ('December'), 'Dezember';
 
 # msgid eq msgstr.
 ok gettext ('September'), 'September';
