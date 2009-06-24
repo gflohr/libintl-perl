@@ -98,7 +98,7 @@ close HANDLE or die "cannot close file 'gettest.c': $!\n";
 my @cmd = $cc;
 push @cmd, $Config{ccflags};
 push @cmd, $Config{ldflags};
-push @cmd, $Config{libs};
+push @cmd, $Config{perllibs};
 push @cmd, "-o", "gettest.exe", "gettest.c";
 
 my $cmd = join ' ', @cmd;
