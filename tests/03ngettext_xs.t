@@ -124,7 +124,7 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-POSIX::setlocale (POSIX::LC_ALL() => $setlocale);
+POSIX::setlocale (POSIX::LC_ALL() => $setlocale) unless $missing_locale; 
 
 for (0 .. 40) {
 	my $translation = ngettext ($strings[0], $strings[1], $_);
