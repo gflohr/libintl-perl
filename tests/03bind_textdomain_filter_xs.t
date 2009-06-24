@@ -64,12 +64,12 @@ my $obj = MyPackage->new;
 ok (bind_textdomain_filter ('bogus', \&wrapper, $obj));
 
 my $prefix = 'prefix - ';
-ok "$prefix$gettext" eq gettext ('foobar');
-ok "$prefix$dgettext" eq dgettext (bogus => 'foobar');
-ok "$prefix$dcgettext" eq dcgettext (bogus => 'foobar', LC_MESSAGES);
-ok "$prefix$ngettext" eq ngettext ('foobar', 'barbaz', 1);
-ok "$prefix$dngettext" eq dngettext (bogus => 'foobar', 'barbaz', 1);
-ok "$prefix$dcngettext" eq 
+ok "$prefix$gettext", gettext ('foobar');
+ok "$prefix$dgettext", dgettext (bogus => 'foobar');
+ok "$prefix$dcgettext", dcgettext (bogus => 'foobar', LC_MESSAGES);
+ok "$prefix$ngettext", ngettext ('foobar', 'barbaz', 1);
+ok "$prefix$dngettext", dngettext (bogus => 'foobar', 'barbaz', 1);
+ok "$prefix$dcngettext", 
 	dcngettext (bogus => 'foobar', 'barbaz', 1, LC_MESSAGES); 
 
 __END__
