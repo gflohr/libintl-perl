@@ -1,7 +1,6 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id$
 
 # Virtual base class for Locale::Recode converters.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
