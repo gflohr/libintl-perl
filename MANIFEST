@@ -344,6 +344,8 @@ tests/02tis-620.t
 tests/02us-ascii.t
 tests/02utf-8.t
 tests/02viscii.t
+tests/03_tester_david_pp.t
+tests/03_tester_david_xs.t
 tests/03bind_textdomain_codeset_pp.t
 tests/03bind_textdomain_codeset_xs.t
 tests/03bind_textdomain_filter_pp.t
@@ -378,6 +380,7 @@ tests/03pgettext_xs.t
 tests/03textdomain_pp.t
 tests/03textdomain_xs.t
 tests/04find_domain_bug.t
+tests/04scalar_noop.t
 tests/05parse_accept.t
 tests/06parse_po.t
 tests/LocaleData/de/LC_MESSAGES/additional.mo

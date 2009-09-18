@@ -1,8 +1,6 @@
 README for libintl-perl
 =======================
 
-$Id: 950e44b435403bde1a28539da5868a0ca744ce09 $
-
 The package libintl-perl is an internationalization library for Perl
 that aims to be compatible with the Uniforum message translations
 system as implemented for example in GNU gettext.
@@ -12,6 +10,9 @@ system as implemented for example in GNU gettext.
     itself in the according documentation section!]
 
 See the file COPYING.LESSER and the source code for licensing.
+
+More extensive information may be available at the libintl-perl homepage
+on the internet http://guido-flohr.net/projects/libintl-perl.
 
 Requirements
 ------------

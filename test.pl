@@ -1,7 +1,6 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: test.pl,v 1.9 2009/05/25 14:54:37 guido Exp $
 
 # Portable character conversion for Perl.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
@@ -61,6 +60,47 @@ sub test_harness
 	local *HANDLE;
 	open HANDLE, "<$name" or die "cannot open '$name': $!";
 	my $xs_disabled = <HANDLE>;
+	close HANDLE;
+	unless ($xs_disabled) {
+		# It is pointless to test the XS extension, if no German
+		# locales are installed on the system.  The results
+		# vary in almost arbitrary ways.
+		# FIXME: Do not rely on the de, resp. de_AT locales only.
+		#        We can simply try other combinations (fr_CA,
+		#        en_GB, pt_BR, and so on), since the actual
+		#        translations are not meaningful in our case.
+		#        We could therefore just test here for certain
+		#        combinations, and then create the mo files on
+		#        the fly by copying.
+		require POSIX;
+		require Locale::Messages;
+		Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
+		Locale::Messages::nl_putenv ("LC_ALL=de_AT");
+		Locale::Messages::nl_putenv ("LANG=de_AT");
+		Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
+		Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
+
+		my $has_de_locale = POSIX::setlocale (POSIX::LC_ALL() => '');
+		unless ($has_de_locale) {
+			require Locale::Util;
+
+			$has_de_locale = 
+				Locale::Util::set_locale (POSIX::LC_ALL(), 
+				                          'de');
+			undef $has_de_locale
+				unless ($has_de_locale 
+				        && $has_de_locale =~ /(?:germany|de)/i);
+		}
+		unless ($has_de_locale) {
+			$xs_disabled = 1;
+			print <<EOF;
+The XS version of libintl-perl cannot be tested on your system because
+the locale definitions for German do not exist.
+EOF
+		}
+		$xs_disabled = !$has_de_locale;
+	}
+
 	if ($xs_disabled) {
 		Test::Harness::runtests (grep { ! /_xs.t$/ } sort 
 			{lc $a cmp lc $b } @ARGV);

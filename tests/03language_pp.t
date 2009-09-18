@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 4;
+use constant NUM_TESTS => 6;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext);
 require POSIX;
@@ -59,21 +59,20 @@ POSIX::setlocale (POSIX::LC_ALL(), '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($locale_dir));
 
 my $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 # Austrian German has precedence.
-skip $missing_locale, 'Jänner' eq gettext ('January');
+skip $missing_locale, gettext ('January'), 'Jänner';
 my $translation = gettext ('January');
 
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de:de_AT");
-skip $missing_locale, 'Februar' eq gettext ('February'); # not 'Feber'!
-
-$translation = gettext ('February');
+ok gettext ('February'), 'Februar'; # not 'Feber'!
 
 __END__
 

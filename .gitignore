@@ -1,10 +1,13 @@
 Makefile
+Makefile.old
 blib
 pm_to_blib
 xs_disabled
 config.log
+<<<<<<< HEAD:.gitignore
 imperia_dir.mk
 pofile.output
 *.old
 .project
 .includepath
+*.tar.gz

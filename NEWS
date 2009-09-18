@@ -1,3 +1,14 @@
+Version 1.20 - 29 Jue 2009
+
+* Test suite revamped.  Failures are now explained better, and it should
+  be easier to debug them remotely.
+
+Version 1.19 - 19 Jun 2009
+
+* New context functions now work with Perl 5.6.2.
+
+* N__() now mirrors its argument in scalar context for convenience.
+
 Version 1.18 - 26 May 2009
 
 * Cosmetic change: The version number is now both in Locale::Messages

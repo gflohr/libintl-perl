@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 95;
+use constant NUM_TESTS => 99;
 
 use Locale::Messages qw (bindtextdomain textdomain npgettext);
 require POSIX;
@@ -50,7 +50,8 @@ my @strings3 = ("Singular 3", "Plural 3");
 for (0 .. 9) {
 	# Prototype checking fails here if you pass the list @strings.
 	my $translation = npgettext ($context3, $strings3[0], $strings3[1], $_);
-	ok $_ == 1 ? 'Singular 3' eq $translation : 'Plural 3' eq $translation;
+	my $expected = $_ == 1 ? 'Singular 3' : 'Plural 3';
+	ok $translation, $expected;
 }
 
 # not try a msgid that matches existing one
@@ -59,7 +60,8 @@ my @strings = qw (Singular Plural);
 for (0 .. 9) {
 	# Prototype checking fails here if you pass the list @strings.
 	my $translation = npgettext ($context, $strings[0], $strings[1], $_);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 my $textdomain = 'existing';
@@ -72,16 +74,18 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
 my $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 for (0 .. 9) {
 	my $translation = npgettext ($context, $strings[0], $strings[1], $_);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -93,8 +97,8 @@ my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
 
 for (0 .. 9) {
 	my $translation = npgettext ($context, $strings[0], $strings[1], $_);
-	skip $missing_locale,
-		$_ == 1 ? 'Einzahl 2' eq $translation : 'Mehrzahl 2' eq $translation;
+	my $expected = $_ == 1 ? 'Einzahl 2' : 'Mehrzahl 2';
+	ok $translation, $expected;
 }
 
 $textdomain = 'additional';
@@ -107,16 +111,18 @@ POSIX::setlocale (POSIX::LC_ALL() => '');
 
 $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
 $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 for (0 .. 9) {
 	my $translation = npgettext ($context, $strings[0], $strings[1], $_);
-	ok $_ == 1 ? 'Singular' eq $translation : 'Plural' eq $translation;
+	my $expected = $_ == 1 ? 'Singular' : 'Plural';
+	ok $translation, $expected;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
@@ -131,7 +137,7 @@ for (0 .. 40) {
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	skip $missing_locale, "Numerus 2:$plural" eq $translation;
+	ok $translation, "Numerus 2:$plural";
 }
 
 __END__

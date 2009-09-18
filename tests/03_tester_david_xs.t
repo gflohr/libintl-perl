@@ -7,9 +7,9 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 8;
+use constant NUM_TESTS => 6;
 
-use Locale::Messages qw (bindtextdomain textdomain gettext pgettext);
+use Locale::Messages qw (LC_MESSAGES bindtextdomain textdomain dcgettext dgettext gettext);
 require POSIX;
 require File::Spec;
 
@@ -50,17 +50,12 @@ my $bound_domain = textdomain $textdomain;
 ok defined $bound_domain;
 ok $bound_domain, $textdomain;
 
-# Default case.
-ok gettext ('View'), 'Anzeigen';
+# Normal lookup.
+ok dcgettext (existing => 'View', LC_MESSAGES), 'Anzeigen';
 
-# Default context case.
-ok pgettext ('Which folder would you like to view?','View'), 'Ansicht';
-
-# msgid eq msgstr.
-ok pgettext ('Which folder would you like to view? (2)','View'), 'View 2';
-
-# Unknown.
-ok pgettext ('none', 'Not translated'), 'Not translated';
+# Can we retrieve a translation with the gettext glue?
+ok dcgettext (existing => "Which folder would you like to view?\004View",
+              LC_MESSAGES), 'Ansicht';
 
 __END__
 

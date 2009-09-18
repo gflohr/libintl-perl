@@ -1,7 +1,6 @@
 #! /usr/local/bin/perl -w
 
 # vim: tabstop=4
-# $Id: 86e0c36d11bd6f11e8879f750f74c7944b794f9a $
 
 # Makefile generator for libintl-perl.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>, 
@@ -98,7 +97,7 @@ close HANDLE or die "cannot close file 'gettest.c': $!\n";
 my @cmd = $cc;
 push @cmd, $Config{ccflags};
 push @cmd, $Config{ldflags};
-push @cmd, $Config{libs};
+push @cmd, $Config{perllibs};
 push @cmd, "-o", "gettest.exe", "gettest.c";
 
 my $cmd = join ' ', @cmd;

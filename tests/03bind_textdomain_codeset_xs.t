@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 9;
+use constant NUM_TESTS => 14;
 
 use Locale::Messages qw (bindtextdomain textdomain bind_textdomain_codeset 
 						 gettext);
@@ -57,30 +57,33 @@ if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
-ok defined $bound_dir &&
-	File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($locale_dir) eq File::Spec->catdir ($bound_dir));
 
 my $bound_domain = textdomain $textdomain;
 
-ok  defined $bound_domain && $textdomain eq $bound_domain;
+ok defined $bound_domain;
+ok $textdomain, $bound_domain;
 
 my $bound_codeset = bind_textdomain_codeset $textdomain => 'ISO-8859-1';
 
-ok defined $bound_codeset && 'ISO-8859-1' eq uc $bound_codeset;
+ok defined $bound_codeset;
+ok $bound_codeset, 'ISO-8859-1';
 
 skip $missing_locale, gettext ('January'), 'Jänner';
-skip $missing_locale, gettext ('March'), 'März';
+ok gettext ('March'), 'März';
 
 # This will cause GNU gettext to re-load our catalog.
 $bound_dir = bindtextdomain $textdomain => $locale_dir . '/../LocaleData';
 
-ok defined $bound_dir && 
-	File::Spec->catdir ("$locale_dir/../LocaleData") eq 
-	File::Spec->catdir ($bound_dir);
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), 
+    File::Spec->catdir ("$locale_dir/../LocaleData"));
 
 $bound_codeset = bind_textdomain_codeset $textdomain => 'UTF-8';
 
-ok defined $bound_codeset && 'UTF-8' eq uc $bound_codeset;
+ok defined $bound_codeset;
+ok uc $bound_codeset, 'UTF-8';
 
 skip $missing_locale, gettext ('January'), 'JÃ¤nner';
 skip $missing_locale, gettext ('March'), 'MÃ¤rz';

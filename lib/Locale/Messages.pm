@@ -1,7 +1,6 @@
 #! /bin/false
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
-# $Id: Messages.pm,v 1.41 2009/05/27 05:13:28 guido Exp $
 
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -35,7 +34,11 @@ my $can_xs = 1;
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
+<<<<<<< HEAD:lib/Locale/Messages.pm
 die "Version: $version mismatch (2.0.1 vs. $version)" unless $version eq '2.0.1';
+=======
+die "Version: $version mismatch (1.20 vs. $version)" unless $version eq '1.20';
+>>>>>>> master:lib/Locale/Messages.pm
 EOF
 if ($@) {
     $package = 'gettext_pp';
