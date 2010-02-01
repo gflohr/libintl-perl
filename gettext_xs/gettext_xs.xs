@@ -248,7 +248,7 @@ _bindtextdomain (domain = NULL, dirname = NULL)
     CODE:
 	/* Treat empty or undefined strings as NULL.  */
 	if (!domain || domain[0] == '\000')
-		domain = NULL;
+		XSRETURN_UNDEF;
 	if (!dirname || dirname[0] == '\000')
 		dirname = NULL;
 	RETVAL = (char*) bindtextdomain (domain, dirname);
