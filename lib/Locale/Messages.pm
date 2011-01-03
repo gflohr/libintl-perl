@@ -493,7 +493,7 @@ target language.  Many C implementations of printf() allow to
 change the order of the arguments, and a French translator could
 then say:
 
-    "C'est le %$2s %$1s."
+    "C'est le %2$s %1$s."
 
 Perl printf() implements this feature as of version 5.8 or better.
 Consequently you can only use it, if you are sure that your software
