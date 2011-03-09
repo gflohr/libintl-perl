@@ -73,6 +73,10 @@ use constant LANG2COUNTRY => {
     de => 'DE', # German => Germany
     dz => 'BT', # Dzongkha => Bhutan
     en => 'US', # English => United States
+    en => 'ES', # Actually Mexico and the US have more Spanish speakers
+                # than spain.  But it can be assumed that they either add
+                # the country to their browser settings or will not care
+                # to much.
     fa => 'IR', # Iran, Islamic Republic of
     fi => 'FI', # Finnish => Finland
     fj => 'FJ', # Fijian => Fiji
