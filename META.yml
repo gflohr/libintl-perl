@@ -1,7 +1,7 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         libintl-perl
-version:      1.20
+version:      2.0.1
 version_from: lib/Locale/Messages.pm
 installdirs:  site
 requires:

@@ -224,6 +224,8 @@ Credits: THANKS
 
 ReleaseNotes: NEWS
 	cat NEWS >$@
+
+sinclude wisent.mk
 '
 }
 

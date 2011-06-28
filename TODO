@@ -22,3 +22,5 @@
 - Allow to dynamically expand the list of supported conversions
 
 - Allow to dynamically restrict the list of suppported conversions
+
+- use exists $args{key} instead of defined $args{key} in __x expansion?

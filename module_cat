@@ -1,0 +1,22 @@
+#! /usr/bin/perl -w
+
+use strict;
+
+my (@include) = @ARGV;
+die "$0 MODULE[, MODULE ...]" unless @include;
+
+my $s = "[ \t\r]";
+
+my $count = 0;
+FILE: foreach my $file (@include) {
+    my $not_last = ++$count != @include;
+    local *HANDLE;
+    open HANDLE, "<$file" or die "Cannot open '$file': $!.\n";
+    foreach my $line (<HANDLE>) {
+        next if $not_last && $line =~ /^$s*[0-9]+$s*;$s*$/;
+        last if $not_last && $line =~ /^__END__$/;
+	$line =~ s/use$s+Locale::TextDomain$s+qw$s*\(imperia\)$s*;
+	          /use Locale::TextDomain 'libintl-perl';/x;
+	print $line;
+    }
+}

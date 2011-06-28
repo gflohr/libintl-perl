@@ -19,6 +19,10 @@ gettext_xs/Makefile.PL		Makefile generator
 gettext_xs/gettext_xs.pm	XS loader
 gettext_xs/gettext_xs.xs	XS binding
 lib/Locale/Messages.pm		Gettext Like Message Retrieval
+lib/Locale/POFile.pm            Managing Portable Object (PO) Files
+lib/Locale/POFile/Message.pm    A message entry in a PO file 
+lib/Locale/POFile/Lexer.pm      Lexical analyzer (scanner) for PO files
+lib/Locale/POFile/Parser.pm     LALR parser for PO files
 lib/Locale/Recode.pm		Object−Oriented Portable Charset Conversion
 lib/Locale/Recode/_Aliases.pm
 lib/Locale/Recode/_Conversions.pm
@@ -378,6 +382,7 @@ tests/03textdomain_xs.t
 tests/04find_domain_bug.t
 tests/04scalar_noop.t
 tests/05parse_accept.t
+tests/06parse_po.t
 tests/LocaleData/de/LC_MESSAGES/additional.mo
 tests/LocaleData/de/LC_MESSAGES/existing.mo
 tests/LocaleData/de_AT/LC_MESSAGES/additional.mo
@@ -387,4 +392,5 @@ tests/po/additional.de.po
 tests/po/additional.de_AT.po
 tests/po/existing.de.po
 tests/po/existing.de_AT.po
+tests/po/parser/basic.de.po
 META.yml                                Module meta-data (added by MakeMaker)
