@@ -299,9 +299,9 @@ sub import
     # Remember that we still have to bind that textdomain to
     # a directory.
     unless (exists $bound_dirs{$textdomain}) {
-		@search_dirs = map $_ . '/LocaleData', @INC, @default_dirs
+		@search_dirs = ((map $_ . '/LocaleData', @INC), @default_dirs)
 			unless @search_dirs;
-		$bound_dirs{$textdomain} = [@search_dirs];
+		$bound_dirs{$textdomain} = [grep { -d $_ } @search_dirs];
     }
 	
     Locale::TextDomain->export_to_level (1, $package, @EXPORT);
