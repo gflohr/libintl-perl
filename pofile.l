@@ -1,7 +1,7 @@
 /* $Id $ */
 /*
  * This file is part of libintl-perl.
- * Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
+ * Copyright (C) 2002-2011 Guido Flohr <guido@imperia.net>,
  * all rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify it

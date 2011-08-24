@@ -2,7 +2,7 @@
 # vim: set autoindent shiftwidth=4 tabstop=4:
 
 # List of internally known conversions.
-# Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2011 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
 # This file is generated, do not edit!
 
@@ -436,7 +436,7 @@ This module is internal to libintl.  Do not use it directly!
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2009, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2011 Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 
