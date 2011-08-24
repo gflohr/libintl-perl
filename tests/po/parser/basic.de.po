@@ -24,6 +24,6 @@ msgstr "FooBar"
 
 msgid "one world"
 msgid_plural "many worlds"
-msgstr[2] "Eine Welt"
+msgstr[0] "Eine Welt"
 " ist nicht schlecht, oder?"
 msgstr[1] "Viele Welten"
