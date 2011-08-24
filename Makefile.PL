@@ -230,6 +230,8 @@ ReleaseNotes: NEWS
 	cat NEWS >$@
 
 sinclude wisent.mk
+
+sinclude tools.mk
 '
 }
 

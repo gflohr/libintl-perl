@@ -10,3 +10,4 @@ pofile.output
 .project
 .includepath
 *.tar.gz
+bin

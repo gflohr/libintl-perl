@@ -1,0 +1,183 @@
+#! /usr/bin/perl -w
+
+# vim: syntax=perl tabstop=4
+
+# This file is part of libintl-perl
+# Copyright (C) 2002-2011 Guido Flohr <guido@imperia.net>,
+# all rights reserved.
+
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Library General Public License as published
+# by the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+
+# You should have received a copy of the GNU Library General Public
+# License along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
+# USA.
+
+use strict;
+
+use Pod::Simple::SimpleTree;
+
+my ($module, $script) = @ARGV;
+
+die "Usage: $0 MODULE [SCRIPTNAME]\n" unless defined $module && length $module;
+
+open HANDLE, "<$0" or die "$0: Cannot read `$0': $!\n";
+
+while (<HANDLE>) {
+        last if /^use strict;[ \t\r\n]*$/;
+        print;
+}
+close HANDLE;
+
+my $class = $module;
+$class =~ s{^(?:\./)?lib/}{};
+$class =~ s{[/\\]}{::}g;
+$class =~ s/\.pm$//;
+
+unless (defined $script && length $script) {
+        $script = $class;
+        $script =~ s/.*::/p/;
+        $script = lc $script;
+}
+
+print <<EOF;
+use strict;
+
+use Locale::TextDomain qw ('libintl-perl');
+use $class;
+
+EOF
+
+my $parser = Pod::Simple::SimpleTree->new;
+$parser->parse_file($module);
+
+my $pod = '';
+my $usage = '';
+
+my $nodes = $parser->root;
+
+my $i;
+
+# Find the name section.
+my $name;
+for ($i = 0; $i < @$nodes; ++$i) {
+        my $node = $nodes-> [$i];
+        next unless ref $node;
+        next unless 'ARRAY' eq ref $node;
+        my ($type, undef, $head) = @$node;
+        next unless 'head1' eq $type;
+        next unless 'NAME' eq $head;
+
+        my $next_node = $nodes->[$i + 1];
+        last unless $next_node;
+        die "$module: NAME section is not a paragraph!\n"
+                unless 'Para' eq $next_node->[0];
+        $name = $next_node->[2];
+        last;
+}
+die "$module: No pod section `NAME'!\n" unless defined $name;
+
+my $summary = $name;
+$summary =~ s/.*?-[ \t]*//;
+
+$pod .= <<EOF;
+=head1 NAME
+
+$script - $summary
+
+EOF
+
+# Find synopsis.
+my $synopsis;
+for (; $i < @$nodes; ++$i) {
+        my $node = $nodes-> [$i];
+        next unless ref $node;
+        next unless 'ARRAY' eq ref $node;
+        my ($type, undef, $head) = @$node;
+        next unless 'head1' eq $type;
+        next unless 'SYNOPSIS' eq $head;
+
+        my $next_node = $nodes->[$i + 1];
+        last unless $next_node;
+        die "$module: SYNOPSIS section is not verbatim!\n"
+                unless 'Verbatim' eq $next_node->[0];
+        $synopsis = $next_node->[2];
+        last;
+}
+die "$module: No pod section `SYNOPSIS'!\n" unless defined $synopsis;
+
+my $options = $synopsis;
+$options =~ s/^[ \t]*//;
+$options =~ s/[ \t]*$//;
+unless ($options =~ s{^$class->new->run[ \t]*\((.*)\);.*}{$1}) {
+        die "$module: SYNOPSIS section not properly formatted!\n";
+}
+$options =~ y/,//d;
+
+$usage .= <<EOF;
+\$__{'$script $options'}
+EOF
+
+$pod .= <<EOF;
+=head1 SYNOPSIS
+
+  $script $options
+
+=head1 DESCRIPTION
+
+EOF
+
+for (; $i < @$nodes; ++$i) {
+        my $node = $nodes-> [$i];
+        next unless ref $node;
+        next unless 'ARRAY' eq ref $node;
+        my ($type, undef, $head) = @$node;
+        next unless 'head1' eq $type;
+        last if 'DESCRIPTION' eq $head;
+}
+die "$module: No pod DESCRIPTION section!\n" if $i >= @$nodes;
+
+# Now for the nasty part.  Parse the description ...
+my $usage_paragraph = '';
+my $pod_paragraph = '';
+
+$usage .= "\n$usage_paragraph" if length $usage_paragraph;
+$pod .= "\n$pod_paragraph" if length $pod_paragraph;
+
+$usage =~ s/[ \t\r\n]*$//s;
+
+print <<EOFF;
+\$${class}::usage = <<EOF;
+$usage
+EOF
+
+$class->new->run(\@ARGV);
+
+__END__
+
+EOFF
+
+$pod .= <<EOF;
+
+=head1 COPYRIGHT
+
+Copyright (C) 1995-2011 Guido Flohr <guido\@imperia.net>, all rights reserved.
+
+=head1 SEE ALSO
+
+$class(3pm), perl(1)
+
+EOF
+
+print $pod;
+
+1;
+

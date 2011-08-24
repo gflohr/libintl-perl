@@ -1,7 +1,3 @@
-#! /usr/bin/perl -w
-
-# vim: syntax=perl tabstop=4
-
 # This file is part of libintl-perl
 # Copyright (C) 2002-2011 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
@@ -21,35 +17,8 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 # USA.
 
-use strict;
+gentool = ./gentool
 
-use Locale::TextDomain qw ('libintl-perl');
-use Locale::POFile::Tools::MsgFmt;
-
-$Locale::POFile::Tools::MsgFmt::usage = <<EOF;
-$__{'pmsgfmt [OPTION] POFILE ...'}
-EOF
-
-Locale::POFile::Tools::MsgFmt->new->run(@ARGV);
-
-__END__
-
-=head1 NAME
-
-pmsgfmt - Compile PO file
-
-=head1 SYNOPSIS
-
-  pmsgfmt [OPTION] POFILE ...
-
-=head1 DESCRIPTION
-
-
-=head1 COPYRIGHT
-
-Copyright (C) 1995-2011 Guido Flohr <guido@imperia.net>, all rights reserved.
-
-=head1 SEE ALSO
-
-Locale::POFile::Tools::MsgFmt(3pm), perl(1)
-
+bin/pmsgfmt: lib/Locale/POFile/Tools/MsgFmt.pm ${gentool}
+	$(PERL) $(gentool) lib/Locale/POFile/Tools/MsgFmt.pm >$@.tmp \
+		&& mv $@.tmp $@ || (rm $@.tmp; exit 1)
