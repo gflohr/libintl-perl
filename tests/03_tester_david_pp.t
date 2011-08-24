@@ -9,7 +9,8 @@ use Test;
 
 use constant NUM_TESTS => 6;
 
-use Locale::Messages qw (LC_MESSAGES bindtextdomain textdomain dcgettext dgettext gettext);
+use Locale::Messages qw (LC_MESSAGES bindtextdomain textdomain 
+                         dcgettext dgettext gettext);
 require POSIX;
 require File::Spec;
 
