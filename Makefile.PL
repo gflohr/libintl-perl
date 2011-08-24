@@ -198,19 +198,23 @@ close HANDLE or die "cannot close '$name': $!";
 
 WriteMakefile (
     NAME		    => 'libintl-perl',
-	VERSION_FROM	=> 'lib/Locale/Messages.pm',
+    VERSION_FROM	    => 'lib/Locale/Messages.pm',
+    EXE_FILES               => [
+        'bin/pmsgfmt'
+    ],
     ($] >= 5.005 ?
-		(ABSTRACT	=> 'High-Level Interface to Uniforum Message Translation',
-	 	 AUTHOR		=> 'Guido Flohr <guido@imperia.net>',
-		 ) : (),
-	),
-	PREREQ_PM		=> { File::Spec => 0 },
-	PL_FILES        => {},
-	DIR		=> [$result == 0 ? ('gettext_xs') : ()],
-	clean			=> { FILES => 'xs_disabled build_xs' }
-	# If you want to build the XS version although the automatic detection
-	# suggests not to build it, uncomment the following line.
-	#DIR => [ ('gettext_xs') ],,
+         (ABSTRACT          => 'High-Level Interface to Uniforum Message'
+                                 . ' Translation',
+	  AUTHOR	    => 'Guido Flohr <guido@imperia.net>',
+	 ) : (),
+    ),
+    PREREQ_PM		    => { File::Spec => 0 },
+    PL_FILES                => {},
+    DIR		            => [$result == 0 ? ('gettext_xs') : ()],
+    clean		    => { FILES => 'xs_disabled build_xs' }
+    # If you want to build the XS version although the automatic detection
+    # suggests not to build it, uncomment the following line.
+    #DIR => [ ('gettext_xs') ],,
 );
 
 sub MY::postamble {
