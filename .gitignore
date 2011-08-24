@@ -4,8 +4,7 @@ blib
 pm_to_blib
 xs_disabled
 config.log
-<<<<<<< HEAD:.gitignore
-imperia_dir.mk
+include_imperia.mk
 pofile.output
 *.old
 .project

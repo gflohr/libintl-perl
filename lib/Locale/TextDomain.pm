@@ -1,11 +1,5 @@
 #! /bin/false
 
-# vim: set autoindent shiftwidth=4 tabstop=4:
-<<<<<<< HEAD:lib/Locale/TextDomain.pm
-# $Id: 314f1e5101195e8cf6085dec74e03bf38bca4d41 $
-=======
->>>>>>> master:lib/Locale/TextDomain.pm
-
 # High-level interface to Perl i18n.
 # Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,
 # all rights reserved.
