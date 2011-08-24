@@ -1,16 +1,19 @@
 #! /bin/false
-
-###########################################################################
-# This file is generated, do not edit! Edit the input files instead!
-# See the Makefile from the source distribution of libintl-perl for
-# details.
-############################################################################
+#
+# Copyright (C) 1995-2011 Imperia AG, http://www.imperia.net/.
+# All rights reserved. 
+#
+# This file is part of the Imperia Enterprise Content Management System.  You
+# can distribute it under the same terms and conditions as Perl itself.
+#
+# As a special exception, when this file is copied by Imperia ILex into
+# an ILex output file, you may use that output file without restriction.
 
 package Imperia::ILex::Lexer;
 
 use strict;
 
-use Locale::TextDomain 'libintl-perl';
+use Locale::TextDomain qw (imperia);
 
 our $yyrule;
 
@@ -312,106 +315,81 @@ sub yywrap {
     return $self;  # Default is to indicate end of input.
 }
 
-package Locale::POFile::Lexer;
-
-##########################################################################
-# This file is generated.  Do not edit!
-# Edit 'pofile.l' instead!
-##########################################################################
-
-
-use strict;
-
-use Locale::POFile::Parser qw (:yyterminals);
-    
-
-package Locale::POFile::Lexer;
-
-our $yyrule;
-
-use base qw (Imperia::ILex::Lexer);
-
-sub _yymatch {
-    my ($self) = @_;
-    use re qw (eval);
-    return {
-        INITIAL => qr /(#.*(?{$yyrule = 0})|msgid_plural(?=[ \t\r\n\"]|\z)(?{$yyrule = 1})|msgid(?=[ \t\r\n\"]|\z)(?{$yyrule = 2})|msgstr\[([0-9]+)\](?=[\[ \t\r\n\"]|\z)(?{$yyrule = 3})|msgstr(?=[\[ \t\r\n\"]|\z)(?{$yyrule = 4})|domain(?=[ \t\r\n\"]|\z)(?{$yyrule = 5})|msgctxt(?=[ \t\r\n\"]|\z)(?{$yyrule = 6})|"([^\\"]*(?:(?:\\"|\\)[^\\"]*)*)"(?{$yyrule = 7})|[^ \t\r\n]+(?{$yyrule = 8})|[ \t\r\n]+(?{$yyrule = 9})|.|\n(?{$yyrule = 10})|((?s:.))(?{$yyrule = 11}))/o,
-    };
-
-}
-
-sub _yyparens {
-    return [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0];
-}
-
-sub _yycode {
-    return     [
-#line 27 "pofile.l"
-sub {
-    	return $^N, COMMENT
-
-},
-#line 28 "pofile.l"
-sub {
-     return $^N, MSGID_PLURAL
-
-},
-#line 29 "pofile.l"
-sub {
-     return $^N, MSGID
-
-},
-#line 30 "pofile.l"
-sub {
-     return $_[1], MSGSTR_INDEX
-
-},
-#line 31 "pofile.l"
-sub {
-     return $^N, MSGSTR
-
-},
-#line 32 "pofile.l"
-sub {
-     return $^N, DOMAIN
-
-},
-#line 33 "pofile.l"
-sub {
-     return $^N, MSGCTXT
-
-},
-#line 34 "pofile.l"
-sub {
-     return $_[1], DQSTRING
-
-},
-#line 35 "pofile.l"
-sub {
-     return $^N
-
-},
-undef,
-#line 37 "pofile.l"
-sub {
-    	return $^N
-
-},
-sub {
-    print $^N;
-    return;
-},
-    ];
-
-}
-
-sub _yystates {
-    return {
-        INITIAL => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-
-    };
-}
-
-
-
 1;
+__END__
+# Do not remove the above end marker!
+
+=head1 NAME
+
+Imperia::ILex::Lexer - Abstract base class for Imperia Wisent scanners
+
+=head1 SYNOPSIS
+
+    # Always use the derived class, since the base class 
+    # Imperia::ILex::Lexer is abstract.
+    use MyLexer;
+
+    my $lexer = MyScanner->new;
+    $lexer->yylex();
+    
+=head1 DESCRIPTION
+
+The B<Imperia::ILex::Lexer> class is an abstract base class for Imperia
+Wisent scanners.  Derived classes are normally generated using 
+site_ilex.pl(1pl).
+
+=head1 CONSTRUCTORS
+
+=over 4 
+
+=item B<new ARGS>
+
+The constructor takes a number of named arguments:
+
+=over 8 
+
+=item B<yyin FILEHANDLE>
+
+The file handle to read the input stream from.
+
+=back
+
+=back
+
+=head1 PUBLIC METHODS
+
+=over 4
+
+=item B<yylex>
+
+The lexer function.
+
+=back
+
+=head1 PROTECTED METHODS
+
+A number of methods are protected.  You can implement your own version in order
+to change the behavior of the scanner:
+
+=over 4
+
+=item B<_yyin>
+
+This function is called in order to fetch new data from the import stream.  It
+must return data from the input stream, or an undefined value at end of file.
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 1995-2011 Imperia AG, http://www.imperia.net/.
+All rights reserved. 
+
+This file is part of the Imperia Enterprise Content Management System.  You
+can distribute it under the same terms and conditions as Perl itself.
+
+=head1 SEE ALSO
+
+perl(1), site_ilex.pl(1pl)
+
+=cut

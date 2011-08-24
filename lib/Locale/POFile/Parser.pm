@@ -1,14 +1,10 @@
 #! /bin/false
-# $Id: Parser.pm,v 1.26 2009/06/14 20:29:13 guido Exp $ 
-# vim: set autoindent shiftwidth=4 tabstop=8:
 
-# Imperia AG is the sole owner and producer of its software "Imperia". For
-# our software license and copyright information please refer to: License.txt
-# Copyright (C) 1995-2008 Imperia AG.  All rights reserved.
-
-# FIXME: The original implementation had the goto table merged into the
-# actions table.  That means that there is probably code unnecessarily checking
-# whether a certain key into the actions table is a terminal or not.
+###########################################################################
+# This file is generated, do not edit! Edit the input files instead!
+# See the Makefile from the source distribution of libintl-perl for
+# details.
+############################################################################
 
 package Imperia::Wisent::Parser;
 
@@ -20,6 +16,7 @@ sub new {
     my $self = bless {}, shift;
     $self->{__yyautomaton} = $self->_yyautomaton;
     $self->{__yysemantics} = $self->_yysemantics;
+    $self->{__yylexer_stack} = [];
     
     return $self;
 }
@@ -54,6 +51,7 @@ sub yyparse {
             $yyerror_arg = $self;
             $yyerror = $self->can ('yyerror');
         }
+        
         $yylloc_arg = $lexer;
         $yylloc = $lexer->can ('yylloc');
         unless ($yylloc) {
@@ -85,8 +83,11 @@ sub yyparse {
     }
 
     $self->{__yylexer_arg} = $yylex_arg;
-    $self->{__yylexer} = $yylex_arg;
+    $self->{__yylexer} = $yylex;
     
+    $self->{__yyerror} = $yyerror;
+    $self->{__yyerror_arg} = $yyerror_arg;
+         
     $self->{__yylloc} = $yylloc;
     $self->{__yylloc_arg} = $yylloc_arg;
          
@@ -152,8 +153,7 @@ sub yyparse {
             
             if (!$has_default 
                 || 0 != keys %{$state->{actions}}) {
-                ($yytext, $symbol, $name) = 
-                    $self->__yynextToken ($yylex, $yylex_arg, $debug);
+                ($yytext, $symbol, $name) = $self->__yynextToken($debug);
                 $has_token = 1;
                 $self->{__yynextloc} = [$yylloc->($yylloc_arg)];
             }            
@@ -342,6 +342,90 @@ sub yylocations {
     return @retval;
 }
 
+sub yypushlexer {
+    my ($self, $arg) = @_;
+    
+    my $yylex_arg;
+    my $yylex;
+    my $yyerror_arg;
+    my $yyerror;
+    my $yylloc_arg;
+    my $yylloc;
+    
+    if (ref $arg && 'CODE' ne ref $arg) {
+        my $lexer = $arg;
+        $yylex_arg = $lexer;
+        $yylex = $lexer->can ('yylex');
+        unless ($yylex) {
+            require Carp;
+            Carp::croak (__"Object passed to yypushlexer() does not implement a "
+                           . "method yylex()" );
+        }
+
+        $yyerror_arg = $lexer;
+        $yyerror = $lexer->can ('yyerror');
+        unless ($yyerror) {
+            $yyerror_arg = $self;
+            $yyerror = $self->can ('yyerror');
+        }
+        
+        $yylloc_arg = $lexer;
+        $yylloc = $lexer->can ('yylloc');
+        unless ($yylloc) {
+            $yylloc_arg = $self;
+            $yylloc = $self->can ('yylloc');
+        }
+    } else {
+        $yylex_arg = $self;
+        $yylex = $arg;
+        unless ($yylex) {
+            require Carp;
+            Carp::croak (__"Mandatory argument missing in call "
+                           . "to yypushlexer()");
+        }
+        $yyerror_arg = $self->{__yyerror_arg};
+        $yyerror = $self->{__yyerror};
+        $yylloc_arg = $self->{__yylloc_arg};
+        $yylloc = $self->{__yylloc};
+    }
+
+    push @{$self->{__yylexer_stack}}, 
+        [
+            $self->{__yylexer}, $self->{__yylexer_arg},
+            $self->{__yylloc}, $self->{__yylloc_arg},
+            $self->{__yyerror}, $self->{__yyerror_arg},
+        ];
+
+    $self->{__yylexer_arg} = $yylex_arg;
+    $self->{__yylexer} = $yylex;
+    $self->{__yylloc_arg} = $yylloc_arg;
+    $self->{__yylloc} = $yylloc;
+    $self->{__yyerror_arg} = $yyerror_arg;
+    $self->{__yyerror} = $yyerror;
+    
+    return $self;    
+}
+
+sub yypoplexer {
+    my ($self) = @_;
+    
+    my $record = pop @{$self->{__yylexer_stack}};
+    return unless $record;
+    
+    my ($yylex, $yylex_arg,
+        $yylloc, $yylloc_arg,
+        $yyerror, $yyerror_arg) = @$record;
+    
+    $self->{__yylexer_arg} = $yylex_arg;
+    $self->{__yylexer} = $yylex;
+    $self->{__yylloc_arg} = $yylloc_arg;
+    $self->{__yylloc} = $yylloc;
+    $self->{__yyerror_arg} = $yyerror_arg;
+    $self->{__yyerror} = $yyerror;
+    
+    return $self;
+}
+
 sub YYERROR {
     my ($self) = @_;
 
@@ -509,7 +593,10 @@ sub __yydebugRule {
 }
 
 sub __yynextToken {
-    my ($self, $yylex, $yylex_arg, $debug) = @_;
+    my ($self, $debug) = @_;
+
+    my $yylex = $self->{__yylexer};
+    my $yylex_arg = $self->{__yylexer_arg};
 
     my $automaton = $self->{__yyautomaton};
     
@@ -537,6 +624,13 @@ sub __yynextToken {
         unless (defined $yytext) {
             $symbol = $symbols->{'$end'};
             $yytext = '';
+        }
+    }
+
+    if ($symbol == $symbols->{'$end'}) {
+        if ($self->yypoplexer) {
+            $self->yydebug(__"Popping from lexer stack.\n") if $debug;
+            return $self->__yynextToken($debug);
         }
     }
             
@@ -600,9 +694,6 @@ sub __yyquote {
 }
 
 
-#! /bin/false
-#line 27 "pofile.y"
-
 package Locale::POFile::Parser;
 
 use strict;
@@ -612,7 +703,7 @@ use Locale::TextDomain qw (libintl-perl);
     
 ###########################################################################
 # This file is generated, do not edit!
-# Edit 'pofile.y' instead!!
+# Edit `pofile.y' instead!
 ###########################################################################
 
 package Locale::POFile::Parser;
@@ -1774,7 +1865,7 @@ sub _yysemantics {
     return {
         '1' => {
             '1' => sub 
-#line 38 "pofile.y"
+#line 37 "pofile.y"
 {
                                               my ($self) = @_;
                                               
@@ -1784,68 +1875,68 @@ sub _yysemantics {
 },
         '4' => {
             '2' => sub 
-#line 48 "pofile.y"
+#line 47 "pofile.y"
 { $_[0]->{__has_errors} = 1 },
 },
         '6' => {
             '2' => sub 
-#line 52 "pofile.y"
+#line 51 "pofile.y"
 { $_[0]->__addMessage(@{$_[2]}, 
                                                                 $_[1]) },
 },
         '7' => {
             '1' => sub 
-#line 54 "pofile.y"
+#line 53 "pofile.y"
 { $_[0]->__addMessage(@{$_[1]}) },
 },
         '10' => {
             '1' => sub 
-#line 61 "pofile.y"
+#line 60 "pofile.y"
 { [$_[1]] },
 },
         '11' => {
             '2' => sub 
-#line 62 "pofile.y"
+#line 61 "pofile.y"
 { push @{$_[1]}, $_[2]; return $_[1] },
 },
         '12' => {
             '2' => sub 
-#line 65 "pofile.y"
+#line 64 "pofile.y"
 { return [$_[1], $_[2]] },
 },
         '13' => {
             '2' => sub 
-#line 68 "pofile.y"
+#line 67 "pofile.y"
 { return [$_[2]] },
 },
         '14' => {
             '4' => sub 
-#line 69 "pofile.y"
+#line 68 "pofile.y"
 { return [$_[2], $_[4]] },
 },
         '15' => {
             '2' => sub 
-#line 72 "pofile.y"
+#line 71 "pofile.y"
 { return [[0, $_[2]]] },
 },
         '16' => {
             '1' => sub 
-#line 73 "pofile.y"
+#line 72 "pofile.y"
 { return $_[1] },
 },
         '17' => {
             '1' => sub 
-#line 76 "pofile.y"
+#line 75 "pofile.y"
 { return [$_[1]] },
 },
         '18' => {
             '2' => sub 
-#line 77 "pofile.y"
+#line 76 "pofile.y"
 { push @{$_[1]}, $_[2]; $_[1] },
 },
         '19' => {
             '2' => sub 
-#line 80 "pofile.y"
+#line 79 "pofile.y"
 {
                                                   my ($self, $idx, $strings)
                                                       = @_;
@@ -1855,12 +1946,12 @@ sub _yysemantics {
 },
         '20' => {
             '2' => sub 
-#line 88 "pofile.y"
+#line 87 "pofile.y"
 { return $_[0]->__unquote($_[2]) },
 },
         '21' => {
             '1' => sub 
-#line 91 "pofile.y"
+#line 90 "pofile.y"
 { 
                                              my ($self, $string) = @_;
                                              
@@ -1869,7 +1960,7 @@ sub _yysemantics {
 },
         '22' => {
             '2' => sub 
-#line 96 "pofile.y"
+#line 95 "pofile.y"
 {
                                              my ($self, $head, $string) = @_;
                                              
@@ -1882,7 +1973,7 @@ sub _yysemantics {
 
 
 1;
-#line 103 "pofile.y"
+#line 102 "pofile.y"
 
 sub __addMessage {
     my ($self, $msgid, $msgstrs) = @_;

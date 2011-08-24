@@ -1,4 +1,3 @@
-/* $Id $ */
 /*
  * This file is part of libintl-perl.
  * Copyright (C) 2002-2009 Guido Flohr <guido@imperia.net>,

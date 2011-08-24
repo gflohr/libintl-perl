@@ -1,0 +1,10 @@
+The files in this directory are part of the Imperia Enterprise Content 
+Managment System.  They are not installed with libintl-perl.  They are only 
+needed to generate the parser and the lexer for PO files and are included
+here for completeness only.
+
+In brief, this directory contains wisent.pl and ilex.pl.  The script ilex.pl
+is a (f)lex-like scanner generator for lexical analysis.  The script 
+wisent.pl is a yacc/bison like parser generator.  Both programs are fully 
+functional but the documentation is fragmentary and may contain all kinds of 
+errors.
