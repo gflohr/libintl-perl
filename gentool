@@ -115,7 +115,7 @@ $description =~ s/([\\\'])/$escapes{$1}/gs;
 $description =~ s/\n=over[ \t]+[1-9][0-9]*(.*?)\n=back/format_over trim $1/egs;
 
 my @chunks = split /\n[ \t\r\n]*\n/, $description;
-$description = join "\n\n", @chunks;
+$description = join "\n\n", map { s/[ \t]+$//; q[$__{'] . $_ . q['}]} @chunks;
 
 $usage .= "\n$description";
 
