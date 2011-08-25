@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-# vim: syntax=perl tabstop=4
+# vim: set et sw=4 ts=4:
 
 # This file is part of libintl-perl
 # Copyright (C) 2002-2011 Guido Flohr <guido@imperia.net>,
@@ -21,16 +21,42 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 # USA.
 
+# This script generates a libintl-perl tool from a module, including
+# documentation and usage string.  The script only understands a 
+# subset of POD!
+
 use strict;
 
-use Pod::Simple::SimpleTree;
+sub trim;
+sub format_over;
+sub escaped_length;
 
 my ($module, $script) = @ARGV;
 
 die "Usage: $0 MODULE [SCRIPTNAME]\n" unless defined $module && length $module;
 
-open HANDLE, "<$0" or die "$0: Cannot read `$0': $!\n";
+open HANDLE, "<$module" or die "$0: Cannot read `$0': $!\n";
+my $module_content = join '', <HANDLE>;
 
+die "Input file `$module' has no NAME section!\n"
+	unless $module_content =~ /\n=head1[ \t]+NAME(.*?)\n=head1/s;
+my $name = trim $1;
+
+die "Input file `$module' has no SYNOPSIS section!\n"
+	unless $module_content =~ /\n=head1 SYNOPSIS(.*?)\n=head1/s;
+my $synopsis = trim $1;
+
+die "Input file `$module' has no DESCRIPTION section!\n"
+	unless $module_content =~ /\n=head1 DESCRIPTION(.*?)\n=head1/s;
+my $description = trim $1;
+
+my $bugs;
+if ($module_content =~ /\n=head1 BUGS(.*?)\n=head1/s) {
+	$bugs = trim $1;
+}
+
+# Copy the copyright header to the output script.
+open HANDLE, "<$0" or die "$0: Cannot read `$0': $!\n";
 while (<HANDLE>) {
         last if /^use strict;[ \t\r\n]*$/;
         print;
@@ -56,63 +82,8 @@ use $class;
 
 EOF
 
-my $parser = Pod::Simple::SimpleTree->new;
-$parser->parse_file($module);
-
 my $pod = '';
 my $usage = '';
-
-my $nodes = $parser->root;
-
-my $i;
-
-# Find the name section.
-my $name;
-for ($i = 0; $i < @$nodes; ++$i) {
-        my $node = $nodes-> [$i];
-        next unless ref $node;
-        next unless 'ARRAY' eq ref $node;
-        my ($type, undef, $head) = @$node;
-        next unless 'head1' eq $type;
-        next unless 'NAME' eq $head;
-
-        my $next_node = $nodes->[$i + 1];
-        last unless $next_node;
-        die "$module: NAME section is not a paragraph!\n"
-                unless 'Para' eq $next_node->[0];
-        $name = $next_node->[2];
-        last;
-}
-die "$module: No pod section `NAME'!\n" unless defined $name;
-
-my $summary = $name;
-$summary =~ s/.*?-[ \t]*//;
-
-$pod .= <<EOF;
-=head1 NAME
-
-$script - $summary
-
-EOF
-
-# Find synopsis.
-my $synopsis;
-for (; $i < @$nodes; ++$i) {
-        my $node = $nodes-> [$i];
-        next unless ref $node;
-        next unless 'ARRAY' eq ref $node;
-        my ($type, undef, $head) = @$node;
-        next unless 'head1' eq $type;
-        next unless 'SYNOPSIS' eq $head;
-
-        my $next_node = $nodes->[$i + 1];
-        last unless $next_node;
-        die "$module: SYNOPSIS section is not verbatim!\n"
-                unless 'Verbatim' eq $next_node->[0];
-        $synopsis = $next_node->[2];
-        last;
-}
-die "$module: No pod section `SYNOPSIS'!\n" unless defined $synopsis;
 
 my $options = $synopsis;
 $options =~ s/^[ \t]*//;
@@ -132,27 +103,24 @@ $pod .= <<EOF;
   $script $options
 
 =head1 DESCRIPTION
-
+$description
 EOF
 
-for (; $i < @$nodes; ++$i) {
-        my $node = $nodes-> [$i];
-        next unless ref $node;
-        next unless 'ARRAY' eq ref $node;
-        my ($type, undef, $head) = @$node;
-        next unless 'head1' eq $type;
-        last if 'DESCRIPTION' eq $head;
-}
-die "$module: No pod DESCRIPTION section!\n" if $i >= @$nodes;
+$pod .= "\n=head1 BUGS\n\n$bugs\n" if defined $bugs && length $bugs;
 
-# Now for the nasty part.  Parse the description ...
-my $usage_paragraph = '';
-my $pod_paragraph = '';
+# Now format the description as a usage string.
+$description =~ s/B<(.*?)>/$1/gs;
+my %escapes = ('\\' => '\\\\', '\'' => '\\\'');
+$description =~ s/([\\\'])/$escapes{$1}/gs;
+$description =~ s/\n=over[ \t]+[1-9][0-9]*(.*?)\n=back/format_over trim $1/egs;
 
-$usage .= "\n$usage_paragraph" if length $usage_paragraph;
-$pod .= "\n$pod_paragraph" if length $pod_paragraph;
+my @chunks = split /\n[ \t\r\n]*\n/, $description;
+$description = join "\n\n", @chunks;
 
-$usage =~ s/[ \t\r\n]*$//s;
+$usage .= "\n$description";
+
+$usage = trim $usage;
+$usage =~ s/[ \t]+$//s;
 
 print <<EOFF;
 \$${class}::usage = <<EOF;
@@ -178,6 +146,72 @@ $class(3pm), perl(1)
 EOF
 
 print $pod;
+
+sub trim {
+	my ($string) = @_;
+
+	$string =~ s/^[ \t\r\n]+//s;
+	$string =~ s/[ \t\r\n]+$//s;
+
+	return $string;
+}
+
+sub format_over {
+	my ($string) = @_;
+
+	my @chunks = split /(\n=item(?:[^\n]*))/, "\n$string";
+	
+	my $retval = '';
+	while (@chunks) {
+		last if ($chunks[0] =~ /\n=item(?:[^\n]*)/s);
+		shift @chunks;
+	}
+
+	for (my $i = 0; $i < @chunks; $i += 2) {
+        my $options = $chunks[$i];
+		$options =~ s/^\n=item//;
+		$options =~ s/,[ \t]+(?!-)/ /g;
+		$options = trim $options;
+
+		my $line = "  $options";
+        my $l = escaped_length $line;
+        if ($l >= 29) {
+            $retval .= $line . "\n";
+            $line = ' ' x 29;
+        } else {
+            $line .= ' ' x (29 - $l);
+        }
+
+		my @words = split /[ \t\r\n]+/, trim $chunks[$i + 1];
+
+        foreach my $word (@words) {
+            my $eos = ('.' eq substr $line, -1, 1) ? ' ' : '';
+            if (79 > escaped_length "$line$eos$word") {
+                $line .= ' ' . $eos . $word;
+                next;
+            }
+            $retval .= $line . "\n";
+            $line = ' ' x 30;
+            $line .= $word;
+        }
+        $retval .= $line if length $line;
+        chomp $retval;
+        $retval .= "\n";
+	}
+
+	return $retval;
+}
+
+sub escaped_length {
+    my ($string) = @_;
+    
+    my $retval = length $string;
+    while ($string =~ /\G.*?\\[\\']/g) {
+        --$retval;
+    }
+    
+    return $retval;
+}   
 
 1;
 
