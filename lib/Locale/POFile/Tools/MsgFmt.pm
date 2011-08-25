@@ -33,10 +33,6 @@ sub new {
     bless {}, shift;
 }
 
-sub run {
-    die __x("Usage: {usage}", usage=> $Locale::POFile::Tools::MsgFmt::usage);
-}
-
 1;
 
 =head1 NAME
@@ -74,13 +70,11 @@ Output file location:
 
 =item B<-o, --output-file=FILE>
 
-write output to specified
-file or standard output
-for '-'
+write output to specified file or standard output for `-'
 
 =back
 
-=head1 AUTHOR
+=head1 COPYRIGHT
 
 Copyright (C) 2002-2011 Guido Flohr E<lt>guido@imperia.netE<gt>, all
 rights reserved.  See the source code for details.
