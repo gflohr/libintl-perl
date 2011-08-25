@@ -19,6 +19,9 @@
 
 gentool = ./gentool
 
-bin/pmsgfmt: lib/Locale/POFile/Tools/MsgFmt.pm ${gentool}
+bin:
+	mkdir $@
+
+bin/pmsgfmt: bin lib/Locale/POFile/Tools/MsgFmt.pm ${gentool}
 	$(PERL) $(gentool) lib/Locale/POFile/Tools/MsgFmt.pm >$@.tmp \
 		&& mv $@.tmp $@ || (rm $@.tmp; exit 1)
