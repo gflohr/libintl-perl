@@ -33,6 +33,10 @@ sub new {
     bless {}, shift;
 }
 
+sub run {
+    die __x("Usage: {usage}", usage=> $Locale::POFile::Tools::MsgFmt::usage);
+}
+
 1;
 
 =head1 NAME
