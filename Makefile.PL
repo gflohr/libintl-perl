@@ -199,9 +199,7 @@ close HANDLE or die "cannot close '$name': $!";
 WriteMakefile (
     NAME		    => 'libintl-perl',
     VERSION_FROM	    => 'lib/Locale/Messages.pm',
-    EXE_FILES               => [
-        'bin/pmsgfmt'
-    ],
+    EXE_FILES               => [],
     ($] >= 5.005 ?
          (ABSTRACT          => 'High-Level Interface to Uniforum Message'
                                  . ' Translation',
