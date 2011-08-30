@@ -101,8 +101,9 @@ Locale::Catalog - Abstract base class for message catalogs
 =head1 DESCRIPTION
 
 The module Locale::Catalog(3pm) is an abstract base class for message catalogs,
-like for example portable object (PO) files (Locale::Catalog::PO(3pm)) or
-compiled, binary message catalogs (MO files, see Locale::Catalog::MO(3pm)).
+like for example portable object (PO) files (Locale::Catalog::Format::PO(3pm))
+or compiled, binary message catalogs (MO files, see
+Locale::Catalog::Format::MO(3pm)).
 
 All methods that return true for success and false for failure return a
 reference to the object or class itself in case of success, so that you
@@ -186,4 +187,4 @@ derived classes:
 
 =head1 SEE ALSO
 
-Locale::Catalog::PO(3pm), Locale::Catalog::MO(3pm), perl(1)
+Locale::Catalog::Format::PO(3pm), Locale::Catalog::Format::MO(3pm), perl(1)

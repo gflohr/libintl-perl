@@ -29,6 +29,8 @@ eval { $catalog->dump };
 ok $@;
 ok !$catalog->slurpErrors;
 
+
+
 # This is bad practice.  Users of the class should, of course, not call
 # protected methods.
 ok !$catalog->_pushErrors("one message\n");
@@ -43,3 +45,4 @@ ok !$catalog->errors;
 ok !$catalog->_pushErrors("one", "two", "three");
 ok 3 == $catalog->slurpErrors;
 ok !$catalog->errors;
+
