@@ -74,6 +74,31 @@ sub slurpErrors {
     return @errors;
 }
 
+sub add {
+    my ($self, @messages) = @_;
+    
+    foreach my $message (@messages) {
+        unless (ref $message
+                && $message->isa('Locale::Catalog::Message')) {
+            require Carp;
+            Carp::croak(__"Attempt to add something to a catalog that is not"
+                        . " a Locale::Catalog::Message");
+        }
+        push @{$self->{__locale_catalog_messages}}, $message;
+        my $msgid = $message->msgid;
+        my $msgctxt = $message->msgctxt;
+        $self->{__locale_catalog_msgids}->{$msgid}->{$msgctxt} = $message;
+    }
+    
+    return $self;
+}
+
+sub messages {
+    my ($self) = @_;
+    
+    @{$self->{__locale_catalog_messages}};
+}
+
 sub _pushErrors {
     my ($self, @errors) = @_;
     
@@ -170,6 +195,24 @@ Always returns the object itself.
 Returns all errors like B<errors()> does but also clears the error stack like
 B<clearErrors()>.
 
+=item B<add MESSAGE ...>
+
+Adds one or more B<MESSAGE>s to the catalog.  Each B<MESSAGE> must be of the 
+type Locale::Catalog::Message(3pm).  The order of messages is preserved.
+
+It is not an error to add messages with duplicate IDs to a catalog.
+
+Returns the object itself.
+
+The method cannot fail.  If you try to add something that is not a
+Locale::Catalog::Message(3pm) or other mischief happens, a fatal exception
+is thrown.
+
+=item B<messages>
+
+Returns a list of all messages for that catalog in the order they had been
+added.  Each one is a Locale::Catalog::Message(3pm).
+
 =back
 
 =head1 PROTECTED INTERFACE
@@ -187,4 +230,5 @@ derived classes:
 
 =head1 SEE ALSO
 
-Locale::Catalog::Format::PO(3pm), Locale::Catalog::Format::MO(3pm), perl(1)
+Locale::Catalog::Message(3pm), Locale::Catalog::Format::PO(3pm),
+Locale::Catalog::Format::MO(3pm), perl(1)

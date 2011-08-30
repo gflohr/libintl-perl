@@ -10,6 +10,7 @@ use Test;
 use constant NUM_TESTS => 16;
 
 use Locale::Catalog;
+use Locale::Catalog::Message;
 
 BEGIN {
 	plan tests => NUM_TESTS;
@@ -51,7 +52,15 @@ my $msg2 = Locale::Catalog::Message->new(msgid => 'hard',
 ok $catalog->add($msg1, $msg2);
 my @messages = $catalog->messages;
 ok 2 == @messages;
+my $msgid = $messages[0]->msgid;
 ok 'simple' eq $messages[0]->msgid;
 ok 'einfach' eq $messages[0]->msgstr;
 ok 'hard' eq $messages[1]->msgid;
 ok 'schwierig' eq $messages[1]->msgstr;
+
+eval { $catalog->add('not a reference') };
+ok $@;
+
+bless $msg2, 'Not a message object';
+eval { $catalog->add($msg2) };
+ok $@;
