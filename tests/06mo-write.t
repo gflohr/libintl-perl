@@ -10,6 +10,7 @@ use Test;
 use constant NUM_TESTS => 3;
 
 use Locale::Catalog::Format::MO;
+use Locale::Catalog::Message;
 
 BEGIN {
 	plan tests => NUM_TESTS;
@@ -17,3 +18,9 @@ BEGIN {
 
 my $catalog = Locale::Catalog::Format::MO->new;
 ok defined $catalog;
+
+my $message;
+$message = Locale::Catalog::Message->new(msgid => 'simple',
+                                         msgstr => '');
+ok $catalog->add($message);
+ok '' eq $catalog->dump;

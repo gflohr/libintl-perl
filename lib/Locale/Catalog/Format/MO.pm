@@ -23,8 +23,13 @@
 
 package Locale::Catalog::Format::MO;
 
+use strict;
+
 use base qw (Locale::Catalog);
 
+sub dump {
+    '';
+}
 
 1;
 
@@ -48,6 +53,8 @@ L<http://www.gnu.org/s/hello/manual/gettext/MO-Files.html>.
 
 The module is a subclass of Locale::Catalog(3pm).  See that documentation 
 for details.
+
+This module was added in libintl-perl 2.0.0.
 
 =head1 SEE ALSO
 
