@@ -23,6 +23,8 @@
 
 package Locale::Catalog;
 
+use strict;
+
 use Locale::TextDomain qw (libintl-perl);
 
 sub new {
@@ -38,6 +40,7 @@ sub parse {
     
     my $class = ref $self;
     
+    my $method = 'parse';
     die __x("The `{package}' class does not implement the method `{method}'!\n",
             package => ref $self, method => $method);    
 }
@@ -47,6 +50,7 @@ sub dump {
     
     my $class = ref $self;
     
+    my $method = 'dump';
     die __x("The `{package}' class does not implement the method `{method}'!\n",
             package => ref $self, method => $method);    
 }
@@ -133,6 +137,8 @@ Locale::Catalog::Format::MO(3pm)).
 All methods that return true for success and false for failure return a
 reference to the object or class itself in case of success, so that you
 can do method chaining.
+
+This module was added in libintl-perl 2.0.0.
 
 =head1 PUBLIC METHODS
 
