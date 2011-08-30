@@ -73,6 +73,16 @@ sub msgctxt {
     return $retval;
 }
 
+sub translated {
+    my ($self) = @_;
+    
+    my $msgstr = $self->msgstr;
+    
+    return $self if defined $msgstr && length $msgstr;
+    
+    return $msgstr;
+}
+
 1;
 
 __END__
@@ -171,7 +181,30 @@ Sets the domain of the message.
 Adds a comment to the message.  If B<COMMENT> is an array reference,
 all elements of the array are taken.
 
+=item B<translated>
+
+Returns itself is the message is considered translated, false otherwise.
+
+A message is considered translated if the value returned by msgstr() in scalar
+context is not empty.  In other words: it is translated if the singular of the
+translation is not empty.
+
+Note that plural forms I<can> be empty! 
+
 =back
+
+=head1 BUGS
+
+It is not checked whether strings (message ids or translations) contain NULL
+bytes or other control characters.
+
+NULL bytes are used to separate singular from plural forms, and if you embed
+them in strings, applications reading the strings will assume that all
+strings are NULL-terminated.
+
+Likewise, the EOT character (ASCII 4 or Ctrl-D) is used to separate the message
+context from the string.  Embedding it into a string can therefore also lead
+to undesired results.
 
 =head1 AUTHOR
 
