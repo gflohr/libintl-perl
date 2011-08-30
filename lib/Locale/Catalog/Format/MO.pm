@@ -28,7 +28,16 @@ use strict;
 use base qw (Locale::Catalog);
 
 sub dump {
-    '';
+    my ($self) = @_;
+    
+    my @messages = $self->messages;
+    
+    return '' unless @messages;
+
+    # First four bytes are the magic number in host byte order.
+    my $output = pack 'L', 0x950412de;
+    
+    return $output;    
 }
 
 1;
