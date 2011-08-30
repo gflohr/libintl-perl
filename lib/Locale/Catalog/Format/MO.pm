@@ -27,6 +27,16 @@ use strict;
 
 use base qw (Locale::Catalog);
 
+sub new {
+    my ($class, @args) = @_;
+    
+    my $self = $class->SUPER::new(@args);
+    
+    $self->{__locale_catalog_format_mo_byte_order} = 'N';
+    
+    return $self;
+}
+
 sub dump {
     my ($self) = @_;
     
@@ -34,10 +44,31 @@ sub dump {
     
     return '' unless @messages;
 
+    my $number_of_strings = 0;
+    
+    foreach my $message (@messages) {
+        next unless $message->translated;
+        ++$number_of_strings;
+    }
+    
+    return '' unless $number_of_strings;
+    
     # First four bytes are the magic number in host byte order.
-    my $output = pack 'L', 0x950412de;
+    my $template = $self->byteOrder;
+    
+    my $output = pack $template, 0x950412de;
     
     return $output;    
+}
+
+sub byteOrder {
+    my ($self, $order) = @_;
+    
+    if (defined $order && {N => 1, L => 1, V => 1}->{$order}) {
+        $self->{__locale_catalog_format_mo_byte_order} = $order;
+    }
+    
+    return $self->{__locale_catalog_format_mo_byte_order};
 }
 
 1;
@@ -52,6 +83,14 @@ Locale::Catalog::Format::MO - Compiled binary message catalogs
 
   use Locale::Catalog::Format::MO;
 
+  my $mo = Locale::Catalog::Format::MO->new;
+  
+  # Fill the object by calling parse() or add().
+  
+  $mo->byteOrder('N');
+  
+  print $mo->dump;
+
 =head1 DESCRIPTION
 
 The module Locale::Catalog::Format::MO(3pm) represents a binary, compiled 
@@ -64,6 +103,21 @@ The module is a subclass of Locale::Catalog(3pm).  See that documentation
 for details.
 
 This module was added in libintl-perl 2.0.0.
+
+=head1 PUBLIC METHODS
+
+The module just implements one method:
+
+=over 4
+
+=item B<byteOrder [ORDER]>
+
+If given and valid, sets the byte order used for dumping to B<ORDER>.
+
+Returns the byte order used in the same format that pack() uses.  Possible
+values are N, L, and V.  The default is N.
+
+=back
 
 =head1 SEE ALSO
 
