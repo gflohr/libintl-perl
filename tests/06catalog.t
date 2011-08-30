@@ -29,8 +29,6 @@ eval { $catalog->dump };
 ok $@;
 ok !$catalog->slurpErrors;
 
-
-
 # This is bad practice.  Users of the class should, of course, not call
 # protected methods.
 ok !$catalog->_pushErrors("one message\n");
@@ -46,3 +44,14 @@ ok !$catalog->_pushErrors("one", "two", "three");
 ok 3 == $catalog->slurpErrors;
 ok !$catalog->errors;
 
+my $msg1 = Locale::Catalog::Message->new(msgid => 'simple',
+                                         msgstr => 'einfach');
+my $msg2 = Locale::Catalog::Message->new(msgid => 'hard',
+                                         msgstr => 'schwierig');
+ok $catalog->add($msg1, $msg2);
+my @messages = $catalog->messages;
+ok 2 == @messages;
+ok 'simple' eq $messages[0]->msgid;
+ok 'einfach' eq $messages[0]->msgstr;
+ok 'hard' eq $messages[1]->msgid;
+ok 'schwierig' eq $messages[1]->msgstr;
