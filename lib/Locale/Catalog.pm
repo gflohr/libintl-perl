@@ -180,10 +180,13 @@ method on the object, to check for warnings.
 
 A pure virtual method that must be implemented by non-abstract sub classes.
 
-Serializes the catalog into a format suitable for persistant storage.  This
-is the method you want to call if you want to write an MO or PO file.
+Serializes the catalog into a format suitable for persistant storage and
+returns it.  This is the method you want to call if you want to write an MO or 
+PO file.  Note that the return value can be empty.  In that case you normally
+want to avoid writing the data to disk.
 
-The method returns itself for success or false for failure.
+The vexatious utf-8 flag of Perl 5.6 and later is always turned off on the
+string returned by dump (which is the best you can do with that flag anyway).
 
 =item B<errors>
 
