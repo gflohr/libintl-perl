@@ -206,7 +206,7 @@ WriteMakefile (
 	  AUTHOR	    => 'Guido Flohr <guido@imperia.net>',
 	 ) : (),
     ),
-    PREREQ_PM		    => { File::Spec => 0 },
+    PREREQ_PM		    => { File::Spec => 0, version => 0.77 },
     PL_FILES                => {},
     DIR		            => [$result == 0 ? ('gettext_xs') : ()],
     clean		    => { FILES => 'xs_disabled build_xs' }
