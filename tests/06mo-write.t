@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 3;
+use constant NUM_TESTS => 7;
 
 use Locale::Catalog::Format::MO;
 use Locale::Catalog::Message;
