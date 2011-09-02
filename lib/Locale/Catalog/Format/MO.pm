@@ -27,6 +27,8 @@ use strict;
 
 use base qw (Locale::Catalog);
 
+sub __cmp_msgid;
+
 sub new {
     my ($class, @args) = @_;
     
@@ -44,19 +46,59 @@ sub dump {
     
     return '' unless @messages;
 
-    my $number_of_strings = 0;
+    my $magic = 0x950412de;
+    my $revision = 0;
+    my $num_strings = 0;
+    my $orig_hashing = '';
+    my $trans_hashing = '';
     
-    foreach my $message (@messages) {
+    my @orig_lengths;
+    my @trans_lengths;
+    
+    foreach my $message (sort cmp_msgid @messages) {
         next unless $message->translated;
-        ++$number_of_strings;
+        ++$num_strings;
+    
+        my $msgid = join "\000", $message->msgid;
+        my $msgstr = join "\000", $message->msgstr;
+        push @orig_lengths, length $msgid;
+        push @trans_lengths, length $msgstr;
+            
+        $orig_hashing .= $msgid . "\000";
+        $trans_hashing .= $msgstr . "\000";
     }
     
-    return '' unless $number_of_strings;
+    return '' unless $num_strings;
     
-    # First four bytes are the magic number in host byte order.
     my $template = $self->byteOrder;
+    my $lsize = 4;
     
-    my $output = pack $template, 0x950412de;
+    my $orig_offset = 7 * $lsize;
+    my $trans_offset = $orig_offset + $num_strings * $lsize * 2;
+    my $hash_size = 0;
+    my $hashing_table = $orig_hashing . $trans_hashing;
+    my $hash_offset = $trans_offset + $num_strings * $lsize * 2;
+    
+    my $output = pack $template x 7,
+                      $magic,             # okay
+                      $revision,          # 0x00, 000,   0, NUL
+                      $num_strings,       # 0x02, 002,   2, STX
+                      $orig_offset,       # 0x1C, 034,  28, FS
+                      $trans_offset,      # 0x2C, 054,  44, ','
+                      $hash_size,         # 0x05, 005,   5, ENQ
+                      $hash_offset;       # 0x3C, 074,  60, '<'
+
+    my $offset = $hash_offset + $hash_size * $lsize;
+    foreach my $length (@orig_lengths, @trans_lengths) {
+        $output .= pack $template x 2, $length, $offset;
+        $offset += 1 + $length;
+    }
+    $output .= $hashing_table;
+    
+    local *MO;
+    open MO, ">/tmp/output.mo";
+    print MO $output;
+    close MO;
     
     return $output;    
 }
@@ -70,6 +112,14 @@ sub byteOrder {
     
     return $self->{__locale_catalog_format_mo_byte_order};
 }
+
+sub cmp_msgid {
+    my $msgid_a = join '\004', $a->msgid, $a->msgctxt;
+    my $msgid_b = join '\004', $b->msgid, $b->msgctxt;
+    
+    return $msgid_a cmp $msgid_b;
+}
+
 
 1;
 
