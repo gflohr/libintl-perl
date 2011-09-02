@@ -26,15 +26,18 @@ my $catalog = Locale::Catalog::Format::MO->new;
 ok defined $catalog;
 ok '' eq $catalog->dump;
 
-my $message = Locale::Catalog::Message->new(msgid => 'simple',
-                                            msgstr => 'einfach');
+my $message = Locale::Catalog::Message->new(msgid => 'simpler',
+                                            msgstr => 'einfacher');
+ok $catalog->add($message);
+$message = Locale::Catalog::Message->new(msgid => 'simple',
+                                         msgstr => 'einfach');
 ok $catalog->add($message);
 # Our test mo files were written on little endian machines.
 ok 'V', $catalog->byteOrder('V');
 my $dump = $catalog->dump;
 ok '' ne $dump;
 my $simple_mo = read_mo_file 'simple.mo';
-ok $simple_mo, $dump;
+ok $dump, $simple_mo;
 
 sub read_mo_file {
     my ($file) = @_;
