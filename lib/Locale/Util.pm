@@ -728,7 +728,7 @@ sub set_locale {
 	# Now try it with the country appended.
 	my @countries = length $country ? ($country) : ();
 	my @uc_countries = map { uc $_ } @countries;
-	my @lc_countries = map { uc $_ } @countries;
+	my @lc_countries = map { lc $_ } @countries;
 	push @countries, @uc_countries, @lc_countries;
  
  LINGUA: foreach my $language (@languages, @lc_languages, @uc_languages) {
