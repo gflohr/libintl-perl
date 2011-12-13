@@ -24,9 +24,15 @@
 use 5.004;
 use ExtUtils::MakeMaker;
 
+use strict;
+
 # Make standard channels unbuffered.
 select STDERR; $| = 1;
 select STDOUT; $| = 1; 
+
+sub ac_try_link;
+
+use Config;
 
 # Now try to compile and link a simple test program that uses all
 # gettext facilities we need.  Failure of the test is not fatal
@@ -34,9 +40,9 @@ select STDOUT; $| = 1;
 # However, any help on making this test more portable would be
 # highly appreciated!
 
-use Config;
+unlink "config.log";
 
-my $c_code = <<'EOF';
+my $c = <<'EOF';
 /* The following code only compiles if the interface to gettext is
    complete.  */
 
@@ -86,63 +92,115 @@ main (argc, argv)
 }
 EOF
 
-my $cc = $Config{cc};
-
-print STDERR "Checking whether we can compile the XS version ... ";
-local *HANDLE;
-open HANDLE, ">gettest.c" or die "cannot create file 'gettest.c': $!\n";
-print HANDLE $c_code;
-close HANDLE or die "cannot close file 'gettest.c': $!\n";
-
-my @cmd = $cc;
-push @cmd, $Config{ccflags};
-push @cmd, $Config{ldflags};
-push @cmd, $Config{perllibs};
-push @cmd, "-o", "gettest.exe", "gettest.c";
-
-my $cmd = join ' ', @cmd;
-
-# Temporarily redirect stdout and stderr.
-open OLDOUT, ">&STDOUT" or die "cannot dup STDOUT: $!";
-open OLDERR, ">&STDERR" or die "cannot dup STDERR: $!";
-open STDOUT, ">config.log" or die "cannot redirect STDOUT: $!";
-open STDERR, ">&STDOUT" or die "cannot dup STDOUT: $!";
-select STDERR; $| = 1;
-select STDOUT; $| = 1;
-
-print "$cmd\n";
-my $result = system $cmd;
-unless ($result == 0) {
-	$cmd .= " -lintl";
-	print "$cmd\n";
-	$result = system $cmd;
+my $build_gettext_xs = ac_try_link $c, "Checking whether we can compile the XS version";
+unless ($build_gettext_xs) {
+    $build_gettext_xs = ac_try_link $c, "  Trying again with -lintl", "-lintl";
 }
-unless ($result == 0) {
-	$cmd .= " -liconv";
-	print "$cmd\n";
-	$result = system $cmd;
+unless ($build_gettext_xs) {
+    $build_gettext_xs = ac_try_link $c, "  Trying again with -lintl -liconv", "-lintl", "-liconv";
+}
+unless ($build_gettext_xs) {
+    $build_gettext_xs = ac_try_link $c, "  Trying again with -liconv", "-liconv";
 }
 
-# Restore standard file descriptors.
-close STDOUT; #or die "cannot close STDOUT: $!";
-close STDERR; #or die "cannot close STDERR: $!";
-open STDOUT, ">&OLDOUT" or die "cannot dup \$oldout: $!";
-open STDERR, ">&OLDERR" or die "cannot dup OLDERR: $!";
-close OLDOUT; close OLDERR; # Shut up warnings.
-
-unless ($result == 0) {
+unless ($build_gettext_xs) {
 	print STDERR <<EOF;
-no
 => Cannot build the XS version of libintl-perl (see 'config.log' for
 => details).  This is harmless!
 EOF
 } else {
 	print STDERR <<EOF;
-ok
 => Building the XS version of libintl-perl.
 EOF
 }
-unlink "gettest.c", "gettest.exe";
+
+$c = <<EOF;
+main ()
+{
+    newlocale();
+    return 0;
+}
+EOF
+my $has_newlocale = ac_try_link $c, "Checking whether you have newlocale()";
+$c = <<EOF;
+main ()
+{
+    uselocale();
+    return 0;
+}
+EOF
+my $has_uselocale = ac_try_link $c, "Checking whether you have uselocale()";
+$c = <<EOF;
+main ()
+{
+    freelocale();
+    return 0;
+}
+EOF
+my $has_freelocale = ac_try_link $c, "Checking whether you have freelocale()";
+$c = <<EOF;
+main ()
+{
+    duplocale();
+    return 0;
+}
+EOF
+my $has_duplocale = ac_try_link $c, "Checking whether you have duplocale()";
+$c = <<EOF;
+main ()
+{
+    querylocale();
+    return 0;
+}
+EOF
+my $has_querylocale = ac_try_link $c, "Checking whether you have querylocale()";
+
+sub ac_try_link {
+    my ($c_code, $msg, @options) = @_;
+
+	print STDERR "$msg ... ";
+    local *HANDLE;
+    open HANDLE, ">gettest.c" or die "cannot create file 'gettest.c': $!\n";
+    print HANDLE $c_code;
+    close HANDLE or die "cannot close file 'gettest.c': $!\n";
+
+	my @cmd = $Config{cc};
+    push @cmd, $Config{ccflags};
+    push @cmd, $Config{ldflags};
+    push @cmd, $Config{perllibs};
+	push @cmd, @options;
+    push @cmd, "-o", "gettest.exe", "gettest.c";
+
+    # Temporarily redirect stdout and stderr.
+    open OLDOUT, ">&STDOUT" or die "cannot dup STDOUT: $!";
+    open OLDERR, ">&STDERR" or die "cannot dup STDERR: $!";
+    open STDOUT, ">>config.log" or die "cannot redirect STDOUT: $!";
+    open STDERR, ">&STDOUT" or die "cannot dup STDOUT: $!";
+    select STDERR; $| = 1;
+    select STDOUT; $| = 1;
+
+    my $cmd = join ' ', @cmd;
+    print <<EOC;
+cat >gettext.c <<EOF
+$c_code
+EOF
+EOC
+    print "$cmd\n";
+    my $result = system $cmd;
+
+	# Restore standard file descriptors
+	close STDOUT; #or die "cannot close STDOUT: $!";
+	close STDERR; #or die "cannot close STDERR: $!";
+	open STDOUT, ">&OLDOUT" or die "cannot dup \$oldout: $!";
+	open STDERR, ">&OLDERR" or die "cannot dup OLDERR: $!";
+	close OLDOUT; close OLDERR; # Shut up warnings.
+
+	unlink "gettest.c", "gettest.exe";
+
+	print STDERR $result ? "no.\n" : "yes.\n";
+
+	return !$result;
+}
 
 package MY;
 
@@ -193,24 +251,25 @@ my $name = $0;
 $name =~ s,Makefile\.PL$,xs_disabled,;
 local *HANDLE;
 open HANDLE, ">$name" or die "cannot open '$name' for writing: $!";
-print HANDLE $result;
+print HANDLE !$build_gettext_xs;
 close HANDLE or die "cannot close '$name': $!";
 
 WriteMakefile (
     NAME		    => 'libintl-perl',
 	VERSION_FROM	=> 'lib/Locale/Messages.pm',
     ($] >= 5.005 ?
-		(ABSTRACT	=> 'High-Level Interface to Uniforum Message Translation',
-	 	 AUTHOR		=> 'Guido Flohr <guido@imperia.net>',
-		 ) : (),
-	),
-	PREREQ_PM		=> { File::Spec => 0 },
-	PL_FILES        => {},
-	DIR		=> [$result == 0 ? ('gettext_xs') : ()],
-	clean			=> { FILES => 'xs_disabled build_xs' }
-	# If you want to build the XS version although the automatic detection
-	# suggests not to build it, uncomment the following line.
-	#DIR => [ ('gettext_xs') ],,
+         (ABSTRACT          => 'High-Level Interface to Uniforum Message'
+                                 . ' Translation',
+	  AUTHOR	    => 'Guido Flohr <guido@imperia.net>',
+	 ) : (),
+    ),
+    PREREQ_PM		    => { 'File::Spec' => 0, version => 0.77 },
+    PL_FILES                => {},
+    DIR		            => [$build_gettext_xs ? ('gettext_xs') : ()],
+    clean		    => { FILES => 'xs_disabled build_xs' }
+    # If you want to build the XS version although the automatic detection
+    # suggests not to build it, uncomment the following line.
+    #DIR => [ ('gettext_xs') ],,
 );
 
 sub MY::postamble {
