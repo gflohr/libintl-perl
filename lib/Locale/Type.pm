@@ -82,7 +82,9 @@ Locale::Type - Perl wrapper for locale_t
 The module B<Locale::Type> is a Perl binding for extended locale support.
 It can be used alone or with the locale functions defined by POSIX(3pm).
 
-It offers an object-oriented and procedural interface.
+Please consider the module and the API as experimental!
+
+The module offers an object-oriented and procedural interface.
 
 In a nutshell, the extended locale API allows switching or querying
 locale settings in a re-entrant matter.
@@ -92,6 +94,9 @@ this case Locale::Type(3pm) tries to emulate the functionality but this
 emulation is I<not> thread-safe.  It is offered for your convenience,
 so that you can offer re-entrancy for systems that provide the necessary
 requirements.
+
+The module does B<not> implement the convenience wrappers like
+printf_l(3), strftime_l(3) and so on!
 
 =head1 METHODS
 
@@ -128,8 +133,23 @@ per-thread locale, and the current locale is not changed.
 Creates a copy of B<LOCALE_DESCRIPTOR>.
 
 When called as a class method, the current thread locale is copied.
+Passing LC_GLOBAL_LOCALE will duplicate the globale locale.
+
+=item B<query MASK, LOCALE_DESCRIPTOR>
+
+Returns the name of the locale as a string.  The argument B<MASK>
+is scanned the least significant bit first, and a value is returned
+for the first valid bit found.  Otherwise the function returns
+false.
+
+Relying on a certain order of the bits in the mask is not portable.
+You should therefore only query locale with one bit.
 
 =back
+
+You may notice that there is no binding to the C library function
+freelocale().  The module will automatically call freelocale()
+internally, if the usecount for the object drops to zero.
 
 =head1 FUNCTIONS
 
@@ -150,6 +170,11 @@ returned, and the locale is not changed.
 =item B<duplocale LOCALE_DESCRIPTOR>
 
 Equivalent to dup().  If you do not pass B<LOCALE_DESCRIPTOR> the
+current thread locale is used.
+
+=item B<querylocale mask, LOCALE_DESCRIPTOR>
+
+Equivalent to query().  If you do not pass B<LOCALE_DESCRIPTOR> the
 current thread locale is used.
 
 =back
@@ -223,6 +248,10 @@ It can only be used as an argument, and it can only be returned by
 a function, if explicitely specified.
 
 =back
+
+=head1 SINCE
+
+The module was introduced in libintl-perl 1.21.
 
 =head1 AUTHOR
 
