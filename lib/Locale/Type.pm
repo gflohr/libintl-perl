@@ -54,6 +54,8 @@ use constant LC_ALL_MASK => LC_CTYPE_MASK
                          | LC_MEASUREMENT_MASK
                          | LC_IDENTIFICATION_MASK;
 
+use constant LC_GLOBAL_LOCALE => -1;
+
 1;
 
 __END__
