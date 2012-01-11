@@ -180,6 +180,8 @@ my $has_nl_langinfo;
 sub __load_catalog;
 sub __load_domain;
 sub __locale_category;
+sub __untaint_plural_header;
+sub __compile_plural_function;
 
 sub LC_NUMERIC()
 {
@@ -674,42 +676,10 @@ sub __load_catalog
 	
 	# Untaint the plural header.
 	# Keep line breaks as is (Perl 5_005 compatibility).
-	if ($code =~ m{^($s*
-					 nplurals$s*=$s*[0-9]+
-					 $s*;$s*
-					 plural$s*=$s*(?:$s|[-\?\|\&=!<>+*/\%:;a-zA-Z0-9_\(\)])+
-					 )}xms) {
-		$domain->{po_header}->{plural_forms} = $1;
-	} else {
-		$domain->{po_header}->{plural_forms} = '';
-	}
-	
-	# Determine plural rules.
-	# The leading and trailing space is necessary to be able to match
-	# against word boundaries.
-	my $plural_func;
-	
-	if ($domain->{po_header}->{plural_forms}) {
-		my $code = ' ' . $domain->{po_header}->{plural_forms} . ' ';
-		$code =~ 
-			s/([^_a-zA-Z0-9]|\A)([_a-z][_A-Za-z0-9]*)([^_a-zA-Z0-9])/$1\$$2$3/g;
-		
-		$code = "sub { my \$n = shift; 
-				   my (\$plural, \$nplurals); 
-				   $code; 
-				   return (\$nplurals, \$plural ? \$plural : 0); }";
-		
-		# Now try to evaluate the code.	 There is no need to run the code in
-		# a Safe compartment.  The above substitutions should have destroyed
-		# all evil code.  Corrections are welcome!
-		$plural_func = eval $code;
-		undef $plural_func if $@;
-	}
-	
-	# Default is Germanic plural (which is incorrect for French).
-	$plural_func = eval "sub { (2, 1 != shift || 0) }" unless $plural_func;
-	
-	$domain->{plural_func} = $plural_func;
+    $code = $domain->{po_header}->{plural_forms} 
+        = __untaint_plural_header $code;
+
+	$domain->{plural_func} = __compile_plural_function $code;
 	
 	return $domain;
 }
@@ -775,6 +745,55 @@ sub __get_codeset
 	return;
 }
 	
+sub __untaint_plural_header {
+    my ($code) = @_;
+
+	# Whitespace, locale-independent.
+	my $s = '[ \t\r\n\013\014]';
+
+	if ($code =~ m{^($s*
+					 nplurals$s*=$s*[0-9]+
+					 $s*;$s*
+					 plural$s*=$s*(?:$s|[-\?\|\&=!<>+*/\%:;a-zA-Z0-9_\(\)])+
+					 )}xms) {
+		return $1;
+	}
+
+    return '';	
+}
+
+sub __compile_plural_function {
+    my ($code) = @_;
+
+	# The leading and trailing space is necessary to be able to match
+	# against word boundaries.
+	my $plural_func;
+	
+	if (length $code) {
+		my $code = ' ' . $code . ' ';
+		$code =~ 
+			s/(?<=[^_a-zA-Z0-9])[_a-z][_A-Za-z0-9]*(?=[^_a-zA-Z0-9])/\$$&/gs;
+		
+		$code = "sub { my \$n = shift || 0; 
+				   my (\$plural, \$nplurals); 
+				   $code; 
+				   return (\$nplurals, \$plural ? \$plural : 0); }";
+		
+		# Now try to evaluate the code.	 There is no need to run the code in
+		# a Safe compartment.  The above substitutions should have destroyed
+		# all evil code.  Corrections are welcome!
+        #warn $code;
+		$plural_func = eval $code;
+        #warn $@ if $@;
+		undef $plural_func if $@;
+	}
+    	
+	# Default is Germanic plural (which is incorrect for French).
+	$plural_func = eval "sub { (2, 1 != shift || 0) }" unless $plural_func;
+
+    return $plural_func;	
+}
+
 1;
 
 __END__
