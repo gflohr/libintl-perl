@@ -72,11 +72,13 @@ use constant LANG2COUNTRY => {
     da => 'DK', # Danish => Denmark
     de => 'DE', # German => Germany
     dz => 'BT', # Dzongkha => Bhutan
+    el => 'GR', # Greek => Greece
     en => 'US', # English => United States
-    en => 'ES', # Actually Mexico and the US have more Spanish speakers
-                # than spain.  But it can be assumed that they either add
+    es => 'ES', # Actually Mexico and the US have more Spanish speakers
+                # than Spain.  But it can be assumed that they either add
                 # the country to their browser settings or will not care
                 # to much.
+    et => 'EE', # Estonian => Estonia
     fa => 'IR', # Iran, Islamic Republic of
     fi => 'FI', # Finnish => Finland
     fj => 'FJ', # Fijian => Fiji
@@ -174,7 +176,7 @@ use constant LANG2COUNTRY => {
     sg => '??', # Sango => Central African Republic
     si => 'LK', # Sinhalese => Sri Lanka
     sk => 'SK', # Slovakian => Slovakia
-    sl => 'SL', # Slovenian => Slovenia
+    sl => 'SI', # Slovenian => Slovenia
     sm => 'WS', # Samoan => Samoa
     sh => 'ZW', # Shona => Zimbabwe (FIXME: Rather Mozambique?)
     so => 'SO', # Somali => Somalia
