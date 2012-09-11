@@ -264,6 +264,7 @@ WriteMakefile (
 	 ) : (),
     ),
     PREREQ_PM		    => { 'File::Spec' => 0, version => 0.77 },
+    META_MERGE		    => { 'recommends' => { 'File::ShareDir' => 0 } },
     PL_FILES                => {},
     DIR		            => [$build_gettext_xs ? ('gettext_xs') : ()],
     clean		    => { FILES => 'xs_disabled build_xs' }
