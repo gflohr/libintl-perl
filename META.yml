@@ -1,11 +1,29 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         libintl-perl
-version:      1.20
-version_from: lib/Locale/Messages.pm
-installdirs:  site
+---
+abstract: 'High-Level Interface to Uniforum Message Translation'
+author:
+  - 'Guido Flohr <guido@imperia.net>'
+build_requires:
+  ExtUtils::MakeMaker: 0
+configure_requires:
+  ExtUtils::MakeMaker: 0
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120921'
+license: unknown
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: libintl-perl
+no_index:
+  directory:
+    - t
+    - inc
+recommends:
+  File::ShareDir: 0
 requires:
-    File::Spec:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+  File::Spec: 0
+  version: 0.77
+resources:
+  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=libintl-perl
+  homepage: http://git.guido-flohr.net/projects/libintl-perl/
+  repository: git://git.guido-flohr.net/perl/libintl-perl.git
+version: 1.20

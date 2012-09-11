@@ -264,7 +264,14 @@ WriteMakefile (
 	 ) : (),
     ),
     PREREQ_PM		    => { 'File::Spec' => 0, version => 0.77 },
-    META_MERGE		    => { 'recommends' => { 'File::ShareDir' => 0 } },
+    META_MERGE		    => {
+        recommends => { 'File::ShareDir' => 0 },
+        resources  => {
+            homepage   => 'http://git.guido-flohr.net/projects/libintl-perl/',
+            bugtracker => 'http://rt.cpan.org/Public/Dist/Display.html?Name=libintl-perl',
+            repository => 'git://git.guido-flohr.net/perl/libintl-perl.git',
+        },
+    },
     PL_FILES                => {},
     DIR		            => [$build_gettext_xs ? ('gettext_xs') : ()],
     clean		    => { FILES => 'xs_disabled build_xs' }
