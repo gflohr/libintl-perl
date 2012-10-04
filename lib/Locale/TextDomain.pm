@@ -504,10 +504,11 @@ to search other directories prior to the default directories.  Specifying
 a differnt search directory is called I<binding> a textdomain to a 
 directory.
 
-B<Locale::TextDomain> extends the default strategy by a Perl-specific
-approach. Unless told otherwise, it will first look for a directory named
-F<LocaleData> in the directory returned by
-C<File::ShareDir::dist_dir($textdomain)> (if L<File::ShareDir> is installed),
+Beginning with version 1.20, B<Locale::TextDomain> extends the default 
+strategy by a Perl-specific approach.  If L<File::ShareDir> is installed, it 
+will look in the subdirectories named F<locale> and F<LocaleData> (in that 
+order) in the directory returned by C<File::ShareDir::dist_dir ($textdomain)>
+(if L<File::ShareDir> is installed),
 and check for a database containing the message for your textdomain there.
 This allows you to install your database in the Perl-specific shared directory
 using L<Module::Install>'s C<install_share> directive or the Dist::Zilla
