@@ -304,9 +304,11 @@ sub import
 				unless @search_dirs;
 			if (my $share = eval {
 				require File::ShareDir;
-				File::ShareDir::dist_dir($textdomain);
+				File::ShareDir::dist_dir ($textdomain);
 			}) {
-				unshift @search_dirs, "$share/LocaleData";
+				unshift @search_dirs, 
+                        map { "$share/$_" }, 
+                        qw (locale LocaleData);
             }
 		}
 		$bound_dirs{$textdomain} = [grep { -d $_ } @search_dirs];
