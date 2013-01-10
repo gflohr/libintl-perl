@@ -6,8 +6,9 @@
 use strict;
 
 use Test;
+use POSIX;
 
-use constant NUM_TESTS => 1;
+my $
 
 BEGIN {
 	plan tests => NUM_TESTS;
@@ -15,5 +16,7 @@ BEGIN {
 
 use Locale::Type;
 
-ok Locale::Type::LC_GLOBAL_LOCALE();
+my $global_lt = Locale::Type::LC_GLOBAL_LOCALE();
+ok $global_lt;
 
+my $lt = Locale::Type->new(Locale::Type::LC_MESSAGES_MASK(), "de_DE.utf-8");
