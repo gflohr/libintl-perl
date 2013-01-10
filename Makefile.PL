@@ -114,47 +114,6 @@ EOF
 EOF
 }
 
-$c = <<EOF;
-main ()
-{
-    newlocale();
-    return 0;
-}
-EOF
-my $has_newlocale = ac_try_link $c, "Checking whether you have newlocale()";
-$c = <<EOF;
-main ()
-{
-    uselocale();
-    return 0;
-}
-EOF
-my $has_uselocale = ac_try_link $c, "Checking whether you have uselocale()";
-$c = <<EOF;
-main ()
-{
-    freelocale();
-    return 0;
-}
-EOF
-my $has_freelocale = ac_try_link $c, "Checking whether you have freelocale()";
-$c = <<EOF;
-main ()
-{
-    duplocale();
-    return 0;
-}
-EOF
-my $has_duplocale = ac_try_link $c, "Checking whether you have duplocale()";
-$c = <<EOF;
-main ()
-{
-    querylocale();
-    return 0;
-}
-EOF
-my $has_querylocale = ac_try_link $c, "Checking whether you have querylocale()";
-
 sub ac_try_link {
     my ($c_code, $msg, @options) = @_;
 
