@@ -307,7 +307,7 @@ sub import
 				File::ShareDir::dist_dir ($textdomain);
 			}) {
 				unshift @search_dirs, 
-                        map { "$share/$_" }, 
+                        map { "$share/$_" }
                         qw (locale LocaleData);
             }
 		}
