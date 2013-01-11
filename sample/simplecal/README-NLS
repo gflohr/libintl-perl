@@ -98,8 +98,13 @@ variables.
 
 If "LANGUAGE" is not set, the library checks the variable "LANG".  It has the
 same syntax as "LANGUAGE" but does not allow the preferences chain with the
-colon syntax.  After "LANG" the variable "LC_MESSAGES" (think "locale category
-messages") is tried, and finally "LC_ALL".
+colon syntax.  After "LANG" the variable "LC_ALL" is tried, and finally
+"LC_MESSAGES" (think "locale category messages").
+
+IMPORTANT! The environment variable "LANGUAGE" is ignored, if neither the
+environment variable "LC_ALL" or "LC_MESSAGES" is set to a valid locale on
+your system.  It is also ignored, if the resulting locale is the fallback
+locale "C" or "POSIX".
 
 Note for Microsoft Windows users: The locale preferences you have configured
 for your system cannot yet be evaluated by libintl-perl.  This may change for
