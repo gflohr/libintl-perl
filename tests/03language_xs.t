@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 6;
+use constant NUM_TESTS => 8;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext);
 require POSIX;
@@ -77,6 +77,18 @@ my $translation = gettext ('January');
 
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de:de_AT");
 skip $missing_locale, gettext ('February'), 'Februar'; # not 'Feber'!
+
+# Check that LANG works.
+Locale::Messages::nl_putenv ("LANGUAGE");
+Locale::Messages::nl_putenv ("LANG=de_DE.utf-8");
+POSIX::setlocale (POSIX::LC_ALL(), '');
+skip $missing_locale, gettext ('February'), 'Februar';
+
+# But LANGUAGE has precedence.
+Locale::Messages::nl_putenv ("LANGUAGE=de_AT.utf-8");
+Locale::Messages::nl_putenv ("LANG=de_DE.utf-8");
+POSIX::setlocale (POSIX::LC_ALL(), '');
+skip $missing_locale, gettext ('February'), 'Feber';
 
 __END__
 
