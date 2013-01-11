@@ -3,6 +3,9 @@ Version 1.20 - 29 Jue 2009
 * Test suite revamped.  Failures are now explained better, and it should
   be easier to debug them remotely.
 
+* Bugs fixed:
+  https://rt.cpan.org/Ticket/Display.html?id=49744
+
 Version 1.19 - 19 Jun 2009
 
 * New context functions now work with Perl 5.6.2.
