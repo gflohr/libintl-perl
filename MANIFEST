@@ -162,7 +162,6 @@ lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/VISCII.pm
 lib/Locale/RecodeData/_Encode.pm
 lib/Locale/TextDomain.pm
-lib/Locale/Type.pm
 lib/Locale/Util.pm                       Attention! Alpha code!
 lib/Locale/gettext_pp.pm
 lib/Locale/gettext_xs.pod
@@ -175,6 +174,7 @@ sample/simplecal/TRANSLATIONS
 sample/simplecal/bin/simplecal.pl
 sample/simplecal/lib/LocaleData/ar/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/LocaleData/ar_SA/LC_MESSAGES/org.imperia.simplecal.mo
+sample/simplecal/lib/LocaleData/cs/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/LocaleData/de/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/LocaleData/de_AT/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/LocaleData/fr/LC_MESSAGES/org.imperia.simplecal.mo
@@ -190,6 +190,7 @@ sample/simplecal/po/PACKAGE
 sample/simplecal/po/POTFILES.in
 sample/simplecal/po/ar.po
 sample/simplecal/po/ar_SA.po
+sample/simplecal/po/cs.po
 sample/simplecal/po/de.po
 sample/simplecal/po/de_AT.po
 sample/simplecal/po/fr.po
@@ -365,9 +366,12 @@ tests/03dnpgettext_pp.t
 tests/03dnpgettext_xs.t
 tests/03dpgettext_pp.t
 tests/03dpgettext_xs.t
+tests/03environment_pp.t
+tests/03environment_xs.t
 tests/03gettext_pp.t
 tests/03gettext_xs.t
 tests/03language_pp.t
+tests/03language_xs.t
 tests/03ngettext_pp.t
 tests/03ngettext_xs.t
 tests/03npgettext_pp.t
@@ -380,7 +384,6 @@ tests/04find_domain_bug.t
 tests/04scalar_noop.t
 tests/04russian_plural_function.t
 tests/05parse_accept.t
-tests/07locale_t.t
 tests/LocaleData/de/LC_MESSAGES/additional.mo
 tests/LocaleData/de/LC_MESSAGES/existing.mo
 tests/LocaleData/de_AT/LC_MESSAGES/additional.mo
