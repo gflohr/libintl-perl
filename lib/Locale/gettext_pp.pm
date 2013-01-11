@@ -475,6 +475,22 @@ sub nl_putenv ($)
 sub __load_domain
 {
 	my ($domainname, $category, $category_name) = @_;
+
+        # If no locale was selected for the requested locale category,
+        # l10n is disabled completely.  This matches the behavior of GNU
+        # gettext.
+        if ($category != LC_MESSAGES) {
+            # Not supported.
+            return [];
+        }
+        
+        my $locale;        
+        unless ($category == 1729) {
+                $locale = POSIX::setlocale ($category);
+                if (!defined $locale || 'C' eq $locale || 'POSIX' eq $locale) {
+                        return [];
+                }
+        }
 	
 	$domainname = $__gettext_pp_textdomain
 		unless defined $domainname && length $domainname;
@@ -489,8 +505,12 @@ sub __load_domain
 	if (defined $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
 		@locales = split /:/, $ENV{LANGUAGE};
 		$cache_key = $ENV{LANGUAGE};
+	} elsif (!defined $locale) {
+	        # The system does not have LC_MESSAGES.  Guess the value.
+		@locales = $cache_key = __locale_category ($category, 
+		                                           $category_name);
 	} else {
-		@locales = $cache_key = __locale_category ($category, $category_name);
+	        @locales = $cache_key = $locale;
 	}
 
 	# Have we looked that one up already?
@@ -700,7 +720,7 @@ sub __locale_category
 						  (?:\.[-_A-Za-z0-9]+)?
 						  )?
 						 (?:\@[-_A-Za-z0-9]+)?$/x);
-	
+
 	unless ($value) {
 		$value = $ENV{LC_ALL};
 		$value = $ENV{$category_name} unless defined $value && length $value;
