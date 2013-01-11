@@ -7,6 +7,7 @@ po/PACKAGE
 po/POTFILES.in
 po/ar.po
 po/ar_SA.po
+po/cs.po
 po/de.po
 po/de_AT.po
 po/fr.po
@@ -28,3 +29,4 @@ lib/LocaleData/pt/LC_MESSAGES/org.imperia.simplecal.mo
 lib/LocaleData/pt_BR/LC_MESSAGES/org.imperia.simplecal.mo
 lib/LocaleData/nl/LC_MESSAGES/org.imperia.simplecal.mo
 lib/LocaleData/ru/LC_MESSAGES/org.imperia.simplecal.mo
+lib/LocaleData/cs/LC_MESSAGES/org.imperia.simplecal.mo

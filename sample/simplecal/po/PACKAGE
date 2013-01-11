@@ -13,6 +13,7 @@ LINGUAS = de \
 	  pt \
 	  pt_BR \
 	  nl \
+          cs
 
 # Textdomain for our package.
 TEXTDOMAIN = org.imperia.simplecal
