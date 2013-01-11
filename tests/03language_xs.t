@@ -30,6 +30,13 @@ BEGIN {
 	plan tests => NUM_TESTS;
 }
 
+# Clean environment first.
+foreach my $var (keys %ENV) {
+    if ('LC_' eq substr $var, 0, 3) {
+        Locale::Messages::nl_putenv ("$var");
+    }
+}
+
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT");
 Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
