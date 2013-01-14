@@ -187,7 +187,7 @@ sample/simplecal/lib/LocaleData/ru/LC_MESSAGES/org.imperia.simplecal.mo
 sample/simplecal/lib/SimpleCal.pm
 sample/simplecal/po/Makefile
 sample/simplecal/po/PACKAGE
-sample/simplecal/po/POTFILES.in
+sample/simplecal/po/POTFILES
 sample/simplecal/po/ar.po
 sample/simplecal/po/ar_SA.po
 sample/simplecal/po/cs.po
