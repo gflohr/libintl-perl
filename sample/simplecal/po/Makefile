@@ -26,35 +26,26 @@ help:
 	@echo "  update-po                 - merge po files"
 	@echo "  update-mo                 - regenerate mo files"
 	@echo "  install                   - install mo files"
-	@echo "  all			   - all of the above"
+	@echo "  all                       - all of the above"
 
-POTFILES = $(srcdir)/POTFILES.in \
-	$(shell cat $(srcdir)/POTFILES.in) 
+POTFILES = $(srcdir)/POTFILES \
+	$(shell cat $(srcdir)/POTFILES) 
 
 pot: $(TD).pot 
 
 clean:
 	rm -f *~ *.bak *.mo
 
-# FIXME: The parameter --from-code is only needed if your sources contain
-# any 8 bit data (even in comments).  UTF-8 is only a guess here, but it
-# will at least accept any 8 bit data.
-#
-# The parameter "--language=perl" is not strictly needed because the
-# source language of all our files will be auto-detected by xgettext
-# by their filename extension.  You should even avoid this parameter
-# if you want to extract strings from multiple source languages.
 $(TD).pot: $(POTFILES)
 	$(XGETTEXT) --output=$(srcdir)/$(TD).pox --from-code=utf-8 \
-		--add-comments=TRANSLATORS: --files-from=$(srcdir)/POTFILES.in \
+		--add-comments=TRANSLATORS: --files-from=$(srcdir)/POTFILES \
 		--copyright-holder="$(COPYRIGHT_HOLDER)" \
 		--msgid-bugs-address="$(MSGID_BUGS_ADDRESS)" \
 		--keyword --keyword='$$__' --keyword=__ --keyword=__x \
 		--keyword=__n:1,2 --keyword=__nx:1,2 --keyword=__xn:1,2 \
 		--keyword=__p:1c,2 --keyword=__np:1c,2,3 \
 		--keyword=__npx:1c,2,3 --keyword=N__ --keyword=N__n:1,2 \
-		--keyword=N__p:1c,2 --keyword=N__np:1c,2,3 --keyword=%__ \
-		--language=perl && \
+		--keyword=N__p:1c,2 --keyword=N__np:1c,2,3 --keyword=%__ && \
 	rm -f $@ && mv $(TD).pox $@
 
 install: $(MO_FILES)
