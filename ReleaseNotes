@@ -1,3 +1,19 @@
+Version 1.21 - 15 Jan 2013
+
+* Environment variables LANGUAGE and LANG are interpreted in the same way
+  in the XS and the pure Perl version.
+
+* If present, File::ShareDir is used for searching message catalogs.
+
+* Bugs fixed:
+  https://rt.cpan.org/Ticket/Display.html?id=78341
+  https://rt.cpan.org/Ticket/Display.html?id=81315
+  https://rt.cpan.org/Ticket/Display.html?id=79461
+  https://rt.cpan.org/Ticket/Display.html?id=71509
+  https://rt.cpan.org/Ticket/Display.html?id=49744
+  https://rt.cpan.org/Ticket/Display.html?id=49744
+  https://rt.cpan.org/Ticket/Display.html?id=64284
+
 Version 1.20 - 29 Jue 2009
 
 * Test suite revamped.  Failures are now explained better, and it should
