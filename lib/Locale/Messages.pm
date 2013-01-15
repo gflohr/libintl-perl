@@ -34,7 +34,7 @@ my $can_xs = 1;
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
-die "Version: $version mismatch (1.20 vs. $version)" unless $version eq '1.20';
+die "Version: version mismatch ($VERSION vs. $version)" unless $version eq $VERSION;
 EOF
 if ($@) {
     $package = 'gettext_pp';
