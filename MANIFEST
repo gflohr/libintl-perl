@@ -2,7 +2,7 @@ COPYING.LESSER			Lesser GNU Public License
 ChangeLog			Detailed list of changes
 FAQ				Frequently asked questions
 MANIFEST			This list of files
-META.yml			Generated
+MANIFEST.SKIP                   Files to suppress in MANIFEST
 Makefile.PL			Makefile generator
 MyInstall.pm			Workaround file
 NEWS				Latest Changes
@@ -16,6 +16,8 @@ THANKS				Contributors
 Credits				Same as THANKS
 TODO				Missing
 gettext_xs/Makefile.PL		Makefile generator
+gettext_xs/MYMETA.json
+gettext_xs/MYMETA.yml
 gettext_xs/gettext_xs.pm	XS loader
 gettext_xs/gettext_xs.xs	XS binding
 lib/Locale/Messages.pm		Gettext Like Message Retrieval
@@ -189,30 +191,30 @@ sample/simplecal/po/Makefile
 sample/simplecal/po/PACKAGE
 sample/simplecal/po/POTFILES
 sample/simplecal/po/ar.po
-sample/simplecal/po/ar.mo
+sample/simplecal/po/ar.gmo
 sample/simplecal/po/ar_SA.po
-sample/simplecal/po/ar_SA.mo
+sample/simplecal/po/ar_SA.gmo
 sample/simplecal/po/cs.po
-sample/simplecal/po/cs.mo
+sample/simplecal/po/cs.gmo
 sample/simplecal/po/de.po
-sample/simplecal/po/de.mo
+sample/simplecal/po/de.gmo
 sample/simplecal/po/de_AT.po
-sample/simplecal/po/de_AT.mo
+sample/simplecal/po/de_AT.gmo
 sample/simplecal/po/fr.po
-sample/simplecal/po/fr.mo
+sample/simplecal/po/fr.gmo
 sample/simplecal/po/ga.po
-sample/simplecal/po/ga.mo
+sample/simplecal/po/ga.gmo
 sample/simplecal/po/it.po
-sample/simplecal/po/it.mo
+sample/simplecal/po/it.gmo
 sample/simplecal/po/nl.po
-sample/simplecal/po/nl.mo
+sample/simplecal/po/nl.gmo
 sample/simplecal/po/org.imperia.simplecal.pot
 sample/simplecal/po/pt.po
-sample/simplecal/po/pt.mo
+sample/simplecal/po/pt.gmo
 sample/simplecal/po/pt_BR.po
-sample/simplecal/po/pt_BR.mo
+sample/simplecal/po/pt_BR.gmo
 sample/simplecal/po/ru.po
-sample/simplecal/po/ru.mo
+sample/simplecal/po/ru.gmo
 test.pl
 tests/00gettext.t
 tests/00recode.t
@@ -406,3 +408,5 @@ tests/po/additional.de_AT.po
 tests/po/existing.de.po
 tests/po/existing.de_AT.po
 META.yml                                Module meta-data (added by MakeMaker)
+MYMETA.json
+MYMETA.yml

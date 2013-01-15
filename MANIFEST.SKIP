@@ -13,6 +13,8 @@ x-.*$
 \.tar.gz$
 ^pm_to_blib$
 ^USERS$
+^config.log$
+^xs_disabled$
 ^gettext_xs/.git*
 ^gettext_xs/Makefile
 ^gettext_xs/.*\.(bs|c|o)$
@@ -21,3 +23,5 @@ x-.*$
 ^xs_disabled$
 ^config\.log$
 ^cover_db$
+^\.includepath$
+^\.project$
