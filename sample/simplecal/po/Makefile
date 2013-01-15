@@ -3,9 +3,8 @@
 srcdir = .
 libdir = ../lib
 
-#CATALOGS = $(addsuffix .po, LINGUAS)
-CATALOGS = $(LINGUAS)
-MO_FILES = $(addsuffix .mo, $(LINGUAS))
+CATALOGS  = $(LINGUAS)
+MO_FILES = $(addsuffix .gmo, $(LINGUAS))
 
 MSGMERGE = msgmerge
 MSGFMT   = msgfmt
@@ -34,7 +33,7 @@ POTFILES = $(srcdir)/POTFILES \
 pot: $(TD).pot 
 
 clean:
-	rm -f *~ *.bak *.mo
+	rm -f *~ *.bak *.gmo
 
 $(TD).pot: $(POTFILES)
 	$(XGETTEXT) --output=$(srcdir)/$(TD).pox --from-code=utf-8 \
@@ -55,7 +54,7 @@ install: $(MO_FILES)
 	for lang in $$languages; do \
 		mkdir -p "$$targetdir/$$lang/LC_MESSAGES" || exit 1; \
 		dest="$$targetdir/$$lang/LC_MESSAGES/$(TD).mo"; \
-		cat="$$lang.mo"; \
+		cat="$$lang.gmo"; \
 		echo "installing $$cat as $$dest"; \
 		cp -f $$cat $$dest && chmod 644 $$dest || exit 1; \
 	done
@@ -81,8 +80,8 @@ update-po:
         done
 
 .SUFFIXES:
-.SUFFIXES: .po .mo
+.SUFFIXES: .po .gmo
 
-.po.mo:
+.po.gmo:
 	$(MSGFMT) --check --statistics --verbose -o $@ $<
 
