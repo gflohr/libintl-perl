@@ -201,16 +201,16 @@ that every single po file (every language that the package supports)
 gets updated, and the new strings are inserted into the po
 files. Since nothing really changed here (we did not change the source
 files yet) you can now try to update the compiled po files which end in
-".mo" with "make update-mo".
+".gmo" (for GNU mo format) with "make update-mo".
 
 Again, you will see maybe cryptic output from "make" that signifies
 that all compiled files are re-generated now by a program called
 "msgfmt".
 
 The last step requires that you copy the (possibly changed) mo files
-into your package by "make install".  This will copy the mo files into
-the subdirectory "LocaleData" of your package so that libintl-perl is
-able to find them at runtime.
+into your package by "make install".  This will copy the gmo files as
+".mo" files into the subdirectory "LocaleData" of your package so that 
+libintl-perl is able to find them at runtime.
 
 You can perform all these steps at once by typing "make all" although
 this is mostly useful for testing purposes.  In reality the workflow
