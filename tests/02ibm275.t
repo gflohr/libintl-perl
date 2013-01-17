@@ -75,7 +75,7 @@ ok $result_int;
 # Check handling of unknown characters.
 my $test_string1 = [ unpack 'c*', ' Supergirl ' ];
 $test_string1->[0] = 0xad0be;
-$test_string1->[-1] = 0xbeefbabe;
+$test_string1->[-1] = 0xad0be;
 my $test_string2 = [ unpack 'c*', 'Supergirl' ];
 
 my $unknown = "\x6f"; # Unknown character!
