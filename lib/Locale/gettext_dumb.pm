@@ -27,65 +27,76 @@ use Locale::gettext_pp;
 
 use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 
-%EXPORT_TAGS = (locale_h => [ qw (
-                                                                  gettext
-                                                                  dgettext
-                                                                  dcgettext
-                                                                  ngettext
-                                                                  dngettext
-                                                                  dcngettext
-                                                                  pgettext
-                                                                  dpgettext
-                                                                  dcpgettext
-                                                                  npgettext
-                                                                  dnpgettext
-                                                                  dcnpgettext
-                                                                  textdomain
-                                                                  bindtextdomain
-                                                                  bind_textdomain_codeset
-                                                                  )
-                                                          ],
-                                libintl_h => [ qw (LC_CTYPE
-                                                                   LC_NUMERIC
-                                                                   LC_TIME
-                                                                   LC_COLLATE
-                                                                   LC_MONETARY
-                                                                   LC_MESSAGES
-                                                                   LC_ALL)
-                                                           ],
-                                );
+%EXPORT_TAGS = (locale_h => [ qw (gettext
+                                  dgettext
+                                  dcgettext
+                                  ngettext
+                                  dngettext
+                                  dcngettext
+                                  pgettext
+                                  dpgettext
+                                  dcpgettext
+                                  npgettext
+                                  dnpgettext
+                                  dcnpgettext
+                                  textdomain
+                                  bindtextdomain
+                                  bind_textdomain_codeset
+                                  )],
+                libintl_h => [ qw (LC_CTYPE
+                                   LC_NUMERIC
+                                   LC_TIME
+                                   LC_COLLATE
+                                   LC_MONETARY
+                                   LC_MESSAGES
+                                   LC_ALL)],
+                );
 
 @EXPORT_OK = qw (gettext
-                                 dgettext
-                                 dcgettext
-                                 ngettext
-                                 dngettext
-                                 dcngettext
-                                 pgettext
-                                 dpgettext
-                                 dcpgettext
-                                 npgettext
-                                 dnpgettext
-                                 dcnpgettext
-                                 textdomain
-                                 bindtextdomain
-                                 bind_textdomain_codeset
+                 dgettext
+                 dcgettext
+                 ngettext
+                 dngettext
+                 dcngettext
+                 pgettext
+                 dpgettext
+                 dcpgettext
+                 npgettext
+                 dnpgettext
+                 dcnpgettext
+                 textdomain
+                 bindtextdomain
+                 bind_textdomain_codeset
                  nl_putenv
-                                 LC_CTYPE
-                                 LC_NUMERIC
-                                 LC_TIME
-                                 LC_COLLATE
-                                 LC_MONETARY
-                                 LC_MESSAGES
-                                 LC_ALL);
+                 LC_CTYPE
+                 LC_NUMERIC
+                 LC_TIME
+                 LC_COLLATE
+                 LC_MONETARY
+                 LC_MESSAGES
+                 LC_ALL);
+                 
 @ISA = qw (Exporter);
 
 *Locale::gettext_dumb::gettext = \&Locale::gettext_pp::gettext;
+*Locale::gettext_dumb::dgettext = \&Locale::gettext_pp::dgettext;
+*Locale::gettext_dumb::dcgettext = \&Locale::gettext_pp::dcgettext;
+*Locale::gettext_dumb::ngettext = \&Locale::gettext_pp::ngettext;
+*Locale::gettext_dumb::dngettext = \&Locale::gettext_pp::dngettext;
+*Locale::gettext_dumb::dcngettext = \&Locale::gettext_pp::dcngettext;
+*Locale::gettext_dumb::pgettext = \&Locale::gettext_pp::pgettext;
+*Locale::gettext_dumb::dpgettext = \&Locale::gettext_pp::dpgettext;
+*Locale::gettext_dumb::dcpgettext = \&Locale::gettext_pp::dcpgettext;
+*Locale::gettext_dumb::npgettext = \&Locale::gettext_pp::npgettext;
+*Locale::gettext_dumb::dnpgettext = \&Locale::gettext_pp::dnpgettext;
+*Locale::gettext_dumb::dcnpgettext = \&Locale::gettext_pp::dcnpgettext;
 
 *Locale::gettext_dumb::textdomain = \&Locale::gettext_pp::textdomain;
 *Locale::gettext_dumb::bindtextdomain = \&Locale::gettext_pp::bindtextdomain;
 *Locale::gettext_dumb::bind_textdomain_codeset = 
     \&Locale::gettext_pp::bind_textdomain_codeset;
+
+*Locale::gettext_dumb::nl_putenv = \&Locale::gettext_pp::nl_putenv;
 
 *Locale::gettext_dumb::LC_CTYPE = \&Locale::gettext_pp::LC_CTYPE;
 *Locale::gettext_dumb::LC_NUMERIC = \&Locale::gettext_pp::LC_NUMERIC;

@@ -9,7 +9,7 @@ use Test;
 
 use constant NUM_TESTS => 8;
 
-use Locale::Messages qw (bindtextdomain textdomain gettext);
+use Locale::Messages qw (bindtextdomain textdomain gettext nl_putenv);
 use Locale::gettext_pp;
 use POSIX;
 use File::Spec;
@@ -32,11 +32,11 @@ ok Locale::gettext_dumb::LC_MESSAGES(), Locale::gettext_pp::LC_MESSAGES();
 ok Locale::gettext_dumb::LC_ALL(), Locale::gettext_pp::LC_ALL();
 
 # Unset all environment variables and reset the locale to POSIX.
-Locale::Messages::nl_putenv ("MESSAGE_CATALOG");
-Locale::Messages::nl_putenv ("LANGUAGE");
-Locale::Messages::nl_putenv ("LANG");
-Locale::Messages::nl_putenv ("LC_ALL");
-Locale::Messages::nl_putenv ("LC_MESSAGES");
+nl_putenv "MESSAGE_CATALOG";
+nl_putenv "LANGUAGE";
+nl_putenv "LANG";
+nl_putenv "LC_ALL";
+nl_putenv "LC_MESSAGES";
 
 POSIX::setlocale (POSIX::LC_ALL(), "POSIX");
 
@@ -50,7 +50,12 @@ my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 ok defined $bound_dir;
 ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
-ok gettext ("December"), "December";
+# No translation.
+ok gettext "December", "December";
+
+# Point to an explicit file.
+nl_putenv "MESSAGE_CATALOG=$locale_dir/xy/LC_MESSAGES/existing.mo";
+ok gettext "December", "Dezember";
 
 __END__
 
