@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 11;
+use constant NUM_TESTS => 12;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext nl_putenv);
 use Locale::gettext_pp;
@@ -60,11 +60,14 @@ if ($^O !~ /darwin/i && $^O =~ /win/i) {
 } else {
     $path_sep = ':';
 }
+
 my $message_catalogs = "$locale_dir/xy_XY/LC_MESSAGES/existing.mo";
 $message_catalogs .= "$path_sep$locale_dir/xy/LC_MESSAGES/existing.mo";
 nl_putenv "MESSAGE_CATALOGS=$message_catalogs";
 
 ok gettext "December", "Dezember";
+# Make sure that the first path takes precedence.
+ok gettext "February", "Feber";
 
 __END__
 
