@@ -560,23 +560,11 @@ sub __load_domain
 				++$__gettext_pp_unavailable_dirs->{$fulldir} and next
 						unless -d $fulldir;
 
-				my $domain = __load_catalog $fulldir, $domainname;
+                                my $filename = File::Spec->catfile (
+                                    $fulldir, "$domainname.mo");
+				my $domain = __load_catalog ($filename, $try);
 				next unless $domain;
 				
-				unless (defined $domain->{po_header}->{charset} &&
-						length $domain->{po_header}->{charset} &&
-						$try =~ /^(?:[a-z][a-z])
-						(?:(?:_[A-Z][A-Z])?
-						 (\.[-_A-Za-z0-9]+)?
-						 )?
-						(?:\@[-_A-Za-z0-9]+)?$/x) {
-					$domain->{po_header}->{charset} = $1;
-				}
-				
-				if (defined $domain->{po_header}->{charset}) {
-					$domain->{po_header}->{charset} = 
-						Locale::Recode->resolveAlias ($domain->{po_header}->{charset});
-				}
 				$domain->{locale_id} = $locale_lookup{$try};
 				push @$domains, $domain;
 			}
@@ -585,14 +573,13 @@ sub __load_domain
 	}
 
 	$domains = [] unless defined $domains;
+	
 	return $domains;
 }
 
 sub __load_catalog
 {
-	my ($directory, $domainname) = @_;
-	
-	my $filename = "$directory/$domainname.mo";
+	my ($filename, $locale) = @_;
 	
 	# Alternatively we could check the filename for evil characters ...
 	# (Important for CGIs).
@@ -693,15 +680,30 @@ sub __load_catalog
 	
 	# Whitespace, locale-independent.
 	my $s = '[ \t\r\n\013\014]';
-	
+
 	# Untaint the plural header.
 	# Keep line breaks as is (Perl 5_005 compatibility).
     $code = $domain->{po_header}->{plural_forms} 
         = __untaint_plural_header $code;
 
-	$domain->{plural_func} = __compile_plural_function $code;
-	
-	return $domain;
+    $domain->{plural_func} = __compile_plural_function $code;
+
+    unless (defined $domain->{po_header}->{charset} 
+            && length $domain->{po_header}->{charset} 
+            && $locale =~ /^(?:[a-z][a-z])
+                            (?:(?:_[A-Z][A-Z])?
+                             (\.[-_A-Za-z0-9]+)?
+                            )?
+                            (?:\@[-_A-Za-z0-9]+)?$/x) {
+        $domain->{po_header}->{charset} = $1;
+    }
+                                
+    if (defined $domain->{po_header}->{charset}) {
+        $domain->{po_header}->{charset} = 
+            Locale::Recode->resolveAlias ($domain->{po_header}->{charset});
+    }
+    
+    return $domain;
 }
 
 sub __locale_category
