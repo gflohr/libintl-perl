@@ -338,8 +338,9 @@ sub dnpgettext($$$$$)
     return dcnpgettext ($domainname, $msgctxt, $msgid, $msgid_plural, $n, undef);
 }
 
-sub dcnpgettext($$$$$$)
-{
+# This is the actual implementation of dncpgettext.  It is also used by the
+# corresponding function in Locale::gettext_dumb.
+sub _dcnpgettext_impl {
     my ($domainname, $msgctxt, $msgid, $msgid_plural, $n, $category) = @_;
 
     return unless defined $msgid;
@@ -350,7 +351,7 @@ sub dcnpgettext($$$$$$)
     local $!; # Do not clobber errno!
     
     # This is also done in __load_domain but we need a proper value.
-    $domainname = 	$__gettext_pp_textdomain
+    $domainname = $__gettext_pp_textdomain
     	unless defined $domainname && length $domainname;
     
     # Category is always LC_MESSAGES (other categories are ignored).
@@ -440,6 +441,10 @@ sub dcnpgettext($$$$$$)
     }
     
     return $trans;
+}
+
+sub dcnpgettext ($$$$$$) {
+    return &_dcnpgettext_impl;
 }
 
 sub nl_putenv ($)
