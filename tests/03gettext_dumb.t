@@ -32,7 +32,7 @@ ok Locale::gettext_dumb::LC_MESSAGES(), Locale::gettext_pp::LC_MESSAGES();
 ok Locale::gettext_dumb::LC_ALL(), Locale::gettext_pp::LC_ALL();
 
 # Unset all environment variables and reset the locale to POSIX.
-nl_putenv "MESSAGE_CATALOG";
+nl_putenv "MESSAGE_CATALOGS";
 nl_putenv "LANGUAGE";
 nl_putenv "LANG";
 nl_putenv "LC_ALL";
@@ -60,10 +60,9 @@ if ($^O !~ /darwin/i && $^O =~ /win/i) {
 } else {
     $path_sep = ':';
 }
-
-my $message_catalogs = "$locale_dir/xy_XY/LC_MESSAGES/existing.mo";
-$message_catalogs .= "$path_sep$locale_dir/xy/LC_MESSAGES/existing.mo";
-nl_putenv "MESSAGE_CATALOGS=$message_catalogs";
+my $msgpath = "$locale_dir/xy_XY/LC_MESSAGES";
+$msgpath .= "$path_sep$locale_dir/xy/LC_MESSAGES";
+nl_putenv "MSGPATH=$msgpath";
 
 ok gettext "December", "Dezember";
 # Make sure that the first path takes precedence.
