@@ -474,7 +474,7 @@ sub nl_putenv ($)
 
 sub __load_domain
 {
-	my ($domainname, $category, $category_name) = @_;
+	my ($domainname, $category, $category_name, $locale) = @_;
 
         # If no locale was selected for the requested locale category,
         # l10n is disabled completely.  This matches the behavior of GNU
@@ -484,8 +484,7 @@ sub __load_domain
             return [];
         }
         
-        my $locale;        
-        unless ($category == 1729) {
+        if (!defined $locale && $category != 1729) {
                 $locale = POSIX::setlocale ($category);
                 if (!defined $locale || 'C' eq $locale || 'POSIX' eq $locale) {
                         return [];
