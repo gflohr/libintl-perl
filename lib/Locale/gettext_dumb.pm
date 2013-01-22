@@ -164,10 +164,10 @@ sub dnpgettext ($$$$$) {
 sub dcnpgettext ($$$$$$) {
     my ($domainname, $msgctxt, $msgid, $msgid_plural, $n, $category) = @_;
 
-    my $mo_files;
+    my $msgpath;
     my $locale;
 
-    if (exists $ENV{MESSAGE_CATALOGS} && length $ENV{MESSAGE_CATALOGS}) {
+    if (exists $ENV{MSGPATH} && length $ENV{MSGPATH}) {
         my $path_sep;
         if ($^O !~ /darwin/i && $^O =~ /win/i) {
             $path_sep = ';';
@@ -175,7 +175,7 @@ sub dcnpgettext ($$$$$$) {
             $path_sep = ':';
         }
         $locale = 'C';
-        $mo_files = [split /$path_sep/, $ENV{MESSAGE_CATALOGS}];
+        $msgpath = [split /$path_sep/, $ENV{MSGPATH}];
     } else {
         if (exists $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
             $locale = $ENV{LANGUAGE};
@@ -194,7 +194,7 @@ sub dcnpgettext ($$$$$$) {
     return Locale::gettext_pp::_dcnpgettext_impl ($domainname, $msgctxt,
                                                   $msgid, $msgid_plural, $n,
                                                   $category,
-                                                  $locale, $mo_files);
+                                                  $locale, $msgpath);
 }
 
 
