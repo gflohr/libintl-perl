@@ -80,6 +80,13 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
                                  LC_ALL);
 @ISA = qw (Exporter);
 
+*Locale::gettext_dumb::gettext = \&Locale::gettext_pp::gettext;
+
+*Locale::gettext_dumb::textdomain = \&Locale::gettext_pp::textdomain;
+*Locale::gettext_dumb::bindtextdomain = \&Locale::gettext_pp::bindtextdomain;
+*Locale::gettext_dumb::bind_textdomain_codeset = 
+    \&Locale::gettext_pp::bind_textdomain_codeset;
+
 *Locale::gettext_dumb::LC_CTYPE = \&Locale::gettext_pp::LC_CTYPE;
 *Locale::gettext_dumb::LC_NUMERIC = \&Locale::gettext_pp::LC_NUMERIC;
 *Locale::gettext_dumb::LC_TIME= \&Locale::gettext_pp::LC_TIME;
@@ -137,8 +144,8 @@ Locale::gettext_xs(3pm) or Locale::gettext_pp(3pm).
 
 While both other modules use POSIX::setlocale() to determine the currently
 selected locale, this backend only checks the environment variables
-MESSAGE_CATALOG, LANGUAGE, LANG, LC_ALL, LC_MESSAGES in order to locate
-a message catalog (in .mo or .gmo format).
+MESSAGE_CATALOG, LANGUAGE, LANG, LC_ALL, LC_MESSAGES (in that order)
+in order to locate a message catalog (a .mo file).
 
 The main advantage over the locale-aware message retrieval backends is
 (maybe) better performance, thread-safety, and independence of the

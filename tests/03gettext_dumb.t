@@ -7,10 +7,12 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 7;
+use constant NUM_TESTS => 8;
 
-use Locale::Messages;
+use Locale::Messages qw (bindtextdomain textdomain gettext);
 use Locale::gettext_pp;
+use POSIX;
+use File::Spec;
 
 BEGIN {
     my $selected = Locale::Messages->select_package ('gettext_dumb');
@@ -28,6 +30,27 @@ ok Locale::gettext_dumb::LC_COLLATE(), Locale::gettext_pp::LC_COLLATE();
 ok Locale::gettext_dumb::LC_MONETARY(), Locale::gettext_pp::LC_MONETARY();
 ok Locale::gettext_dumb::LC_MESSAGES(), Locale::gettext_pp::LC_MESSAGES();
 ok Locale::gettext_dumb::LC_ALL(), Locale::gettext_pp::LC_ALL();
+
+# Unset all environment variables and reset the locale to POSIX.
+Locale::Messages::nl_putenv ("MESSAGE_CATALOG");
+Locale::Messages::nl_putenv ("LANGUAGE");
+Locale::Messages::nl_putenv ("LANG");
+Locale::Messages::nl_putenv ("LC_ALL");
+Locale::Messages::nl_putenv ("LC_MESSAGES");
+
+POSIX::setlocale (POSIX::LC_ALL(), "POSIX");
+
+my $locale_dir = $0;
+$locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
+$locale_dir .= '/LocaleData';
+
+my $textdomain = 'existing';
+my $bound_dir = bindtextdomain $textdomain => $locale_dir;
+
+ok defined $bound_dir;
+ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
+
+ok gettext ("December"), "December";
 
 __END__
 

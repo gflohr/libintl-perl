@@ -198,8 +198,7 @@ sub select_package
     return $package;
 }
 
-sub bind_textdomain_filter($;$$)
-{
+sub bind_textdomain_filter ($;$$) {
 	my ($textdomain, $coderef, $data) = @_;
 
 	$filters{$textdomain} = [ $coderef, $data ];
@@ -207,36 +206,36 @@ sub bind_textdomain_filter($;$$)
 	return 1;
 }
 
-sub textdomain(;$)
-{
-    'gettext_xs' eq $package ?
-	&Locale::gettext_xs::textdomain :
-	&Locale::gettext_pp::textdomain;
+sub textdomain (;$) {
+    my $function = "Locale::${package}::textdomain";
+    
+    no strict 'refs';
+    &$function;
 }
 
-sub bindtextdomain($;$)
-{
-    'gettext_xs' eq $package ?
-	&Locale::gettext_xs::bindtextdomain :
-	&Locale::gettext_pp::bindtextdomain;
+sub bindtextdomain ($;$) {
+    my $function = "Locale::${package}::bindtextdomain";
+
+    no strict 'refs';
+    &$function;
 }
 
-sub bind_textdomain_codeset($;$)
-{
-    'gettext_xs' eq $package ?
-	&Locale::gettext_xs::bind_textdomain_codeset :
-	&Locale::gettext_pp::bind_textdomain_codeset;
+sub bind_textdomain_codeset ($;$) {
+    no strict 'refs';
+    
+    my $function = "Locale::${package}::bind_textdomain_codeset";
+    &$function;
 }
 
-sub gettext($)
-{
-	my $textdomain = textdomain;
-	$filters{$textdomain} ||= [ \&turn_utf_8_off ];
-	my $cb = $filters{$textdomain};
+sub gettext ($) {
+    my $textdomain = textdomain;
+    $filters{$textdomain} ||= [ \&turn_utf_8_off ];
+    my $cb = $filters{$textdomain};
 
-    $cb->[0] ('gettext_xs' eq $package ?
-		     &Locale::gettext_xs::gettext :
-		     &Locale::gettext_pp::gettext, $cb->[1]);
+    my $function = "Locale::${package}::gettext";
+    
+    no strict 'refs';
+    $cb->[0] (&$function, $cb->[1]);
 }
 
 sub dgettext($$)
@@ -783,7 +782,7 @@ or "gettext_xs" and use a completely different backend.  It is the caller's
 responsability to make sure that the selected package offers the same
 interface as the two standard packages.
 
-One package that offers that functionality is Locale::gettext_dumb(3pm).
+One package that offers that functionality is Locale::gettext_dump(3pm).
 
 =item B<nl_putenv ENVSPEC>
 
