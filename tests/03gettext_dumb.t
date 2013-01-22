@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 12;
+use constant NUM_TESTS => 10;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext nl_putenv);
 use Locale::gettext_pp;
@@ -52,21 +52,6 @@ ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 
 # No translation.
 ok gettext "December", "December";
-
-# Point to an explicit file.
-my $path_sep;
-if ($^O !~ /darwin/i && $^O =~ /win/i) {
-    $path_sep = ';';
-} else {
-    $path_sep = ':';
-}
-my $msgpath = "$locale_dir/xy_XY/LC_MESSAGES";
-$msgpath .= "$path_sep$locale_dir/xy/LC_MESSAGES";
-nl_putenv "MSGPATH=$msgpath";
-
-ok gettext "December", "Dezember";
-# Make sure that the first path takes precedence.
-ok gettext "February", "Feber";
 
 __END__
 

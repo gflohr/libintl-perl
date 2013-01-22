@@ -342,7 +342,7 @@ sub dnpgettext($$$$$)
 # corresponding function in Locale::gettext_dumb.
 sub _dcnpgettext_impl {
     my ($domainname, $msgctxt, $msgid, $msgid_plural, $n, $category,
-        $locale, $mo_files) = @_;
+        $locale) = @_;
 
     return unless defined $msgid;
 
@@ -359,18 +359,8 @@ sub _dcnpgettext_impl {
     my $category_name = 'LC_MESSAGES';
     $category = LC_MESSAGES;
 
-    my $domains = [];
-    # Was a hardcoded list of filenames passed?
-    if ($mo_files) {
-        foreach my $mo_file (@$mo_files) {
-            # FIXME! We need a cache here!
-            my $domain = __load_catalog $mo_file, $locale or return or next;
-            push @$domains, $domain;
-        }
-    } else {
-        $domains = __load_domain ($domainname, $category, $category_name,
-                                  $locale);
-    }
+    my $domains = __load_domain ($domainname, $category, $category_name,
+                                 $locale);
     
     my @trans = ();
     my $domain;
