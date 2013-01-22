@@ -78,19 +78,6 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
                  
 @ISA = qw (Exporter);
 
-*Locale::gettext_dumb::gettext = \&Locale::gettext_pp::gettext;
-*Locale::gettext_dumb::dgettext = \&Locale::gettext_pp::dgettext;
-*Locale::gettext_dumb::dcgettext = \&Locale::gettext_pp::dcgettext;
-*Locale::gettext_dumb::ngettext = \&Locale::gettext_pp::ngettext;
-*Locale::gettext_dumb::dngettext = \&Locale::gettext_pp::dngettext;
-*Locale::gettext_dumb::dcngettext = \&Locale::gettext_pp::dcngettext;
-*Locale::gettext_dumb::pgettext = \&Locale::gettext_pp::pgettext;
-*Locale::gettext_dumb::dpgettext = \&Locale::gettext_pp::dpgettext;
-*Locale::gettext_dumb::dcpgettext = \&Locale::gettext_pp::dcpgettext;
-*Locale::gettext_dumb::npgettext = \&Locale::gettext_pp::npgettext;
-*Locale::gettext_dumb::dnpgettext = \&Locale::gettext_pp::dnpgettext;
-*Locale::gettext_dumb::dcnpgettext = \&Locale::gettext_pp::dcnpgettext;
-
 *Locale::gettext_dumb::textdomain = \&Locale::gettext_pp::textdomain;
 *Locale::gettext_dumb::bindtextdomain = \&Locale::gettext_pp::bindtextdomain;
 *Locale::gettext_dumb::bind_textdomain_codeset = 
@@ -105,6 +92,74 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
 *Locale::gettext_dumb::LC_MONETARY = \&Locale::gettext_pp::LC_MONETARY;
 *Locale::gettext_dumb::LC_MESSAGES = \&Locale::gettext_pp::LC_MESSAGES;
 *Locale::gettext_dumb::LC_ALL = \&Locale::gettext_pp::LC_ALL;
+
+
+sub gettext ($) {
+    my ($msgid) = @_;
+
+    return dcnpgettext ('', undef, $msgid, undef, undef, undef);
+}
+
+sub dgettext ($$) {
+    my ($domainname, $msgid) = @_;
+
+    return dcnpgettext ($domainname, undef, $msgid, undef, undef, undef);
+}
+
+sub dcgettext ($$$) {
+    my ($domainname, $msgid, $category) = @_;
+
+    return dcnpgettext ($domainname, undef, $msgid, undef, undef, undef);
+}
+
+sub ngettext ($$$) {
+    my ($msgid, $msgid_plural, $n) = @_;
+
+    return dcnpgettext ('', undef, $msgid, $msgid_plural, $n, undef);
+}
+
+sub dngettext ($$$$) {
+    my ($domainname, $msgid, $msgid_plural, $n) = @_;
+
+    return dcnpgettext ($domainname, undef, $msgid, $msgid_plural, $n, undef);
+}
+
+sub dcngettext ($$$$$) {
+    my ($domainname, $msgid, $msgid_plural, $n, $category) = @_;
+
+    return dcnpgettext ($domainname, undef, $msgid, $msgid_plural, $n, , 
+                        $category);
+}
+
+sub pgettext ($$) {
+    my ($msgctxt, $msgid) = @_;
+
+    return dcnpgettext ('', $msgctxt, $msgid, undef, undef, undef);
+}
+
+sub dpgettext ($$$) {
+    my ($domainname, $msgctxt, $msgid) = @_;
+
+    return dcnpgettext ($domainname, $msgctxt, $msgid, undef, undef, undef);
+}
+
+sub dcpgettext($$$$) {
+    my ($domainname, $msgctxt, $msgid, $category) = @_;
+
+    return dcnpgettext ($domainname, $msgctxt, $msgid, undef, undef, undef);
+}
+
+sub npgettext ($$$$) {
+    my ($msgctxt, $msgid, $msgid_plural, $n) = @_;
+
+    return dcnpgettext ('', $msgctxt, $msgid, $msgid_plural, $n, undef);
+}
+
+sub dnpgettext ($$$$$) {
+    my ($domainname, $msgctxt, $msgid, $msgid_plural, $n) = @_;
+
+    return dcnpgettext ($domainname, $msgctxt, $msgid, $msgid_plural, $n, undef);
+}
 
 1;
 
