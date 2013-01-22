@@ -164,37 +164,24 @@ sub dnpgettext ($$$$$) {
 sub dcnpgettext ($$$$$$) {
     my ($domainname, $msgctxt, $msgid, $msgid_plural, $n, $category) = @_;
 
-    my $msgpath;
     my $locale;
 
-    if (exists $ENV{MSGPATH} && length $ENV{MSGPATH}) {
-        my $path_sep;
-        if ($^O !~ /darwin/i && $^O =~ /win/i) {
-            $path_sep = ';';
-        } else {
-            $path_sep = ':';
-        }
-        $locale = 'C';
-        $msgpath = [split /$path_sep/, $ENV{MSGPATH}];
+    if (exists $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
+        $locale = $ENV{LANGUAGE};
+        $locale =~ s/:.*//s;
+    } elsif (exists $ENV{LC_ALL} && length $ENV{LC_ALL}) {
+        $locale = $ENV{LC_ALL};
+    } elsif (exists $ENV{LANG} && length $ENV{LANG}) {
+        $locale = $ENV{LANG};
+    } elsif (exists $ENV{LC_MESSAGES} && length $ENV{LC_MESSAGES}) {
+        $locale = $ENV{LC_MESSAGES};
     } else {
-        if (exists $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
-            $locale = $ENV{LANGUAGE};
-            $locale =~ s/:.*//s;
-        } elsif (exists $ENV{LC_ALL} && length $ENV{LC_ALL}) {
-            $locale = $ENV{LC_ALL};
-        } elsif (exists $ENV{LANG} && length $ENV{LANG}) {
-            $locale = $ENV{LANG};
-        } elsif (exists $ENV{LC_MESSAGES} && length $ENV{LC_MESSAGES}) {
-            $locale = $ENV{LC_MESSAGES};
-        } else {
-            $locale = 'C';
-        }
+        $locale = 'C';
     }
     
     return Locale::gettext_pp::_dcnpgettext_impl ($domainname, $msgctxt,
                                                   $msgid, $msgid_plural, $n,
-                                                  $category,
-                                                  $locale, $msgpath);
+                                                  $category, $locale);
 }
 
 
