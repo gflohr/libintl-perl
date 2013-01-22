@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 10;
+use constant NUM_TESTS => 12;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext nl_putenv);
 use Locale::gettext_pp;
@@ -49,6 +49,11 @@ my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
 ok defined $bound_dir;
 ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
+
+my $bound_domain = textdomain $textdomain;
+
+ok defined $bound_domain;
+ok $bound_domain, $textdomain;
 
 # No translation.
 ok gettext "December", "December";
