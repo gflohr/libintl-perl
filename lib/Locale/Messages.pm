@@ -177,9 +177,19 @@ sub select_package
 		$pkg = $compatibility;
 	}
 
-	if (!$can_xs || (defined $pkg && 'gettext_pp' eq $pkg)) {
+        if (!$can_xs && 'gettext_xs' eq $pkg) {
+                $pkg = 'gettext_pp';
+        }
+
+	if (defined $pkg && 'gettext_pp' eq $pkg) {
 		require Locale::gettext_pp;
 		$package = 'gettext_pp';
+	} elsif (defined $pkg) {
+	        my $filename = "Locale::$pkg";
+	        $filename =~ s{::|\'}{/};
+	        $filename .= '.pm';
+	        eval { require $filename };
+	        $package = $pkg unless $@;   
 	} else {
 		eval "require Locale::gettext_xs";
 		$package = 'gettext_xs' unless $@;
@@ -767,6 +777,13 @@ script.
 
 The function was introduced with libintl-perl version 1.03 and is not
 part of the standard gettext API.
+
+Beginning with version 1.22 you can pass other package names than "gettext_pp"
+or "gettext_xs" and use a completely different backend.  It is the caller's
+responsability to make sure that the selected package offers the same
+interface as the two standard packages.
+
+One package that offers that functionality is Locale::gettext_dumb(3pm).
 
 =item B<nl_putenv ENVSPEC>
 

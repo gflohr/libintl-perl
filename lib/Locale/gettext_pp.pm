@@ -824,7 +824,7 @@ Locale::gettext_pp - Pure Perl Implementation of Uniforum Message Translation
 
 =head1 SYNOPSIS
 
- use gettext_pp (:locale_h :libintl_h);
+ use Locale::gettext_pp (:locale_h :libintl_h);
 
  gettext $msgid;
  dgettext $domainname, $msgid;

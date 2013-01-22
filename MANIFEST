@@ -165,6 +165,7 @@ lib/Locale/RecodeData/VISCII.pm
 lib/Locale/RecodeData/_Encode.pm
 lib/Locale/TextDomain.pm
 lib/Locale/Util.pm                       Attention! Alpha code!
+lib/Locale/gettext_dumb.pm
 lib/Locale/gettext_pp.pm
 lib/Locale/gettext_xs.pod
 lib/Locale/libintlFAQ.pod
@@ -382,6 +383,7 @@ tests/03dpgettext_pp.t
 tests/03dpgettext_xs.t
 tests/03environment_pp.t
 tests/03environment_xs.t
+tests/03gettext_dumb.t
 tests/03gettext_pp.t
 tests/03gettext_xs.t
 tests/03language_pp.t

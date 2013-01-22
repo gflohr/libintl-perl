@@ -102,7 +102,7 @@ EOF
 	}
 
 	if ($xs_disabled) {
-		Test::Harness::runtests (grep { ! /03[a-z_]+\.t$/ } sort 
+		Test::Harness::runtests (grep { ! /03[a-z_]+_(?:pp|xs)\.t$/ } sort 
 			{lc $a cmp lc $b } @ARGV);
 	} else {
 		Test::Harness::runtests (sort {lc $a cmp lc $b } @ARGV);

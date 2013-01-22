@@ -3,7 +3,11 @@ Version 1.21 - 15 Jan 2013
 * Environment variables LANGUAGE and LANG are interpreted in the same way
   in the XS and the pure Perl version.
 
+* Package design closer to GNU standards.
+
 * If present, File::ShareDir is used for searching message catalogs.
+
+* Cleaned up distribution.
 
 * Bugs fixed:
   https://rt.cpan.org/Ticket/Display.html?id=78341
