@@ -161,6 +161,44 @@ sub dnpgettext ($$$$$) {
     return dcnpgettext ($domainname, $msgctxt, $msgid, $msgid_plural, $n, undef);
 }
 
+sub dcnpgettext ($$$$$$) {
+    my ($domainname, $msgctxt, $msgid, $msgid_plural, $n, $category) = @_;
+
+    my $mo_files;
+    my $locale;
+
+    if (exists $ENV{MESSAGE_CATALOGS} && length $ENV{MESSAGE_CATALOGS}) {
+        my $path_sep;
+        if ($^O !~ /darwin/i && $^O =~ /win/i) {
+            $path_sep = ';';
+        } else {
+            $path_sep = ':';
+        }
+        $locale = 'C';
+        $mo_files = [split /$path_sep/, $ENV{MESSAGE_CATALOGS}];
+    } else {
+        if (exists $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
+            $locale = $ENV{LANGUAGE};
+            $locale =~ s/:.*//s;
+        } elsif (exists $ENV{LC_ALL} && length $ENV{LC_ALL}) {
+            $locale = $ENV{LC_ALL};
+        } elsif (exists $ENV{LANG} && length $ENV{LANG}) {
+            $locale = $ENV{LANG};
+        } elsif (exists $ENV{LC_MESSAGES} && length $ENV{LC_MESSAGES}) {
+            $locale = $ENV{LC_MESSAGES};
+        } else {
+            $locale = 'C';
+        }
+    }
+    
+    return Locale::gettext_pp::_dcnpgettext_impl ($domainname, $msgctxt,
+                                                  $msgid, $msgid_plural, $n,
+                                                  $category,
+                                                  $locale, $mo_files);
+}
+
+
+
 1;
 
 __END__
@@ -210,7 +248,7 @@ Locale::gettext_xs(3pm) or Locale::gettext_pp(3pm).
 
 While both other modules use POSIX::setlocale() to determine the currently
 selected locale, this backend only checks the environment variables
-MESSAGE_CATALOG, LANGUAGE, LANG, LC_ALL, LC_MESSAGES (in that order)
+MESSAGE_CATALOGS, LANGUAGE, LANG, LC_ALL, LC_MESSAGES (in that order)
 in order to locate a message catalog (a .mo file).
 
 The main advantage over the locale-aware message retrieval backends is

@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 8;
+use constant NUM_TESTS => 11;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext nl_putenv);
 use Locale::gettext_pp;
@@ -54,7 +54,16 @@ ok (File::Spec->catdir ($bound_dir), File::Spec->catdir ($bound_dir));
 ok gettext "December", "December";
 
 # Point to an explicit file.
-nl_putenv "MESSAGE_CATALOG=$locale_dir/xy/LC_MESSAGES/existing.mo";
+my $path_sep;
+if ($^O !~ /darwin/i && $^O =~ /win/i) {
+    $path_sep = ';';
+} else {
+    $path_sep = ':';
+}
+my $message_catalogs = "$locale_dir/xy_XY/LC_MESSAGES/existing.mo";
+$message_catalogs .= "$path_sep$locale_dir/xy/LC_MESSAGES/existing.mo";
+nl_putenv "MESSAGE_CATALOGS=$message_catalogs";
+
 ok gettext "December", "Dezember";
 
 __END__
