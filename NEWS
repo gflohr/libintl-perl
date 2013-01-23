@@ -1,3 +1,18 @@
+Version 1.22 - 23 Jan 2013
+
+* New message retrieval backend Locale::gettext_dumb(3pm) which produces
+  translations even, when the corresponding locale is not present in
+  the system.
+
+* Fixed a bug where the Perl backend under certain circumstances clobbered
+  the environment variable LC_ALL.
+
+* Avoid test failures by skipping all tests that depend on the de_AT
+  locale, when that locale is not installed.
+
+* Bugs fixed:
+  https://rt.cpan.org/Ticket/Display.html?id=82856
+
 Version 1.21 - 15 Jan 2013
 
 * Environment variables LANGUAGE and LANG are interpreted in the same way
