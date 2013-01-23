@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 15;
+use constant NUM_TESTS => 20;
 
 use Locale::Messages qw (bindtextdomain textdomain gettext nl_putenv);
 use Locale::gettext_pp;
@@ -66,6 +66,23 @@ ok gettext "February", "Feber";
 # Set LANG.
 nl_putenv "LANG=C";
 ok gettext "December", "December";
+nl_putenv "LANG=xy_XY";
+nl_putenv "LC_MESSAGES";
+ok gettext "December", "Dezember";
+
+# Set LC_ALL.
+nl_putenv "LC_ALL=C";
+ok gettext "December", "December";
+nl_putenv "LC_ALL=xy_XY";
+nl_putenv "LANG";
+ok gettext "December", "Dezember";
+
+# Set LANGUAGE.
+nl_putenv "LANGUAGE=C";
+ok gettext "December", "December";
+nl_putenv "LANGUAGE=xy_XY";
+nl_putenv "LC_ALL";
+ok gettext "December", "Dezember";
 
 __END__
 
