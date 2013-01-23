@@ -755,7 +755,8 @@ sub __get_codeset
     if ($has_nl_langinfo) {
     	# Try to set the locale via the specified id.
     	my $saved_locale = eval { POSIX::setlocale (LC_ALL) };
-    	my $saved_lc_all = $ENV{LC_ALL};
+    	my $had_lc_all = exists $ENV{LC_ALL};
+    	my $saved_lc_all = $ENV{LC_ALL} if $had_lc_all;
 
     	# Now try to set the locale via the environment.  There is no
     	# point in calling the langinfo routines if this fails.
@@ -765,8 +766,14 @@ sub __get_codeset
     	$codeset = I18N::Langinfo::langinfo (I18N::Langinfo::CODESET())
     		if defined $lc_all;
 
+        # Restore environment.
     	if ($saved_locale) {
     		eval { POSIX::setlocale (LC_ALL, $saved_locale); }
+    	}
+    	if ($had_lc_all) {
+            $ENV{LC_ALL} = $saved_lc_all if $had_lc_all;
+    	} else {
+    	    delete $ENV{LC_ALL};
     	}
     	return $codeset;
     }
