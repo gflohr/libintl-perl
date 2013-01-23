@@ -52,9 +52,9 @@ ok 'Anzeigen', dcgettext (existing => 'View', LC_MESSAGES);
 ok 'Ansicht', dcpgettext (existing => 'Which folder would you like to view?','View', LC_MESSAGES);
 ok 'Not translated', dcpgettext (existing => 'none', 'Not translated', LC_MESSAGES);
 
-ok 'Ein weiterer Blick', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
+ok 'Eine andere Ansicht mit Kontext', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
 ok 'Not translated', dcpgettext (additional => 'none', 'Not translated', LC_MESSAGES);
-ok 'Ein weiterer Blick', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
+ok 'Eine andere Ansicht mit Kontext', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
 
 __END__
 

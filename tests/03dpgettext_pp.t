@@ -54,7 +54,7 @@ ok dgettext (existing => 'View'), 'Anzeigen';
 ok dpgettext (existing => 'Which folder would you like to view?', 'View'), 'Ansicht';
 ok dpgettext (existing => 'none', 'Not translated'), 'Not translated';
 
-ok dpgettext (additional => 'Context', 'Another View'), 'Ein weiterer Blick';
+ok dpgettext (additional => 'Context', 'Another View'), 'Eine andere Ansicht mit Kontext';
 ok dpgettext (additional => 'none', 'Not translated'), 'Not translated';
 
 __END__
