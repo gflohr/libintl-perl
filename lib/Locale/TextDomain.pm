@@ -68,7 +68,7 @@ use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
-$VERSION = '1.21';
+$VERSION = $Locale::Messages::VERSION;
 
 require Exporter;
 
