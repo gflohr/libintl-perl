@@ -1,3 +1,217 @@
+commit 858750985fee23badf35fc0484e190b7a323e552
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:33:52 2013 +0200
+
+    use LC_ALL instead of LANG in test
+    
+    LC_ALL was set before and it has precedence over lang.
+
+commit 2754ea936d3cb144976ad5e9e7e4e13bfc383f4a
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 19:00:21 2013 +0200
+
+    Locale::gettext_pp needs File::Spec
+
+commit 3d4f31c1db2fece1c3e81ccdb0d298dafe4c41cc
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 18:08:18 2013 +0200
+
+    updated THANKS
+
+commit f7eda6a60fcd80a78dd02a5956a02101f56c62be
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 18:02:47 2013 +0200
+
+    made tests match PO files
+
+commit fb48568c2744a7a0ce607b344e9f9cb8ce6c78c6
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 17:46:21 2013 +0200
+
+    bumped version number to 1.22
+
+commit 82eae3716ee218eb9820e90facd8a9b588d5cbb1
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 17:46:08 2013 +0200
+
+    remove generated files from scm
+
+commit 6b32e628d4cc69bb87cd2b95cd3c6a2fc70e7ad5
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 17:45:39 2013 +0200
+
+    updated MANIFEST
+
+commit 5f038a1b98feef745eed543eec66bcd557a09933
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 17:45:20 2013 +0200
+
+    updated NEWS
+
+commit b2d189b5612aacf426b2ee79e704d5aefafe22aa
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 17:45:08 2013 +0200
+
+    additional PO data for testing
+
+commit fc13f51b8e4615af3e8fd179caace3aad3fc7994
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 17:18:39 2013 +0200
+
+    better explanation for Locale::gettext_dumb(3pm)
+
+commit 38bded7c8702f2615b40a5ec637c97b7544709d6
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 16:16:57 2013 +0200
+
+    more tests for locale-unaware backend
+
+commit 2721e02e973c1b4a4e4e505ffa2c843fae3c7553
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 23 15:56:15 2013 +0200
+
+    do not clobber $ENV{LC_ALL}
+
+commit b81bf45303ad6d60417ea4028f3d78cc2adba793
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 19:20:50 2013 +0200
+
+    honor LC_MESSAGES in locale-unaware implementation
+
+commit 105a728270a762f1778e49e4c4a6f69c454fdf32
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 19:16:48 2013 +0200
+
+    test for locale-unaware textdomain()
+
+commit 8e2f18eb7611dc5e096b274fc67467cd0daef167
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 19:15:16 2013 +0200
+
+    make do without new envariable
+    
+    Rather export the catalog loader at some time.
+
+commit e590687d7f9d12b75b63d95afa5f340c8c08aa8f
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 19:08:51 2013 +0200
+
+    use MSGPATH instead of MESSAGE_CATALOGS in wrapper
+
+commit 5ab8ab07510f8e3bc60f5f88209f21cb05cb4b7c
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 19:05:32 2013 +0200
+
+    use MSGPATH in test instead of MESSAGE_CATALOGS
+    
+    Instead of a list of mo files we rather take a traditional search path
+    approach.  Otherwise, the current textdomain would be completely ignored
+    and the locale-unaware interface would be too different from the
+    locale-aware.
+    
+    This commit only contains the test, not the implementation!
+
+commit 25c8d0a19814451005c1366cf7377a9abf591750
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 18:57:34 2013 +0200
+
+    test precedence of catalog paths
+
+commit 458565752b0ad0c5288b7d0a5d22c6bfdbb21f18
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 18:54:45 2013 +0200
+
+    locale-unaware implementation of dcnpgettext()
+
+commit bc8223dd196874ef96e35813117c49e03538aea2
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 18:12:02 2013 +0200
+
+    insert a wrapper around dcnpgettext()
+
+commit bf1dd581a2d9fca42be6bc6434b4b9f371afbf2e
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 18:07:15 2013 +0200
+
+    replaced tabs by spaces
+
+commit dcf755109f7376bff0c86b261ff08a0ec1432b3a
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 18:01:27 2013 +0200
+
+    simplified Locale::gettext_pp::__load_domain()
+
+commit 00160cef94b6f22d7dee787f50c13b45351b6060
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 17:56:45 2013 +0200
+
+    more abstractions for Locale::gettext_pp
+
+commit 8175b2423dce3cc0bcfa8b785214263d7dde2c61
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 17:46:02 2013 +0200
+
+    restructured Locale::gettext_pp a little
+    
+    So that we can later hook better with our dumb implementation.
+
+commit d65abb71797eadc10523df7d17ef93412a48effb
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 17:37:08 2013 +0200
+
+    Locale::gettext_dump needs its own wrappers
+    
+    Otherwise we cannot enforce that the central entry point dcnpgettext()
+    will be called in our own package.
+
+commit 6a4f29be97e7776ee02153dc24efb3acb8fe55b3
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 16:58:18 2013 +0200
+
+    abstract Locale::Messages to support more backends
+
+commit 5759332780f997edb862bce0940c420e28be8c97
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 16:20:16 2013 +0200
+
+    override textdomain functions in gettext_dumb
+
+commit 10cf1f896ddd3456588b938f8c51c33ad509b9ed
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 22 15:43:54 2013 +0200
+
+    dumb backend for message retrieval
+
+commit 841e441974660f898d99b4608d0b36ed75997edd
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 17 12:26:27 2013 +0200
+
+    0xbeefbabe is not a valid unicode code point
+
+commit b69e9b27f57f2c1d075361c1b2e80bbab0e5aa73
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 17 12:25:29 2013 +0200
+
+    do not run gettext tests without locale de_AT
+
+commit 165511ac11d187a78750272ba6cb81c325472c99
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 16 02:11:57 2013 +0200
+
+    git uses libintl-perl
+
+commit 3a5578ff47eef257840ee505576ecf7715b0ff08
+Author: Guido Flohr <guido@imperia.net>
+Date:   Wed Jan 16 02:11:43 2013 +0200
+
+    updated NEWS
+
+commit 533f50f54bbb3b43ae9f595c12e9d3fcd7a2c3ee
+Author: Guido Flohr <guido@imperia.net>
+Date:   Tue Jan 15 14:40:43 2013 +0200
+
+    updated ChangeLog
+
 commit e04511866be52da18ee848da933a16ab130a9837
 Author: Guido Flohr <guido@imperia.net>
 Date:   Tue Jan 15 14:29:51 2013 +0200
