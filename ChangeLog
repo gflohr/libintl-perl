@@ -1,3 +1,15 @@
+commit d2392f2178c84035f9168e1cd3ce56bbf37b82aa
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:49:53 2013 +0200
+
+    indirect version number outsmarts PAUSE
+
+commit 64a9105679c7194b49524d7aafddc7609691f2cd
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:35:36 2013 +0200
+
+    updated ChangeLog
+
 commit 7aafc768315aacf20e679e0a188f1add3154fcd8
 Author: Guido Flohr <guido@imperia.net>
 Date:   Thu Jan 24 17:35:17 2013 +0200
