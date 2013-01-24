@@ -78,15 +78,15 @@ my $translation = gettext ('January');
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de:de_AT");
 skip $missing_locale, gettext ('February'), 'Februar'; # not 'Feber'!
 
-# Check that LANG works.
+# Check that LC_ALL works.
 Locale::Messages::nl_putenv ("LANGUAGE");
-Locale::Messages::nl_putenv ("LANG=de_DE.utf-8");
+Locale::Messages::nl_putenv ("LC_ALL=de_DE.utf-8");
 POSIX::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('February'), 'Februar';
 
 # But LANGUAGE has precedence.
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT.utf-8");
-Locale::Messages::nl_putenv ("LANG=de_DE.utf-8");
+Locale::Messages::nl_putenv ("LC_ALL=de_DE.utf-8");
 POSIX::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('February'), 'Feber';
 
