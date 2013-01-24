@@ -1,3 +1,15 @@
+commit 7aafc768315aacf20e679e0a188f1add3154fcd8
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:35:17 2013 +0200
+
+    updated release date for 1.22 in NEWS
+
+commit f92843cbd45b8a5597398fa9b9b362ee223baec9
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:34:25 2013 +0200
+
+    updated ChangeLog
+
 commit 858750985fee23badf35fc0484e190b7a323e552
 Author: Guido Flohr <guido@imperia.net>
 Date:   Thu Jan 24 17:33:52 2013 +0200
