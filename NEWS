@@ -1,4 +1,4 @@
-Version 1.22 - 23 Jan 2013
+Version 1.22 - 24 Jan 2013
 
 * New message retrieval backend Locale::gettext_dumb(3pm) which produces
   translations even, when the corresponding locale is not present in
