@@ -1,3 +1,15 @@
+commit d26cf9f7c2f32c7c888aa8322f2d7da544c9debe
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:56:29 2013 +0200
+
+    bumped version number to 1.23
+
+commit 852632efc7022cdf26c77371e687461e86e7f7ec
+Author: Guido Flohr <guido@imperia.net>
+Date:   Thu Jan 24 17:50:19 2013 +0200
+
+    updated ChangeLog
+
 commit d2392f2178c84035f9168e1cd3ce56bbf37b82aa
 Author: Guido Flohr <guido@imperia.net>
 Date:   Thu Jan 24 17:49:53 2013 +0200
