@@ -843,11 +843,11 @@ into the string to the previous method, __np().
 
 It's usage would be like so:
 
-    print __nx ("Files being permenantly removed",
-                "One file has been deleted.\n",
-                "{count} files have been deleted.\n",
-                $num_files,
-                count => $num_files);
+    print __npx ("Files being permenantly removed",
+                 "One file has been deleted.\n",
+                 "{count} files have been deleted.\n",
+                 $num_files,
+                 count => $num_files);
 
 I cannot think of any situations requiring this, but we can easily 
 support it, so here it is.
