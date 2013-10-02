@@ -16,8 +16,6 @@ THANKS				Contributors
 Credits				Same as THANKS
 TODO				Missing
 gettext_xs/Makefile.PL		Makefile generator
-gettext_xs/MYMETA.json
-gettext_xs/MYMETA.yml
 gettext_xs/gettext_xs.pm	XS loader
 gettext_xs/gettext_xs.xs	XS binding
 lib/Locale/Messages.pm		Gettext Like Message Retrieval
@@ -418,5 +416,3 @@ tests/po/additional.xy_XY.po
 tests/po/existing.xy.po
 tests/po/existing.xy_XY.po
 META.yml                                Module meta-data (added by MakeMaker)
-MYMETA.json
-MYMETA.yml
