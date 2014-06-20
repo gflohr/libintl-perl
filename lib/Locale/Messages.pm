@@ -780,7 +780,7 @@ or "gettext_xs" and use a completely different backend.  It is the caller's
 responsability to make sure that the selected package offers the same
 interface as the two standard packages.
 
-One package that offers that functionality is Locale::gettext_dump(3pm).
+One package that offers that functionality is Locale::gettext_dumb(3pm).
 
 =item B<nl_putenv ENVSPEC>
 
