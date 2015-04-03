@@ -1,9 +1,5 @@
 These people have helped in the development of libintl-perl:
 
-- Imperia (http://www.imperia.net/) has contributed this part of the 
-  Enterprise Content Management System Imperia to the Perl community
-  as free software. 
-
 - Joshua Miller <unrtst@cpan.com> has extended libintl-perl to provide
   the important context-sensitive functions (pgettext() and friends).
 
