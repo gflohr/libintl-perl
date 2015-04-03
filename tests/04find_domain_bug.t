@@ -36,7 +36,7 @@ BEGIN {
 	Locale::Messages::nl_putenv ("LC_MESSAGES=en_US");
 	Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
-	POSIX::setlocale (POSIX::LC_ALL() => '');
+	Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 }
 
 # Make sure that LocaleData/ can befound.
@@ -52,10 +52,10 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+my $missing_locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '') ?
     '' : 'locale de_AT missing';
 
-my $locale = POSIX::setlocale (POSIX::LC_ALL() => '');
+my $locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 my $translation = Locale::TextDomain::__("February");
 skip $missing_locale, "Feber" eq $translation;
 

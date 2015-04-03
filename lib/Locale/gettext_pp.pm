@@ -165,6 +165,7 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
     			 bindtextdomain
     			 bind_textdomain_codeset
                  nl_putenv
+                 setlocale
     			 LC_CTYPE
     			 LC_NUMERIC
     			 LC_TIME
@@ -476,6 +477,11 @@ sub nl_putenv ($)
     }
 
     return 1;
+}
+
+sub setlocale($;$) {
+	require POSIX;
+	&POSIX::setlocale;
 }
 
 sub __load_domain
@@ -943,6 +949,10 @@ See L<Locale::Messages/FUNCTIONS>.
 =item B<bind_textdomain_codeset TEXTDOMAIN, ENCODING>
 
 =item B<nl_putenv ENVSPEC>
+
+See L<Locale::Messages/FUNCTIONS>.
+
+=item B<setlocale>
 
 See L<Locale::Messages/FUNCTIONS>.
 

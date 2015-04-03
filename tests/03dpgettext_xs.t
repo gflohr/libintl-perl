@@ -39,7 +39,7 @@ Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
 ok defined $bound_dir;

@@ -69,7 +69,8 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA);
 				 textdomain
 				 bindtextdomain
 				 bind_textdomain_codeset
-                                 nl_putenv
+				 nl_putenv
+                 setlocale
 				 LC_CTYPE
 				 LC_NUMERIC
 				 LC_TIME

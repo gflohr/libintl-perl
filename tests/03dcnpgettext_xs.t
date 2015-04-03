@@ -34,7 +34,7 @@ Locale::Messages::nl_putenv ("LC_ALL=C");
 Locale::Messages::nl_putenv ("LANG=C");
 Locale::Messages::nl_putenv ("LC_MESSAGES=C");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
-POSIX::setlocale (POSIX::LC_ALL() => ''); 
+Locale::Messages::setlocale (POSIX::LC_ALL() => ''); 
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
@@ -67,7 +67,7 @@ Locale::Messages::nl_putenv ("LC_ALL=C");
 Locale::Messages::nl_putenv ("LANG=C");
 Locale::Messages::nl_putenv ("LC_MESSAGES=C");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 
 my $bound_dir = bindtextdomain existing => $locale_dir;
 
@@ -85,7 +85,7 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 
 for (0 .. 9) {
 	my $translation = dcnpgettext (existing => $context, $strings[0], $strings[1], $_, LC_MESSAGES);
@@ -98,7 +98,7 @@ Locale::Messages::nl_putenv ("LC_ALL=C");
 Locale::Messages::nl_putenv ("LANG=C");
 Locale::Messages::nl_putenv ("LC_MESSAGES=C");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 
 $bound_dir = bindtextdomain additional => $locale_dir;
 
@@ -116,7 +116,7 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-POSIX::setlocale (POSIX::LC_ALL() => '');
+Locale::Messages::setlocale (POSIX::LC_ALL() => '');
 
 for (0 .. 40) {
 	my $translation = dcnpgettext (additional => $context, $strings[0], $strings[1], $_, LC_MESSAGES);

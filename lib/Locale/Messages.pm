@@ -89,6 +89,7 @@ require Exporter;
 				 bind_textdomain_codeset
 				 bind_textdomain_filter
                  nl_putenv
+                 setlocale
 				 LC_CTYPE
 				 LC_NUMERIC
 				 LC_TIME
@@ -338,9 +339,14 @@ sub dcnpgettext($$$$$$) {
     $cb->[0] (&$function, $cb->[1]);
 }
 
-sub nl_putenv($) {
-    my $cb = $filters{$_[0]} ||= [ \&turn_utf_8_off ];
+sub setlocale($;$) {
+    my $function = "Locale::${package}::setlocale";
+    
+    no strict 'refs';
+    &$function;
+}
 
+sub nl_putenv($) {
     my $function = "Locale::${package}::nl_putenv";
     
     no strict 'refs';
@@ -839,9 +845,29 @@ operates on C<%ENV>, under Windows it will call the C library
 function _putenv() (after doing some cleanup to its arguments),
 before manipulating C<%ENV>.
 
-Please note, that you C<%ENV> is updated by nl_putenv() automatically.
+Please note, that your C<%ENV> is updated by nl_putenv() automatically.
 
 The function has been introduced in libintl-perl version 1.10.
+
+=item setlocale
+
+Modifies and queries program's locale, see the documentation for setlocale()
+in POSIX(3pm) instead.
+
+On some systems, when using GNU gettext, a call from C to setlocale() is
+- with the help of the C preprocessor - really a call to libintl_setlocale(),
+which is in turn a wrapper around the system setlocale(3).  Failure to call
+libintl_setlocale() may lead to certain malfunctions.  On such systems,
+B<Locale::Messages::setlocale()> will call the wrapper libintl_setlocale().
+If you want to avoid problems, you should therefore always call
+the setlocale() implementation in Locale::Messages(3pm).
+
+See L<https://rt.cpan.org/Public/Bug/Display.html?id=83980> or
+L<https://savannah.gnu.org/bugs/?38162>, and 
+L<https://savannah.gnu.org/bugs/?func=detailitem&item_id=44645> for a discussion
+of the problem.
+
+The function has been introduced in libintl-perl version 1.24.
 
 =back
 

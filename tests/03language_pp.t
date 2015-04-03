@@ -45,9 +45,9 @@ Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 # de will be installed, too, if de_AT is.  This test does not
 # use Locale::Util::set_locale() for setting the locale, and 
 # that is on purpose.
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+my $missing_locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '') ?
     '' : 'locale de_AT missing';
-POSIX::setlocale (POSIX::LC_ALL() => 'C');
+Locale::Messages::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
@@ -59,7 +59,7 @@ Locale::Messages::nl_putenv ("LC_ALL=de_DE");
 Locale::Messages::nl_putenv ("LC_MESSAGES=whatever");
 Locale::Messages::nl_putenv ("LANGUAGE=ab_CD:ef_GH:de_AT:de");
 Locale::Messages::nl_putenv ("OUTPUT_CHARSET=iso-8859-1");
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 
 my $bound_dir = bindtextdomain $textdomain => $locale_dir;
 
@@ -81,13 +81,13 @@ skip $missing_locale, gettext ('February'), 'Februar'; # not 'Feber'!
 # Check that LC_ALL works.
 Locale::Messages::nl_putenv ("LANGUAGE");
 Locale::Messages::nl_putenv ("LC_ALL=de_DE.utf-8");
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('February'), 'Februar';
 
 # But LANGUAGE has precedence.
 Locale::Messages::nl_putenv ("LANGUAGE=de_AT.utf-8");
 Locale::Messages::nl_putenv ("LC_ALL=de_DE.utf-8");
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('February'), 'Feber';
 
 __END__

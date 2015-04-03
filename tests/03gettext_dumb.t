@@ -38,7 +38,7 @@ nl_putenv "LANG";
 nl_putenv "LC_ALL";
 nl_putenv "LC_MESSAGES";
 
-POSIX::setlocale (POSIX::LC_ALL(), "POSIX");
+Locale::Messages::setlocale (POSIX::LC_ALL(), "POSIX");
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';

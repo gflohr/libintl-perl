@@ -66,6 +66,7 @@ use vars qw (%EXPORT_TAGS @EXPORT_OK @ISA $VERSION);
                  bindtextdomain
                  bind_textdomain_codeset
                  nl_putenv
+                 setlocale
                  LC_CTYPE
                  LC_NUMERIC
                  LC_TIME
@@ -182,7 +183,9 @@ sub dcnpgettext ($$$$$$) {
                                                   $category, $locale);
 }
 
-
+sub setlocale($;$) {
+	&POSIX::setlocale;
+}
 
 1;
 

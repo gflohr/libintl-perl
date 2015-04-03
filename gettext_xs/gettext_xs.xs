@@ -276,3 +276,14 @@ bind_textdomain_codeset (domainname, codeset)
 
     OUTPUT:
 	RETVAL
+
+char* setlocale (category, locale = NULL)
+     int category
+     char *locale
+     PROTOTYPE: $;$
+     CODE:
+    	  RETVAL = (char*) setlocale (category, locale);
+     OUTPUT:
+	  RETVAL
+
+	

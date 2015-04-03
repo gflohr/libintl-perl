@@ -39,9 +39,9 @@ foreach my $var (keys %ENV) {
 
 nl_putenv "LC_ALL=de_DE";
 nl_putenv "LC_MESSAGES=de_DE";
-my $missing_locale = POSIX::setlocale (POSIX::LC_ALL() => '') ?
+my $missing_locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '') ?
     '' : 'locale de_DE missing';
-POSIX::setlocale (POSIX::LC_ALL() => 'C');
+Locale::Messages::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
 $locale_dir =~ s,[^\\/]+$,, or $locale_dir = '.';
@@ -62,567 +62,567 @@ nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=C';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=C';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=C';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=C';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG=de_DE';
 nl_putenv 'LC_MESSAGES=de_DE';
 nl_putenv 'LC_ALL=de_DE';
-POSIX::setlocale (POSIX::LC_ALL(), '');
+Locale::Messages::setlocale (POSIX::LC_ALL(), '');
 skip $missing_locale, gettext ('May'), 'Mai';
 
 __END__
