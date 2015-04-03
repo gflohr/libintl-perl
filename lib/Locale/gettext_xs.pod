@@ -84,9 +84,6 @@ rights reserved.  See the source code for details.
 The module is based on the work of Phillip Vandry <vandry@Mlink.NET>
 in Locale::gettext(3).
 
-This software is contributed to the Perl community by Imperia 
-(L<http://www.imperia.net/>).
-
 =head1 SEE ALSO
 
 Locale::TextDomain(3pm), Locale::gettext_pp(3pm), Locale::gettext(3pm), 

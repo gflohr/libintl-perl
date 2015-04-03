@@ -16,7 +16,7 @@ LINGUAS = de \
           cs
 
 # Textdomain for our package.
-TEXTDOMAIN = org.imperia.simplecal
+TEXTDOMAIN = com.cantanea.simplecal
 
 # Initial copyright holder added to pot and po files.
 #COPYRIGHT_HOLDER = Guido Flohr

@@ -8,27 +8,12 @@ Comprehensive Perl Archive Network CPAN at http://www.cpan.org/.
 
 The following notes are meant to be a quick start guide for somewhat
 experienced users and system administrators and many important details had to
-be omitted for brevity.  If you have any difficulties with the
-internationalization features of this package, no matter if you are a
-programmer, a translator, or an end user, feel free to ask at the mailing list
-for libintl-perl.  To do so, send an e-mail to the address 
-<libintl-perl AT imperia DOT net> (please replace "AT" with a "@", and "DOT"
-with a dot ".").
-
-You can subscribe to this list at 
-
-     http://ml.imperia.org/mailman/listinfo/libintl-perl
-
-A searchable archive of earlier postings is located at
-
-     http://ml.imperia.org/libintl-perl/
-
-You may already find an answer to your question there.
+be omitted for brevity.
 
 Feel free to include this document in your own Perl packages internationalized
 with libintl-perl, no severe copyright restrictions apply.  You should send
-corrections or improvements to the author Guido Flohr <guido AT imperia DOT
-net>, so that others can benefit from your changes.
+corrections or improvements to the author Guido Flohr <guido DOT flohr AT cantanea DOT
+com>, so that others can benefit from your changes.
 
 The End User's View
 ===================

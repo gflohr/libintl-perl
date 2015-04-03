@@ -1,15 +1,14 @@
 # Italian translations for SimpleCal.
-# Copyright (C) 2003 Imperia AG, Guido Flohr <guido.flohr@cantanea.com>.
-# This file is distributed under the same license as libintl-perl.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: SimpleCal\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-28 04:27+0200\n"
+"Report-Msgid-Bugs-To: Edit the file PACAKGE to change this.\n"
+"POT-Creation-Date: 2013-01-14 18:14+0200\n"
 "PO-Revision-Date: 2003-07-28 04:10+0200\n"
 "Last-Translator: Guido Flohr <Guido.Flohr@cantanea.com>\n"
 "Language-Team: Italian <guido.flohr@cantanea.com>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
