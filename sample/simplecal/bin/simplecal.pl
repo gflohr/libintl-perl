@@ -13,8 +13,8 @@ use Locale::Messages qw (LC_MESSAGES);
 # Our script contains translatable messages.  We have to assign
 # it a text domain.  Note that this is only needed here because the 
 # script *itself* contains translatable messages from the text domain
-# "org.imperia.simplecal".
-use Locale::TextDomain ('org.imperia.simplecal');
+# "com.cantanea.simplecal".
+use Locale::TextDomain ('com.cantanea.simplecal');
 
 use vars qw ($VERSION);
 $VERSION = '1.0';

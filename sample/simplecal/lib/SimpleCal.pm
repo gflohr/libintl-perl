@@ -5,9 +5,9 @@ package SimpleCal;
 
 use strict;
 
-# The text domain (identifier) of our package is 'org.imperia.simplecal',
+# The text domain (identifier) of our package is 'com.cantanea.simplecal',
 # following the advice in the pod of Locale::TextDomain.
-use Locale::TextDomain qw (org.imperia.simplecal);
+use Locale::TextDomain qw (com.cantanea.simplecal);
 
 use base qw (Exporter);
 use vars qw (@EXPORT);

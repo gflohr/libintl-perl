@@ -162,21 +162,6 @@ libintl-perl you should read the perldoc of Locale::TextDomain.  Don't
 bother about the documentation of the other modules in the library,
 you will not need it unless you want to hack the library yourself.
 
-There is a mailing list <libintl-perl AT imperia DOT net> (replace 
-" AT " with "@" and " DOT " with ".") where you can post questions
-related to libintl-perl.  The list has also a certain focus on
-internationalization of Perl CGI web applications.  Please note, that
-postings from non-subscribers will be held back for approval, and it
-may take a considerable amount of time until all list members will get
-these postings.  You can subscribe to the list via a web interface at
-http://ml.imperia.org/mailman/listinfo/libintl-perl/, a searchable
-archive of prior postings to the list is available at
-http://ml.imperia.org/libintl-perl/.
-
-At the time of this writing (July 2003) the list is new and has
-exactly one subscriber and zero postings.  But don't be shy, join
-it. ;-)
-
 In order to make use of the software, you will also need various tools
 from GNU gettext (http://savannah.gnu.org/projects/gettext/).  The
 documentation is located at http://www.gnu.org/manual/gettext/.
