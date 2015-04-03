@@ -2,7 +2,7 @@
 # vim: set autoindent shiftwidth=4 tabstop=4:
 
 # Conversion routines for ISO-8859-11.
-# Copyright (C) 2002-2013 Guido Flohr <guido@imperia.net>, all
+# Copyright (C) 2002-2013 Guido Flohr <guido.flohr@cantanea.com>, all
 # rights reserved.
 # This file is generated, do not edit!
 
@@ -805,7 +805,7 @@ routines for ISO-8859-11.
 
 The following comments have been extracted from the original charmap:
 
- source: Guido Flohr E<lt>guido@imperia.netE<gt>
+ source: Guido Flohr E<lt>guido.flohr@cantanea.comE<gt>
 
  The encoding ISO-8859-11 is not yet official at the time of this writing.
  It is based on TIS-620, but with the addition of the non-breaking space.
@@ -1043,7 +1043,7 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2013, Guido Flohr E<lt>guido@imperia.netE<gt>, all
+Copyright (C) 2002-2013, Guido Flohr E<lt>guido.flohr@cantanea.comE<gt>, all
 rights reserved.  See the source code for details.
 
 This software is contributed to the Perl community by Imperia 

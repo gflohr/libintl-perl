@@ -336,7 +336,7 @@ You should put two additional files in your distribution.  The first
 one is "README-NLS".  It should be a verbatim copy of the most recent
 version found in the "simplecal" sample package.  Please send 
 corrections or improvements to this file to the maintainer Guido
-Flohr <guido@imperia.net>, and add package-specific notes to your
+Flohr <guido.flohr@cantanea.com>, and add package-specific notes to your
 documentation instead.  Users expect this file to have a standard
 contents, and they will not check it for changes on a regular basis.
 

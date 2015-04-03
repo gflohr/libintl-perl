@@ -3,7 +3,7 @@
 # vim: tabstop=4
 
 # Portable character conversion for Perl.
-# Copyright (C) 2002-2013 Guido Flohr <guido@imperia.net>,
+# Copyright (C) 2002-2013 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it

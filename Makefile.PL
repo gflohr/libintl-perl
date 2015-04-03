@@ -3,7 +3,7 @@
 # vim: tabstop=4
 
 # Makefile generator for libintl-perl.
-# Copyright (C) 2002-2013 Guido Flohr <guido@imperia.net>, 
+# Copyright (C) 2002-2013 Guido Flohr <guido.flohr@cantanea.com>, 
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -219,7 +219,7 @@ WriteMakefile (
     ($] >= 5.005 ?
          (ABSTRACT          => 'High-Level Interface to Uniforum Message'
                                  . ' Translation',
-	  AUTHOR	    => 'Guido Flohr <guido@imperia.net>',
+	  AUTHOR	    => 'Guido Flohr <guido.flohr@cantanea.com>',
 	 ) : (),
     ),
     PREREQ_PM		    => { 'File::Spec' => 0, version => 0.77 },

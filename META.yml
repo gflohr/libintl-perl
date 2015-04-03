@@ -1,7 +1,7 @@
 ---
 abstract: 'High-Level Interface to Uniforum Message Translation'
 author:
-  - 'Guido Flohr <guido@imperia.net>'
+  - 'Guido Flohr <guido.flohr@cantanea.com>'
 build_requires:
   ExtUtils::MakeMaker: 0
 configure_requires:

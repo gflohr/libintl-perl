@@ -107,4 +107,4 @@ maintainer of GNU gettext and libiconv:
   without msvcr70.dll - would be a violation of the LGPL. This problem does
   not occur with MSVC 6.0 and earlier.
 
-Guido Flohr <guido@imperia.net>
+Guido Flohr <guido.flohr@cantanea.com>
