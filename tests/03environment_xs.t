@@ -41,6 +41,10 @@ nl_putenv "LC_ALL=de_DE";
 nl_putenv "LC_MESSAGES=de_DE";
 my $missing_locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '') ?
     '' : 'locale de_DE missing';
+if (!$missing_locale && $0 =~ /_xs\.t$/) {
+    $missing_locale = $ENV{GNU_GETTEXT_COMPATIBILITY} ?
+         '' : 'compatibility tests not activated';
+}
 Locale::Messages::setlocale (POSIX::LC_ALL() => 'C');
 
 my $locale_dir = $0;
