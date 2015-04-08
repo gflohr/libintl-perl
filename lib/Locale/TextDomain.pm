@@ -689,10 +689,9 @@ if she has to reorder the color and the thing like in French:
     msgid "This is the red car.\n";
     msgstr "Cela est la voiture rouge.\n"
 
-Zut alors! No way! You cannot portably reorder the arguments to 
-printf() and friends in Perl (it is possible in C, but at the 
-time of this writing not supported in Perl, and it would lead to
-other problems anyway).
+Zut alors! While it is possible to reorder the arguments to printf()
+and friends, it requires a syntax that is is nothing that you want to 
+learn.
 
 So what? The Perl backend to GNU gettext has defined an alternative
 format for interpolatable strings:
