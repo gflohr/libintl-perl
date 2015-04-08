@@ -59,7 +59,21 @@ sub test_harness
 	open HANDLE, "<$name" or die "cannot open '$name': $!";
 	my $xs_disabled = <HANDLE>;
 	close HANDLE;
-	unless ($xs_disabled) {
+
+        eval {
+                require POSIX;
+                POSIX::setlocale(POSIX::LC_ALL());
+        };
+        my $has_locales = !$@;
+        if (!$has_locales) {
+                $xs_disabled = 1;
+                print <<EOF;
+The translation features of libintl-perl cannot be tested on your system
+because it lacks locale support.
+EOF
+        }
+
+	if (!$xs_disabled && $has_locales) {
 		# It is pointless to test the XS extension, if no German
 		# locales are installed on the system.  The results
 		# vary in almost arbitrary ways.
@@ -100,7 +114,7 @@ EOF
 	}
 
 	if ($xs_disabled) {
-		Test::Harness::runtests (grep { ! /03[a-z_]+_(?:pp|xs)\.t$/ } sort 
+		Test::Harness::runtests (grep { ! /0[34][a-z_]+_(?:pp|xs)\.t$/ } sort 
 			{lc $a cmp lc $b } @ARGV);
 	} else {
 		Test::Harness::runtests (sort {lc $a cmp lc $b } @ARGV);
