@@ -7,7 +7,7 @@ use strict;
 
 use Test;
 
-use constant NUM_TESTS => 99;
+use constant NUM_TESTS => 109;
 
 use Locale::Messages qw (bindtextdomain textdomain npgettext);
 require POSIX;
