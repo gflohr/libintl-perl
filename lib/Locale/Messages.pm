@@ -28,16 +28,30 @@ $VERSION = '1.23';
 
 # Try to load the C version first.
 $package = 'gettext_xs';
-my $can_xs = 1;
 eval <<'EOF';
 require Locale::gettext_xs; 
 my $version = Locale::gettext_xs::__gettext_xs_version();
 die "Version: version mismatch ($VERSION vs. $version)" unless $version eq $VERSION;
 EOF
-if ($@) {
-    $package = 'gettext_pp';
-	undef $can_xs;
-    require Locale::gettext_pp;
+my $no_xs = $@;
+
+# There are systems where setlocale() and the LC_ constants are not
+# defined at all, see https://rt.cpan.org/Ticket/Display.html?id=98109
+#
+# On such systems, we always fall back to gettext_dumb.
+if ($no_xs) {
+    eval {
+        require POSIX;
+        # void
+        POSIX::setlocale(POSIX::LC_ALL());
+    };
+    if ($@) {
+        $package = 'gettext_dumb';
+        require Locale::gettext_dumb;
+    } else {
+        $package = 'gettext_pp';
+        require Locale::gettext_pp;
+    }
 }
 		
 require Exporter;
@@ -173,7 +187,7 @@ sub select_package {
         $pkg = $compatibility;
     }
 
-    if (!$can_xs && 'gettext_xs' eq $pkg) {
+    if ($no_xs && 'gettext_xs' eq $pkg) {
         $pkg = 'gettext_pp';
     }
 
