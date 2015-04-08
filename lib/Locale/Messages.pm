@@ -743,6 +743,9 @@ variable B<OUTPUT_CHARSET> to "utf-8".  Additionally you should
 call bind_textdomain_codeset() with "utf-8" as the second
 argument.
 
+Steven Haryanto has written a module Locale::TextDomain::UTF8(3pm)
+that addresses the same problem.
+
 This function has been introduced in libintl-perl 1.16 and it is
 B<not> part of the standard gettext API.
 
@@ -1041,7 +1044,8 @@ rights reserved.  See the source code for details.
 =head1 SEE ALSO
 
 Locale::TextDomain(3pm), Locale::gettext_pp(3pm), Encode(3pm),
-perllocale(3pm), POSIX(3pm), perl(1), gettext(1), gettext(3)
+Locale::TextDomain::UTF8(3pm), perllocale(3pm), POSIX(3pm), perl(1), 
+gettext(1), gettext(3)
 
 =cut
 
