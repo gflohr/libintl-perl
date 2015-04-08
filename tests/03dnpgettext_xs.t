@@ -86,12 +86,13 @@ Locale::Messages::nl_putenv ("LC_ALL=de_AT");
 Locale::Messages::nl_putenv ("LANG=de_AT");
 Locale::Messages::nl_putenv ("LC_MESSAGES=de_AT");
 
-Locale::Messages::setlocale (POSIX::LC_ALL() => '');
+my $missing_locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '') ?
+    '' : 'locale de_AT missing';
 
 for (0 .. 9) {
 	my $translation = dnpgettext (existing => $context, $strings[0], $strings[1], $_);
 	my $expected = $_ == 1 ? 'Einzahl 2' : 'Mehrzahl 2';
-	ok $expected, $translation;
+	skip $missing_locale, $expected, $translation;
 }
 
 Locale::Messages::nl_putenv ("LANGUAGE=C");
@@ -124,7 +125,7 @@ for (0 .. 40) {
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	ok $translation, "Numerus 2:$plural";
+	skip $missing_locale, $translation, "Numerus 2:$plural";
 }
 
 __END__

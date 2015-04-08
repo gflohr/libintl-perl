@@ -98,7 +98,7 @@ my $missing_locale = Locale::Messages::setlocale (POSIX::LC_ALL() => '') ?
 for (0 .. 9) {
 	my $translation = npgettext ($context, $strings[0], $strings[1], $_);
 	my $expected = $_ == 1 ? 'Einzahl 2' : 'Mehrzahl 2';
-	ok $translation, $expected;
+	skip skip $missing_locale, $translation, $expected;
 }
 
 $textdomain = 'additional';
@@ -137,7 +137,7 @@ for (0 .. 40) {
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	ok $translation, "Numerus 2:$plural";
+	skip $missing_locale, $translation, "Numerus 2:$plural";
 }
 
 __END__

@@ -135,7 +135,7 @@ for (0 .. 40) {
 	my $plural = ($_ == 1 ? 0 : 
 				  $_ % 10 == 2 ? 1 : 
 				  $_ % 10 == 3 || $_ %10 == 4 ? 2 : 3);
-	ok $translation, "Numerus $plural";
+	skip $missing_locale, $translation, "Numerus $plural";
 }
 
 __END__
