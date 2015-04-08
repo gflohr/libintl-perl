@@ -3,8 +3,6 @@ ChangeLog			Detailed list of changes
 FAQ				Frequently asked questions
 MANIFEST			This list of files
 MANIFEST.SKIP                   Files to suppress in MANIFEST
-MYMETA.json
-MYMETA.yml
 Makefile.PL			Makefile generator
 MyInstall.pm			Workaround file
 NEWS				Latest Changes
@@ -18,8 +16,6 @@ THANKS				Contributors
 Credits				Same as THANKS
 TODO				Missing
 gettext_xs/Makefile.PL		Makefile generator
-gettext_xs/MYMETA.json          
-gettext_xs/MYMETA.yml
 gettext_xs/gettext_xs.pm	XS loader
 gettext_xs/gettext_xs.xs	XS binding
 lib/Locale/Messages.pm		Gettext Like Message Retrieval
