@@ -1,3 +1,18 @@
+Version 1.24 - 08 Apr 2013
+
+* Better portability for tests.
+
+* Updated documentation.
+
+* License changed to GPLv3.
+
+* Bugs fixed:
+
+  https://rt.cpan.org/Ticket/Display.html?id=98109
+  https://rt.cpan.org/Ticket/Display.html?id=47968
+  https://rt.cpan.org/Ticket/Display.html?id=83980
+  https://rt.cpan.org/Ticket/Display.html?id=102288
+
 Version 1.23 - 24 Jan 2013
 
 * New message retrieval backend Locale::gettext_dumb(3pm) which produces
