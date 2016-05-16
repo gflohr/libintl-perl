@@ -1,4 +1,13 @@
-Version 1.24 - 08 Apr 2013
+Version 1.25 - 09 May 2016
+
+* Fixed false negatives in test suite, no need to upgrade the module!
+
+* Bugs fixed:
+
+  https://rt.cpan.org/Ticket/Display.html?id=83980
+  https://rt.cpan.org/Ticket/Display.html?id=47968
+
+Version 1.24 - 08 Apr 2016
 
 * Better portability for tests.
 
