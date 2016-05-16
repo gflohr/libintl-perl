@@ -73,6 +73,16 @@ because it lacks locale support.
 EOF
         }
 
+        if (!$xs_disabled && !$ENV{TEST_LIBINTL_PERL_XS_VERSION}) {
+                $xs_disabled = 1;
+                print <<EOF;
+The XS version of libintl-perl will normally not be tested extensively
+because it depends on local configurations not under control of the module 
+installation.  You can enable them by setting the environment variable
+"TEST_LIBINTL_PERL_XS_VERSION" to a Perl truth variable.
+EOF
+        }
+
 	if (!$xs_disabled && $has_locales) {
 		# It is pointless to test the XS extension, if no German
 		# locales are installed on the system.  The results
@@ -113,8 +123,11 @@ EOF
 		$xs_disabled = !$has_de_locale;
 	}
 
-	if ($xs_disabled) {
+        if (!$has_locales) {
 		Test::Harness::runtests (grep { ! /0[34][a-z_]+_(?:pp|xs)\.t$/ } sort 
+			{lc $a cmp lc $b } @ARGV);
+        } elsif ($xs_disabled) {
+		Test::Harness::runtests (grep { ! /0[34][a-z_]+_xs\.t$/ } sort 
 			{lc $a cmp lc $b } @ARGV);
 	} else {
 		Test::Harness::runtests (sort {lc $a cmp lc $b } @ARGV);
