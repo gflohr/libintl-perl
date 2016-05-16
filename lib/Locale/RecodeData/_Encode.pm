@@ -2,7 +2,7 @@
 # vim: set autoindent shiftwidth=4 tabstop=4:
 
 # Interface to Encode.
-# Copyright (C) 2002-2015 Guido Flohr <guido.flohr@cantanea.com>,
+# Copyright (C) 2002-2016 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
 # This program is free software: you can redistribute it and/or modify
@@ -71,7 +71,7 @@ of Encode.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2015, Guido Flohr E<lt>guido.flohr@cantanea.comE<gt>, all
+Copyright (C) 2002-2016, Guido Flohr E<lt>guido.flohr@cantanea.comE<gt>, all
 rights reserved.  See the source code for details.
 
 =head1 SEE ALSO
