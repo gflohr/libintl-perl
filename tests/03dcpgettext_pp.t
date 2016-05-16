@@ -47,14 +47,27 @@ $bound_dir = bindtextdomain additional => $locale_dir;
 ok defined $bound_dir;
 ok (File::Spec->catdir ($locale_dir), File::Spec->catdir ($bound_dir));
 
-# make sure dgettext and dpgettext return diff values
-ok 'Anzeigen', dcgettext (existing => 'View', LC_MESSAGES);
-ok 'Ansicht', dcpgettext (existing => 'Which folder would you like to view?','View', LC_MESSAGES);
-ok 'Not translated', dcpgettext (existing => 'none', 'Not translated', LC_MESSAGES);
+my $missing_locale = 'locale de_AT missing';
+my $setlocale = Locale::Messages::setlocale (POSIX::LC_ALL() => '');
+if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+        $missing_locale = '';
+} else {
+        require Locale::Util;
 
-ok 'Eine andere Ansicht mit Kontext', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
-ok 'Not translated', dcpgettext (additional => 'none', 'Not translated', LC_MESSAGES);
-ok 'Eine andere Ansicht mit Kontext', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
+        $setlocale = Locale::Util::set_locale (POSIX::LC_ALL(), 'de', 'AT');
+        if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+                $missing_locale = '';
+        }
+}
+
+# make sure dgettext and dpgettext return diff values
+skip $missing_locale, 'Anzeigen', dcgettext (existing => 'View', LC_MESSAGES);
+skip $missing_locale, 'Ansicht', dcpgettext (existing => 'Which folder would you like to view?','View', LC_MESSAGES);
+skip $missing_locale, 'Not translated', dcpgettext (existing => 'none', 'Not translated', LC_MESSAGES);
+
+skip $missing_locale, 'Eine andere Ansicht mit Kontext', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
+skip $missing_locale, 'Not translated', dcpgettext (additional => 'none', 'Not translated', LC_MESSAGES);
+skip $missing_locale, 'Eine andere Ansicht mit Kontext', dcpgettext (additional => 'Context', 'Another View', LC_MESSAGES);
 
 __END__
 

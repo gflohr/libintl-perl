@@ -50,6 +50,19 @@ my $bound_domain = textdomain $textdomain;
 ok defined $bound_domain;
 ok $bound_domain, $textdomain;
 
+my $missing_locale = 'locale de_AT missing';
+my $setlocale = Locale::Messages::setlocale (POSIX::LC_ALL() => '');
+if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+        $missing_locale = '';
+} else {
+        require Locale::Util;
+
+        $setlocale = Locale::Util::set_locale (POSIX::LC_ALL(), 'de', 'AT');
+        if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
+                $missing_locale = '';
+        }
+}
+
 # Default case.
 ok gettext ('View'), 'Anzeigen';
 
