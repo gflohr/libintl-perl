@@ -1061,8 +1061,9 @@ All character codes are in hexadecimal.  Please read 'ISO-10646' as
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2016, Guido Flohr E<lt>guido.flohr@cantanea.comE<gt>, all
-rights reserved.  See the source code for details.
+Copyright (C) 2002-2016 L<Guido Flohr|http://www.guido-flohr.net/>
+(L<mailto:guido.flohr@cantanea.com>), all rights reserved.  See the source
+code for details!code for details!
 
 =head1 SEE ALSO
 
