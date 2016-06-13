@@ -242,7 +242,7 @@ WriteMakefile (
 
 sub MY::postamble {
         '
-all :: Credits ReleaseNotes
+all :: Credits ReleaseNotes README
 
 # Make search.cpan.org happy but still follow GNU standards:
 # # (Thanks to Graham Barr for the hint)
@@ -251,6 +251,9 @@ Credits: THANKS
 
 ReleaseNotes: NEWS
 	cat NEWS >$@
+
+README: README.md
+	cat README.md >$@
 '
 }
 

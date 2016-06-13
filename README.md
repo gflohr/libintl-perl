@@ -9,10 +9,7 @@ system as implemented for example in GNU gettext.
     "sample" of this release should be installed along with the library
     itself in the according documentation section!]
 
-See the file COPYING.LESSER and the source code for licensing.
-
-More extensive information may be available at the libintl-perl homepage
-on the internet http://guido-flohr.net/projects/libintl-perl.
+See the file COPYING and the source code for licensing.
 
 Requirements
 ------------
@@ -86,17 +83,17 @@ Feedback
 --------
 
 Send negative (and positive!) feedback to me.  Bug reports can be send 
-directly to me or you can use the bugtracking system at http://rt.cpan.org/.
+directly to me or you can use the 
+[RT bugtracking system](http://rt.cpan.org/ "Link to RT").
 
 If you use libintl-perl for your project, private or public, free or
 commercial, please let me know.  I am interested in such information.
 
-If you really like (or dislike?) libintl-perl, tell the world about.  You
-can rate it and even write a review at http://cpanratings.perl.org/
-(search for "libintl-perl").  You can also increase the popularity index of
-libintl-perl at freshmeat.net by visiting its project page at
-http://freshmeat.net/projects/libintl-perl, by subscribing to new
-releases from the project page, or by rating it. 
+If you really like (or dislike?) libintl-perl, tell the world about.  
+You can star it on [github](http://github.com/gflohr/libintl-perl).  You
+can rate it and even write a review at 
+[cpanratings](http://cpanratings.perl.org/)
+(search for "libintl-perl").
 
 Design Goals
 ------------
@@ -163,8 +160,7 @@ bother about the documentation of the other modules in the library,
 you will not need it unless you want to hack the library yourself.
 
 In order to make use of the software, you will also need various tools
-from GNU gettext (http://savannah.gnu.org/projects/gettext/).  The
-documentation is located at http://www.gnu.org/manual/gettext/.
+from GNU gettext [savannah](http://savannah.gnu.org/projects/gettext/). The documentation is located at [www.gnu.org](http://www.gnu.org/manual/gettext/).
 You will find there a language-independent overview of 
 internationalization with GNU gettext, and in the Perl-specific
 sections you will find details about the parser that extracts
