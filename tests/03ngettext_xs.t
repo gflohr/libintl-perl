@@ -96,7 +96,7 @@ if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
 for (0 .. 9) {
 	my $translation = ngettext ($strings[0], $strings[1], $_);
 	my $expected = $_ == 1 ? 'Einzahl' : 'Mehrzahl';
-	ok $translation, $expected;
+	skip $missing_locale, $translation, $expected;
 }
 
 $textdomain = 'additional';

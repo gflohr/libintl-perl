@@ -64,13 +64,13 @@ if ($setlocale && $setlocale =~ /(?:austria|at)/i) {
 }
 
 # Default case.
-ok gettext ('View'), 'Anzeigen';
+skip $missing_locale, gettext ('View'), 'Anzeigen';
 
 # Default context case.
-ok pgettext ('Which folder would you like to view?','View'), 'Ansicht';
+skip $missing_locale, pgettext ('Which folder would you like to view?','View'), 'Ansicht';
 
 # msgid eq msgstr.
-ok pgettext ('Which folder would you like to view? (2)','View'), 'View 2';
+skip $missing_locale, pgettext ('Which folder would you like to view? (2)','View'), 'View 2';
 
 # Unknown.
 ok pgettext ('none', 'Not translated'), 'Not translated';

@@ -71,7 +71,7 @@ ok defined $bound_codeset;
 ok $bound_codeset, 'ISO-8859-1';
 
 skip $missing_locale, gettext ('January'), 'Jänner';
-ok gettext ('March'), 'März';
+skip $missing_locale, gettext ('March'), 'März';
 
 # This will cause GNU gettext to re-load our catalog.
 $bound_dir = bindtextdomain $textdomain => $locale_dir . '/../LocaleData';

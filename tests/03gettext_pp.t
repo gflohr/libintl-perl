@@ -64,7 +64,7 @@ ok defined $bound_domain;
 ok $bound_domain, $textdomain;
 
 # Default case.
-ok gettext ('December'), 'Dezember';
+skip $missing_locale, gettext ('December'), 'Dezember';
 
 # msgid eq msgstr.
 ok gettext ('September'), 'September';
