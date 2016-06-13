@@ -11,7 +11,7 @@ BEGIN {
 	eval {
 		require Encode;
 
-		if ($Encode::VERSION < "1.78") {
+		if ($Encode::VERSION =~ /^1\./ && $Encode::VERSION < "1.78") {
 			print "1..0 # Skip: Encode $Encode::VERSION has a " .
 				"bug, please upgrade!\n";
 			exit 0;
