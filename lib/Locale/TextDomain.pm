@@ -851,7 +851,7 @@ support it, so here it is.
 
 This function was introduced in libintl-perl 1.17.
 
-=item B<N__ (ARG1, ARG2, ...)>
+=item B<N__(ARG1)>
 
 A no-op function that simply echoes its arguments to the caller.  Take
 the following piece of Perl:
