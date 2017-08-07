@@ -241,6 +241,9 @@ WriteMakefile (
 );
 
 sub MY::postamble {
+        # This is for developers only.
+        return '' if ! -e '.git';
+
         '
 all :: Credits ReleaseNotes README
 
