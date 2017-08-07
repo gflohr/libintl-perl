@@ -199,7 +199,7 @@ sub tools_other
 	my $fragment = $self->SUPER::tools_other (@_);
 
 	$fragment =~ s/^MOD_INSTALL\s*=\s*(.*?)-MExtUtils::Install
-		/MOD_INSTALL =$1-MMyInstall/msx;
+		/MOD_INSTALL =$1-I. -MMyInstall/msx;
 
 	return $fragment;
 }
