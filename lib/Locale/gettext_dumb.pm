@@ -197,7 +197,7 @@ Locale::gettext_dumb - Locale unaware Implementation of Uniforum Message Transla
 
 =head1 SYNOPSIS
 
- use Locale::gettext_dumb (:locale_h :libintl_h);
+ use Locale::gettext_dumb qw(:locale_h :libintl_h);
 
  # Normally, you will not want to include this module directly but this way:
  use Locale::Messages;

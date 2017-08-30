@@ -432,7 +432,7 @@ Locale::Messages - Gettext Like Message Retrieval
 
 =head1 SYNOPSIS
 
- use Locale::Messages (:locale_h :libintl_h);
+ use Locale::Messages qw(:locale_h :libintl_h);
 
  gettext $msgid;
  dgettext $textdomain, $msgid;
@@ -1007,7 +1007,7 @@ Imports the locale category constants:
 
 A complete example:
 
-    1: use Locale::Messages qw (:locale_h :libintl_h);
+    1: use Locale::Messages qw(:locale_h :libintl_h);
     2: use POSIX qw (setlocale);
     3: setlocale (LC_MESSAGES, '');
     4: textdomain ('my-package');
@@ -1041,7 +1041,7 @@ should be able to find various files with the name F<libc.mo>, the
 message catalog for the library itself.  If you have found these
 files under F</usr/share/locale>, then you can try the following:
 
-    use Locale::Messages qw (:locale_h :libintl_h);
+    use Locale::Messages qw(:locale_h :libintl_h);
     use POSIX qw (setlocale);
 
     setlocale LC_MESSAGES, "";

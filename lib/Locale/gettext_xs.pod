@@ -27,7 +27,7 @@ Locale::gettext_xs - XS Implementation of Uniforum Message Translation
 
 =head1 SYNOPSIS
 
- use gettext_xs (:locale_h :libintl_h);
+ use gettext_xs qw(:locale_h :libintl_h);
 
  gettext $msgid;
  dgettext $domainname, $msgid;
