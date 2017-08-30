@@ -1,3 +1,37 @@
+commit 2dfd72f7a28ec60ba19cc3e4054f4585763ce015
+Author: Guido Flohr <guido.flohr@cantanea.com>
+Date:   Tue Aug 8 11:05:57 2017 +0300
+
+    updated NEWS
+
+commit fa3682f43451ea1b0f3bbc3117235f883a16d59e
+Author: Guido Flohr <guido.flohr@cantanea.com>
+Date:   Tue Aug 8 11:00:36 2017 +0300
+
+    updated fsf address
+    
+    Fixes https://rt.cpan.org/Public/Bug/Display.html?id=114731
+
+commit 3b1327beb89e79e8d75c6e06eff380bf7dfb20cc
+Author: Guido Flohr <guido.flohr@cantanea.com>
+Date:   Tue Aug 8 11:00:25 2017 +0300
+
+    updated NEWS
+
+commit 74f3a35cc24a54ada3bbef96d79e63a0592b7f18
+Author: Guido Flohr <guido.flohr@cantanea.com>
+Date:   Mon Aug 7 17:55:44 2017 +0300
+
+    do not require modules from relative paths
+    
+    Fixes https://security-tracker.debian.org/tracker/CVE-2016-1238
+
+commit d725a0f3c0eec4bb133091f3415c76c4319d562e
+Author: Guido Flohr <guido.flohr@cantanea.com>
+Date:   Mon Aug 7 17:42:04 2017 +0300
+
+    updated ChangeLog
+
 commit 40cd90c1fbf91bab1e00080c0cf0e31304f39267
 Author: Guido Flohr <guido.flohr@cantanea.com>
 Date:   Mon Aug 7 17:34:40 2017 +0300
