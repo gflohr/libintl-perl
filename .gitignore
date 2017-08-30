@@ -5,6 +5,8 @@ pm_to_blib
 xs_disabled
 config.log
 *.tar.gz
-/MYMETA.json
-/MYMETA.yml
+MYMETA.json
+MYMETA.yml
 /README
+/Credits
+/ReleaseNotes
