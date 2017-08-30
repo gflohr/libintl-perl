@@ -255,3 +255,23 @@ Or use double-quotes:
     print __"Hello";
 
 Thanks to Slavi Agafonkin for pointing me to the solution of this mystery.
+
+=head2 What options should be used with xgettext?
+
+More precise, the question should be which '--keyword' and '--flag' 
+options for xgettext should be used.  All other options are completely
+dependent on your use-case.
+
+If you are using L<Locale::Messages> or L<Locale::Gettext> for localizing
+Perl code, the default keywords and default flags built into xgettext
+are correct.
+
+If you are using L<Locale::TextDomain> you have to use a long plethora
+of command-line options for xgettext.  Beginning with libintl-perl 1.28
+you can use the library itself to produce these options:
+
+    perl -MLocale::TextDomain -e 'print Locale::TextDomain->options'
+
+If you want to disable the use of the built-in default keywords, precede
+the output of the above command with '--keyword=""'.  That will reset
+the keywords for xgettext.
