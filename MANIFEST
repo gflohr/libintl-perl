@@ -169,6 +169,7 @@ lib/Locale/gettext_pp.pm
 lib/Locale/gettext_xs.pod
 lib/Locale/libintlFAQ.pod
 sample/README
+sample/simplecal/.gitignore
 sample/simplecal/MANIFEST
 sample/simplecal/Makefile.PL
 sample/simplecal/README-NLS
