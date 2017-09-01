@@ -226,9 +226,9 @@ WriteMakefile (
     META_MERGE		    => {
         recommends => { 'File::ShareDir' => 0 },
         resources  => {
-            homepage   => 'http://git.guido-flohr.net/projects/libintl-perl/',
+            homepage   => 'http://www.guido-flohr.net/en/projects/',
             bugtracker => 'http://rt.cpan.org/Public/Dist/Display.html?Name=libintl-perl',
-            repository => 'git://git.guido-flohr.net/perl/libintl-perl.git',
+            repository => 'https://github.com/gflohr/libintl-perl.git',
         },
     },
     PL_FILES                => {},
