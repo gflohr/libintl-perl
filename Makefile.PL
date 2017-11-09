@@ -252,7 +252,7 @@ all :: Credits ReleaseNotes README
 Credits: THANKS
 	cat THANKS >$@
 
-ReleaseNotes: NEWS
+Changes: NEWS
 	cat NEWS >$@
 
 README: README.md

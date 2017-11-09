@@ -1,12 +1,11 @@
 COPYING		        	GNU General Public License
-ChangeLog			Detailed list of changes
 FAQ				Frequently asked questions
 MANIFEST			This list of files
 MANIFEST.SKIP                   Files to suppress in MANIFEST
 Makefile.PL			Makefile generator
 MyInstall.pm			Workaround file
 NEWS				Latest Changes
-ReleaseNotes			Same as NEWS
+Changes			        Same as NEWS
 README				See README.md
 README-oldversions		Where are old versions of this module?
 README.md                       Read it
