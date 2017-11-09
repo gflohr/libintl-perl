@@ -227,7 +227,7 @@ WriteMakefile (
         recommends => { 'File::ShareDir' => 0 },
         resources  => {
             homepage   => 'http://www.guido-flohr.net/en/projects/',
-            bugtracker => 'http://rt.cpan.org/Public/Dist/Display.html?Name=libintl-perl',
+            bugtracker => 'https://github.com/gflohr/libintl-perl/issues',
             repository => 'https://github.com/gflohr/libintl-perl.git',
         },
     },
@@ -245,7 +245,7 @@ sub MY::postamble {
         return '' if ! -e '.git';
 
         '
-all :: Credits ReleaseNotes README
+all :: Credits Changes README
 
 # Make search.cpan.org happy but still follow GNU standards:
 # # (Thanks to Graham Barr for the hint)
