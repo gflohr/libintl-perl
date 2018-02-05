@@ -692,7 +692,7 @@ sub __load_catalog
     my $code = $domain->{po_header}->{plural_forms} || '';
     
     # Whitespace, locale-independent.
-    my $s = '[ \t\r\n\013\014]';
+    my $s = '[ \011-\015]';
 
     # Untaint the plural header.
     # Keep line breaks as is (Perl 5_005 compatibility).
