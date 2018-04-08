@@ -484,24 +484,23 @@ sub setlocale($;$) {
 	&POSIX::setlocale;
 }
 
-sub __load_domain
-{
+sub __load_domain {
     my ($domainname, $category, $category_name, $locale) = @_;
 
-        # If no locale was selected for the requested locale category,
-        # l10n is disabled completely.  This matches the behavior of GNU
-        # gettext.
-        if ($category != LC_MESSAGES) {
-            # Not supported.
+    # If no locale was selected for the requested locale category,
+    # l10n is disabled completely.  This matches the behavior of GNU
+    # gettext.
+    if ($category != LC_MESSAGES) {
+        # Not supported.
+        return [];
+    }
+        
+    if (!defined $locale && $category != 1729) {
+        $locale = POSIX::setlocale ($category);
+        if (!defined $locale || 'C' eq $locale || 'POSIX' eq $locale) {
             return [];
         }
-        
-        if (!defined $locale && $category != 1729) {
-                $locale = POSIX::setlocale ($category);
-                if (!defined $locale || 'C' eq $locale || 'POSIX' eq $locale) {
-                        return [];
-                }
-        }
+    }
     
     $domainname = $__gettext_pp_textdomain
     	unless defined $domainname && length $domainname;
@@ -554,8 +553,9 @@ sub __load_domain
     		}
     	}
     }
-    	push @dirs, $__gettext_pp_default_dir
-    	if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
+
+    push @dirs, $__gettext_pp_default_dir
+	if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
     
     my %seen = ();
     foreach my $basedir (@dirs) {
