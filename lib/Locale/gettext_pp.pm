@@ -484,6 +484,58 @@ sub setlocale($;$) {
 	&POSIX::setlocale;
 }
 
+sub __selected_locales {
+	my ($locale, $category, $category_name) = @_;
+
+    my @locales;
+    my $cache_key;
+
+    if (defined $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
+    	@locales = split /:/, $ENV{LANGUAGE};
+    	$cache_key = $ENV{LANGUAGE};
+    } elsif (!defined $locale) {
+        # The system does not have LC_MESSAGES.  Guess the value.
+    	@locales = $cache_key = __locale_category ($category, 
+    	                                           $category_name);
+    } else {
+            @locales = $cache_key = $locale;
+    }
+
+	return $cache_key, @locales;
+}
+
+sub __extend_locales {
+	my (@locales) = @_;
+
+	my @tries = @locales;
+    my %locale_lookup = map { $_ => $_ } @tries;
+
+    foreach my $locale (@locales) {
+    	if ($locale =~ /^([a-z][a-z])
+    		(?:(_[A-Z][A-Z])?
+    		 (\.[-_A-Za-z0-9]+)?
+    		 )?
+    		(\@[-_A-Za-z0-9]+)?$/x) {
+    		
+    		if (defined $3) {
+    			defined $2 ?
+    				push @tries, $1 . $2 . $3 : push @tries, $1 . $3;
+					$locale_lookup{$tries[-1]} = $locale;
+    		}
+    		if (defined $2) {
+    			push @tries, $1 . $2;
+    			$locale_lookup{$1 . $2} = $locale;
+    		}
+    		if (defined $1) {
+    			push @tries, $1 if defined $1;
+    			$locale_lookup{$1} = $locale;
+    		}
+    	}
+    }
+
+	return \@tries, \%locale_lookup;
+}
+
 sub __load_domain {
     my ($domainname, $category, $category_name, $locale) = @_;
 
@@ -509,19 +561,7 @@ sub __load_domain {
     $dir = $__gettext_pp_default_dir unless defined $dir && length $dir;
     return [] unless defined $dir && length $dir;
 
-    my @locales;
-    my $cache_key;
-
-    if (defined $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
-    	@locales = split /:/, $ENV{LANGUAGE};
-    	$cache_key = $ENV{LANGUAGE};
-    } elsif (!defined $locale) {
-            # The system does not have LC_MESSAGES.  Guess the value.
-    	@locales = $cache_key = __locale_category ($category, 
-    	                                           $category_name);
-    } else {
-            @locales = $cache_key = $locale;
-    }
+	my ($cache_key, @locales) = __selected_locales $locale, $category, $category_name;
 
     # Have we looked that one up already?
     my $domains = $__gettext_pp_domain_cache->{$dir}->{$cache_key}->{$category_name}->{$domainname};
@@ -529,37 +569,14 @@ sub __load_domain {
     return [] unless @locales;
     
     my @dirs = ($dir);
-    my @tries = (@locales);
-    my %locale_lookup = map { $_ => $_ } @tries;
-
-    foreach my $locale (@locales) {
-    	if ($locale =~ /^([a-z][a-z])
-    		(?:(_[A-Z][A-Z])?
-    		 (\.[-_A-Za-z0-9]+)?
-    		 )?
-    		(\@[-_A-Za-z0-9]+)?$/x) {
-    		
-    		if (defined $3) {
-    			defined $2 ?
-    				push @tries, $1 . $2 . $3 : push @tries, $1 . $3;
-    		}
-    		if (defined $2) {
-    			push @tries, $1 . $2;
-    			$locale_lookup{$1 . $2} = $locale;
-    		}
-    		if (defined $1) {
-    			push @tries, $1 if defined $1;
-    			$locale_lookup{$1} = $locale;
-    		}
-    	}
-    }
+    my ($tries, $lookup) = __extend_locales @locales;
 
     push @dirs, $__gettext_pp_default_dir
 	if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
     
     my %seen = ();
     foreach my $basedir (@dirs) {
-    	foreach my $try (@tries) {
+    	foreach my $try (@$tries) {
     		my $fulldir = "$basedir/$try/$category_name";
     		
     		next if $seen{$fulldir}++;
@@ -575,7 +592,7 @@ sub __load_domain {
     		my $domain = __load_catalog ($filename, $try);
     		next unless $domain;
     			
-    		$domain->{locale_id} = $locale_lookup{$try};
+    		$domain->{locale_id} = $lookup->{$try};
     		push @$domains, $domain;
     	}
     }
