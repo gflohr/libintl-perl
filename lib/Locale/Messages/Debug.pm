@@ -33,8 +33,8 @@ require Exporter;
 
 @EXPORT_OK = qw(debug_gettext);
 
-sub debug_gettext($$;$) {
-    my ($msgid, $msgstr, $mo_file) = @_;
+sub debug_gettext($) {
+    my ($msgid) = @_;
 
     my @hints;
 
@@ -111,7 +111,7 @@ sub debug_gettext($$;$) {
 
     		my $domain = Locale::gettext_pp::__load_catalog($filename, $try);
             if ($domain) {
-                push @hints, "  $filename: success.";
+                push @hints, "  $filename: successfully loaded.";
             } else {
                 push @hints, "  $filename: $!";
                 next;
@@ -122,6 +122,21 @@ sub debug_gettext($$;$) {
     		$domain->{locale_id} = $lookup->{$try};
     		push @domains, $domain;
     	}
+    }
+
+    if (!@domains) {
+        push @hints, "No catalog found, giving up.";
+    } else {
+        foreach my $domain (@domains) {
+            if (defined $domain->{messages}->{$msgid}) {
+                my @trans = @{$domain->{messages}->{$msgid}};
+                shift @trans;
+                push @hints, "$domain->{filename}: found translation: >>>$trans[0]<<<";
+                last;
+            } else {
+                push @hints, "$domain->{filename}: msgid not found";
+            }
+        }
     }
 
     return wantarray ? @hints : join "\n", @hints;
@@ -155,20 +170,16 @@ imported explicitely.
 
 =over 4
 
-=item B<debug_gettext MSGID, MSGSTR[, MO_FILE]>
+=item B<debug_gettext MSGID>
 
-Tries to retrieve an existing(!) translation for B<MSGID> which is
-expected to be B<MSGSTR>.  If B<MO_FILE> is specified (you should really
-do that), it should be the path to the F<.mo> file that should be loaded
-for message retrieval.
+Tries to retrieve a translation for B<MSGID>.
 
 The function returns a list of hints in string form or the same list as 
 one new-line separated string in scalar context;
 
 Example:
 
-    my @hints = debug_gettext "Hello, world!", "Hallo, Welt!",
-                "./LocaleData/de/LC_MESSAGES/hello.mo");
+    my @hints = debug_gettext "Hello, world!";
     foreach my $hint (@hints) {
         print "hint\n";
     }

@@ -635,13 +635,15 @@ sub __load_catalog
     my $filesize = length $raw;
     
     # Read the magic number in order to determine the byte order.
-    my $domain = {};
+    my $domain = {
+		filename => $filename
+	};
     my $unpack = 'N';
-    $domain->{potter} = unpack $unpack, substr $raw, 0, 4;
+    $domain->{magic} = unpack $unpack, substr $raw, 0, 4;
     
-    if ($domain->{potter} == 0xde120495) {
+    if ($domain->{magic} == 0xde120495) {
     	$unpack = 'V';
-    } elsif ($domain->{potter} != 0x950412de) {
+    } elsif ($domain->{magic} != 0x950412de) {
     	return;
     }
     my $domain_unpack = $unpack x 6;
