@@ -42,7 +42,13 @@ sub debug_gettext($$;$) {
     push @hints, "Package is '$package'.";
 
     my $textdomain = Locale::Messages::textdomain();
-    push @hints, "Textdomain is '$textdomain'.";
+    push @hints, "Textdomain is '$textdomain', (use textdomain() to change this).";
+
+    my $dir = Locale::Messages::bindtextdomain($textdomain, '');
+    unless (defined $dir && length $dir) {
+        $dir = $Locale::gettext_pp::__gettext_pp_default_dir;
+    }
+    push @hints, "Textdomain is bound to '$dir', (use bindtextdomain() to change this).";
 
     my $lc_messages = Locale::Messages::LC_MESSAGES();
     if (1729 == $lc_messages) {
@@ -73,14 +79,40 @@ sub debug_gettext($$;$) {
         push @hints, "  \$LANGUAGE, \$LC_ALL, and \$LANG are not set.";
         push @hints, "  \$LC_MESSAGES is set to '$ENV{LC_MESSAGES}', wins.";
     } else {
-        push @hints, "  \$LANGUAGE, \$LC_ALL, \$LANG, and \$LC_MESSAGES are not set.";
+        push @hints, "  \$LANGUAGE, \$LC_ALL, \$LANG, and \$LC_MESSAGES are"
+                     . " not set.";
         push @hints, "  falling back to 'C' aka 'POSIX'.";
     }
 
     my (undef, @locales) = 
-        Locale::gettexxt_pp::__select_locales($locale, Locale::Messages::LC_MESSAGES(),
-                                              "LC_MESSAGES")
-    
+        Locale::gettext_pp::__selected_locales($locale, 
+                                               Locale::Messages::LC_MESSAGES(),
+                                               "LC_MESSAGES");
+
+    my @dirs = ($dir);
+    my $default_dir = Locale::gettext_pp::__gettext_pp_default_dir;
+
+    push @dirs, $default_dir if $default_dir && $dir ne $default_dir;
+
+    my %seen;
+	my %loaded;
+    foreach my $basedir (@dirs) {
+    	foreach my $try (@$tries) {
+			next if $loaded{$try};
+
+    		my $fulldir = File::Spec->catfile($basedir, $try, $category_name);
+    		next if $seen{$fulldir}++;
+
+    		my $domain = Locale::gettext_pp::__load_catalog($filename, $try);
+    		next unless $domain;
+    		
+			$loaded{$try} = 1;
+
+    		$domain->{locale_id} = $lookup->{$try};
+    		push @$domains, $domain;
+    	}
+    }
+
     return wantarray ? @hints : join "\n", @hints;
 }
 

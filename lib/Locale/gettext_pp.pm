@@ -559,6 +559,7 @@ sub __load_domain {
 
     my $dir = bindtextdomain ($domainname, '');
     $dir = $__gettext_pp_default_dir unless defined $dir && length $dir;
+
     return [] unless defined $dir && length $dir;
 
 	my ($cache_key, @locales) = __selected_locales $locale, $category, $category_name;
@@ -572,13 +573,17 @@ sub __load_domain {
     my ($tries, $lookup) = __extend_locales @locales;
 
     push @dirs, $__gettext_pp_default_dir
-	if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
+		if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
     
-    my %seen = ();
+    my %seen;
+	my %loaded;
     foreach my $basedir (@dirs) {
     	foreach my $try (@$tries) {
-    		my $fulldir = "$basedir/$try/$category_name";
-    		
+			# If we had already found a catalog for "xy_XY", do not try it
+			# again.
+			next if $loaded{$try};
+
+    		my $fulldir = File::Spec->catfile($basedir, $try, $category_name);
     		next if $seen{$fulldir}++;
 
     		# If the cache for unavailable directories is removed,
@@ -587,11 +592,13 @@ sub __load_domain {
     		next if $__gettext_pp_unavailable_dirs->{$fulldir};
     		++$__gettext_pp_unavailable_dirs->{$fulldir} and next
     				unless -d $fulldir;
-                        my $filename = File::Spec->catfile ($fulldir, 
-                                                            "$domainname.mo");
-    		my $domain = __load_catalog ($filename, $try);
+                        my $filename = File::Spec->catfile($fulldir, 
+                                                           "$domainname.mo");
+    		my $domain = __load_catalog $filename, $try;
     		next unless $domain;
-    			
+    		
+			$loaded{$try} = 1;
+
     		$domain->{locale_id} = $lookup->{$try};
     		push @$domains, $domain;
     	}
