@@ -592,8 +592,7 @@ sub __load_domain {
     		next if $__gettext_pp_unavailable_dirs->{$fulldir};
     		++$__gettext_pp_unavailable_dirs->{$fulldir} and next
     				unless -d $fulldir;
-                        my $filename = File::Spec->catfile($fulldir, 
-                                                           "$domainname.mo");
+            my $filename = File::Spec->catfile($fulldir, "$domainname.mo");
     		my $domain = __load_catalog $filename, $try;
     		next unless $domain;
     		

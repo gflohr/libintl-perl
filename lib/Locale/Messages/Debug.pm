@@ -41,10 +41,10 @@ sub debug_gettext($$;$) {
     my $package = $Locale::Messages::package;
     push @hints, "Package is '$package'.";
 
-    my $textdomain = Locale::Messages::textdomain();
-    push @hints, "Textdomain is '$textdomain', (use textdomain() to change this).";
+    my $domainname = Locale::Messages::textdomain();
+    push @hints, "Textdomain is '$domainname', (use textdomain() to change this).";
 
-    my $dir = Locale::Messages::bindtextdomain($textdomain, '');
+    my $dir = Locale::Messages::bindtextdomain($domainname, '');
     unless (defined $dir && length $dir) {
         $dir = $Locale::gettext_pp::__gettext_pp_default_dir;
     }
@@ -90,26 +90,37 @@ sub debug_gettext($$;$) {
                                                "LC_MESSAGES");
 
     my @dirs = ($dir);
-    my $default_dir = Locale::gettext_pp::__gettext_pp_default_dir;
-
+    my $default_dir = $Locale::gettext_pp::__gettext_pp_default_dir;
     push @dirs, $default_dir if $default_dir && $dir ne $default_dir;
+
+    my @dirs = ($dir);
+    my ($tries, $lookup) = Locale::gettext_pp::__extend_locales(@locales);
 
     my %seen;
 	my %loaded;
+    my @domains;
+    push @hints, "Searching catalogs ...";
     foreach my $basedir (@dirs) {
     	foreach my $try (@$tries) {
 			next if $loaded{$try};
 
-    		my $fulldir = File::Spec->catfile($basedir, $try, $category_name);
+    		my $fulldir = File::Spec->catfile($basedir, $try, "LC_MESSAGES");
     		next if $seen{$fulldir}++;
 
+            my $filename = File::Spec->catfile($fulldir, "$domainname.mo");
+
     		my $domain = Locale::gettext_pp::__load_catalog($filename, $try);
-    		next unless $domain;
+            if ($domain) {
+                push @hints, "  $filename: success.";
+            } else {
+                push @hints, "  $filename: $!";
+                next;
+            }
     		
 			$loaded{$try} = 1;
 
     		$domain->{locale_id} = $lookup->{$try};
-    		push @$domains, $domain;
+    		push @domains, $domain;
     	}
     }
 
