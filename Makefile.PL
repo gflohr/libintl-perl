@@ -121,7 +121,7 @@ EOF
 # FIXME! Actually, we only need newlocale(), uselocale(), and freelocale().
 # All the rest should be tested individually in order to support incomplete
 # implementations.
-$c = <<EOF;
+my $xlocale_c = <<EOF;
 #include <locale.h>
 #include <stdlib.h>
 #include <wctype.h>
@@ -131,7 +131,6 @@ $c = <<EOF;
 #include <monetary.h>
 #include <stdio.h>
 #include <stdarg.h>
-#define _XOPEN_SOURCE
 #include <time.h>
 #include <string.h>
 
@@ -197,10 +196,17 @@ main (int argc, char *argv[])
 EOF
 
 my $needs_xlocale_h;
+$c = <<EOF;
+#define _XOPEN_SOURCE 700
+$xlocale_c
+EOF
 my $build_xlocale = ac_try_link $c,
     "Checking whether extended locale support is available";
 unless ($build_xlocale) {
-    $c = "#include <xlocale.h>\n$c";
+    $c = <<EOF;
+#define _XOPEN_SOURCE 700
+#include <xlocale.h>
+EOF
     $build_xlocale = ac_try_link $c, "  Trying again with <xlocale.h>";
     $needs_xlocale_h = 1 if $build_xlocale;
 }
