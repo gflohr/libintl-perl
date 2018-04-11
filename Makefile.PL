@@ -3,7 +3,7 @@
 # vim: tabstop=4
 
 # Makefile generator for libintl-perl.
-# Copyright (C) 2002-2017 Guido Flohr <guido.flohr@cantanea.com>, 
+# Copyright (C) 2002-2017 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
 # This program is free software; you can redistribute it and/or modify it
@@ -28,7 +28,7 @@ use strict;
 
 # Make standard channels unbuffered.
 select STDERR; $| = 1;
-select STDOUT; $| = 1; 
+select STDOUT; $| = 1;
 
 sub ac_try_link;
 
@@ -79,9 +79,9 @@ main (argc, argv)
 	gettext ("msgid");
     	dgettext ("dummy", "msgid");
     	dcgettext ("dummy", "msgid", LC_MESSAGES);
-	ngettext ("msgid", "msgid_plural", 
+	ngettext ("msgid", "msgid_plural",
 #if 0
-		  _nl_msg_cat_cntr + *_nl_domain_bindings); 
+		  _nl_msg_cat_cntr + *_nl_domain_bindings);
 #else
                   _nl_msg_cat_cntr);
 #endif
@@ -112,6 +112,97 @@ EOF
 	print STDERR <<EOF;
 => Building the XS version of libintl-perl.
 EOF
+}
+
+# Test for xlocale(3) support.  GNU libc no longer provides <xlocale.h>.
+# So we first test without including it, and then with including it,
+# remembering the result.
+#
+# FIXME! Actually, we only need newlocale(), uselocale(), and freelocale().
+# All the rest should be tested individually in order to support incomplete
+# implementations.
+$c = <<EOF;
+#include <locale.h>
+#include <stdlib.h>
+#include <wctype.h>
+#include <ctype.h>
+#include <inttypes.h>
+#include <langinfo.h>
+#include <monetary.h>
+#include <stdio.h>
+#include <stdarg.h>
+#define _XOPEN_SOURCE
+#include <time.h>
+#include <string.h>
+
+int
+main (int argc, char *argv[])
+{
+    wint_t wc = 0;
+    char *ret;
+    char buf[1];
+    struct tm tm;
+    const char *current_locale = querylocale(LC_MESSAGES_MASK, NULL);
+    struct lconv* lc;
+
+    locale_t loc = newlocale(LC_ALL_MASK, "", NULL);
+    locale_t dup = duplocale(loc);
+    freelocale(dup);
+    uselocale(loc);
+
+    printf("%d", iswalnum_l(wc, loc));
+    printf("%d", iswalpha_l(wc, loc));
+    printf("%d", iswcntrl_l(wc, loc));
+    printf("%d", iswctype_l(wc, wctype("alpha"), loc));
+    printf("%d", iswdigit_l(wc, loc));
+    printf("%d", iswgraph_l(wc, loc));
+    printf("%d", iswlower_l(wc, loc));
+    printf("%d", iswprint_l(wc, loc));
+    printf("%d", iswpunct_l(wc, loc));
+    printf("%d", iswspace_l(wc, loc));
+    printf("%d", iswupper_l(wc, loc));
+    printf("%d", iswxdigit_l(wc, loc));
+    printf("%d", (int) towlower_l(wc, loc));
+    printf("%d", (int) towupper_l(wc, loc));
+    printf("%d", (int) wctype_l(NULL, loc));
+
+    printf("%s", nl_langinfo_l(ABDAY_1, loc));
+
+    strfmon_l(buf, sizeof(buf) - 1, loc, "%n", 123456.78);
+
+    /* We just need a binding to vasprintf() and provide our own wrappers.  */
+    printf("%d", asprintf_l(&ret, loc, "x"));
+
+    /* We just check for long and double here because we cannot represent
+     * anything else in Perl.
+     */
+    printf("%ld", atol_l("2304", loc));
+    printf("%g", strtod_l("2304", NULL, loc));
+    printf("%ld", strtol_l("2304", NULL, 10, loc));
+
+    /* We omit all the wide character and multi-byte stuff.  People can
+     * use Encode for that.
+     */
+
+    printf("%d", strcoll_l("foo", "bar", loc));
+    printf("%d", (int) strxfrm_l(NULL, "foobar", 0, loc));
+
+    (void) strftime_l(buf, sizeof(buf) - 1, "%%", &tm, loc);
+    (void) strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc);
+
+    lc = localeconv_l(loc);
+
+    freelocale(loc);
+}
+EOF
+
+my $needs_xlocale_h;
+my $build_xlocale = ac_try_link $c,
+    "Checking whether extended locale support is available";
+unless ($build_xlocale) {
+    $c = "#include <xlocale.h>\n$c";
+    $build_xlocale = ac_try_link $c, "  Trying again with <xlocale.h>";
+    $needs_xlocale_h = 1 if $build_xlocale;
 }
 
 sub ac_try_link {
@@ -180,10 +271,10 @@ package MY;
 # so that instead of ExtUtils::Install a custom module MyInstall.pm will
 # be used.  This custom module overwrites the subroutine that detects
 # whether a directory is empty in ExtUtils::Install, and will lie if that
-# directory happens to be "blib/arch".  This little hack effectively disables 
+# directory happens to be "blib/arch".  This little hack effectively disables
 # the annoying behavior of ExtUtils::Install (and I sincerely hope that
 # this is portable).
-sub libscan 
+sub libscan
 {
 	my ($self, $file) = @_;
 
@@ -192,7 +283,7 @@ sub libscan
 	$self->SUPER::libscan ($file);	
 }
 
-sub tools_other 
+sub tools_other
 {
 	my $self = shift;
 
