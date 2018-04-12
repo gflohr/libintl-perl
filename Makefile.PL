@@ -31,6 +31,7 @@ select STDERR; $| = 1;
 select STDOUT; $| = 1;
 
 sub ac_try_link;
+sub ac_try_link_xlocale;
 
 use Config;
 
@@ -117,11 +118,7 @@ EOF
 # Test for xlocale(3) support.  GNU libc no longer provides <xlocale.h>.
 # So we first test without including it, and then with including it,
 # remembering the result.
-#
-# FIXME! Actually, we only need newlocale(), uselocale(), and freelocale().
-# All the rest should be tested individually in order to support incomplete
-# implementations.
-my $xlocale_c = <<EOF;
+my $xlocale_headers = <<EOF;
 #include <locale.h>
 #include <stdlib.h>
 #include <wctype.h>
@@ -133,82 +130,196 @@ my $xlocale_c = <<EOF;
 #include <stdarg.h>
 #include <time.h>
 #include <string.h>
+#include <pthread.h>
+EOF
 
+my $xlocale_newlocale = <<EOF;
 int
 main (int argc, char *argv[])
 {
-    wint_t wc = 0;
-    char *ret;
-    char buf[1];
-    struct tm tm;
-    const char *current_locale = querylocale(LC_MESSAGES_MASK, NULL);
-    struct lconv* lc;
+    locale_t dup;
+    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-    locale_t loc = newlocale(LC_ALL_MASK, "", NULL);
-    locale_t dup = duplocale(loc);
-    freelocale(dup);
-    uselocale(loc);
+    pthread_mutex_lock (&mutex);
+    pthread_mutex_unlock (&mutex);
 
-    printf("%d", iswalnum_l(wc, loc));
-    printf("%d", iswalpha_l(wc, loc));
-    printf("%d", iswcntrl_l(wc, loc));
-    printf("%d", iswctype_l(wc, wctype("alpha"), loc));
-    printf("%d", iswdigit_l(wc, loc));
-    printf("%d", iswgraph_l(wc, loc));
-    printf("%d", iswlower_l(wc, loc));
-    printf("%d", iswprint_l(wc, loc));
-    printf("%d", iswpunct_l(wc, loc));
-    printf("%d", iswspace_l(wc, loc));
-    printf("%d", iswupper_l(wc, loc));
-    printf("%d", iswxdigit_l(wc, loc));
-    printf("%d", (int) towlower_l(wc, loc));
-    printf("%d", (int) towupper_l(wc, loc));
-    printf("%d", (int) wctype_l(NULL, loc));
+    locale_t loc = newlocale (LC_ALL_MASK, "", NULL);
+    dup = duplocale (loc);
+    uselocale (loc);
+    freelocale (dup);
+    freelocale (loc);
 
-    printf("%s", nl_langinfo_l(ABDAY_1, loc));
-
-    strfmon_l(buf, sizeof(buf) - 1, loc, "%n", 123456.78);
-
-    /* We just need a binding to vasprintf() and provide our own wrappers.  */
-    printf("%d", asprintf_l(&ret, loc, "x"));
-
-    /* We just check for long and double here because we cannot represent
-     * anything else in Perl.
-     */
-    printf("%ld", atol_l("2304", loc));
-    printf("%g", strtod_l("2304", NULL, loc));
-    printf("%ld", strtol_l("2304", NULL, 10, loc));
-
-    /* We omit all the wide character and multi-byte stuff.  People can
-     * use Encode for that.
-     */
-
-    printf("%d", strcoll_l("foo", "bar", loc));
-    printf("%d", (int) strxfrm_l(NULL, "foobar", 0, loc));
-
-    (void) strftime_l(buf, sizeof(buf) - 1, "%%", &tm, loc);
-    (void) strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc);
-
-    lc = localeconv_l(loc);
-
-    freelocale(loc);
+    return 0;
 }
 EOF
 
 my $needs_xlocale_h;
 $c = <<EOF;
 #define _XOPEN_SOURCE 700
-$xlocale_c
+$xlocale_headers
+$xlocale_newlocale
 EOF
 my $build_xlocale = ac_try_link $c,
     "Checking whether extended locale support is available";
-unless ($build_xlocale) {
-    $c = <<EOF;
+if ($build_xlocale) {
+    $xlocale_headers = <<EOF;
+#define _XOPEN_SOURCE 700
+$xlocale_headers
+EOF
+} else {
+    $xlocale_headers = <<EOF;
 #define _XOPEN_SOURCE 700
 #include <xlocale.h>
+$xlocale_headers
 EOF
+
+    $c = <<EOF;
+$xlocale_headers
+$xlocale_newlocale
+EOF
+
     $build_xlocale = ac_try_link $c, "  Trying again with <xlocale.h>";
     $needs_xlocale_h = 1 if $build_xlocale;
+}
+
+my %xlocale;
+if ($build_xlocale) {
+    $xlocale{new} = 1;
+    $xlocale{use} = 1;
+    $xlocale{dup} = 1;
+    $xlocale{free} = 1;
+
+    $c = <<EOF;
+printf ("%s", querylocale(LC_MESSAGES_MASK, NULL));
+EOF
+    $xlocale{query} = ac_try_link_xlocale $c, 
+            "  Checking whether querylocale() is available";
+
+    foreach my $func (qw(iswalnum_l iswalpha_l iswcntrl_l iswdigit_l iswgraph_l
+                         iswlower_l iswprint_l iswpunct_l iswspace_l iswupper_l 
+                         iswxdigit_l)) {
+        $c = <<EOF;
+printf ("%d", $func (0, loc));
+EOF
+        $xlocale{$func} = ac_try_link_xlocale $c,
+            "  Checking whether $func() is available";
+    }
+
+    $c = <<EOF;
+printf ("%d", iswctype_l(0, wctype("alpha"), loc));
+EOF
+    $xlocale{iswctype_l} = ac_try_link_xlocale $c, 
+            "  Checking whether iswctype_l() is available";
+
+    $c = <<EOF;
+printf ("%d", (int) tolower_l(0, loc));
+EOF
+    $xlocale{towlower_l} = ac_try_link_xlocale $c, 
+            "  Checking whether towlower_l() is available";
+
+    $c = <<EOF;
+printf ("%d", (int) tolower_l(0, loc));
+EOF
+    $xlocale{towupper_l} = ac_try_link_xlocale $c, 
+            "  Checking whether towupper_l() is available";
+
+    $c = <<EOF;
+printf ("%d", (int) wctype_l(0, loc));
+EOF
+    $xlocale{wctype_l} = ac_try_link_xlocale $c, 
+            "  Checking whether wctype_l() is available";
+
+    $c = <<EOF;
+printf ("%s", nl_langinfo_l(ABDAY_1, loc));
+EOF
+    $xlocale{nl_langinfo_l} = ac_try_link_xlocale $c, 
+            "  Checking whether nl_langinfo_l() is available";
+
+    $c = <<EOF;
+char buf[2];
+printf ("%d", (int) strfmon_l(buf, sizeof(buf) - 1, loc, "%n", 123456.78));
+EOF
+    $xlocale{strfmon_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strfmon_l() is available";
+
+    $c = <<EOF;
+char *ret;
+printf ("%d", asprintf_l(&ret, loc, "x"));
+EOF
+    $xlocale{asprintf_l} = ac_try_link_xlocale $c, 
+            "  Checking whether asprintf_l() is available";
+
+    $c = <<EOF;
+printf ("%ld", atol_l("2304", loc));
+EOF
+    $xlocale{atol_l} = ac_try_link_xlocale $c, 
+            "  Checking whether atol_l() is available";
+
+    $c = <<EOF;
+printf ("%g", strtod_l("2304", NULL, loc));
+EOF
+    $xlocale{strtod_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strtod_l() is available";
+
+    $c = <<EOF;
+printf ("%ld", strtol_l("2304", NULL, 10, loc));
+EOF
+    $xlocale{strtol_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strtol_l() is available";
+
+    $c = <<EOF;
+printf ("%ld", strcoll_l("foo", "bar", loc));
+EOF
+    $xlocale{strcoll_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strcoll_l() is available";
+
+    $c = <<EOF;
+printf ("%d", (int) strxfrm_l(NULL, "foobar", 0, loc));
+EOF
+    $xlocale{strxfrm_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strxfrm_l() is available";
+
+    $c = <<EOF;
+struct tm tm;
+char buf[2];
+printf ("%d", (int) strftime_l(buf, sizeof(buf) - 1, "%%", &tm, loc));
+EOF
+    $xlocale{strftime_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strftime_l() is available";
+
+    $c = <<EOF;
+struct tm tm;
+printf ("%s", strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc));
+EOF
+    $xlocale{strptime_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strptime_l() is available";
+
+    $c = <<EOF;
+printf ("%p", localeconv_l(loc));
+EOF
+    $xlocale{strptime_l} = ac_try_link_xlocale $c, 
+            "  Checking whether strptime_l() is available";
+}
+
+sub ac_try_link_xlocale {
+    my ($code, $message) = @_;
+
+    $code = <<EOF;
+$xlocale_headers
+
+int main (int argc, char *argv[])
+{
+    locale_t loc = newlocale(LC_ALL_MASK, "", NULL);
+
+    $code
+
+    freelocale(loc);
+
+    return 1;
+}
+EOF
+
+    return ac_try_link $code, $message;
 }
 
 sub ac_try_link {
@@ -311,7 +422,8 @@ print HANDLE !$build_gettext_xs;
 close HANDLE or die "cannot close '$name': $!";
 
 WriteMakefile (
-    NAME		    => 'libintl-perl',
+    DISTNAME		=> 'libintl-perl',
+    NAME            => 'Locale::Messages',
 	VERSION_FROM	=> 'lib/Locale/Messages.pm',
     ($] >= 5.005 ?
          (ABSTRACT          => 'High-Level Interface to Uniforum Message'
