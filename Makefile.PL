@@ -106,8 +106,8 @@ unless ($build_gettext_xs) {
 
 unless ($build_gettext_xs) {
 	print STDERR <<EOF;
-=> Cannot build the XS version of libintl-perl (see 'config.log' for
-=> details).  This is harmless!
+=> Cannot build the XS version of xlocale (see 'config.log' for
+=> details).  The !
 EOF
 } else {
 	print STDERR <<EOF;
@@ -142,6 +142,7 @@ main (int argc, char *argv[])
 
     pthread_mutex_lock (&mutex);
     pthread_mutex_unlock (&mutex);
+    pthread_mutex_destroy (&mutex);
 
     locale_t loc = newlocale (LC_ALL_MASK, "", NULL);
     dup = duplocale (loc);
@@ -184,11 +185,6 @@ EOF
 
 my %xlocale;
 if ($build_xlocale) {
-    $xlocale{new} = 1;
-    $xlocale{use} = 1;
-    $xlocale{dup} = 1;
-    $xlocale{free} = 1;
-
     $c = <<EOF;
 printf ("%s", querylocale(LC_MESSAGES_MASK, NULL));
 EOF
@@ -299,6 +295,34 @@ printf ("%p", localeconv_l(loc));
 EOF
     $xlocale{strptime_l} = ac_try_link_xlocale $c, 
             "  Checking whether strptime_l() is available";
+}
+
+unless ($build_xlocale) {
+	print STDERR <<EOF;
+=> Cannot build the XS version of Locale and Locale::Messages (see 'config.log' for
+=> details).  These two modules will work with Perl Interpreter threads but
+=> will not be thread-safe in other threaded environments.
+EOF
+} else {
+	print STDERR <<EOF;
+=> Building the XS version of Locale and Locale::Messages.
+EOF
+
+    open my $fh, '>', 'xlocale/config.h'
+        or die "cannot open 'xlocale/config.h' for writing: $!\n";
+    
+    $fh->print(<<EOF);
+/* This file is generated.  Do not edit! Edit 'Makefile.PL' instead! */
+EOF
+
+    $fh->print($xlocale_headers);
+
+    foreach my $func (sort keys %xlocale) {
+        my $ufunc = uc $func;
+        $fh->print("#define LIBINTL_PERL_HAS_$ufunc 1\n");
+    }
+
+    $fh->close or die "cannot close 'xlocale/config.h' for writing: $!\n";
 }
 
 sub ac_try_link_xlocale {
@@ -421,6 +445,17 @@ open HANDLE, ">$name" or die "cannot open '$name' for writing: $!";
 print HANDLE !$build_gettext_xs;
 close HANDLE or die "cannot close '$name': $!";
 
+$name = $0;
+$name =~ s,Makefile\.PL$,xlocale_disabled,;
+local *HANDLE;
+open HANDLE, ">$name" or die "cannot open '$name' for writing: $!";
+print HANDLE !$build_xlocale;
+close HANDLE or die "cannot close '$name': $!";
+
+my @dirs;
+push @dirs, 'gettext_xs' if $build_gettext_xs;
+push @dirs, 'xlocale' if $build_xlocale;
+
 WriteMakefile (
     DISTNAME		=> 'libintl-perl',
     NAME            => 'Locale::Messages',
@@ -440,13 +475,10 @@ WriteMakefile (
             repository => 'https://github.com/gflohr/libintl-perl.git',
         },
     },
-    PL_FILES                => {},
-    DIR		            => [$build_gettext_xs ? ('gettext_xs') : ()],
-    clean		    => { FILES => 'xs_disabled build_xs' },
+    PL_FILES            => {},
+    DIR		            => \@dirs,
+    clean		    => { FILES => 'xs_disabled xlocale_disabled build_xs' },
     (MM->can ('signature_target') ? (SIGN => 1) : ()),
-    # If you want to build the XS version although the automatic detection
-    # suggests not to build it, uncomment the following line.
-    #DIR => [ ('gettext_xs') ],
 );
 
 sub MY::postamble {
