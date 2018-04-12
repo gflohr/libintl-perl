@@ -182,7 +182,7 @@ EOF
 printf ("%s", querylocale(LC_MESSAGES_MASK, NULL));
 EOF
     $xlocale{query} = ac_try_link_xlocale $c, 
-            "checking whether querylocale() is available";
+            "checking for querylocale()";
 
     foreach my $func (qw(iswalnum_l iswalpha_l iswcntrl_l iswdigit_l iswgraph_l
                          iswlower_l iswprint_l iswpunct_l iswspace_l iswupper_l 
@@ -191,82 +191,82 @@ EOF
 printf ("%d", $func (0, loc));
 EOF
         $xlocale{$func} = ac_try_link_xlocale $c,
-            "checking whether $func() is available";
+            "checking for $func()";
     }
 
     $c = <<EOF;
 printf ("%d", iswctype_l(0, wctype("alpha"), loc));
 EOF
     $xlocale{iswctype_l} = ac_try_link_xlocale $c, 
-            "checking whether iswctype_l() is available";
+            "checking for iswctype_l()";
 
     $c = <<EOF;
 printf ("%d", (int) tolower_l(0, loc));
 EOF
     $xlocale{towlower_l} = ac_try_link_xlocale $c, 
-            "checking whether towlower_l() is available";
+            "checking for towlower_l()";
 
     $c = <<EOF;
 printf ("%d", (int) tolower_l(0, loc));
 EOF
     $xlocale{towupper_l} = ac_try_link_xlocale $c, 
-            "checking whether towupper_l() is available";
+            "checking for towupper_l()";
 
     $c = <<EOF;
 printf ("%d", (int) wctype_l(0, loc));
 EOF
     $xlocale{wctype_l} = ac_try_link_xlocale $c, 
-            "checking whether wctype_l() is available";
+            "checking for wctype_l()";
 
     $c = <<EOF;
 printf ("%s", nl_langinfo_l(ABDAY_1, loc));
 EOF
     $xlocale{nl_langinfo_l} = ac_try_link_xlocale $c, 
-            "checking whether nl_langinfo_l() is available";
+            "checking for nl_langinfo_l()";
 
     $c = <<EOF;
 char buf[2];
 printf ("%d", (int) strfmon_l(buf, sizeof(buf) - 1, loc, "%n", 123456.78));
 EOF
     $xlocale{strfmon_l} = ac_try_link_xlocale $c, 
-            "checking whether strfmon_l() is available";
+            "checking for strfmon_l()";
 
     $c = <<EOF;
 char *ret;
 printf ("%d", asprintf_l(&ret, loc, "x"));
 EOF
     $xlocale{asprintf_l} = ac_try_link_xlocale $c, 
-            "checking whether asprintf_l() is available";
+            "checking for asprintf_l()";
 
     $c = <<EOF;
 printf ("%ld", atol_l("2304", loc));
 EOF
     $xlocale{atol_l} = ac_try_link_xlocale $c, 
-            "checking whether atol_l() is available";
+            "checking for atol_l()";
 
     $c = <<EOF;
 printf ("%g", strtod_l("2304", NULL, loc));
 EOF
     $xlocale{strtod_l} = ac_try_link_xlocale $c, 
-            "checking whether strtod_l() is available";
+            "checking for strtod_l()";
 
     $c = <<EOF;
 printf ("%ld", strtol_l("2304", NULL, 10, loc));
 EOF
     $xlocale{strtol_l} = ac_try_link_xlocale $c, 
-            "checking whether strtol_l() is available";
+            "checking for strtol_l()";
 
     $c = <<EOF;
 printf ("%ld", strcoll_l("foo", "bar", loc));
 EOF
     $xlocale{strcoll_l} = ac_try_link_xlocale $c, 
-            "checking whether strcoll_l() is available";
+            "checking for strcoll_l()";
 
     $c = <<EOF;
 printf ("%d", (int) strxfrm_l(NULL, "foobar", 0, loc));
 EOF
     $xlocale{strxfrm_l} = ac_try_link_xlocale $c, 
-            "checking whether strxfrm_l() is available";
+            "checking for strxfrm_l()";
 
     $c = <<EOF;
 struct tm tm;
@@ -274,20 +274,20 @@ char buf[2];
 printf ("%d", (int) strftime_l(buf, sizeof(buf) - 1, "%%", &tm, loc));
 EOF
     $xlocale{strftime_l} = ac_try_link_xlocale $c, 
-            "checking whether strftime_l() is available";
+            "checking for strftime_l()";
 
     $c = <<EOF;
 struct tm tm;
 printf ("%s", strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc));
 EOF
     $xlocale{strptime_l} = ac_try_link_xlocale $c, 
-            "checking whether strptime_l() is available";
+            "checking for strptime_l()";
 
     $c = <<EOF;
 printf ("%p", localeconv_l(loc));
 EOF
-    $xlocale{strptime_l} = ac_try_link_xlocale $c, 
-            "checking whether strptime_l() is available";
+    $xlocale{localeconv_l} = ac_try_link_xlocale $c, 
+            "checking for localeconv_l()";
 }
 
 unless ($xlocale_headers{locale}) {
