@@ -31,6 +31,7 @@ select STDERR; $| = 1;
 select STDOUT; $| = 1;
 
 sub ac_try_link;
+sub ac_try_compile;
 sub ac_try_link_xlocale;
 
 use Config;
@@ -115,25 +116,32 @@ EOF
 EOF
 }
 
-# Test for xlocale(3) support.  GNU libc no longer provides <xlocale.h>.
-# So we first test without including it, and then with including it,
-# remembering the result.
-my $xlocale_headers = <<EOF;
-#include <locale.h>
-#include <stdlib.h>
-#include <wctype.h>
-#include <ctype.h>
-#include <inttypes.h>
-#include <langinfo.h>
-#include <monetary.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-#include <string.h>
-#include <pthread.h>
+# First check which headers are available.
+my @xlocale_headers;
+foreach my $header (qw(xlocale locale stdlib wctype ctype inttypes langinfo
+                       monetary stdio stdarg time string pthread)) {
+    my $c = <<EOF;
+#include <$header.h>
+
+int foobar;
 EOF
 
-my $xlocale_newlocale = <<EOF;
+    push @xlocale_headers, $header
+            if ac_try_compile $c, "checking for $header.h";
+}
+
+my $xlocale_headers = join "\n", 
+                      map { "#include <$_.h>" } @xlocale_headers;
+my %xlocale_headers = map { $_ => 1 } @xlocale_headers;
+
+my %xlocale;
+if ($xlocale_headers{locale}) {
+    # locale.h is the bare minimum because we need it for the locale
+    # constants.
+
+    my $c = <<EOF;
+$xlocale_headers
+
 int
 main (int argc, char *argv[])
 {
@@ -144,52 +152,37 @@ main (int argc, char *argv[])
     pthread_mutex_unlock (&mutex);
     pthread_mutex_destroy (&mutex);
 
-    locale_t loc = newlocale (LC_ALL_MASK, "", NULL);
-    dup = duplocale (loc);
-    uselocale (loc);
-    freelocale (dup);
-    freelocale (loc);
-
     return 0;
 }
 EOF
 
-my $needs_xlocale_h;
-$c = <<EOF;
-#define _XOPEN_SOURCE 700
-$xlocale_headers
-$xlocale_newlocale
-EOF
-my $build_xlocale = ac_try_link $c,
-    "Checking whether extended locale support is available";
-if ($build_xlocale) {
-    $xlocale_headers = <<EOF;
-#define _XOPEN_SOURCE 700
-$xlocale_headers
-EOF
-} else {
-    $xlocale_headers = <<EOF;
-#define _XOPEN_SOURCE 700
-#include <xlocale.h>
-$xlocale_headers
-EOF
+    $xlocale{pthreads} = 1
+        if ac_try_link $c, "checking for pthreads";
 
     $c = <<EOF;
 $xlocale_headers
-$xlocale_newlocale
+
+int
+main (int argc, char *argv[])
+{
+    locale_t loc = newlocale (LC_ALL_MASK, "", NULL);
+    locale_t dup = duplocale (loc);
+    uselocale (loc);
+    freelocale (dup);
+    freelocale (loc);
+
+    return 0;    
+}
 EOF
 
-    $build_xlocale = ac_try_link $c, "  Trying again with <xlocale.h>";
-    $needs_xlocale_h = 1 if $build_xlocale;
-}
+    $xlocale{new} = $xlocale{free} = $xlocale{use} = $xlocale{dup} = 1
+        if ac_try_link $c, "checking for newlocale() and friends";
 
-my %xlocale;
-if ($build_xlocale) {
     $c = <<EOF;
 printf ("%s", querylocale(LC_MESSAGES_MASK, NULL));
 EOF
     $xlocale{query} = ac_try_link_xlocale $c, 
-            "  Checking whether querylocale() is available";
+            "checking whether querylocale() is available";
 
     foreach my $func (qw(iswalnum_l iswalpha_l iswcntrl_l iswdigit_l iswgraph_l
                          iswlower_l iswprint_l iswpunct_l iswspace_l iswupper_l 
@@ -198,82 +191,82 @@ EOF
 printf ("%d", $func (0, loc));
 EOF
         $xlocale{$func} = ac_try_link_xlocale $c,
-            "  Checking whether $func() is available";
+            "checking whether $func() is available";
     }
 
     $c = <<EOF;
 printf ("%d", iswctype_l(0, wctype("alpha"), loc));
 EOF
     $xlocale{iswctype_l} = ac_try_link_xlocale $c, 
-            "  Checking whether iswctype_l() is available";
+            "checking whether iswctype_l() is available";
 
     $c = <<EOF;
 printf ("%d", (int) tolower_l(0, loc));
 EOF
     $xlocale{towlower_l} = ac_try_link_xlocale $c, 
-            "  Checking whether towlower_l() is available";
+            "checking whether towlower_l() is available";
 
     $c = <<EOF;
 printf ("%d", (int) tolower_l(0, loc));
 EOF
     $xlocale{towupper_l} = ac_try_link_xlocale $c, 
-            "  Checking whether towupper_l() is available";
+            "checking whether towupper_l() is available";
 
     $c = <<EOF;
 printf ("%d", (int) wctype_l(0, loc));
 EOF
     $xlocale{wctype_l} = ac_try_link_xlocale $c, 
-            "  Checking whether wctype_l() is available";
+            "checking whether wctype_l() is available";
 
     $c = <<EOF;
 printf ("%s", nl_langinfo_l(ABDAY_1, loc));
 EOF
     $xlocale{nl_langinfo_l} = ac_try_link_xlocale $c, 
-            "  Checking whether nl_langinfo_l() is available";
+            "checking whether nl_langinfo_l() is available";
 
     $c = <<EOF;
 char buf[2];
 printf ("%d", (int) strfmon_l(buf, sizeof(buf) - 1, loc, "%n", 123456.78));
 EOF
     $xlocale{strfmon_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strfmon_l() is available";
+            "checking whether strfmon_l() is available";
 
     $c = <<EOF;
 char *ret;
 printf ("%d", asprintf_l(&ret, loc, "x"));
 EOF
     $xlocale{asprintf_l} = ac_try_link_xlocale $c, 
-            "  Checking whether asprintf_l() is available";
+            "checking whether asprintf_l() is available";
 
     $c = <<EOF;
 printf ("%ld", atol_l("2304", loc));
 EOF
     $xlocale{atol_l} = ac_try_link_xlocale $c, 
-            "  Checking whether atol_l() is available";
+            "checking whether atol_l() is available";
 
     $c = <<EOF;
 printf ("%g", strtod_l("2304", NULL, loc));
 EOF
     $xlocale{strtod_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strtod_l() is available";
+            "checking whether strtod_l() is available";
 
     $c = <<EOF;
 printf ("%ld", strtol_l("2304", NULL, 10, loc));
 EOF
     $xlocale{strtol_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strtol_l() is available";
+            "checking whether strtol_l() is available";
 
     $c = <<EOF;
 printf ("%ld", strcoll_l("foo", "bar", loc));
 EOF
     $xlocale{strcoll_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strcoll_l() is available";
+            "checking whether strcoll_l() is available";
 
     $c = <<EOF;
 printf ("%d", (int) strxfrm_l(NULL, "foobar", 0, loc));
 EOF
     $xlocale{strxfrm_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strxfrm_l() is available";
+            "checking whether strxfrm_l() is available";
 
     $c = <<EOF;
 struct tm tm;
@@ -281,23 +274,23 @@ char buf[2];
 printf ("%d", (int) strftime_l(buf, sizeof(buf) - 1, "%%", &tm, loc));
 EOF
     $xlocale{strftime_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strftime_l() is available";
+            "checking whether strftime_l() is available";
 
     $c = <<EOF;
 struct tm tm;
 printf ("%s", strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc));
 EOF
     $xlocale{strptime_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strptime_l() is available";
+            "checking whether strptime_l() is available";
 
     $c = <<EOF;
 printf ("%p", localeconv_l(loc));
 EOF
     $xlocale{strptime_l} = ac_try_link_xlocale $c, 
-            "  Checking whether strptime_l() is available";
+            "checking whether strptime_l() is available";
 }
 
-unless ($build_xlocale) {
+unless ($xlocale_headers{locale}) {
 	print STDERR <<EOF;
 => Cannot build the XS version of Locale and Locale::Messages (see 'config.log' for
 => details).  These two modules will work with Perl Interpreter threads but
@@ -393,6 +386,52 @@ EOC
 	return !$result;
 }
 
+
+sub ac_try_compile {
+    my ($c_code, $msg, @options) = @_;
+
+	print STDERR "$msg ... ";
+    local *HANDLE;
+    open HANDLE, ">gettest.c" or die "cannot create file 'gettest.c': $!\n";
+    print HANDLE $c_code;
+    close HANDLE or die "cannot close file 'gettest.c': $!\n";
+
+	my @cmd = $Config{cc};
+    push @cmd, $Config{ccflags};
+	push @cmd, @options;
+    push @cmd, "-c", "-o", "gettest.o", "gettest.c";
+
+    # Temporarily redirect stdout and stderr.
+    open OLDOUT, ">&STDOUT" or die "cannot dup STDOUT: $!";
+    open OLDERR, ">&STDERR" or die "cannot dup STDERR: $!";
+    open STDOUT, ">>config.log" or die "cannot redirect STDOUT: $!";
+    open STDERR, ">&STDOUT" or die "cannot dup STDOUT: $!";
+    select STDERR; $| = 1;
+    select STDOUT; $| = 1;
+
+    my $cmd = join ' ', @cmd;
+    print <<EOC;
+cat >gettext.c <<EOF
+$c_code
+EOF
+EOC
+    print "$cmd\n";
+    my $result = system $cmd;
+
+	# Restore standard file descriptors
+	close STDOUT; #or die "cannot close STDOUT: $!";
+	close STDERR; #or die "cannot close STDERR: $!";
+	open STDOUT, ">&OLDOUT" or die "cannot dup \$oldout: $!";
+	open STDERR, ">&OLDERR" or die "cannot dup OLDERR: $!";
+	close OLDOUT; close OLDERR; # Shut up warnings.
+
+	unlink "gettest.c", "gettest.exe";
+
+	print STDERR $result ? "no.\n" : "yes.\n";
+
+	return !$result;
+}
+
 package MY;
 
 # FIXME: This is really a hack! Problem: Depending on the build system,
@@ -449,12 +488,12 @@ $name = $0;
 $name =~ s,Makefile\.PL$,xlocale_disabled,;
 local *HANDLE;
 open HANDLE, ">$name" or die "cannot open '$name' for writing: $!";
-print HANDLE !$build_xlocale;
+print HANDLE !$xlocale_headers{locale};
 close HANDLE or die "cannot close '$name': $!";
 
 my @dirs;
 push @dirs, 'gettext_xs' if $build_gettext_xs;
-push @dirs, 'xlocale' if $build_xlocale;
+push @dirs, 'xlocale' if $xlocale_headers{locale};
 
 WriteMakefile (
     DISTNAME		=> 'libintl-perl',
