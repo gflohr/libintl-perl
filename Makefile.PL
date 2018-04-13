@@ -505,7 +505,11 @@ WriteMakefile (
 	  AUTHOR	    => 'Guido Flohr <guido.flohr@cantanea.com>',
 	 ) : (),
     ),
-    PREREQ_PM		    => { 'File::Spec' => 0, version => 0.77 },
+    PREREQ_PM		    => { 
+            'File::Spec' => 0, 
+            version => 0.77,
+            'Locale-Recode' => 2.0,
+    },
     META_MERGE		    => {
         recommends => { 'File::ShareDir' => 0 },
         resources  => {
