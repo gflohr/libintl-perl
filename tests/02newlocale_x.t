@@ -13,12 +13,6 @@ my $loc = Locale::xlocale::newlocale(255, "");
 
 ok $loc;
 
-if (1) {
-        my $l = Locale::xlocale::newlocale(255, "");
-        use Data::Dumper;
-        warn Dumper $l;
-}
-
 done_testing();
 
 __END__
