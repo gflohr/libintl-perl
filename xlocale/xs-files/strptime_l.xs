@@ -28,7 +28,6 @@ strptime_l(buf, format, loc, endptr)
             endptr = strptime_l(buf, SvPV_nolen(format), &tm, loc);
             GCC_DIAG_RESTORE;
             if (endptr) {
-                XPUSHs(sv_2mortal(newSVpvn(endptr, strlen(endptr))));
                 XPUSHs(sv_2mortal(newSVnv(tm.tm_sec)));
                 XPUSHs(sv_2mortal(newSVnv(tm.tm_min)));
                 XPUSHs(sv_2mortal(newSVnv(tm.tm_hour)));
@@ -38,6 +37,7 @@ strptime_l(buf, format, loc, endptr)
                 XPUSHs(sv_2mortal(newSVnv(tm.tm_wday)));
                 XPUSHs(sv_2mortal(newSVnv(tm.tm_yday)));
                 XPUSHs(sv_2mortal(newSVnv(tm.tm_isdst)));
+                XPUSHs(sv_2mortal(newSVpvn(endptr, strlen(endptr))));
             } else {
                 /* Do nothing.  */
             }

@@ -271,14 +271,6 @@ EOF
 
     $c = <<EOF;
 struct tm tm;
-char buf[2];
-printf ("%d", (int) strftime_l(buf, sizeof(buf) - 1, "%%", &tm, loc));
-EOF
-    $xlocale{strftime_l} = ac_try_link_xlocale $c, 
-            "checking for strftime_l()";
-
-    $c = <<EOF;
-struct tm tm;
 printf ("%s", strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc));
 EOF
     $xlocale{strptime_l} = ac_try_link_xlocale $c, 
