@@ -25,6 +25,11 @@ use base qw(DynaLoader);
 
 bootstrap Locale::xlocale;
 
+sub strftime_l {
+    require Carp;
+    Carp::croak("strftime_l emulation not yet done");
+}
+
 1;
 
 __END__
