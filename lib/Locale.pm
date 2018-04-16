@@ -42,7 +42,20 @@ my $no_xlocale = $@;
 require Exporter;
 @ISA = qw (Exporter);
 %EXPORT_TAGS = (locale_h => [ 
-                    qw (LC_ADDRESS_MASK
+                    qw (LC_ADDRESS
+                        LC_CTYPE
+                        LC_COLLATE
+                        LC_IDENTIFICATION
+                        LC_MEASUREMENT
+                        LC_MESSAGES
+                        LC_MONETARY
+                        LC_NUMERIC
+                        LC_NAME
+                        LC_PAPER
+                        LC_TELEPHONE
+                        LC_TIME
+                        LC_ALL
+                        LC_ADDRESS_MASK
                         LC_CTYPE_MASK
                         LC_COLLATE_MASK
                         LC_IDENTIFICATION_MASK
@@ -59,7 +72,19 @@ require Exporter;
                         LC_GLOBAL_LOCALE)],
 		 );
 
-@EXPORT_OK = qw (LC_ADDRESS_MASK
+@EXPORT_OK = qw (LC_ADDRESS
+                 LC_CTYPE
+                 LC_COLLATE
+                 LC_IDENTIFICATION
+                 LC_MEASUREMENT
+                 LC_MESSAGES
+                 LC_MONETARY
+                 LC_NUMERIC
+                 LC_NAME
+                 LC_PAPER
+                 LC_TELEPHONE
+                 LC_TIME
+                 LC_ALLLC_ADDRESS_MASK
                  LC_CTYPE_MASK
                  LC_COLLATE_MASK
                  LC_IDENTIFICATION_MASK
@@ -78,7 +103,6 @@ require Exporter;
 sub AUTOLOAD {
     our $AUTOLOAD;
 
-$DB::single = 1;
     my $constant = $AUTOLOAD;
 
     if ($constant =~ /::(LC_[A-Z]+)_MASK$/) {
@@ -155,73 +179,75 @@ by import tag.
 
 =head2 Import Tag "locale_h"
 
-All of the following constants, except for B<LC_GLOBAL_LOCALE>
+All of the following constants that end in "_MASK"
 are valid arguments, whenever a locale mask is needed.  You can also
 use their bitwise OR.
 
+The variants without "_MASK" are meant to be used for L<POSIX/"setlocale">.
+
 =over 4
 
-=item B<LC_ADDRESS_MASK>
+=item B<LC_ADDRESS, LC_ADDRESS_MASK>
 
 Formatting of addresses and geography-related items.
 
 This is a GNU extension.
 
-=item B<LC_COLLATE_MASK>
+=item B<LC_COLLATE, LC_COLLATE_MASK>
 
 String collation.
 
-=item B<LC_CTYPE_MASK>
+=item B<LC_CTYPE, LC_CTYPE_MASK>
 
 Character classification.
 
-=item B<LC_IDENTIFICATION_MASK>
+=item B<LC_IDENTIFICATION, LC_IDENTIFICATION_MASK>
 
 Metadata describing the locale.
 
 This is a GNU extension.
 
-=item B<LC_MEASUREMENT_MASK>
+=item B<LC_MEASUREMENT, LC_MEASUREMENT_MASK>
 
 Settings related to measurements (metric versus US customary).
 
 Ths is a GNU extension.
 
-=item B<LC_MESSAGES_MASK>
+=item B<LC_MESSAGES, LC_MESSAGES_MASK>
 
 Localizable natural-language messages.
 
-=item B<LC_MONETARY_MASK>
+=item B<LC_MONETARY, LC_MONETARY_MASK>
 
 Formatting of monetary values.
 
-=item B<LC_NUMERIC_MASK>
+=item B<LC_NUMERIC, LC_NUMERIC_MASK>
 
 Formatting of nonmonetary numeric values.
 
-=item B<LC_NAME_MASK>
+=item B<LC_NAME, LC_NAME_MASK>
 
 Formatting of salutations for persons.
 
 This is a GNU extension.
 
-=item B<LC_PAPER_MASK>
+=item B<LC_PAPER, LC_PAPER_MASK>
 
 Settings related to the standard paper size.
 
 This is a GNU extension.
 
-=item B<LC_TELEPHONE_MASK>
+=item B<LC_TELEPHONE, LC_TELEPHONE_MASK>
 
 Formats to be used with telephone services.
 
 This is a GNU extension.
 
-=item B<LC_TIME_MASK>
+=item B<LC_TIME, LC_TIME_MASK>
 
 Formatting of date and time values.
 
-=item B<LC_ALL_MASK>
+=item B<LC_ALL, LC_ALL_MASK>
 
 All of the locale.
 

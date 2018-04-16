@@ -7,9 +7,9 @@ use strict;
 
 use Test::More;
 
-use Locale::xlocale;
+use Locale qw(':libintl_h');
 
-my $loc = Locale::xlocale::newlocale(255, "");
+my $loc = Locale->new(LC_ALL_MASK, "C");
 
 ok $loc;
 

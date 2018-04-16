@@ -63,10 +63,11 @@ push @names,           # This lot are only enums for __SVR4_I386_ABI_L1__:
 push @names, {
         name => $_,
         type => "IV"}
-    foreach qw(LC_COLLATE_MASK LC_CTYPE_MASK LC_MESSAGES_MASK LC_MONETARY_MASK
-               LC_NUMERIC_MASK LC_TIME_MASK LC_ADDRESS_MASK 
-               LC_IDENTIFICATION_MASK LC_MEASUREMENT_MASK LC_NAME_MASK
-               LC_PAPER_MASK LC_TELEPHONE_MASK LC_ALL_MASK);
+    foreach map { $_, "${_}_MASK" } qw(LC_COLLATE LC_CTYPE LC_MESSAGES 
+                                       LC_MONETARY LC_NUMERIC LC_TIME
+                                       LC_ADDRESS LC_IDENTIFICATION
+                                       LC_MEASUREMENT LC_NAME LC_PAPER
+                                       LC_TELEPHONE LC_ALL);
 
 ExtUtils::Constant::WriteConstants(
 				   PROXYSUBS => {autoload => 1},

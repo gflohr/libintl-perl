@@ -199,6 +199,7 @@ printf ("%d", iswctype_l(0, wctype("alpha"), loc));
 EOF
     $xlocale{iswctype_l} = ac_try_link_xlocale $c, 
             "checking for iswctype_l()";
+    $xlocale{wctype_l} = $xlocale{iswctype_l};
 
     $c = <<EOF;
 printf ("%d", (int) tolower_l(0, loc));
@@ -308,14 +309,44 @@ EOF
 /* This file is generated.  Do not edit! Edit 'Makefile.PL' instead! */
 EOF
 
-    $fh->print($xlocale_headers);
+    $fh->print($xlocale_headers . "\n\n");
 
-    foreach my $func (sort keys %xlocale) {
+    foreach my $func (sort grep { $_ } keys %xlocale) {
         my $ufunc = uc $func;
         $fh->print("#define LIBINTL_PERL_HAS_$ufunc 1\n");
     }
 
     $fh->close or die "cannot close 'xlocale/config.h' for writing: $!\n";
+
+    open $fh, '>', 'xlocale/xlocale.xs'
+        or die "cannot open 'xlocale/xlocale.xs' for writing: $!\n";
+    $fh->print(<<EOF);
+/* This file is generated.  Edit the top-level Makefile.PL or the snippets
+ * in 'xlocale/xs-files' instead!
+ */
+EOF
+
+    open my $in, '<', 'xlocale/xs-files/constants.xs'
+        or die "cannot open 'xlocale/xs-files/constants.xs' for reading: $!\n";
+    my $input = join '', $in->getlines;
+    $fh->print($input);
+
+$DB::single = 1;
+    foreach my $snippet (sort keys %xlocale) {
+        if (!open $in, '<', "xlocale/xs-files/$snippet.xs") {
+            warn "cannot open 'xlocale/xs-files/$snippet.xs' for reading: $!\n";
+            next;
+        }
+
+        my $input = join '', $in->getlines;
+        # Strip off copyright.
+        $input =~ s{/\*.*?\*/}{}s;
+
+        $fh->print($input);
+    }
+
+    $fh->close or die "cannot close 'xlocale/xs-files/xlocale.xs' for writing: $!\n";
+
 }
 
 sub ac_try_link_xlocale {

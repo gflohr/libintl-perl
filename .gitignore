@@ -10,6 +10,7 @@ config.log
 *.c
 *.o
 *.bs
+xlocale/xlocale.xs
 const-*.inc
 MYMETA.json
 MYMETA.yml
