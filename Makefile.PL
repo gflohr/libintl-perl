@@ -271,12 +271,6 @@ printf ("%s", strptime_l("2001-11-12 18:31:01", "%Y-%m-%d %H:%M:%S", &tm, loc));
 EOF
     $xlocale{strptime_l} = ac_try_link_xlocale $c, 
             "checking for strptime_l()";
-
-    $c = <<EOF;
-printf ("%p", localeconv_l(loc));
-EOF
-    $xlocale{localeconv_l} = ac_try_link_xlocale $c, 
-            "checking for localeconv_l()";
 }
 
 unless ($xlocale_headers{locale}) {

@@ -34,6 +34,11 @@ sub strftime_l {
     Carp::croak("strftime_l emulation not yet done");
 }
 
+sub localeconv_l {
+    require Carp;
+    Carp::croak("localeconv_l emulation not yet done");
+}
+
 1;
 
 __END__
