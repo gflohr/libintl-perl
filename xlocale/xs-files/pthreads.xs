@@ -16,9 +16,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-int
-strcoll_l(s1, s2, loc)
-          const char *s1
-          const char *s2 
-          locale_t loc
-        PROTOTYPE: $$$
+void
+init_threads()
+    CODE: 
+        unsigned i;
+
+        for (i = 0; i < libintl_mutex_size; ++i) {
+            pthread_mutex_init(locks + i, NULL);
+        }
+
+void
+libintl_lock(what)
+             LibintlMutex what
+    CODE:
+        pthread_mutex_lock(locks + what);
+
+void
+libintl_unlock(what)
+               LibintlMutex what
+    CODE:
+        pthread_mutex_unlock(locks + what);
+

@@ -16,9 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-int
-strcoll_l(s1, s2, loc)
-          const char *s1
-          const char *s2 
-          locale_t loc
-        PROTOTYPE: $$$
+typedef enum libintl_mutex {
+    mutex_setlocale
+} LibintlMutex;
+
+#define libintl_mutex_size mutex_setlocale + 1

@@ -297,6 +297,7 @@ EOF
 /* This file is generated.  Do not edit! Edit 'Makefile.PL' instead! */
 EOF
 
+    $fh->print(qq{#include "libintl_threads.h"\n});
     $fh->print($xlocale_headers . "\n\n");
 
     foreach my $func (sort grep { $_ } keys %xlocale) {

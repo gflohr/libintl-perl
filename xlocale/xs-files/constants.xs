@@ -26,7 +26,7 @@
 
 #include "const-c.inc"
 
-typedef struct foobar Foobar;
+static pthread_mutex_t locks[libintl_mutex_size];
 
 MODULE = Locale::xlocale    PACKAGE = Locale::xlocale    PREFIX=locale_t_
 

@@ -2,3 +2,4 @@ TYPEMAP
 locale_t        T_PTROBJ
 wctype_t        T_IV
 wint_t          T_IV
+LibintlMutex    T_UV 
