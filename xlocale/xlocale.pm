@@ -39,6 +39,16 @@ sub localeconv_l {
     Carp::croak("localeconv_l emulation not yet done");
 }
 
+sub printf_l {
+    require Carp;
+    Carp::croak("printf_l emulation not yet done");
+}
+
+sub sprintf_l {
+    require Carp;
+    Carp::croak("sprintf_l emulation not yet done");
+}
+
 1;
 
 __END__

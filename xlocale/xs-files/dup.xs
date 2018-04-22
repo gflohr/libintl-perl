@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 locale_t
-querylocale(loc)
-            locale_t loc 
+duplocale(loc)
+          locale_t loc 
     PROTOTYPE: $

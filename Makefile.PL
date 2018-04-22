@@ -229,13 +229,6 @@ EOF
     # a wrapper.
 
     $c = <<EOF;
-char *ret;
-printf ("%d", asprintf_l(&ret, loc, "x"));
-EOF
-    $xlocale{asprintf_l} = ac_try_link_xlocale $c, 
-            "checking for asprintf_l()";
-
-    $c = <<EOF;
 printf ("%ld", atol_l("2304", loc));
 EOF
     $xlocale{atol_l} = ac_try_link_xlocale $c, 
