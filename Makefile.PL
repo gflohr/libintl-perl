@@ -225,12 +225,8 @@ EOF
     $xlocale{nl_langinfo_l} = ac_try_link_xlocale $c, 
             "checking for nl_langinfo_l()";
 
-    $c = <<EOF;
-char buf[2];
-printf ("%d", (int) strfmon_l(buf, sizeof(buf) - 1, loc, "%n", 123456.78));
-EOF
-    $xlocale{strfmon_l} = ac_try_link_xlocale $c, 
-            "checking for strfmon_l()";
+    # Since strfmon_l does not have a vstrfmon_l version, we cannot provide
+    # a wrapper.
 
     $c = <<EOF;
 char *ret;
