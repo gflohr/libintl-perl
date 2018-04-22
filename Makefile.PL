@@ -175,7 +175,7 @@ main (int argc, char *argv[])
 }
 EOF
 
-    $xlocale{new} = $xlocale{free} = $xlocale{use} = $xlocale{dup} = 1
+    $xlocale{new} = $xlocale{use} = $xlocale{dup} = 1
         if ac_try_link $c, "checking for newlocale() and friends";
 
     $c = <<EOF;
