@@ -10,5 +10,5 @@ perl Makefile.PL
 make
 make install
 cd ..
-rm -r Locale-Recode
+rm -rf Locale-Recode
 cpanm --quiet --installdeps --notest .
