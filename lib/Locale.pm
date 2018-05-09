@@ -22,8 +22,9 @@ package Locale;
 
 use strict;
 
-# Get rid of that!
-use Locale::Messages;
+use File::Spec();
+use POSIX();
+use List::Util();
 
 use vars qw (@EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
@@ -37,7 +38,7 @@ require Locale::xlocale;
 my $version = Locale::xlocale::__xlocale_version();
 die "Version: version mismatch ($VERSION vs. $version)" unless $version eq $VERSION;
 EOF
-my $no_xlocale = $@;
+my $has_xlocale = !$@;
 
 require Exporter;
 @ISA = qw (Exporter);
@@ -100,10 +101,20 @@ require Exporter;
                  LC_ALL_MASK
                  
                  LC_GLOBAL_LOCALE);
+my %lc_values = map { $_ => 1 } grep { /^LC_.*$/ } @EXPORT_OK;
 
-my $__libintl_mutex_setlocale => 0;
+our $__libintl_mutex_setlocale => 0;
 
 sub new {
+    my ($class, $mask, $locale, $base) = @_;
+
+    my $loc;
+    if ($has_xlocale) {
+        $loc = Locale::xlocale->new($mask, $locale, $base) or return;
+    } else {
+        $loc = {}; 
+    }
+
     bless {}, shift;
 }
 
@@ -145,19 +156,57 @@ sub __xGlobalLocale($$$) {
     }
 }
 
+sub __lc_messages_mask {
+    if (POSIX->can('LC_MESSAGES')) {
+        return 1 << POSIX::LC_MESSAGES();
+    }
+    # If LC_MESSAGES is not defined, generate a mask value for it that
+    # does not conflict with one of LC_COLLATE_MASK, LC_CTYPE_MASK,
+    # LC_MONETARY_MASK, LC_NUMERIC_MASK or LC_TIME_MASK.
+    my $max = List::Util::max(POSIX->can('LC_COLLATE')->(),
+                              POSIX->can('LC_CTYPE')->(),
+                              POSIX->can('LC_MONETARY')->(),
+                              POSIX->can('LC_NUMERIC')->(),
+                              POSIX->can('LC_TIME')->());
+    return 1 << (1 + $max);
+}
+
+# This may become a bottleneck.  Maybe better write out regular
+# methods.
 sub AUTOLOAD {
     our $AUTOLOAD;
 
     my $constant = $AUTOLOAD;
-
-    if ($constant =~ /::(LC_[A-Z]+)_MASK$/) {
-        # FIXME! Use this class instead! 
-        my $retval = Locale::Messages->can($1)->();
-        return 1 << $retval; 
+    my $pkg = __PACKAGE__;
+    if ($has_xlocale) {
+        if ($constant =~ /^${pkg}::(LC_[A-Z]+)_MASK$/) {
+            return Locale::xlocale->can($1)->() || 0;
+        } else {
+            die "todo $constant";
+        }
+    } else {
+        if ($constant eq "${pkg}::LC_ALL_MASK") {
+            return (1 << POSIX->can('LC_COLLATE')->())
+                 | (1 << POSIX->can('LC_CTYPE')->())
+                 | (1 << POSIX->can('LC_MONETARY')->())
+                 | (1 << POSIX->can('LC_NUMERIC')->())
+                 | (1 << POSIX->can('LC_TIME')->())
+                 | __lc_messages_mask();
+        } elsif ($constant eq "${pkg}::LC_MESSAGES_MASK") {
+            return __lc_messages_mask();
+        } elsif ($constant eq "${pkg}::LC_GLOBAL_LOCALE") {
+            my $loc = undef;
+            return bless \$loc, $pkg;
+        } elsif ($constant =~ /^${pkg}::(LC_[A-Z]+)_MASK$/) {
+            my $retval = POSIX->can($1)->();
+            return 1 << POSIX->can($1)->();
+        } else {
+            die "todo no xlocale $constant";
+        }
     }
 
     require Carp;
-    Carp::croak("Unknown Locale constant '$constant'");
+    Carp::croak("Undefined subroutine &${constant} called");
 }
 
 1;
