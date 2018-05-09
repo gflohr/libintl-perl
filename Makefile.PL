@@ -307,7 +307,6 @@ EOF
     my $input = join '', $in->getlines;
     $fh->print($input);
 
-$DB::single = 1;
     foreach my $snippet (sort keys %xlocale) {
         if (!open $in, '<', "xlocale/xs-files/$snippet.xs") {
             warn "cannot open 'xlocale/xs-files/$snippet.xs' for reading: $!\n";
