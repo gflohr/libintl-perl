@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 void
-init_threads()
+init_pthreads()
     CODE: 
         unsigned i;
 
@@ -26,14 +26,14 @@ init_threads()
         }
 
 void
-libintl_lock(what)
-             LibintlMutex what
+lock(what)
+     LibintlMutex what
     CODE:
         pthread_mutex_lock(locks + what);
 
 void
-libintl_unlock(what)
-               LibintlMutex what
+unlock(what)
+       LibintlMutex what
     CODE:
         pthread_mutex_unlock(locks + what);
 

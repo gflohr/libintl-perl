@@ -28,6 +28,8 @@
 
 static pthread_mutex_t locks[libintl_mutex_size];
 
+typedef locale_t Locale__xlocale;
+
 MODULE = Locale::xlocale    PACKAGE = Locale::xlocale    PREFIX=locale_t_
 
 PROTOTYPES: ENABLE

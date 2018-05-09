@@ -84,7 +84,8 @@ require Exporter;
                  LC_PAPER
                  LC_TELEPHONE
                  LC_TIME
-                 LC_ALLLC_ADDRESS_MASK
+                 LC_ALL
+                 LC_ADDRESS_MASK
                  LC_CTYPE_MASK
                  LC_COLLATE_MASK
                  LC_IDENTIFICATION_MASK
@@ -99,6 +100,50 @@ require Exporter;
                  LC_ALL_MASK
                  
                  LC_GLOBAL_LOCALE);
+
+my $__libintl_mutex_setlocale => 0;
+
+sub new {
+    bless {}, shift;
+}
+
+sub DESTROY {
+}
+
+sub __xGlobalLocale($$$) {
+    my ($category, $locale, $code) = @_;
+    eval { Locale::xlocale::lock($__libintl_mutex_setlocale) };
+    my $saved_locale = eval { POSIX::setlocale($category, $locale) };
+
+    if (!defined wantarray) {
+        eval { $code->() };
+        my $x = $@;
+        if ($saved_locale) {
+            eval { POSIX::setlocale($category, $saved_locale) };
+        }
+        eval { Locale::xlocale::lock($__libintl_mutex_setlocale) };
+        die $x if $x;
+        return;
+    } elsif (wantarray) {
+        my @retval = eval { $code->() };
+        my $x = $@;
+        if ($saved_locale) {
+            eval { POSIX::setlocale($category, $saved_locale) };
+        }
+        eval { Locale::xlocale::lock($__libintl_mutex_setlocale) };
+        die $x if $x;
+        return @retval;
+    } else {
+        my $retval = eval { $code->() };
+        my $x = $@;
+        if ($saved_locale) {
+            eval { POSIX::setlocale($category, $saved_locale) };
+        }
+        eval { Locale::xlocale::lock($__libintl_mutex_setlocale) };
+        die $x if $x;
+        return $retval;
+    }
+}
 
 sub AUTOLOAD {
     our $AUTOLOAD;
@@ -162,11 +207,7 @@ is mod_perl running with an Apache threaded MPM or a threaded Plack backend.
 
 =head2 The UTF8 Flag
 
-Perl 5.6 introduced the so-called utf8 flag, see L<Encode> for details.
-This module I<never> sets the utf8 flag for scalars it returns without
-being told to.  This is consistent with Perl's behavior.
-
-See below L</"set_utf8"> for a way to change that.
+TODO!
 
 =head1 CONSTANTS
 

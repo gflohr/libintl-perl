@@ -1,4 +1,5 @@
 TYPEMAP
+Locale::xlocale        T_PTROBJ
 locale_t        T_PTROBJ
 wctype_t        T_IV
 wint_t          T_IV

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-locale_t
+Locale::xlocale
 newlocale (mask, locale, base=NULL)
         int mask
         const char *locale
@@ -27,5 +27,4 @@ void
 locale_t_DESTROY (loc)
         locale_t loc
     CODE:
-        printf("destroying locale pointer\n");
         freelocale(loc);
