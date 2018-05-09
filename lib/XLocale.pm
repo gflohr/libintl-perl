@@ -24,7 +24,7 @@ use strict;
 
 use File::Spec();
 use POSIX();
-use List::Util();
+use List::Util qw(max);
 
 use vars qw (@EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
@@ -101,16 +101,26 @@ require Exporter;
                  LC_ALL_MASK
                  
                  LC_GLOBAL_LOCALE);
-my %lc_values = map { $_ => 1 } grep { /^LC_.*$/ } @EXPORT_OK;
 
 our $__libintl_mutex_setlocale => 0;
+my $lc_global_locale;
+$lc_global_locale = bless \$lc_global_locale, __PACKAGE__;
 
 sub new {
     my ($class, $mask, $locale, $base) = @_;
 
     my $loc;
     if ($has_xlocale) {
-#        $loc = Locale::xlocale::new($mask, $locale, $base) or return;
+        if (@_ < 4) {
+            $loc = Locale::xlocale::newlocale($mask, $locale) or return;
+        } elsif ($base == $lc_global_locale) {
+            $loc = Locale::xlocale::newlocale(
+                    $mask, $locale, Locale::xlocale::LC_GLOBAL_LOCALE())
+                        or return;
+        } else {
+            $loc = Locale::xlocale::newlocale($mask, $locale, $base)
+                or return;
+        }
     } else {
         $loc = {}; 
     }
@@ -120,6 +130,8 @@ sub new {
 
 sub DESTROY {
 }
+
+sub LC_GLOBAL_LOCALE { $lc_global_locale }
 
 sub __xGlobalLocale($$$) {
     my ($category, $locale, $code) = @_;
@@ -163,11 +175,11 @@ sub __lc_messages_mask {
     # If LC_MESSAGES is not defined, generate a mask value for it that
     # does not conflict with one of LC_COLLATE_MASK, LC_CTYPE_MASK,
     # LC_MONETARY_MASK, LC_NUMERIC_MASK or LC_TIME_MASK.
-    my $max = List::Util::max(POSIX->can('LC_COLLATE')->(),
-                              POSIX->can('LC_CTYPE')->(),
-                              POSIX->can('LC_MONETARY')->(),
-                              POSIX->can('LC_NUMERIC')->(),
-                              POSIX->can('LC_TIME')->());
+    my $max = max(POSIX->can('LC_COLLATE')->(),
+                  POSIX->can('LC_CTYPE')->(),
+                  POSIX->can('LC_MONETARY')->(),
+                  POSIX->can('LC_NUMERIC')->(),
+                  POSIX->can('LC_TIME')->());
     return 1 << (1 + $max);
 }
 
@@ -194,9 +206,6 @@ sub AUTOLOAD {
                  | __lc_messages_mask();
         } elsif ($constant eq "${pkg}::LC_MESSAGES_MASK") {
             return __lc_messages_mask();
-        } elsif ($constant eq "${pkg}::LC_GLOBAL_LOCALE") {
-            my $loc = undef;
-            return bless \$loc, $pkg;
         } elsif ($constant =~ /^${pkg}::(LC_[A-Z]+)_MASK$/) {
             my $retval = POSIX->can($1)->();
             return 1 << POSIX->can($1)->();
