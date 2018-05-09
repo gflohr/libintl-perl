@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package Locale;
+package XLocale;
 
 use strict;
 
@@ -110,12 +110,12 @@ sub new {
 
     my $loc;
     if ($has_xlocale) {
-        $loc = Locale::xlocale->new($mask, $locale, $base) or return;
+#        $loc = Locale::xlocale::new($mask, $locale, $base) or return;
     } else {
         $loc = {}; 
     }
 
-    bless {}, shift;
+    bless { __loc => $loc }, shift;
 }
 
 sub DESTROY {

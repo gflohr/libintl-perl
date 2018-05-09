@@ -7,11 +7,11 @@ use strict;
 
 use Test::More;
 
-use Locale (':locale_h');
+use XLocale (':locale_h');
 
 # At least these two should work everywhere.
-ok(Locale->new(LC_ALL_MASK, "C"));
-ok(Locale->new(LC_MESSAGES_MASK, "C"));
+ok(XLocale->new(LC_ALL_MASK, "C"));
+ok(XLocale->new(LC_MESSAGES_MASK, "C"));
 
 done_testing();
 
