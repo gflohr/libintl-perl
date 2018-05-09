@@ -4,7 +4,7 @@
 
 set -e
 
-git clone git@github.com:gflohr/Locale-Recode.git
+git clone https://github.com/gflohr/Locale-Recode.git
 cd Locale-Recode
 perl Makefile.PL
 make
