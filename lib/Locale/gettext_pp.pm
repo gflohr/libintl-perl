@@ -602,13 +602,14 @@ sub __load_domain {
     		push @$domains, $domain;
     	}
     }
+
+    $domains = [] unless defined $domains;
+    
     $__gettext_pp_domain_cache->{$dir}
                               ->{$cache_key}
                               ->{$category_name}
                               ->{$domainname} = $domains;
 
-    $domains = [] unless defined $domains;
-    
     return $domains;
 }
 
