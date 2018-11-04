@@ -347,11 +347,11 @@ sub _dcnpgettext_impl {
     return unless defined $msgid;
 
     my $plural = defined $msgid_plural;
+    Locale::Messages::turn_utf_8_off($msgid);
+    Locale::Messages::turn_utf_8_off($msgctxt) if defined $msgctxt;
     my $msg_ctxt_id = defined $msgctxt ? join($__gettext_pp_context_glue, ($msgctxt, $msgid)) : $msgid;
     
     local $!; # Do not clobber errno!
-    
-    Locale::Messages::turn_utf_8_off($msg_ctxt_id);
     
     # This is also done in __load_domain but we need a proper value.
     $domainname = $__gettext_pp_textdomain
