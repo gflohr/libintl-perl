@@ -999,7 +999,11 @@ Imports the locale category constants:
 
 =head1 OTHER EXPORTS
 
+=over 4
+
 =item B<select_package PACKAGE>
+
+=back
 
 =head1 USAGE
 

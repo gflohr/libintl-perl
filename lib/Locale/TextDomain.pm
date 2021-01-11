@@ -978,6 +978,7 @@ Marks B<MSGID> as N__() does, but in the context B<MSGCTXT>.
 =item B<N__np (MSGCTXT, MSGID, MSGID_PLURAL, COUNT)>
 
 Marks B<MSGID> as N__n() does, but in the context B<MSGCTXT>.
+
 =back
 
 =head1 EXPORTED VARIABLES
@@ -1173,4 +1174,3 @@ cperl-indent-level: 4
 cperl-continued-statement-offset: 2
 tab-width: 4
 End:
-=cut
