@@ -387,7 +387,7 @@ sub __find_domain ($)
 	my $try_dirs = $bound_dirs{$domain};
 	
 	if (defined $try_dirs) {
-		my $found_dir = '';
+		my $found_dir;
 		
 		TRYDIR: foreach my $dir (grep { -d $_ } @$try_dirs) {
 			# Is there a message catalog?  We have to search recursively
@@ -412,7 +412,7 @@ sub __find_domain ($)
 		
 		# If there was no success, this will fall back to the default search
 		# directories.
-		bindtextdomain $domain => abs_path $found_dir;
+		bindtextdomain $domain => abs_path $found_dir if defined $found_dir;
     }
     
     # The search has completed.
