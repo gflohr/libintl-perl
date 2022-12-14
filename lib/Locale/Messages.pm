@@ -24,7 +24,7 @@ use strict;
 
 use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
-$VERSION = '1.32';
+$VERSION = '1.33';
 
 # Try to load the C version first.
 $package = 'gettext_xs';
