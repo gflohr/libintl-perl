@@ -7,6 +7,8 @@ use POSIX qw(setlocale LC_ALL);
 use Encode;
 use Locale::Codes;
 
+binmode STDOUT, 'encoding(utf8)';
+
 my ($listfile) = @ARGV or die "usage: $0 LOCALE-LIST";
 
 open my $fh, '<', $listfile
