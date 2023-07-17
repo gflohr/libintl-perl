@@ -10,3 +10,5 @@ MYMETA.yml
 /README
 /Credits
 /Changes
+/helpers/ms-win32/bin
+/helpers/ms-win32/obj

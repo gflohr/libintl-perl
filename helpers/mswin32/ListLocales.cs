@@ -8,7 +8,7 @@ public class SamplesCultureInfo {
             CultureInfo ci in 
             CultureInfo.GetCultures(CultureTypes.AllCultures)
         ) {
-            Console.WriteLine("{0}|{1}", ci.Name, ci.EnglishName);
+            Console.WriteLine("{0}:{1}", ci.Name, ci.EnglishName);
         }
     }
 }
