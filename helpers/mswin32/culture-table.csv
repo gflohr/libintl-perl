@@ -14,7 +14,7 @@ ak-GH;Akan (Ghana);Akan;ak;Akan;;Ghana;GH;Ghana;;;GH;;Akan_Ghana;;
 am;Amharic;Amharic;am;Amharic;;;;;;;;;Amharic;Amharic_Ethiopia;1252
 am-ET;Amharic (Ethiopia);Amharic;am;Amharic;;Ethiopia;ET;Ethiopia;;;ET;;Amharic_Ethiopia;Amharic_Ethiopia;1252
 ar;Arabic;Arabic;ar;Arabic;;;;;;;;;Arabic;Arabic_Saudi Arabia;1256
-ar-001;Arabic (World);Arabic;ar;Arabic;;World;001;;1;;001;;Arabic_World;Arabic_World;1252
+ar-001;Arabic (World);Arabic;ar;Arabic;;World;1;;1;;1;;Arabic_World;Arabic_World;1252
 ar-AE;Arabic (United Arab Emirates);Arabic;ar;Arabic;;United Arab Emirates;AE;United Arab Emirates;;;AE;;Arabic_United Arab Emirates;Arabic_United Arab Emirates;1256
 ar-BH;Arabic (Bahrain);Arabic;ar;Arabic;;Bahrain;BH;Bahrain;;;BH;;Arabic_Bahrain;Arabic_Bahrain;1256
 ar-DJ;Arabic (Djibouti);Arabic;ar;Arabic;;Djibouti;DJ;Djibouti;;;DJ;;Arabic_Djibouti;;
@@ -147,7 +147,7 @@ el;Greek;Greek;el;Modern Greek (1453-);1;;;;;;;;Greek;Greek_Greece;1253
 el-CY;Greek (Cyprus);Greek;el;Modern Greek (1453-);1;Cyprus;CY;Cyprus;;;CY;;Greek_Cyprus;;
 el-GR;Greek (Greece);Greek;el;Modern Greek (1453-);1;Greece;GR;Greece;;;GR;;Greek_Greece;Greek_Greece;1253
 en;English;English;en;English;;;;;;;;;English;English_United States;1252
-en-001;English (World);English;en;English;;World;001;;1;;001;;English_World;English_World;1252
+en-001;English (World);English;en;English;;World;1;;1;;1;;English_World;English_World;1252
 en-150;English (Europe);English;en;English;;Europe;150;;1;;150;;English_Europe;;
 en-AE;English (United Arab Emirates);English;en;English;;United Arab Emirates;AE;United Arab Emirates;;;AE;;English_United Arab Emirates;English_United Arab Emirates;1252
 en-AG;English (Antigua & Barbuda);English;en;English;;Antigua & Barbuda;AG;Antigua and Barbuda;1;;AG;;English_Antigua & Barbuda;;
@@ -253,7 +253,7 @@ en-ZA;English (South Africa);English;en;English;;South Africa;ZA;South Africa;;;
 en-ZM;English (Zambia);English;en;English;;Zambia;ZM;Zambia;;;ZM;;English_Zambia;;
 en-ZW;English (Zimbabwe);English;en;English;;Zimbabwe;ZW;Zimbabwe;;;ZW;;English_Zimbabwe;English_Zimbabwe;1252
 eo;Esperanto;Esperanto;eo;Esperanto;;;;;;;;;Esperanto;;
-eo-001;Esperanto (World);Esperanto;eo;Esperanto;;World;001;;1;;001;;Esperanto_World;;
+eo-001;Esperanto (World);Esperanto;eo;Esperanto;;World;1;;1;;1;;Esperanto_World;;
 es;Spanish;Spanish;es;Spanish;;;;;;;;;Spanish;Spanish_Spain;1252
 es-419;Spanish (Latin America);Spanish;es;Spanish;;Latin America;419;;1;;419;;Spanish_Latin America;Spanish_Latin America;1252
 es-AR;Spanish (Argentina);Spanish;es;Spanish;;Argentina;AR;Argentina;;;AR;;Spanish_Argentina;Spanish_Argentina;1252
@@ -402,7 +402,7 @@ hu-HU;Hungarian (Hungary);Hungarian;hu;Hungarian;;Hungary;HU;Hungary;;;HU;;Hunga
 hy;Armenian;Armenian;hy;Armenian;;;;;;;;;Armenian;Armenian_Armenia;1252
 hy-AM;Armenian (Armenia);Armenian;hy;Armenian;;Armenia;AM;Armenia;;;AM;;Armenian_Armenia;Armenian_Armenia;1252
 ia;Interlingua;Interlingua;ia;Interlingua (International Auxiliary Language Association);1;;;;;;;;Interlingua;;
-ia-001;Interlingua (World);Interlingua;ia;Interlingua (International Auxiliary Language Association);1;World;001;;1;;001;;Interlingua_World;;
+ia-001;Interlingua (World);Interlingua;ia;Interlingua (International Auxiliary Language Association);1;World;1;;1;;1;;Interlingua_World;;
 id;Indonesian;Indonesian;id;Indonesian;;;;;;;;;Indonesian;Indonesian_Indonesia;1252
 id-ID;Indonesian (Indonesia);Indonesian;id;Indonesian;;Indonesia;ID;Indonesia;;;ID;;Indonesian_Indonesia;Indonesian_Indonesia;1252
 ig;Igbo;Igbo;ig;Igbo;;;;;;;;;Igbo;Igbo_Nigeria;1252
@@ -602,7 +602,7 @@ pa-Guru-IN;Punjabi (Gurmukhi, India);Punjabi;pa;Panjabi;1;India;IN;India;;Gurmuk
 pl;Polish;Polish;pl;Polish;;;;;;;;;Polish;Polish_Poland;1250
 pl-PL;Polish (Poland);Polish;pl;Polish;;Poland;PL;Poland;;;PL;;Polish_Poland;Polish_Poland;1250
 prg;Prussian;Prussian;prg;Prussian;;;;;;;;;Prussian;;
-prg-001;Prussian (World);Prussian;prg;Prussian;;World;001;;1;;001;;Prussian_World;;
+prg-001;Prussian (World);Prussian;prg;Prussian;;World;1;;1;;1;;Prussian_World;;
 ps;Pashto;Pashto;ps;Pushto;1;;;;;;;;Pashto;Pashto_Afghanistan;1252
 ps-AF;Pashto (Afghanistan);Pashto;ps;Pushto;1;Afghanistan;AF;Afghanistan;;;AF;;Pashto_Afghanistan;Pashto_Afghanistan;1252
 ps-PK;Pashto (Pakistan);Pashto;ps;Pushto;1;Pakistan;PK;Pakistan;;;PK;;Pashto_Pakistan;Pashto_Pakistan;1256
@@ -793,7 +793,7 @@ ve-ZA;Venda (South Africa);Venda;ve;Venda;;South Africa;ZA;South Africa;;;ZA;;Ve
 vi;Vietnamese;Vietnamese;vi;Vietnamese;;;;;;;;;Vietnamese;Vietnamese_Vietnam;1258
 vi-VN;Vietnamese (Vietnam);Vietnamese;vi;Vietnamese;;Vietnam;VN;Viet Nam;1;;VN;;Vietnamese_Vietnam;Vietnamese_Vietnam;1258
 vo;Volap├â┬╝k;Volap├â┬╝k;vo;Volapuk;1;;;;;;;;Volap├â┬╝k;;
-vo-001;Volap├â┬╝k (World);Volap├â┬╝k;vo;Volapuk;1;World;001;;1;;001;;Volap├â┬╝k_World;;
+vo-001;Volap├â┬╝k (World);Volap├â┬╝k;vo;Volapuk;1;World;1;;1;;1;;Volap├â┬╝k_World;;
 vun;Vunjo;Vunjo;vun;Vunjo;;;;;;;;;Vunjo;;
 vun-TZ;Vunjo (Tanzania);Vunjo;vun;Vunjo;;Tanzania;TZ;Tanzania, the United Republic of;1;;TZ;;Vunjo_Tanzania;;
 wae;Walser;Walser;wae;Walser;;;;;;;;;Walser;;
@@ -809,7 +809,7 @@ xog-UG;Soga (Uganda);Soga;xog;Soga;;Uganda;UG;Uganda;;;UG;;Soga_Uganda;;
 yav;Yangben;Yangben;yav;Yangben;;;;;;;;;Yangben;;
 yav-CM;Yangben (Cameroon);Yangben;yav;Yangben;;Cameroon;CM;Cameroon;;;CM;;Yangben_Cameroon;;
 yi;Yiddish;Yiddish;yi;Yiddish;;;;;;;;;Yiddish;Yiddish_World;1252
-yi-001;Yiddish (World);Yiddish;yi;Yiddish;;World;001;;1;;001;;Yiddish_World;Yiddish_World;1252
+yi-001;Yiddish (World);Yiddish;yi;Yiddish;;World;1;;1;;1;;Yiddish_World;Yiddish_World;1252
 yo;Yoruba;Yoruba;yo;Yoruba;;;;;;;;;Yoruba;Yoruba_Nigeria;1252
 yo-BJ;Yoruba (Benin);Yoruba;yo;Yoruba;;Benin;BJ;Benin;;;BJ;;Yoruba_Benin;;
 yo-NG;Yoruba (Nigeria);Yoruba;yo;Yoruba;;Nigeria;NG;Nigeria;;;NG;;Yoruba_Nigeria;Yoruba_Nigeria;1252
