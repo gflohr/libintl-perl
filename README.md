@@ -86,10 +86,9 @@ If you use libintl-perl for your project, private or public, free or
 commercial, please let me know.  I am interested in such information.
 
 If you really like (or dislike?) libintl-perl, tell the world about.  
-You can star it on [github](http://github.com/gflohr/libintl-perl).  You
-can rate it and even write a review at 
-[cpanratings](http://cpanratings.perl.org/)
-(search for "libintl-perl").
+You can star it on [github](http://github.com/gflohr/libintl-perl), or
+can add it as a favourite on 
+[metacpan](https://metacpan.org/dist/libintl-perl).
 
 Design Goals
 ------------
