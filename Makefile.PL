@@ -249,13 +249,13 @@ all :: Credits Changes README
 # Make search.cpan.org happy but still follow GNU standards:
 # # (Thanks to Graham Barr for the hint)
 Credits: THANKS
-	cat THANKS >$@
+	-@cat THANKS >$@
 
 Changes: NEWS
-	cat NEWS >$@
+	-@cat NEWS >$@
 
 README: README.md
-	cat README.md >$@
+	-@cat README.md >$@
 '
 }
 
