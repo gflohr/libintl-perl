@@ -1,4 +1,23 @@
-Version 1.34 - 08 Jan 2025A
+Version 1.36 - 06 Feb 2025
+
+* Important: The library now tries to implement the effect of environment
+  variables exactly as described in the GNU gettext documentation at
+  https://www.gnu.org/software/gettext/manual/html_node/Locale-Environment-Variables.html
+  and
+  https://www.gnu.org/software/gettext/manual/html_node/The-LANGUAGE-variable.html.
+  That will probably slightly alter the behaviour in edge cases.
+* Bugs fixed:
+
+  https://github.com/gflohr/libintl-perl/issues/11
+  https://github.com/gflohr/libintl-perl/issues/14
+
+Version 1.35 - 15 Jan 2025
+
+* Bugs fixed:
+
+  https://github.com/gflohr/libintl-perl/issues/17
+
+Version 1.34 - 08 Jan 2025
 
 * Bugs fixed:
 
