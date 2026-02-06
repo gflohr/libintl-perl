@@ -490,19 +490,30 @@ sub setlocale($;$) {
 sub __selected_locales {
 	my ($locale, $category, $category_name) = @_;
 
-    my @locales;
-    my $cache_key;
+if ($ENV{DEBUGME}) {
+	$DB::single = 1;
+}
+	my @locales;
+	my $cache_key;
 
-    if (defined $ENV{LANGUAGE} && length $ENV{LANGUAGE}) {
-    	@locales = split /:/, $ENV{LANGUAGE};
-    	$cache_key = $ENV{LANGUAGE};
-    } elsif (!defined $locale) {
-        # The system does not have LC_MESSAGES.  Guess the value.
-    	@locales = $cache_key = __locale_category ($category, 
-    	                                           $category_name);
-    } else {
-            @locales = $cache_key = $locale;
-    }
+	my $locale_category = __locale_category $category, $category_name;
+	my $language_preference = !defined $locale_category || !length $locale_category
+		|| ($locale_category ne 'C' && $locale_category ne 'POSIX');
+	my $language = $ENV{LANGUAGE};
+	$language = '' if !defined $language;
+	if (!$language_preference || $language eq 'C' || $language eq 'POSIX') {
+		return 'C', 'C'; # No translations desired.
+	}
+
+	if (defined $language && length $language) {
+		@locales = split /:/, $language;
+		$cache_key = $language;
+	} elsif (!defined $locale) {
+		# The system does not have LC_MESSAGES.  Guess the value.
+		@locales = $cache_key = $locale_category;
+	} else {
+		@locales = $cache_key = $locale;
+	}
 
 	return $cache_key, @locales;
 }
@@ -550,7 +561,8 @@ sub __load_domain {
         return [];
     }
         
-    if (!defined $locale && $category != 1729) {
+    if (!defined $locale && $category != 1729
+        && !defined $ENV{LANGUAGE} && !length $ENV{LANGUAGE}) {
         $locale = POSIX::setlocale ($category);
         if (!defined $locale || 'C' eq $locale || 'POSIX' eq $locale) {
             return [];
@@ -759,15 +771,16 @@ sub __locale_category
    
    	my $value = eval {POSIX::setlocale ($category)};
     
-    # We support only XPG syntax, i. e.
-    # language[_territory[.codeset]][@modifier].
-    undef $value unless (defined $value && 
-    					 length $value &&
-    					 $value =~ /^[a-z][a-z]
-    					 (?:_[A-Z][A-Z]
-    					  (?:\.[-_A-Za-z0-9]+)?
-    					  )?
-    					 (?:\@[-_A-Za-z0-9]+)?$/x);
+	# We support only XPG syntax, i. e.
+	# language[_territory[.codeset]][@modifier].
+	if (defined $value && $value ne 'C' && $value ne 'POSIX'
+	    && $value !~ /^[a-z][a-z]
+	       (?:_[A-Z][A-Z]
+	        (?:\.[-_A-Za-z0-9]+)?
+	         )?
+	        (?:\@[-_A-Za-z0-9]+)?$/x) {
+		undef $value;
+	}
 
     unless ($value) {
     	$value = $ENV{LC_ALL};
@@ -776,7 +789,7 @@ sub __locale_category
     	return 'C' unless defined $value && length $value;
     }
     
-    return $value if $value ne 'C' && $value ne 'POSIX';
+    return $value;
 }
 
 sub __get_codeset
