@@ -445,6 +445,12 @@ nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
 Locale::Messages::setlocale (POSIX::LC_ALL(), '');
+# FIXME! This differs from the XS version but it looks like the behaviour of
+# the Perl version is correct, and that of the XS version is buggy, see
+# https://savannah.gnu.org/bugs/index.php?68025
+#
+# Once, we know the correct behaviour, the two test cases should be brought
+# in sync.
 skip $missing_locale, gettext ('May'), 'May';
 
 nl_putenv 'LANGUAGE=de_DE';

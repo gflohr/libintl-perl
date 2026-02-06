@@ -445,7 +445,7 @@ nl_putenv 'LANG';
 nl_putenv 'LC_MESSAGES';
 nl_putenv 'LC_ALL';
 Locale::Messages::setlocale (POSIX::LC_ALL(), '');
-skip $missing_locale, gettext ('May'), 'May';
+skip $missing_locale, gettext ('May'), 'Mai';
 
 nl_putenv 'LANGUAGE=de_DE';
 nl_putenv 'LANG';
