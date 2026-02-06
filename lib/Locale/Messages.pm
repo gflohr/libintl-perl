@@ -2,7 +2,7 @@
 
 # vim: set autoindent shiftwidth=4 tabstop=4:
 
-# Copyright (C) 2002-2017 Guido Flohr <guido.flohr@cantanea.com>,
+# Copyright (C) 2002-2026 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
 # This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ use strict;
 
 use vars qw ($package @EXPORT_OK %EXPORT_TAGS @ISA $VERSION);
 
-$VERSION = '1.34';
+$VERSION = '1.36';
 
 # Try to load the C version first.
 $package = 'gettext_xs';
@@ -1060,7 +1060,7 @@ See Locale::TextDomain(3) for much simpler ways.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2017 L<Guido Flohr|http://www.guido-flohr.net/>
+Copyright (C) 2002-2026 L<Guido Flohr|http://www.guido-flohr.net/>
 (L<mailto:guido.flohr@cantanea.com>), all rights reserved.  See the source
 code for details!code for details!
 

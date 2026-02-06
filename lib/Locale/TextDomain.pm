@@ -3,7 +3,7 @@
 # vim: set autoindent shiftwidth=4 tabstop=4:
 
 # High-level interface to Perl i18n.
-# Copyright (C) 2002-2017 Guido Flohr <guido.flohr@cantanea.com>,
+# Copyright (C) 2002-2026 Guido Flohr <guido.flohr@cantanea.com>,
 # all rights reserved.
 
 # This program is free software: you can redistribute it and/or modify
@@ -66,7 +66,7 @@ use Cwd qw (abs_path);
 
 use vars qw ($VERSION);
 
-$VERSION = '1.34';
+$VERSION = '1.36';
 
 require Exporter;
 
@@ -1152,7 +1152,7 @@ overhead for the function calls.
 
 =head1 AUTHOR
 
-Copyright (C) 2002-2017 L<Guido Flohr|http://www.guido-flohr.net/>
+Copyright (C) 2002-2026 L<Guido Flohr|http://www.guido-flohr.net/>
 (L<mailto:guido.flohr@cantanea.com>), all rights reserved.  See the source
 code for details!code for details!
 
