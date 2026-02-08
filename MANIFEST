@@ -1,20 +1,28 @@
-Changes				Same as NEWS
-COPYING				GNU General Public License
-Credits				Same as THANKS
+COPYING		        	GNU General Public License
 FAQ				Frequently asked questions
+MANIFEST			This list of files
+MANIFEST.SKIP                   Files to suppress in MANIFEST
+Makefile.PL			Makefile generator
+MyInstall.pm			Workaround file
+NEWS				Latest Changes
+Changes			        Same as NEWS
+README				See README.md
+README-oldversions		Where are old versions of this module?
+README.md                       Read it
+README.solaris			Build libintl-perl on Solaris platforms
+README.win32			Build libintl-perl on MS-DOS platforms
+REFERENCES			Who uses libintl-perl?
+THANKS				Contributors
+Credits				Same as THANKS
+TODO				Missing
+gettext_xs/Makefile.PL		Makefile generator
 gettext_xs/gettext_xs.pm	XS loader
 gettext_xs/gettext_xs.xs	XS binding
-lib/Locale/gettext_dumb.pm
-lib/Locale/gettext_pp.pm
-lib/Locale/gettext_xs.pod
-lib/Locale/libintlFAQ.pod
 lib/Locale/Messages.pm		Gettext Like Message Retrieval
-lib/Locale/Messages/Debug.pm
 lib/Locale/Recode.pm		Object−Oriented Portable Charset Conversion
 lib/Locale/Recode/_Aliases.pm
 lib/Locale/Recode/_Conversions.pm
 lib/Locale/RecodeData.pm
-lib/Locale/RecodeData/_Encode.pm
 lib/Locale/RecodeData/ASMO_449.pm
 lib/Locale/RecodeData/ATARI_ST.pm
 lib/Locale/RecodeData/ATARI_ST_EURO.pm
@@ -130,9 +138,6 @@ lib/Locale/RecodeData/KOI8_U.pm
 lib/Locale/RecodeData/KOI_8.pm
 lib/Locale/RecodeData/LATIN_GREEK.pm
 lib/Locale/RecodeData/LATIN_GREEK_1.pm
-lib/Locale/RecodeData/MAC_IS.pm
-lib/Locale/RecodeData/MAC_SAMI.pm
-lib/Locale/RecodeData/MAC_UK.pm
 lib/Locale/RecodeData/MACARABIC.pm
 lib/Locale/RecodeData/MACCROATIAN.pm
 lib/Locale/RecodeData/MACCYRILLIC.pm
@@ -144,6 +149,9 @@ lib/Locale/RecodeData/MACROMANIA.pm
 lib/Locale/RecodeData/MACTHAI.pm
 lib/Locale/RecodeData/MACTURKISH.pm
 lib/Locale/RecodeData/MACUKRAINE.pm
+lib/Locale/RecodeData/MAC_IS.pm
+lib/Locale/RecodeData/MAC_SAMI.pm
+lib/Locale/RecodeData/MAC_UK.pm
 lib/Locale/RecodeData/NATS_DANO.pm
 lib/Locale/RecodeData/NATS_SEFI.pm
 lib/Locale/RecodeData/NEXTSTEP.pm
@@ -152,42 +160,37 @@ lib/Locale/RecodeData/TIS_620.pm
 lib/Locale/RecodeData/US_ASCII.pm
 lib/Locale/RecodeData/UTF_8.pm
 lib/Locale/RecodeData/VISCII.pm
+lib/Locale/RecodeData/_Encode.pm
 lib/Locale/TextDomain.pm
-lib/Locale/Util.pm		Attention! Alpha code!
-Makefile.PL			Makefile generator
-MANIFEST			This list of files
-MyInstall.pm			Workaround file
-NEWS				Latest Changes
-README				See README.md
-README-oldversions		Where are old versions of this module?
-README.md			Read it
-README.solaris			Build libintl-perl on Solaris platforms
-README.win32			Build libintl-perl on MS-DOS platforms
-REFERENCES			Who uses libintl-perl?
+lib/Locale/Util.pm                       Attention! Alpha code!
+lib/Locale/gettext_dumb.pm
+lib/Locale/gettext_pp.pm
+lib/Locale/gettext_xs.pod
+lib/Locale/libintlFAQ.pod
 sample/README
 sample/simplecal/.gitignore
+sample/simplecal/MANIFEST
+sample/simplecal/Makefile.PL
+sample/simplecal/README-NLS
+sample/simplecal/TRANSLATIONS
 sample/simplecal/bin/simplecal.pl
 sample/simplecal/lib/SimpleCal.pm
-sample/simplecal/Makefile.PL
-sample/simplecal/MANIFEST
+sample/simplecal/po/Makefile
+sample/simplecal/po/PACKAGE
+sample/simplecal/po/POTFILES
 sample/simplecal/po/ar.po
 sample/simplecal/po/ar_SA.po
-sample/simplecal/po/com.cantanea.simplecal.pot
 sample/simplecal/po/cs.po
 sample/simplecal/po/de.po
 sample/simplecal/po/de_AT.po
 sample/simplecal/po/fr.po
 sample/simplecal/po/ga.po
 sample/simplecal/po/it.po
-sample/simplecal/po/Makefile
 sample/simplecal/po/nl.po
-sample/simplecal/po/PACKAGE
-sample/simplecal/po/POTFILES
+sample/simplecal/po/com.cantanea.simplecal.pot
 sample/simplecal/po/pt.po
 sample/simplecal/po/pt_BR.po
 sample/simplecal/po/ru.po
-sample/simplecal/README-NLS
-sample/simplecal/TRANSLATIONS
 test.pl
 tests/00gettext.t
 tests/00recode.t
@@ -369,18 +372,24 @@ tests/03pgettext_xs.t
 tests/03textdomain_pp.t
 tests/03textdomain_xs.t
 tests/04find_domain_bug.t
-tests/04russian_plural_function.t
 tests/04scalar_noop.t
-tests/05options.t
+tests/04russian_plural_function.t
 tests/05parse_accept.t
+tests/05options.t
+tests/LocaleData/de/LC_MESSAGES/additional.mo
+tests/LocaleData/de/LC_MESSAGES/existing.mo
+tests/LocaleData/de_AT/LC_MESSAGES/additional.mo
+tests/LocaleData/xy/LC_MESSAGES/additional.mo
+tests/LocaleData/xy/LC_MESSAGES/existing.mo
+tests/LocaleData/xy_XY/LC_MESSAGES/additional.mo
+tests/LocaleData/xy_XY/LC_MESSAGES/existing.mo
+tests/LocaleData/de_AT/LC_MESSAGES/existing.mo
+tests/po/Makefile
 tests/po/additional.de.po
 tests/po/additional.de_AT.po
-tests/po/additional.xy.po
-tests/po/additional.xy_XY.po
 tests/po/existing.de.po
 tests/po/existing.de_AT.po
+tests/po/additional.xy.po
+tests/po/additional.xy_XY.po
 tests/po/existing.xy.po
 tests/po/existing.xy_XY.po
-tests/po/Makefile
-THANKS				Contributors
-TODO				Missing
