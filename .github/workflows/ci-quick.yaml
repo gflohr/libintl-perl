@@ -47,6 +47,6 @@ jobs:
       if: runner.os != 'Windows'
       run: make test
 
-    - name: Test (MS-DoS)
+    - name: Test (MS-DOS)
       if: runner.os == 'Windows'
       run: gmake test
