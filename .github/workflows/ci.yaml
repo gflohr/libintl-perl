@@ -62,6 +62,10 @@ jobs:
     - name: Install
       run: cpanm --notest --verbose .
 
-    - name: Test
+    - name: Test (POSIX)
+      if: runner.os != 'Windows'
       run: make test
 
+    - name: Test (MS-DoS)
+      if: runner.os == 'Windows'
+      run: gmake test
