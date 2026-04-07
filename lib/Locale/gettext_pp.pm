@@ -526,7 +526,7 @@ sub __extend_locales {
 
     foreach my $locale (@locales) {
     	if ($locale =~ /^([a-z][a-z])
-    		(?:(_[A-Z][A-Z])?
+    		(?:(?:(_[A-Z][A-Z])|(?:_[^\@\.\s]*))?
     		 (\.[-_A-Za-z0-9]+)?
     		 )?
     		(\@[-_A-Za-z0-9]+)?$/x) {
