@@ -495,6 +495,7 @@ if ($ENV{DEBUGME}) {
 }
 	my @locales;
 	my $cache_key;
+	my $from_language;
 
 	my $locale_category = __locale_category $category, $category_name;
 	my $language_preference = !defined $locale_category || !length $locale_category
@@ -502,12 +503,13 @@ if ($ENV{DEBUGME}) {
 	my $language = $ENV{LANGUAGE};
 	$language = '' if !defined $language;
 	if (!$language_preference || $language eq 'C' || $language eq 'POSIX') {
-		return 'C', 'C'; # No translations desired.
+		return 'C', 0, 'C'; # No translations desired.
 	}
 
 	if (defined $language && length $language) {
 		@locales = split /:/, $language;
 		$cache_key = $language;
+		$from_language = 1;
 	} elsif (!defined $locale) {
 		# The system does not have LC_MESSAGES.  Guess the value.
 		@locales = $cache_key = $locale_category;
@@ -515,16 +517,16 @@ if ($ENV{DEBUGME}) {
 		@locales = $cache_key = $locale;
 	}
 
-	return $cache_key, @locales;
+	return $cache_key, $from_language, @locales;
 }
 
-sub __extend_locales {
-	my (@locales) = @_;
+sub __extend_locales($;$) {
+	my ($locales, $from_language) = @_;
 
-	my @tries = @locales;
+	my @tries = @$locales;
     my %locale_lookup = map { $_ => $_ } @tries;
 
-    foreach my $locale (@locales) {
+    foreach my $locale (@$locales) {
     	if ($locale =~ /^([a-z][a-z])
     		(?:(_[A-Z][A-Z])?
     		 (\.[-_A-Za-z0-9]+)?
@@ -543,6 +545,11 @@ sub __extend_locales {
     		if (defined $1) {
     			push @tries, $1 if defined $1;
     			$locale_lookup{$1} = $locale;
+    			if ($from_language and !defined $2) {
+    				my $main_dialect = $1.'_'.uc($1);
+    				push @tries, $main_dialect;
+    				$locale_lookup{$main_dialect} = $locale;
+    			}
     		}
     	}
     }
@@ -577,7 +584,7 @@ sub __load_domain {
 
     return [] unless defined $dir && length $dir;
 
-	my ($cache_key, @locales) = __selected_locales $locale, $category, $category_name;
+	my ($cache_key, $from_language, @locales) = __selected_locales $locale, $category, $category_name;
 
     # Have we looked that one up already?
     my $domains = $__gettext_pp_domain_cache->{$dir}->{$cache_key}->{$category_name}->{$domainname};
@@ -585,7 +592,7 @@ sub __load_domain {
     return [] unless @locales;
     
     my @dirs = ($dir);
-    my ($tries, $lookup) = __extend_locales @locales;
+    my ($tries, $lookup) = __extend_locales \@locales, $from_language;
 
     push @dirs, $__gettext_pp_default_dir
 		if $__gettext_pp_default_dir && $dir ne $__gettext_pp_default_dir;
