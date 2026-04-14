@@ -4,7 +4,7 @@
 srcdir = .
 top_srcdir = ..
 
-LINGUAS = de de_AT xy xy_XY
+LINGUAS = de de_AT xy xy_XY fr_FR
 PACKAGES = existing additional
 
 #CATALOGS = $(addsuffix .po, LINGUAS)
