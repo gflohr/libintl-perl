@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: libintl-perl-text 1.12\n"
+"POT-Creation-Date: 2002-07-13 11:47+02:00\n"
+"PO-Revision-Date: 2005-08-10 19:01+03:00\n"
+"Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
+"Language-Team: Bogus French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "February"
+msgstr "Février"
