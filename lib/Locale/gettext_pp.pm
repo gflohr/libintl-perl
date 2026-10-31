@@ -488,7 +488,7 @@ sub setlocale($;$) {
 }
 
 sub __selected_locales {
-	my ($locale, $category, $category_name) = @_;
+	my ($locale, $category, $category_name, $locale_from_caller) = @_;
 
 if ($ENV{DEBUGME}) {
 	$DB::single = 1;
@@ -496,7 +496,10 @@ if ($ENV{DEBUGME}) {
 	my @locales;
 	my $cache_key;
 
-	my $locale_category = __locale_category $category, $category_name;
+	# Locale::gettext_dumb passes the locale it took from the environment.
+	# The locale selected with setlocale() does not matter then.
+	my $locale_category = $locale_from_caller
+		? $locale : __locale_category ($category, $category_name);
 	my $language_preference = !defined $locale_category || !length $locale_category
 		|| ($locale_category ne 'C' && $locale_category ne 'POSIX');
 	my $language = $ENV{LANGUAGE};
@@ -552,6 +555,7 @@ sub __extend_locales {
 
 sub __load_domain {
     my ($domainname, $category, $category_name, $locale) = @_;
+    my $locale_from_caller = defined $locale;
 
     # If no locale was selected for the requested locale category,
     # l10n is disabled completely.  This matches the behavior of GNU
@@ -577,7 +581,8 @@ sub __load_domain {
 
     return [] unless defined $dir && length $dir;
 
-	my ($cache_key, @locales) = __selected_locales $locale, $category, $category_name;
+	my ($cache_key, @locales) = __selected_locales $locale, $category, $category_name,
+		$locale_from_caller;
 
     # Have we looked that one up already?
     my $domains = $__gettext_pp_domain_cache->{$dir}->{$cache_key}->{$category_name}->{$domainname};
