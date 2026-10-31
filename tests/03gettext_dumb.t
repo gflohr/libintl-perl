@@ -58,31 +58,34 @@ ok $bound_domain, $textdomain;
 # No translation.
 ok gettext "December", "December";
 
+# The locale is "POSIX" (see above).  Locale::gettext_dumb ignores that
+# and translates according to the environment variables alone.
+
 # Set LC_MESSAGES.
 nl_putenv "LC_MESSAGES=xy_XY";
-ok gettext "December", "December";
-ok gettext "February", "February";
+ok gettext "December", "Dezember";
+ok gettext "February", "Feber";
 
 # Set LANG.
 nl_putenv "LANG=C";
 ok gettext "December", "December";
 nl_putenv "LANG=xy_XY";
 nl_putenv "LC_MESSAGES";
-ok gettext "December", "December";
+ok gettext "December", "Dezember";
 
 # Set LC_ALL.
 nl_putenv "LC_ALL=C";
 ok gettext "December", "December";
 nl_putenv "LC_ALL=xy_XY";
 nl_putenv "LANG";
-ok gettext "December", "December";
+ok gettext "December", "Dezember";
 
 # Set LANGUAGE.
 nl_putenv "LANGUAGE=C";
 ok gettext "December", "December";
 nl_putenv "LANGUAGE=xy_XY";
 nl_putenv "LC_ALL";
-ok gettext "December", "December";
+ok gettext "December", "Dezember";
 
 __END__
 
